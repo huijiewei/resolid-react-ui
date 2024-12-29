@@ -80,8 +80,6 @@ export default defineConfig(({ command, isSsrBuild }) => {
                   return "react";
                 }
 
-                console.log(id);
-
                 if (
                   id.includes("/node_modules/@react-router/") ||
                   id.includes("/node_modules/react-router/") ||
@@ -89,6 +87,10 @@ export default defineConfig(({ command, isSsrBuild }) => {
                   id.includes("react-router/with-props")
                 ) {
                   return "react-router";
+                }
+
+                if (id.includes("/src/components/")) {
+                  return "components";
                 }
               },
         },

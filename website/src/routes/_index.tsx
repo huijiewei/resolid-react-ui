@@ -3,7 +3,7 @@ export default function Index() {
   return (
     <>
       <div className={"flex justify-center"}>
-        <div className={"prose mt-20"}>
+        <div className={"prose dark:prose-invert mx-auto mt-16 p-4"}>
           <h3>Resolid React UI</h3>
           <p>
             Resolid React UI 是 React 的开源设计系统。使用 React 和 Tailwind CSS
