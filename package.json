@@ -7,7 +7,8 @@
     "postinstall": "lefthook install",
     "test": "pnpm test -r --if-present",
     "lint": "pnpm run -r --if-present lint",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "build": "pnpm --filter @resolid/react-ui build"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.17.2",
