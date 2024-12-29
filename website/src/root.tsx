@@ -1,7 +1,6 @@
 import type { PropsWithChildren } from "react";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
-import { VercelAnalytics } from "~/components/vercel/VercelAnalytics";
-import { VercelSpeedInsights } from "~/components/vercel/VercelSpeedInsights";
+import { VercelAnalytics } from "~/components/vercel-analytics";
 
 import "./root.css";
 
@@ -36,7 +35,6 @@ export default function Root() {
       {!!import.meta.env.VITE_VERCEL_URL && (
         <>
           <VercelAnalytics endpoint={"/growth"} scriptSrc={"/growth/script.js"} />
-          <VercelSpeedInsights endpoint={"/speed-growth/vitals"} scriptSrc={"/speed-growth/script.js"} />
         </>
       )}
       <Outlet />
