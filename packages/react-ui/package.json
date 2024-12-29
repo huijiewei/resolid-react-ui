@@ -1,0 +1,64 @@
+{
+  "name": "@resolid/react-ui",
+  "version": "0.0.0",
+  "type": "module",
+  "sideEffects": false,
+  "description": "Resolid React components",
+  "author": "Huijie Wei",
+  "license": "MIT",
+  "keywords": [
+    "resolid",
+    "react",
+    "react-hook",
+    "tailwindcss"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "files": [
+    "dist",
+    "tailwindcss"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./tailwindcss": "./tailwindcss/index.css"
+  },
+  "scripts": {
+    "check-exports": "attw --pack . --profile esm-only --exclude-entrypoints tailwindcss",
+    "lint": "eslint .",
+    "build": "tsup",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@floating-ui/react": "^0.27.2",
+    "@tanstack/react-virtual": "^3.11.2",
+    "@tw-classed/core": "^1.7.0",
+    "clsx": "^2.1.1",
+    "react-remove-scroll-bar": "^2.3.8"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@testing-library/react": "^16.1.0",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "babel-plugin-react-compiler": "beta",
+    "jsdom": "^25.0.1",
+    "tsup": "^8.3.5",
+    "vitest": "3.0.0-beta.3"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "homepage": "https://ui.resolid.tech",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/huijiewei/resolid-react-ui.git",
+    "directory": "packages/react-ui"
+  }
+}
