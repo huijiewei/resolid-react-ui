@@ -72,13 +72,7 @@ Resolid 使用 `commitlint` 工具对提交消息格式进行规范
 
 范围应该是受影响的包的名称，下面是支持的范围列表：
 
-- `config`
-- `framework`
-- `mdx-plugins`
-- `react-ui`
-- `remix-plugins`
-- `tailwind`
-- `utils`
+- `ui`
 - `website`
 
 目前“使用包名称”规则有一些例外：
