@@ -5,6 +5,7 @@ import prettierConfig from "@resolid/config/prettier";
  */
 const config = {
   ...prettierConfig,
+  plugins: [...prettierConfig.plugins, "prettier-plugin-tailwindcss"],
 };
 
 // noinspection JSUnusedGlobalSymbols
