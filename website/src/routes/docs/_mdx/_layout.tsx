@@ -2,8 +2,11 @@ import { MDXProvider } from "@mdx-js/react";
 import { clsx } from "@resolid/react-ui";
 import { startWith } from "@resolid/utils";
 import type { ComponentProps } from "react";
-import { Outlet } from "react-router";
+import { Outlet, useLoaderData } from "react-router";
 import { SpriteIcon } from "~/components/sprite-icon";
+import { getMdxMeta } from "~/utils/mdx-utils.server";
+import { mergeMeta } from "~/utils/react-router-meta";
+import type { Route } from "./+types/_layout";
 
 // noinspection JSUnusedGlobalSymbols
 const mdxComponents = {
@@ -77,7 +80,40 @@ const mdxComponents = {
 };
 
 // noinspection JSUnusedGlobalSymbols
+export const meta = mergeMeta(({ data }: Route.MetaArgs) => {
+  return [
+    {
+      title: data.meta.title,
+    },
+  ];
+});
+
+export const loader = async ({ request }: Route.LoaderArgs) => {
+  const { pathname } = new URL(request.url);
+  const basename = pathname.replace("/docs", "");
+
+  const githubRepo = "https://github.com/huijiewei/resolid-react-ui/blob/main";
+  const docPath = "src/routes/docs/_mdx";
+  const docFile = `${docPath}${basename == "" ? "/_index" : basename}.mdx`;
+
+  const isComponentDoc = basename.startsWith("/components/");
+  const componentName = basename.replace("/components/", "");
+
+  const data = await getMdxMeta(docFile);
+
+  return {
+    sourceLink: isComponentDoc
+      ? `${githubRepo}/packages/react-ui/src/components/${componentName}/${componentName}.tsx`
+      : null,
+    documentLink: `${githubRepo}/website/${docFile}`,
+    ...data,
+  };
+};
+
+// noinspection JSUnusedGlobalSymbols
 export default function Layout() {
+  const data = useLoaderData<typeof loader>();
+
   return (
     <>
       <article
@@ -85,9 +121,23 @@ export default function Layout() {
           "prose dark:prose-invert w-full max-w-none px-4 py-6 md:px-6 lg:max-w-[calc(100%-theme(spacing.48))]"
         }
       >
+        <div className={"flex items-start justify-between"}>
+          <h1 className={"text-12"}>{data.meta.title}</h1>
+          {data.sourceLink && (
+            <a href={data.sourceLink} target={"_blank"} rel={"noreferrer"}>
+              查看源代码
+            </a>
+          )}
+        </div>
+        <p>{data.meta.description}</p>
         <MDXProvider disableParentContext components={mdxComponents}>
           <Outlet />
         </MDXProvider>
+        <p>
+          <a className={"text-sm"} href={data.documentLink} target={"_blank"} rel={"noreferrer"}>
+            建议更改此页面
+          </a>
+        </p>
       </article>
       <nav className={"hidden w-48 shrink-0 lg:block"}>
         <ul className={"sticky top-16 p-4 text-sm"}></ul>

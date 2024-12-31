@@ -1,5 +1,5 @@
 import { type AnalyticsProps, computeRoute } from "@vercel/analytics";
-import { Analytics as AnalyticsScript } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/react";
 import { useLocation, useParams } from "react-router";
 
 export const VercelAnalytics = (props: Omit<AnalyticsProps, "route">) => {
@@ -7,11 +7,6 @@ export const VercelAnalytics = (props: Omit<AnalyticsProps, "route">) => {
   const { pathname } = useLocation();
 
   return (
-    <AnalyticsScript
-      route={computeRoute(pathname, params as never)}
-      path={pathname}
-      {...props}
-      framework="react-router"
-    />
+    <Analytics route={computeRoute(pathname, params as never)} path={pathname} {...props} framework="react-router" />
   );
 };

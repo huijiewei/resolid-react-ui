@@ -55,6 +55,10 @@ const menus: Menu[] = [
     label: "概述",
     children: [
       {
+        label: "介绍",
+        path: "",
+      },
+      {
         label: "入门指南",
         path: "getting-started",
       },

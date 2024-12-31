@@ -13,7 +13,12 @@ import { defineConfig, type UserConfig } from "vite";
 import babel from "vite-plugin-babel";
 import viteInspect from "vite-plugin-inspect";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { remarkDocgen } from "./plugins/remark-docgen";
+import remarkDocgen from "./plugins/remark-docgen";
+import viteCopy from "./plugins/vite-copy";
+
+const ReactCompilerConfig = {
+  target: "19",
+};
 
 export default defineConfig(({ command, isSsrBuild }) => {
   const isBuild = command == "build";
@@ -49,18 +54,21 @@ export default defineConfig(({ command, isSsrBuild }) => {
       tailwindcss(),
       reactRouter(),
       babel({
+        filter: /\.[jt]sx?$/,
         babelConfig: {
           compact: false,
           presets: ["@babel/preset-typescript"],
-          plugins: [["babel-plugin-react-compiler"]],
+          plugins: [["babel-plugin-react-compiler", ReactCompilerConfig]],
         },
-        filter: /\.[jt]sx?$/,
         loader: (path) => {
           return extname(path).substring(1) as "js" | "jsx";
         },
       }),
       tsconfigPaths(),
       !isBuild && viteInspect(),
+      viteCopy({
+        targets: ["src/routes/docs/_mdx/**/*.mdx"],
+      }),
     ].filter(Boolean),
     build: {
       target: isSsrBuild ? "node20" : "modules",

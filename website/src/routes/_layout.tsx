@@ -78,7 +78,7 @@ const NavMenu = ({ onClick }: { onClick?: MouseEventHandler<HTMLAnchorElement> }
     >
       {[
         { name: "主页", href: "", end: true },
-        { name: "文档", href: "docs/getting-started" },
+        { name: "文档", href: "docs" },
         { name: "关于", href: "about" },
       ].map((menu) => {
         return (

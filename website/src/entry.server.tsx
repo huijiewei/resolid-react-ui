@@ -12,13 +12,13 @@ export default function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  reactRouterContext: EntryContext,
+  routerContext: EntryContext,
 ) {
   const ready = isbot(request.headers.get("user-agent")) ? "onAllReady" : "onShellReady";
 
   return new Promise((resolve, reject) => {
     let shellRendered = false;
-    const { pipe, abort } = renderToPipeableStream(<ServerRouter context={reactRouterContext} url={request.url} />, {
+    const { pipe, abort } = renderToPipeableStream(<ServerRouter context={routerContext} url={request.url} />, {
       [ready]() {
         shellRendered = true;
         const body = new PassThrough();

@@ -8,7 +8,7 @@ import { visit } from "unist-util-visit";
 const propsTables = {};
 const kebabCaseRegex = /[a-zA-Z0-9]+/g;
 
-export const remarkDocgen = ({ sourceRoot }) => {
+export default function ({ sourceRoot }) {
   if (!sourceRoot) {
     throw new Error("Please set sourceRoot.");
   }
@@ -54,7 +54,7 @@ export const remarkDocgen = ({ sourceRoot }) => {
       }
     });
   };
-};
+}
 
 // noinspection JSUnusedGlobalSymbols
 const tsParser = withCustomConfig("tsconfig.json", {

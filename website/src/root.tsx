@@ -32,11 +32,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
 export default function Root() {
   return (
     <>
-      {!!import.meta.env.VITE_VERCEL_URL && (
-        <>
-          <VercelAnalytics endpoint={"/growth"} scriptSrc={"/growth/script.js"} />
-        </>
-      )}
+      {!!import.meta.env.VITE_VERCEL_URL && <VercelAnalytics endpoint={"/growth"} scriptSrc={"/growth/script.js"} />}
       <Outlet />
     </>
   );
