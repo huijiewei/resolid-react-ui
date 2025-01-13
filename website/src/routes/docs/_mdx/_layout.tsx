@@ -2,7 +2,7 @@ import { MDXProvider } from "@mdx-js/react";
 import { clsx } from "@resolid/react-ui";
 import { startWith } from "@resolid/utils";
 import type { ComponentProps } from "react";
-import { Outlet, useLoaderData } from "react-router";
+import { Outlet, useLoaderData, useLocation } from "react-router";
 import { SpriteIcon } from "~/components/sprite-icon";
 import { getMdxMeta } from "~/utils/mdx-utils.server";
 import { mergeMeta } from "~/utils/react-router-meta";
@@ -12,7 +12,7 @@ import type { Route } from "./+types/_layout";
 const mdxComponents = {
   h2: ({ id, children, className, ...rest }: ComponentProps<"h2">) => {
     return (
-      <h2 className={clsx("group relative flex items-center", className)} {...rest}>
+      <h2 className={clsx("group relative mt-8 flex items-center", className)} {...rest}>
         <span id={id} className={"invisible absolute top-[calc(-1*88px)]"} />
         {children}
         <a tabIndex={-1} className={"ml-1 opacity-0 transition-opacity group-hover:opacity-100"} href={`#${id}`}>
@@ -23,7 +23,7 @@ const mdxComponents = {
   },
   h3: ({ id, children, className, ...rest }: ComponentProps<"h3">) => {
     return (
-      <h3 className={clsx("group relative flex items-center", className)} {...rest}>
+      <h3 className={clsx("group relative mt-6 flex items-center", className)} {...rest}>
         <span id={id} className={"invisible absolute top-[calc(-1*88px)]"} />
         {children}
         <a tabIndex={-1} className={"ml-1 opacity-0 transition-opacity group-hover:opacity-100"} href={`#${id}`}>
@@ -48,7 +48,7 @@ const mdxComponents = {
         <pre
           translate={"no"}
           className={clsx(
-            "scrollbar scrollbar-thin border-bd-normal rounded border p-3 group-[.example]:mt-0 group-[.example]:rounded-t-none group-[.example]:border-t-0",
+            "scrollbar scrollbar-thin border-bd-normal rounded-md border p-3 group-[.example]:mt-0 group-[.example]:rounded-t-none group-[.example]:border-t-0",
             className,
           )}
           tabIndex={-1}
@@ -77,6 +77,37 @@ const mdxComponents = {
       </a>
     );
   },
+};
+
+// eslint-disable-next-line react-refresh/only-export-components
+const Toc = ({ toc }: { toc: { depth: number; text: string; slug: string }[] }) => {
+  const { hash } = useLocation();
+  const currentHash = decodeURIComponent(hash);
+
+  return (
+    <ul className={"sticky top-16 p-4 text-sm"}>
+      {toc.map(({ depth, slug, text }) => {
+        const href = `#${slug}`;
+
+        return (
+          <li key={slug}>
+            <a
+              href={href}
+              className={clsx(
+                "border-s-bd-normal -ml-px block border-s py-1",
+                depth == 2 ? "ps-4" : "ps-8",
+                href == currentHash
+                  ? "border-link text-link"
+                  : "text-fg-muted hover:border-link-hovered hover:text-fg-subtle",
+              )}
+            >
+              {text}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  );
 };
 
 // noinspection JSUnusedGlobalSymbols
@@ -122,9 +153,9 @@ export default function Layout() {
         }
       >
         <div className={"flex items-start justify-between"}>
-          <h1 className={"text-12"}>{data.meta.title}</h1>
+          <h1 className={"mb-0 text-[1.875rem]"}>{data.meta.title}</h1>
           {data.sourceLink && (
-            <a href={data.sourceLink} target={"_blank"} rel={"noreferrer"}>
+            <a className={"text-sm"} href={data.sourceLink} target={"_blank"} rel={"noreferrer"}>
               查看源代码
             </a>
           )}
@@ -140,7 +171,7 @@ export default function Layout() {
         </p>
       </article>
       <nav className={"hidden w-48 shrink-0 lg:block"}>
-        <ul className={"sticky top-16 p-4 text-sm"}></ul>
+        <Toc toc={data.toc} />
       </nav>
     </>
   );

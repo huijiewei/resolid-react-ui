@@ -3,7 +3,6 @@ import { fromMarkdown } from "mdast-util-from-markdown";
 import { frontmatterFromMarkdown } from "mdast-util-frontmatter";
 import { toString } from "mdast-util-to-string";
 import { frontmatter } from "micromark-extension-frontmatter";
-import { statSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { cwd } from "node:process";
@@ -12,8 +11,6 @@ import { parse } from "yaml";
 
 export const getMdxMeta = async (file: string) => {
   const filePath = join(cwd(), file);
-
-  const { mtime } = statSync(filePath);
 
   const doc = await readFile(filePath);
   const tree = fromMarkdown(doc, {
@@ -48,6 +45,5 @@ export const getMdxMeta = async (file: string) => {
   return {
     meta,
     toc,
-    modifiedAt: mtime,
   };
 };
