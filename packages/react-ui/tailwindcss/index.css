@@ -1,4 +1,4 @@
-@source "../src/components";
+@source "../src";
 @source "../dist";
 
 @variant dark (&:where(.dark, .dark *));
