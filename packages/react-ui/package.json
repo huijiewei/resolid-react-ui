@@ -34,23 +34,19 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@floating-ui/react": "^0.27.2",
     "@resolid/utils": "^0.1.0",
-    "@tanstack/react-virtual": "^3.11.2",
     "@tw-classed/core": "^1.7.0",
-    "clsx": "^2.1.1",
-    "react-remove-scroll-bar": "^2.3.8"
+    "clsx": "^2.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
     "@testing-library/react": "^16.1.0",
-    "@types/node": "^22.10.5",
-    "@types/react": "^19.0.2",
-    "@types/react-dom": "^19.0.2",
+    "@types/react": "^19.0.6",
+    "@types/react-dom": "^19.0.3",
     "babel-plugin-react-compiler": "beta",
-    "jsdom": "^25.0.1",
+    "jsdom": "^26.0.0",
     "tsup": "^8.3.5",
-    "vitest": "3.0.0-beta.3"
+    "vitest": "beta"
   },
   "peerDependencies": {
     "react": "^19.0.0",

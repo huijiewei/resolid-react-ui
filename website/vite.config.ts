@@ -71,7 +71,7 @@ export default defineConfig(({ command, isSsrBuild }) => {
       }),
     ].filter(Boolean),
     build: {
-      target: isSsrBuild ? "node20" : "modules",
+      target: isSsrBuild ? "node22" : "modules",
       cssTarget: ["edge88", "firefox78", "chrome87", "safari14"],
       rollupOptions: {
         output: {
