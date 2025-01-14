@@ -41,6 +41,7 @@
   "devDependencies": {
     "@babel/core": "^7.26.0",
     "@testing-library/react": "^16.1.0",
+    "@types/node": "^22.10.6",
     "@types/react": "^19.0.6",
     "@types/react-dom": "^19.0.3",
     "babel-plugin-react-compiler": "beta",

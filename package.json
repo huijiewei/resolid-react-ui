@@ -15,7 +15,7 @@
     "website:vercel": "pnpm --filter website vercel"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "^0.17.2",
+    "@arethetypeswrong/cli": "^0.17.3",
     "@changesets/changelog-github": "^0.5.0",
     "@changesets/cli": "^2.27.11",
     "@commitlint/cli": "^19.6.1",
@@ -23,7 +23,7 @@
     "@resolid/config": "^3.1.2",
     "@tailwindcss/language-server": "^0.0.27",
     "eslint": "^9.18.0",
-    "lefthook": "^1.10.3",
+    "lefthook": "^1.10.4",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.9",
     "typescript": "^5.7.3"
@@ -32,7 +32,7 @@
     "node": "22.x",
     "pnpm": "9.x"
   },
-  "packageManager": "pnpm@9.15.3",
+  "packageManager": "pnpm@9.15.4",
   "homepage": "https://ui.resolid.tech",
   "repository": {
     "type": "git",
