@@ -1,25 +1,22 @@
-import { useMemo, useSyncExternalStore } from "react";
-import { isBrowser } from "../../utils";
+import { useCallback, useSyncExternalStore } from "react";
+
+const getServerSnapshot = () => false;
 
 export const useMediaQuery = (query: string) => {
-  const [getSnapshot, subscribe] = useMemo(() => {
-    const mediaQueryList = isBrowser ? window.matchMedia(query) : null;
+  const subscribe = useCallback(
+    (callback: () => void) => {
+      const matchMedia = window.matchMedia(query);
 
-    return [
-      () => mediaQueryList?.matches ?? false,
+      matchMedia.addEventListener("change", callback);
 
-      (callback: () => void) => {
-        if (!mediaQueryList) {
-          return () => void 0;
-        }
+      return () => {
+        matchMedia.removeEventListener("change", callback);
+      };
+    },
+    [query],
+  );
 
-        mediaQueryList.addEventListener("change", callback);
-        return () => {
-          mediaQueryList.removeEventListener("change", callback);
-        };
-      },
-    ];
-  }, [query]);
+  const getSnapshot = () => window.matchMedia(query).matches;
 
-  return useSyncExternalStore(subscribe, getSnapshot, () => false);
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 };
