@@ -6,9 +6,7 @@ export type UseControllableStateProps<T> = {
   onChange?: (value: T) => void;
 };
 
-export const useControllableState = <T>(props: UseControllableStateProps<T>) => {
-  const { value, defaultValue, onChange } = props;
-
+export const useControllableState = <T>({ value, defaultValue, onChange }: UseControllableStateProps<T>) => {
   const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
 
   const controlled = value !== undefined;
