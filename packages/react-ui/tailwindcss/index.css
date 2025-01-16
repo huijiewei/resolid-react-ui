@@ -149,6 +149,11 @@
   --color-fg-danger-pressed: var(--color-red-700);
   --color-fg-danger-emphasized: var(--color-red-50);
 
+  --color-fg-important: var(--color-purple-500);
+  --color-fg-important-hovered: var(--color-purple-600);
+  --color-fg-important-pressed: var(--color-purple-700);
+  --color-fg-important-emphasized: var(--color-purple-50);
+
   --color-bg-normal: var(--color-white);
   --color-bg-emphasized: var(--color-gray-900);
   --color-bg-muted: var(--color-gray-200);
@@ -190,6 +195,13 @@
   --color-bg-danger-emphasis-hovered: var(--color-red-600);
   --color-bg-danger-emphasis-pressed: var(--color-red-700);
 
+  --color-bg-important: var(--color-purple-50);
+  --color-bg-important-hovered: var(--color-purple-100);
+  --color-bg-important-pressed: var(--color-purple-200);
+  --color-bg-important-emphasis: var(--color-purple-500);
+  --color-bg-important-emphasis-hovered: var(--color-purple-600);
+  --color-bg-important-emphasis-pressed: var(--color-purple-700);
+
   --color-bd-normal: var(--color-gray-200);
   --color-bd-subtle: var(--color-gray-100);
   --color-bd-hovered: var(--color-gray-300);
@@ -226,6 +238,11 @@
   --color-fg-danger-hovered: var(--color-red-300);
   --color-fg-danger-pressed: var(--color-red-400);
   --color-fg-danger-emphasized: var(--color-red-800);
+
+  --color-fg-important: var(--color-purple-200);
+  --color-fg-important-hovered: var(--color-purple-300);
+  --color-fg-important-pressed: var(--color-purple-400);
+  --color-fg-important-emphasized: var(--color-purple-800);
 
   --color-bg-normal: var(--color-gray-900);
   --color-bg-emphasized: var(--color-white);
@@ -267,6 +284,13 @@
   --color-bg-danger-emphasis: var(--color-red-300);
   --color-bg-danger-emphasis-hovered: var(--color-red-200);
   --color-bg-danger-emphasis-pressed: var(--color-red-100);
+
+  --color-bg-important: var(--color-purple-800);
+  --color-bg-important-hovered: var(--color-purple-700);
+  --color-bg-important-pressed: var(--color-purple-600);
+  --color-bg-important-emphasis: var(--color-purple-300);
+  --color-bg-important-emphasis-hovered: var(--color-purple-200);
+  --color-bg-important-emphasis-pressed: var(--color-purple-100);
 
   --color-bd-normal: var(--color-gray-600);
   --color-bd-subtle: var(--color-gray-700);
