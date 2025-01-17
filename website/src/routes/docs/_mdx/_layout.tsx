@@ -77,6 +77,41 @@ const mdxComponents = {
       </a>
     );
   },
+  blockquote: (props: ComponentProps<"blockquote"> & { "data-type": string }) => {
+    if (props["data-type"]) {
+      const alertType = props["data-type"];
+
+      return (
+        <div
+          role={"alert"}
+          className={clsx(
+            "my-5 flex gap-3 rounded-md px-4",
+            alertType == "NOTE" && "bg-bg-primary",
+            alertType == "TIP" && "bg-bg-success",
+            alertType == "IMPORTANT" && "bg-bg-important",
+            alertType == "WARNING" && "bg-bg-warning",
+            alertType == "CAUTION" && "bg-bg-danger",
+          )}
+        >
+          <span
+            className={clsx(
+              "pt-6.75 shrink-0",
+              alertType == "NOTE" && "text-fg-primary",
+              alertType == "TIP" && "text-fg-success",
+              alertType == "IMPORTANT" && "text-fg-important",
+              alertType == "WARNING" && "text-fg-warning",
+              alertType == "CAUTION" && "text-fg-danger",
+            )}
+          >
+            <SpriteIcon size={"1rem"} name={`github-${alertType}`} />
+          </span>
+          <div className={"flex-1"}>{props.children}</div>
+        </div>
+      );
+    }
+
+    return <blockquote {...props} />;
+  },
 };
 
 // eslint-disable-next-line react-refresh/only-export-components

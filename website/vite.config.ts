@@ -14,6 +14,7 @@ import babel from "vite-plugin-babel";
 import viteInspect from "vite-plugin-inspect";
 import tsconfigPaths from "vite-tsconfig-paths";
 import remarkDocgen from "./plugins/remark-docgen";
+import remarkGithubAlert from "./plugins/remark-github-alert";
 import viteCopy from "./plugins/vite-copy";
 
 const ReactCompilerConfig = {
@@ -46,6 +47,7 @@ export default defineConfig(({ command, isSsrBuild }) => {
           remarkMdxFrontmatter,
           remarkGfm,
           [remarkDocgen, { sourceRoot: join(__dirname, "../packages/react-ui/src/components") }],
+          remarkGithubAlert,
         ],
       }),
       reactRouterHonoServer({
