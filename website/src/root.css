@@ -1,4 +1,8 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+@source "../src";
+@source "../.resolid/component-demo";
+
 @plugin "@tailwindcss/typography";
 
+/*noinspection CssInvalidImport*/
 @import "@resolid/react-ui/tailwindcss";

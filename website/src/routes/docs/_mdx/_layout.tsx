@@ -3,6 +3,7 @@ import { clsx } from "@resolid/react-ui";
 import { startWith } from "@resolid/utils";
 import type { ComponentProps } from "react";
 import { Outlet, useLoaderData, useLocation } from "react-router";
+import { ComponentDemo } from "~/components/component-demo";
 import { SpriteIcon } from "~/components/sprite-icon";
 import { getMdxMeta } from "~/utils/mdx-utils.server";
 import { mergeMeta } from "~/utils/react-router-meta";
@@ -48,7 +49,7 @@ const mdxComponents = {
         <pre
           translate={"no"}
           className={clsx(
-            "scrollbar scrollbar-thin border-bd-normal rounded-md border p-3 group-[.example]:mt-0 group-[.example]:rounded-t-none group-[.example]:border-t-0",
+            "scrollbar scrollbar-thin border-bd-normal rounded-md border p-3 group-[.demo]:mt-0 group-[.demo]:rounded-t-none group-[.demo]:border-t-0",
             className,
           )}
           tabIndex={-1}
@@ -112,6 +113,7 @@ const mdxComponents = {
 
     return <blockquote {...props} />;
   },
+  ComponentDemo,
 };
 
 // eslint-disable-next-line react-refresh/only-export-components

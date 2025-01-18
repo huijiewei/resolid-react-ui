@@ -13,6 +13,7 @@ import { defineConfig, type UserConfig } from "vite";
 import babel from "vite-plugin-babel";
 import viteInspect from "vite-plugin-inspect";
 import tsconfigPaths from "vite-tsconfig-paths";
+import remarkCodeDemo from "./plugins/remark-code-demo";
 import remarkDocgen from "./plugins/remark-docgen";
 import remarkGithubAlert from "./plugins/remark-github-alert";
 import viteCopy from "./plugins/vite-copy";
@@ -48,10 +49,12 @@ export default defineConfig(({ command, isSsrBuild }) => {
           remarkGfm,
           [remarkDocgen, { sourceRoot: join(__dirname, "../packages/react-ui/src/components") }],
           remarkGithubAlert,
+          remarkCodeDemo,
         ],
       }),
       reactRouterHonoServer({
         entryFile: "server.node.ts",
+        exclude: ["/.resolid/component-demo/*"],
       }),
       tailwindcss(),
       reactRouter(),
