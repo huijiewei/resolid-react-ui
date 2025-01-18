@@ -13,6 +13,10 @@ export default function ({ sourceRoot }) {
     throw new Error("Please set sourceRoot.");
   }
 
+  const virtualDir = join(cwd(), ".resolid", "component-props");
+
+  mkdirSync(virtualDir, { recursive: true });
+
   return (tree) => {
     visit(tree, "mdxJsxFlowElement", (node) => {
       if (node.name === "ComponentProps" || node.name === "ComponentUsage") {
@@ -27,7 +31,7 @@ export default function ({ sourceRoot }) {
           .join("");
 
         if (!propsTables[componentName]) {
-          const componentProps = getComponentProps(join(sourceRoot, componentFile), componentName);
+          const componentProps = getComponentProps(virtualDir, join(sourceRoot, componentFile), componentName);
 
           if (componentProps) {
             propsTables[componentName] = componentProps;
@@ -94,12 +98,8 @@ const getElementAttrValue = (elem, attrName) => {
   return "";
 };
 
-const componentPropsCachePath = join(cwd(), ".resolid", "component-props");
-
-mkdirSync(componentPropsCachePath, { recursive: true });
-
-const getComponentProps = (componentFile, componentName) => {
-  const componentPropsFile = join(componentPropsCachePath, `${componentName}.json`);
+const getComponentProps = (virtualDir, componentFile, componentName) => {
+  const componentPropsFile = join(virtualDir, `${componentName}.json`);
 
   if (existsSync(componentPropsFile) && statSync(componentPropsFile).mtimeMs > statSync(componentFile).mtimeMs) {
     return JSON.parse(readFileSync(componentPropsFile, "utf8"));
