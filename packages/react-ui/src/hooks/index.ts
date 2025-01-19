@@ -1,3 +1,4 @@
+export * from "./use-clipboard";
 export * from "./use-controllable-state";
 export * from "./use-event-listener";
 export * from "./use-isomorphic-effect";
