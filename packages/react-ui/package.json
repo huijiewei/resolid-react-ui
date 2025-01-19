@@ -47,7 +47,7 @@
     "babel-plugin-react-compiler": "beta",
     "jsdom": "^26.0.0",
     "tsup": "^8.3.5",
-    "vitest": "beta"
+    "vitest": "^3.0.2"
   },
   "peerDependencies": {
     "react": "^19.0.0",
