@@ -68,7 +68,7 @@ const tsParser = withCustomConfig("tsconfig.json", {
   shouldExtractValuesFromUnion: true,
   shouldRemoveUndefinedFromOptional: true,
   propFilter: (prop) => {
-    if (["ref", "style", "className"].includes(prop.name)) {
+    if (["as", "ref", "style", "className"].includes(prop.name)) {
       return false;
     }
 
@@ -104,6 +104,7 @@ const getComponentProps = (virtualDir, componentFile, componentName) => {
   if (existsSync(componentPropsFile) && statSync(componentPropsFile).mtimeMs > statSync(componentFile).mtimeMs) {
     return JSON.parse(readFileSync(componentPropsFile, "utf8"));
   }
+
   const componentDoc = tsParser.parse(componentFile).find((c) => c.displayName === componentName);
 
   const props = componentDoc
