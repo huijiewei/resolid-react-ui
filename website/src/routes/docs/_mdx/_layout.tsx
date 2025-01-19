@@ -1,8 +1,9 @@
 import { MDXProvider } from "@mdx-js/react";
 import { clsx } from "@resolid/react-ui";
 import { startWith } from "@resolid/utils";
-import type { ComponentProps } from "react";
-import { Outlet, useLoaderData, useLocation } from "react-router";
+import { type ComponentProps, useRef } from "react";
+import { Outlet, useLoaderData } from "react-router";
+import { ClipboardButton } from "~/components/clipboard-button";
 import { ComponentDemo } from "~/components/component-demo";
 import { SpriteIcon } from "~/components/sprite-icon";
 import { getMdxMeta } from "~/utils/mdx-utils.server";
@@ -44,9 +45,13 @@ const mdxComponents = {
       );
     }
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const preRef = useRef<HTMLPreElement>(null);
+
     return (
       <div className={"relative"}>
         <pre
+          ref={preRef}
           translate={"no"}
           className={clsx(
             "scrollbar scrollbar-thin border-bd-normal rounded-md border p-3 group-[.demo]:mt-0 group-[.demo]:rounded-t-none group-[.demo]:border-t-0",
@@ -57,6 +62,9 @@ const mdxComponents = {
         >
           {children}
         </pre>
+        <div className={"z-base absolute right-1.5 top-1.5"}>
+          <ClipboardButton content={preRef.current?.innerText ?? ""} />
+        </div>
       </div>
     );
   },
@@ -118,9 +126,6 @@ const mdxComponents = {
 
 // eslint-disable-next-line react-refresh/only-export-components
 const Toc = ({ toc }: { toc: { depth: number; text: string; slug: string }[] }) => {
-  const { hash } = useLocation();
-  const currentHash = decodeURIComponent(hash);
-
   return (
     <ul className={"sticky top-16 p-4 text-sm"}>
       {toc.map(({ depth, slug, text }) => {
@@ -133,9 +138,7 @@ const Toc = ({ toc }: { toc: { depth: number; text: string; slug: string }[] }) 
               className={clsx(
                 "border-s-bd-normal -ml-px block border-s py-1",
                 depth == 2 ? "ps-4" : "ps-8",
-                href == currentHash
-                  ? "border-link text-link"
-                  : "text-fg-muted hover:border-link-hovered hover:text-fg-subtle",
+                href == "1" ? "border-link text-link" : "text-fg-muted hover:border-link-hovered hover:text-fg-subtle",
               )}
             >
               {text}

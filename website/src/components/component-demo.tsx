@@ -10,7 +10,7 @@ const demos = import.meta.glob<boolean, string, { default: ComponentType }>("../
 export const ComponentDemo = ({ demoId, children }: PropsWithChildren<ComponentDemoProps>) => {
   const Demo = dynamicLoader({
     loader: async () => ({ default: (await demos[`../../.resolid/component-demo/${demoId}.tsx`]())["default"] }),
-    fallback: <>Loading...</>,
+    fallback: <>正在加载...</>,
   });
 
   return (
