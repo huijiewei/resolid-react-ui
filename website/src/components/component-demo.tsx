@@ -15,11 +15,7 @@ export const ComponentDemo = ({ demoId, children }: PropsWithChildren<ComponentD
 
   return (
     <div className={"demo group"}>
-      <div
-        className={
-          "not-prose scrollbar scrollbar-thin border-bd-normal flex flex-row gap-3 overflow-x-auto rounded-t-md border p-3"
-        }
-      >
+      <div className={"not-prose scrollbar scrollbar-thin border-bd-normal overflow-x-auto rounded-t-md border p-3"}>
         <Demo />
       </div>
       {children}
