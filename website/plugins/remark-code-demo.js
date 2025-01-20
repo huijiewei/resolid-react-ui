@@ -13,6 +13,8 @@ export default function () {
 
     let demoIndex = 1;
 
+    const demoMdx = [];
+
     visit(tree, "code", (node) => {
       if ("hasVisited" in node) {
         return;
@@ -28,23 +30,48 @@ export default function () {
         return;
       }
 
-      const id = `_${pageName}_${demoIndex++}`;
-      const virtualModulePath = join(virtualDir, `${id}.tsx`);
+      const demoId = `_${pageName}_${demoIndex++}`;
+      const demoName = `Demo${demoId}`;
+      const virtualModulePath = join(virtualDir, `${demoId}.tsx`);
+
+      demoMdx.push({
+        type: "mdxjsEsm",
+        value: `import ${demoName} from ${JSON.stringify(virtualModulePath)}`,
+        data: {
+          estree: {
+            type: "Program",
+            sourceType: "module",
+            body: [
+              {
+                type: "ImportDeclaration",
+                specifiers: [
+                  {
+                    type: "ImportDefaultSpecifier",
+                    local: { type: "Identifier", name: demoName },
+                  },
+                ],
+                source: {
+                  type: "Literal",
+                  value: virtualModulePath,
+                  raw: `${JSON.stringify(virtualModulePath)}`,
+                },
+              },
+            ],
+          },
+        },
+      });
 
       Object.assign(node, {
         type: "mdxJsxFlowElement",
         name: "ComponentDemo",
-        attributes: [
-          {
-            type: "mdxJsxAttribute",
-            name: "demoId",
-            value: id,
-          },
-        ],
         children: [
           {
             ...node,
             hasVisited: true,
+          },
+          {
+            type: "mdxJsxFlowElement",
+            name: demoName,
           },
         ],
       });
@@ -59,5 +86,7 @@ export default function () {
 
       writeFileSync(virtualModulePath, code);
     });
+
+    tree.children.unshift(...demoMdx);
   };
 }

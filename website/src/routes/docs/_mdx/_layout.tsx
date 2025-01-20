@@ -1,10 +1,9 @@
 import { MDXProvider } from "@mdx-js/react";
 import { clsx } from "@resolid/react-ui";
 import { startWith } from "@resolid/utils";
-import { type ComponentProps, useRef } from "react";
+import { type ComponentProps, type ReactNode, useRef } from "react";
 import { Outlet, useLoaderData } from "react-router";
 import { ClipboardButton } from "~/components/clipboard-button";
-import { ComponentDemo } from "~/components/component-demo";
 import { SpriteIcon } from "~/components/sprite-icon";
 import { getMdxMeta } from "~/utils/mdx-utils.server";
 import { mergeMeta } from "~/utils/react-router-meta";
@@ -121,7 +120,16 @@ const mdxComponents = {
 
     return <blockquote {...props} />;
   },
-  ComponentDemo,
+  ComponentDemo: ({ children }: { children: ReactNode[] }) => {
+    return (
+      <div className={"demo group"}>
+        <div className={"not-prose scrollbar scrollbar-thin border-bd-normal overflow-x-auto rounded-t-md border p-3"}>
+          {children?.[1]}
+        </div>
+        {children?.[0]}
+      </div>
+    );
+  },
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
