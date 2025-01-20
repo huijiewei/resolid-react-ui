@@ -47,6 +47,7 @@
     "fs-extra": "^11.3.0",
     "react-docgen-typescript": "beta",
     "rehype-slug": "^6.0.0",
+    "remark-directive": "^3.0.0",
     "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.0",
     "remark-mdx-frontmatter": "^5.0.0",

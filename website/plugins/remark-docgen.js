@@ -18,43 +18,51 @@ export default function ({ sourceRoot }) {
   mkdirSync(virtualDir, { recursive: true });
 
   return (tree) => {
-    visit(tree, "mdxJsxFlowElement", (node) => {
-      if (node.name === "ComponentProps" || node.name === "ComponentUsage") {
-        const componentFile = getElementAttrValue(node, "componentFile");
+    visit(tree, { type: "leafDirective", name: "PropsTable" }, (node, index, parent) => {
+      const componentFile = node.attributes["componentFile"];
 
-        if (componentFile === "") {
-          throw new Error(`Invalid componentFile prop for ${node.name}.`);
+      if (!componentFile) {
+        throw new Error(`Invalid componentFile prop for ${node.name}.`);
+      }
+
+      const componentName = (parse(componentFile).name.match(kebabCaseRegex) || [])
+        .map((w) => `${w.charAt(0).toUpperCase()}${w.slice(1)}`)
+        .join("");
+
+      if (!propsTables[componentName]) {
+        const componentProps = getComponentProps(virtualDir, join(sourceRoot, componentFile), componentName);
+
+        if (componentProps) {
+          propsTables[componentName] = componentProps;
+        }
+      }
+
+      if (propsTables[componentName]) {
+        const propsJSON = JSON.stringify(propsTables[componentName]);
+
+        if (parent === undefined || index === undefined) {
+          return;
         }
 
-        const componentName = (parse(componentFile).name.match(kebabCaseRegex) || [])
-          .map((w) => `${w.charAt(0).toUpperCase()}${w.slice(1)}`)
-          .join("");
-
-        if (!propsTables[componentName]) {
-          const componentProps = getComponentProps(virtualDir, join(sourceRoot, componentFile), componentName);
-
-          if (componentProps) {
-            propsTables[componentName] = componentProps;
-          }
-        }
-
-        if (propsTables[componentName]) {
-          const propsJSON = JSON.stringify(propsTables[componentName]);
-
-          node.attributes.push({
-            type: "mdxJsxAttribute",
-            name: "componentProps",
-            value: {
-              type: "mdxJsxAttributeValueExpression",
-              value: `(${propsJSON})`,
-              data: {
-                estree: fromJs(`(${propsJSON})`, {
-                  module: true,
-                }),
+        parent.children[index] = {
+          type: "mdxJsxFlowElement",
+          name: "PropsTable",
+          attributes: [
+            {
+              type: "mdxJsxAttribute",
+              name: "props",
+              value: {
+                type: "mdxJsxAttributeValueExpression",
+                value: `(${propsJSON})`,
+                data: {
+                  estree: fromJs(`(${propsJSON})`, {
+                    module: true,
+                  }),
+                },
               },
             },
-          });
-        }
+          ],
+        };
       }
     });
   };
@@ -83,20 +91,6 @@ const tsParser = withCustomConfig("tsconfig.json", {
     return true;
   },
 });
-
-const getElementAttrValue = (elem, attrName) => {
-  const attr = elem.attributes.find((attr) => "name" in attr && attr.name === attrName);
-
-  if (attr) {
-    if (typeof attr.value == "string") {
-      return attr.value;
-    }
-
-    return attr.value?.value.slice(1, -1) ?? "";
-  }
-
-  return "";
-};
 
 const getComponentProps = (virtualDir, componentFile, componentName) => {
   const componentPropsFile = join(virtualDir, `${componentName}.json`);

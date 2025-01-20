@@ -7,6 +7,7 @@ import { extname, join } from "node:path";
 import { env } from "node:process";
 import { fileURLToPath } from "node:url";
 import rehypeSlug from "rehype-slug";
+import remarkDirective from "remark-directive";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
@@ -46,12 +47,13 @@ export default defineConfig(({ command, isSsrBuild }) => {
           ],
         ],
         remarkPlugins: [
+          remarkDirective,
           remarkFrontmatter,
           remarkMdxFrontmatter,
           remarkGfm,
-          [remarkDocgen, { sourceRoot: join(__dirname, "../packages/react-ui/src/components") }],
           remarkGithubAlert,
           remarkCodeDemo,
+          [remarkDocgen, { sourceRoot: join(__dirname, "../packages/react-ui/src/components") }],
         ],
       }),
       reactRouterHonoServer({
