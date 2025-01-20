@@ -1,5 +1,5 @@
 import { MDXProvider } from "@mdx-js/react";
-import { clsx } from "@resolid/react-ui";
+import { cx } from "@resolid/react-ui";
 import { startWith } from "@resolid/utils";
 import { type ComponentProps, type ReactNode, useRef } from "react";
 import { Outlet, useLoaderData } from "react-router";
@@ -13,7 +13,7 @@ import type { Route } from "./+types/_layout";
 const mdxComponents = {
   h2: ({ id, children, className, ...rest }: ComponentProps<"h2">) => {
     return (
-      <h2 className={clsx("group relative mt-8 flex items-center", className)} {...rest}>
+      <h2 className={cx("group relative mt-8 flex items-center", className)} {...rest}>
         <span id={id} className={"invisible absolute top-[calc(-1*88px)]"} />
         {children}
         <a tabIndex={-1} className={"ml-1 opacity-0 transition-opacity group-hover:opacity-100"} href={`#${id}`}>
@@ -24,7 +24,7 @@ const mdxComponents = {
   },
   h3: ({ id, children, className, ...rest }: ComponentProps<"h3">) => {
     return (
-      <h3 className={clsx("group relative mt-6 flex items-center", className)} {...rest}>
+      <h3 className={cx("group relative mt-6 flex items-center", className)} {...rest}>
         <span id={id} className={"invisible absolute top-[calc(-1*88px)]"} />
         {children}
         <a tabIndex={-1} className={"ml-1 opacity-0 transition-opacity group-hover:opacity-100"} href={`#${id}`}>
@@ -52,7 +52,7 @@ const mdxComponents = {
         <pre
           ref={preRef}
           translate={"no"}
-          className={clsx(
+          className={cx(
             "scrollbar scrollbar-thin border-bd-normal rounded-md border p-3 group-[.demo]:mt-0 group-[.demo]:rounded-t-none group-[.demo]:border-t-0",
             className,
           )}
@@ -73,7 +73,7 @@ const mdxComponents = {
     return (
       <a
         href={href}
-        className={clsx(
+        className={cx(
           "text-link hover:text-link-hovered active:text-link-pressed inline-flex items-center no-underline hover:underline",
           className,
         )}
@@ -92,7 +92,7 @@ const mdxComponents = {
       return (
         <div
           role={"alert"}
-          className={clsx(
+          className={cx(
             "my-5 flex gap-3 rounded-md px-4",
             alertType == "NOTE" && "bg-bg-primary",
             alertType == "TIP" && "bg-bg-success",
@@ -102,7 +102,7 @@ const mdxComponents = {
           )}
         >
           <span
-            className={clsx(
+            className={cx(
               "pt-6.75 shrink-0",
               alertType == "NOTE" && "text-fg-primary",
               alertType == "TIP" && "text-fg-success",
@@ -198,7 +198,7 @@ const Toc = ({ toc }: { toc: { depth: number; text: string; slug: string }[] }) 
           <li key={slug}>
             <a
               href={href}
-              className={clsx(
+              className={cx(
                 "border-s-bd-normal -ml-px block border-s py-1",
                 depth == 2 ? "ps-4" : "ps-8",
                 href == "1" ? "border-link text-link" : "text-fg-muted hover:border-link-hovered hover:text-fg-subtle",

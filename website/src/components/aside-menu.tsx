@@ -1,4 +1,4 @@
-import { clsx } from "@resolid/react-ui";
+import { cx } from "@resolid/react-ui";
 import { HistoryNavLink } from "~/components/history-link";
 
 export type Menu = {
@@ -13,7 +13,7 @@ const MenuItem = ({ menu, depth, onClickMenu }: { menu: Menu; depth: number; onC
       {menu.path != null ? (
         <HistoryNavLink
           className={({ isActive }) => {
-            return clsx(
+            return cx(
               "block rounded py-1.5",
               depth == 2 && "ps-4",
               isActive ? "bg-bg-primary" : "hover:bg-bg-subtle active:bg-bg-muted",

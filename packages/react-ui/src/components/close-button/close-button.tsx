@@ -1,6 +1,6 @@
 import { isNumber } from "@resolid/utils";
 import type { PrimitiveProps } from "../../primitives";
-import { clsx } from "../../utils";
+import { cx } from "../../utils";
 
 export type CloseButtonProps = {
   textClassName?: string;
@@ -25,7 +25,7 @@ export const CloseButton = (props: PrimitiveProps<"button", CloseButtonProps>) =
     <button
       type={"button"}
       disabled={disabled}
-      className={clsx(
+      className={cx(
         "flex shrink-0 appearance-none items-center justify-center rounded-md outline-none transition-colors",
         textClassName,
         !disabled && `focus-visible:ring ${statusClassName}`,

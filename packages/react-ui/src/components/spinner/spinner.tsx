@@ -1,5 +1,5 @@
 import type { PrimitiveProps } from "../../primitives";
-import { clsx } from "../../utils";
+import { cx } from "../../utils";
 import { VisuallyHidden } from "../visually-hidden/visually-hidden";
 import { type SpinnerStyles, spinnerStyles } from "./spinner.styles";
 
@@ -27,10 +27,7 @@ export const Spinner = (props: PrimitiveProps<"span", SpinnerProps>) => {
   const { label = "加载中", className, size = "md", color = "primary", ...rest } = props;
 
   return (
-    <span
-      className={clsx("inline-block animate-spin rounded-full", spinnerStyles({ color, size }), className)}
-      {...rest}
-    >
+    <span className={cx(spinnerStyles({ color, size }), className)} {...rest}>
       {label && <VisuallyHidden>{label}</VisuallyHidden>}
     </span>
   );

@@ -3,6 +3,7 @@
 
 @variant dark (&:where(.dark, .dark *));
 
+/*noinspection CssInvalidImport*/
 @import "./plugins/scrollbar.css" layer(components);
 
 @theme {

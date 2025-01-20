@@ -1,4 +1,4 @@
-import { clsx } from "@resolid/react-ui";
+import { cx } from "@resolid/react-ui";
 import { useState, type MouseEventHandler } from "react";
 import { Link, Outlet } from "react-router";
 import { HistoryNavLink } from "~/components/history-link";
@@ -46,7 +46,7 @@ const NavBar = () => {
         <ResolidLogo />
       </Link>
       <div
-        className={clsx(
+        className={cx(
           "bg-bg-normal absolute inset-x-0 top-[calc(theme(spacing.16)+1px)] z-20 h-screen p-0",
           "md:relative md:top-0 md:block md:h-auto md:bg-inherit",
           opened ? "block" : "hidden",
@@ -71,7 +71,7 @@ const NavBar = () => {
 const NavMenu = ({ onClick }: { onClick?: MouseEventHandler<HTMLAnchorElement> }) => {
   return (
     <ul
-      className={clsx(
+      className={cx(
         "mx-auto flex max-w-xs list-none flex-col p-4 text-center font-medium tracking-widest",
         "md:max-w-none md:flex-row md:p-0 md:tracking-normal",
       )}
@@ -84,7 +84,7 @@ const NavMenu = ({ onClick }: { onClick?: MouseEventHandler<HTMLAnchorElement> }
         return (
           <li className={"p-2.5 md:px-4"} key={menu.name}>
             <HistoryNavLink
-              className={({ isActive }) => clsx("hover:text-link-hovered block", isActive && "text-link-pressed")}
+              className={({ isActive }) => cx("hover:text-link-hovered block", isActive && "text-link-pressed")}
               onClick={onClick}
               to={menu.href}
               end={menu.end}
