@@ -4,7 +4,6 @@ import { reactRouterHonoServer } from "@resolid/react-router-hono/dev";
 import rehypeShiki from "@shikijs/rehype";
 import tailwindcss from "@tailwindcss/vite";
 import { extname, join } from "node:path";
-import { env } from "node:process";
 import { fileURLToPath } from "node:url";
 import rehypeSlug from "rehype-slug";
 import remarkDirective from "remark-directive";
@@ -12,7 +11,6 @@ import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import { defineConfig, type UserConfig } from "vite";
-import analyzer from "vite-bundle-analyzer";
 import babel from "vite-plugin-babel";
 import viteInspect from "vite-plugin-inspect";
 import tsconfigPaths from "vite-tsconfig-paths";
@@ -75,12 +73,6 @@ export default defineConfig(({ command, isSsrBuild }) => {
       }),
       tsconfigPaths(),
       !isBuild && viteInspect(),
-      isBuild &&
-        !isSsrBuild &&
-        env.VERCEL != "1" &&
-        analyzer({
-          defaultSizes: "parsed",
-        }),
       viteCopy({
         targets: ["src/routes/docs/_mdx/**/*.mdx"],
       }),
