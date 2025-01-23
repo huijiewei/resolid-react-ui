@@ -1,0 +1,248 @@
+---
+title: 按钮
+description: 使用户能够触发操作或事件，例如提交表单、打开对话框、取消操作或执行删除操作。
+---
+
+## 导入
+
+```js
+import { Button, ButtonGroup } from "@resolid/react-ui";
+```
+
+- `Button`: 具有自定义图标、加载指示器等功能的按钮组件。
+- `ButtonGroup`: 用于将相关动作的按钮分组在一起的组件，可以选择将它们一起对齐。
+
+## 用法
+
+:::UsageBlock{file=button/button.tsx ignores=iconOnly}
+
+import { Button } from "@resolid/react-ui";
+
+export function Usage(props) {
+  return <Button {...props}>Button</Button>;
+}
+
+:::
+
+## 举例
+
+### 外观
+
+按钮有六种不同的变体可供使用。通过传递 `variant` 属性，可以选择使用 `solid`、`outline`、`subtle`、`soft`、`ghost` 或 `link` 中的任意一种。
+
+按钮有六种不同的颜色可供使用。通过传递 `color` 属性，可以选择使用 `primary`、`secondary`、`success`、`warning`、`danger` 或 `neutral` 中的任意一种。
+
+```jsx demo
+import { Button } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-col gap-3"}>
+      {["primary", "secondary", "success", "warning", "danger", "neutral"].map((color) => (
+        <div key={color} className={"flex flex-row items-center gap-3"}>
+          {["solid", "outline", "subtle", "soft", "ghost", "link"].map((variant) => (
+            <Button key={`${color}-${variant}`} variant={variant} color={color}>
+              Button
+            </Button>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+### 大小
+
+通过传递 `size` 属性来更改加载器的大小。加载器支持 `xs`、`sm`、`md`、`lg` 和 `xl` 这些大小。
+
+```jsx demo
+import { Button } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row items-center gap-3"}>
+      <Button size={"xs"}>Button</Button>
+      <Button size={"sm"}>Button</Button>
+      <Button>Button</Button>
+      <Button size={"lg"}>Button</Button>
+      <Button size={"xl"}>Button</Button>
+    </div>
+  );
+}
+```
+
+### 图标
+
+你可以在任何位置设置任何图标, 还可以通过传递 `iconOnly` 属性显示不带文本的按钮。
+
+```jsx demo
+import { Button } from "@resolid/react-ui";
+import { SpriteIcon } from "~/components/sprite-icon";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row items-center gap-3"}>
+      <Button>
+        <SpriteIcon size={"sm"} className={"me-1.5"} name={"sun"} />
+        Light Mode
+      </Button>
+      <Button variant={"outline"}>
+        <SpriteIcon size={"sm"} className={"me-1.5"} name={"moon"} />
+        Dark Mode
+      </Button>
+      <Button iconOnly>
+        <SpriteIcon size={"sm"} name={"home"} />
+      </Button>
+      <Button iconOnly variant={"outline"} color={"neutral"}>
+        <SpriteIcon size={"sm"} name={"github"} />
+      </Button>
+    </div>
+  );
+}
+```
+
+### 禁用
+
+可以通过传递 `disabled` 属性显示按钮的禁用样式。
+
+```jsx demo
+import { Button } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row items-center gap-3"}>
+      <Button disabled>Disabled</Button>
+      <Button variant={"outline"} disabled>
+        Disabled
+      </Button>
+      <Button variant={"subtle"} disabled>
+        Disabled
+      </Button>
+      <Button variant={"soft"} disabled>
+        Disabled
+      </Button>
+      <Button variant={"ghost"} disabled>
+        Disabled
+      </Button>
+      <Button variant={"link"} disabled>
+        Disabled
+      </Button>
+    </div>
+  );
+}
+```
+
+### 加载中
+
+可以通过传递 `loading` 属性显示按钮的加载中样式。
+
+```jsx demo
+import { Button } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row items-center gap-3"}>
+      <Button loading>Loading</Button>
+      <Button color={"neutral"} loading>
+        Loading
+      </Button>
+      <Button loading loadingText={"Loading"}>
+        Loading
+      </Button>
+      <Button variant={"outline"} color={"neutral"} loading>
+        Loading
+      </Button>
+      <Button variant={"outline"} loading loadingText={"Loading"}>
+        Loading
+      </Button>
+    </div>
+  );
+}
+```
+
+### 全宽度
+
+可以通过传递 `fullWidth` 属性显示按钮的禁用样式。
+
+```jsx demo
+import { Button } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row items-center gap-3"}>
+      <Button fullWidth>Full width button</Button>
+    </div>
+  );
+}
+```
+
+### 按钮组
+
+使用 `ButtonGroup` 将按钮分组在一起
+
+```jsx demo
+import { Button, ButtonGroup } from "@resolid/react-ui";
+import { SpriteIcon } from "~/components/sprite-icon";
+
+export default function App() {
+  return (
+    <div className={"flex flex-col gap-3"}>
+      <div className={"flex flex-row gap-3"}>
+        <ButtonGroup>
+          <Button>Button</Button>
+          <Button iconOnly>
+            <SpriteIcon name={"menu"} size={"sm"} />
+          </Button>
+        </ButtonGroup>
+        <ButtonGroup color={"neutral"}>
+          <Button variant="subtle">Button</Button>
+          <Button variant="outline" iconOnly>
+            <SpriteIcon name={"menu"} size={"sm"} />
+          </Button>
+        </ButtonGroup>
+        <ButtonGroup color={"neutral"}>
+          <Button variant="subtle">One</Button>
+          <Button variant="outline">Two</Button>
+          <Button variant="outline">Three</Button>
+          <Button variant="outline">Four</Button>
+        </ButtonGroup>
+        <ButtonGroup color={"neutral"} disabled>
+          <Button variant="subtle">Button</Button>
+          <Button variant="outline" iconOnly>
+            <SpriteIcon name={"menu"} size={"sm"} />
+          </Button>
+        </ButtonGroup>
+      </div>
+      <div className={"flex flex-row gap-3"}>
+        <ButtonGroup orientation={"vertical"}>
+          <Button>Submit</Button>
+          <Button>Cancel</Button>
+        </ButtonGroup>
+        <ButtonGroup variant="outline" orientation={"vertical"}>
+          <Button>Submit</Button>
+          <Button>Cancel</Button>
+        </ButtonGroup>
+        <ButtonGroup orientation={"vertical"} disabled>
+          <Button>Submit</Button>
+          <Button>Cancel</Button>
+        </ButtonGroup>
+        <ButtonGroup variant="outline" orientation={"vertical"} disabled>
+          <Button>Submit</Button>
+          <Button>Cancel</Button>
+        </ButtonGroup>
+      </div>
+    </div>
+  );
+}
+```
+
+## 属性
+
+### 按钮
+
+::PropsTable{file=button/button.tsx}
+
+### 按钮组
+
+::PropsTable{file=button/button-group.tsx}

@@ -192,15 +192,20 @@ const mdxComponents = {
     props: PropItem[];
     ignores?: string[];
   }) => {
-    const filteredProps = props
+    const validProps = props
       .filter((prop) => {
-        return prop.type != "Element" && !/^on[A-Z]/.test(prop.name) && !ignores?.includes(prop.name);
+        return (
+          prop.type != "Element" &&
+          prop.type != "ReactNode" &&
+          !/^on[A-Z]/.test(prop.name) &&
+          !ignores?.includes(prop.name)
+        );
       })
       .sort((a, b) => (a.control.length > b.control.length ? 1 : -1));
 
     const [state, setState] = useState<Record<string, string | boolean | number | undefined>>(
       Object.fromEntries(
-        filteredProps.map(({ name, defaultValue }) => {
+        validProps.map(({ name, defaultValue }) => {
           const value =
             defaultValue && /^[Ee0-9+\-.]$/.test(defaultValue)
               ? defaultValue
@@ -222,28 +227,30 @@ const mdxComponents = {
         <div className={"flex flex-1 items-center justify-center p-5"}>{children(state)}</div>
         <div className={"border-bd-normal min-w-[15em] flex-shrink-0 border-t p-3 lg:border-s lg:border-t-0"}>
           <div className={"flex flex-col gap-3 text-sm"}>
-            {filteredProps.map((prop) => {
+            {validProps.map((prop) => {
               const propInputId = `prop-${prop.name}`;
 
               return (
                 <div className={"flex items-center justify-between gap-5"} key={propInputId}>
                   {prop.control == "boolean" && (
-                    <input
-                      type={"checkbox"}
-                      checked={Boolean(state[prop.name])}
-                      onChange={(e) => {
-                        setState((prev) => ({ ...prev, [prop.name]: e.target.value }));
-                      }}
-                    >
+                    <label className={"flex gap-1"}>
+                      <input
+                        type={"checkbox"}
+                        checked={Boolean(state[prop.name])}
+                        onChange={(e) => {
+                          setState((prev) => ({ ...prev, [prop.name]: e.target.checked }));
+                        }}
+                      />
                       {prop.description}
-                    </input>
+                    </label>
                   )}
                   {prop.control == "string" && (
                     <>
                       <label htmlFor={propInputId}>{prop.description}</label>
                       <input
                         id={propInputId}
-                        className={"w-1/2"}
+                        className={"border-bd-normal w-1/2 rounded-md border"}
+                        autoComplete={"off"}
                         value={state[prop.name] as string}
                         onChange={(e) => {
                           setState((prev) => ({ ...prev, [prop.name]: e.target.value }));
