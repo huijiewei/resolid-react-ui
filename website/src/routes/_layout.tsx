@@ -23,7 +23,7 @@ export default function Layout() {
       <header className={"bg-bg-normal border-b-bd-normal sticky top-0 z-20 w-full border-b"}>
         <NavBar />
       </header>
-      <div className={"min-h-[calc(100vh-theme(space.16)-78px)]"}>
+      <div className={"min-h-[calc(100vh-var(--spacing)*16-78px)]"}>
         <Outlet />
       </div>
       <footer className={"border-t-bd-normal border-t"}>
@@ -47,7 +47,7 @@ const NavBar = () => {
       </Link>
       <div
         className={cx(
-          "bg-bg-normal absolute inset-x-0 top-[calc(theme(spacing.16)+1px)] z-20 h-screen p-0",
+          "bg-bg-normal absolute inset-x-0 top-[calc(var(--spacing)*16+1px)] z-20 h-screen p-0",
           "md:relative md:top-0 md:block md:h-auto md:bg-inherit",
           opened ? "block" : "hidden",
         )}

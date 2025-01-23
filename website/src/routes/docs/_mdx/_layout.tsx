@@ -252,7 +252,7 @@ export default function Layout() {
     <>
       <article
         className={
-          "prose dark:prose-invert w-full max-w-none px-4 py-6 md:px-6 lg:max-w-[calc(100%-theme(spacing.48))]"
+          "prose dark:prose-invert w-full max-w-none px-4 py-6 md:px-6 lg:max-w-[calc(100%-var(--spacing)*48)]"
         }
       >
         <div className={"flex items-start justify-between"}>

@@ -34,7 +34,7 @@ export default function Layout() {
         className={cx(
           "z-15 bg-bg-normal md:z-none border-r-bg-normal fixed w-48 border-r md:block md:border-none",
           "scrollbar scrollbar-base overflow-y-auto",
-          "max-h-[calc(100vh-theme(spacing.16))] md:sticky md:top-16",
+          "max-h-[calc(100vh-var(--spacing)*16)] md:sticky md:top-16",
           opened ? "block" : "hidden",
         )}
       >
@@ -43,7 +43,7 @@ export default function Layout() {
           <AsideLayoutMenu menus={menus} onClickMenu={() => setOpened(false)} />
         </nav>
       </aside>
-      <main className={"flex w-full grow pt-9 md:max-w-[calc(100%-theme(spacing.48))] md:pt-0"}>
+      <main className={"flex w-full grow pt-9 md:max-w-[calc(100%-var(--spacing)*48)] md:pt-0"}>
         <Outlet />
       </main>
     </div>
