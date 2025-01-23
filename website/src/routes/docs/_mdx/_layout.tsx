@@ -385,13 +385,14 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
   const docPath = "src/routes/docs/_mdx";
   const docFile = `${docPath}${basename == "" ? "/_index" : basename}.mdx`;
 
-  const isComponentDoc = basename.startsWith("/components/");
+  const hasSource =
+    basename.startsWith("/components/") && basename != "/components/icon" && basename != "/components/typography";
   const componentName = basename.replace("/components/", "");
 
   const data = await getMdxMeta(docFile);
 
   return {
-    sourceLink: isComponentDoc
+    sourceLink: hasSource
       ? `${githubRepo}/packages/react-ui/src/components/${componentName}/${componentName}.tsx`
       : null,
     documentLink: `${githubRepo}/website/${docFile}`,
