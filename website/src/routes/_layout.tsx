@@ -1,4 +1,4 @@
-import { cx } from "@resolid/react-ui";
+import { Button, cx } from "@resolid/react-ui";
 import { useState, type MouseEventHandler } from "react";
 import { Link, Outlet } from "react-router";
 import { HistoryNavLink } from "~/components/history-link";
@@ -56,12 +56,28 @@ const NavBar = () => {
       </div>
 
       <div className={"text-fg-muted inline-flex items-center gap-1"}>
-        <a href={"https://github.com/huijiewei/resolid-react-ui"} target={"_blank"} rel={"noreferrer"}>
+        <Button
+          iconOnly
+          variant={"ghost"}
+          color={"neutral"}
+          aria-label={"Github 上的 Resolid React UI"}
+          as={"a"}
+          href={"https://github.com/huijiewei/resolid-react-ui"}
+          target={"_blank"}
+          rel={"noreferrer"}
+        >
           <SpriteIcon name={"github"} />
-        </a>
-        <button aria-label={"导航菜单"} className={"md:hidden"} onClick={() => setOpened((prev) => !prev)}>
+        </Button>
+        <Button
+          iconOnly
+          variant={"ghost"}
+          color={"neutral"}
+          aria-label={"导航菜单"}
+          className={"md:hidden"}
+          onClick={() => setOpened((prev) => !prev)}
+        >
           {opened ? <SpriteIcon name={"close"} /> : <SpriteIcon name={"menu"} />}
-        </button>
+        </Button>
       </div>
     </nav>
   );

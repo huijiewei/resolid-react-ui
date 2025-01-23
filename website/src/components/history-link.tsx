@@ -1,4 +1,4 @@
-import type { ComponentProps } from "react";
+import { Button, type ButtonProps, type PrimitiveProps } from "@resolid/react-ui";
 import { Link, type LinkProps, NavLink, type NavLinkProps, type Path, useLocation, useNavigate } from "react-router";
 
 export const HistoryLink = (props: LinkProps) => {
@@ -13,9 +13,9 @@ export const HistoryNavLink = (props: NavLinkProps) => {
   return <NavLink to={to} state={{ ...state, previous: true }} {...rest} />;
 };
 
-export type HistoryBackProps = ComponentProps<"button"> & { backTo?: string | Partial<Path> };
+export type HistoryBackProps = ButtonProps & { backTo?: string | Partial<Path> };
 
-export const HistoryBack = (props: HistoryBackProps) => {
+export const HistoryBack = (props: PrimitiveProps<"button", HistoryBackProps, "children">) => {
   const { onClick, backTo = "/", ...rest } = props;
 
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ export const HistoryBack = (props: HistoryBackProps) => {
   };
 
   return (
-    <button
+    <Button
       onClick={(e) => {
         onClick?.(e);
         historyBack();
@@ -38,6 +38,6 @@ export const HistoryBack = (props: HistoryBackProps) => {
       {...rest}
     >
       点击返回
-    </button>
+    </Button>
   );
 };
