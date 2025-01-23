@@ -192,16 +192,14 @@ const mdxComponents = {
     props: PropItem[];
     ignores?: string[];
   }) => {
-    const validProps = props
-      .filter((prop) => {
-        return (
-          prop.type != "Element" &&
-          prop.type != "ReactNode" &&
-          !/^on[A-Z]/.test(prop.name) &&
-          !ignores?.includes(prop.name)
-        );
-      })
-      .sort((a, b) => (a.control.length > b.control.length ? 1 : -1));
+    const validProps = props.filter((prop) => {
+      return (
+        prop.type != "Element" &&
+        prop.type != "ReactNode" &&
+        !/^on[A-Z]/.test(prop.name) &&
+        !ignores?.includes(prop.name)
+      );
+    });
 
     const [state, setState] = useState<Record<string, string | boolean | number | undefined>>(
       Object.fromEntries(

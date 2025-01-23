@@ -5,16 +5,16 @@ import { type SpinnerStyles, spinnerStyles } from "./spinner.styles";
 
 export type SpinnerProps = {
   /**
-   * 大小
-   * @default 'md'
-   */
-  size?: SpinnerStyles["size"];
-
-  /**
    * 颜色
    * @default 'primary'
    */
   color?: SpinnerStyles["color"];
+
+  /**
+   * 大小
+   * @default 'md'
+   */
+  size?: SpinnerStyles["size"];
 
   /**
    * 标签
