@@ -9,6 +9,16 @@ import { getMdxMeta } from "~/utils/mdx-utils.server";
 import { mergeMeta } from "~/utils/react-router-meta";
 import type { Route } from "./+types/_layout";
 
+type PropItem = {
+  name: string;
+  type: string;
+  control: string;
+  typeValues: null | string[];
+  description: string;
+  defaultValue?: string;
+  required: boolean;
+};
+
 // noinspection JSUnusedGlobalSymbols
 const mdxComponents = {
   h2: ({ id, children, className, ...rest }: ComponentProps<"h2">) => {
@@ -96,7 +106,7 @@ const mdxComponents = {
             "my-5 flex gap-3 rounded-md px-4",
             alertType == "NOTE" && "bg-bg-primary",
             alertType == "TIP" && "bg-bg-success",
-            alertType == "IMPORTANT" && "bg-bg-important",
+            alertType == "IMPORTANT" && "bg-bg-secondary",
             alertType == "WARNING" && "bg-bg-warning",
             alertType == "CAUTION" && "bg-bg-danger",
           )}
@@ -106,7 +116,7 @@ const mdxComponents = {
               "pt-6.75 shrink-0",
               alertType == "NOTE" && "text-fg-primary",
               alertType == "TIP" && "text-fg-success",
-              alertType == "IMPORTANT" && "text-fg-important",
+              alertType == "IMPORTANT" && "text-fg-secondary",
               alertType == "WARNING" && "text-fg-warning",
               alertType == "CAUTION" && "text-fg-danger",
             )}
@@ -130,19 +140,7 @@ const mdxComponents = {
       </div>
     );
   },
-  PropsTable: ({
-    props,
-  }: {
-    props: {
-      name: string;
-      type: string;
-      control: string;
-      typeValues: null | string[];
-      description: string;
-      defaultValue?: string;
-      required: boolean;
-    }[];
-  }) => {
+  PropsTable: ({ props }: { props: PropItem[] }) => {
     return (
       <table className={"not-prose border-bd-subtle my-4 w-full table-auto border-separate rounded-md border text-sm"}>
         <thead>

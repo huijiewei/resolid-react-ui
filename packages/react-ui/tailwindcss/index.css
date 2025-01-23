@@ -55,74 +55,74 @@
   --blur-3xl: initial;
 
   --color-*: initial;
-  --color-black: #1f2328;
+  --color-black: #0c0d0e;
   --color-white: #ffffff;
 
-  --color-gray-50: #f6f8fa;
-  --color-gray-100: #eaeef2;
-  --color-gray-200: #d0d7de;
-  --color-gray-300: #afb8c1;
-  --color-gray-400: #8590a2;
+  --color-gray-50: #f1f2f3;
+  --color-gray-100: #e1e3e5;
+  --color-gray-200: #c5c9ce;
+  --color-gray-300: #a7adb4;
+  --color-gray-400: #8b939c;
   --color-gray-500: #6e7781;
-  --color-gray-600: #57606a;
-  --color-gray-700: #424a53;
-  --color-gray-800: #32383f;
-  --color-gray-900: #24292f;
+  --color-gray-600: #596069;
+  --color-gray-700: #42474d;
+  --color-gray-800: #2d3034;
+  --color-gray-900: #151719;
 
-  --color-blue-50: #ddf4ff;
-  --color-blue-100: #b6e3ff;
-  --color-blue-200: #80ccff;
-  --color-blue-300: #54aeff;
-  --color-blue-400: #218bff;
+  --color-blue-50: #e2effe;
+  --color-blue-100: #c9e1fd;
+  --color-blue-200: #93c3fb;
+  --color-blue-300: #5da6f8;
+  --color-blue-400: #2788f6;
   --color-blue-500: #0969da;
-  --color-blue-600: #0550ae;
-  --color-blue-700: #033d8b;
-  --color-blue-800: #0a3069;
-  --color-blue-900: #002155;
+  --color-blue-600: #0756b0;
+  --color-blue-700: #054184;
+  --color-blue-800: #042b58;
+  --color-blue-900: #02162c;
 
-  --color-green-50: #dafbe1;
-  --color-green-100: #aceebb;
-  --color-green-200: #6fdd8b;
-  --color-green-300: #4ac26b;
-  --color-green-400: #2da44e;
+  --color-green-50: #e1f9e8;
+  --color-green-100: #c4f3d1;
+  --color-green-200: #88e7a3;
+  --color-green-300: #4ddb75;
+  --color-green-400: #26ba50;
   --color-green-500: #1a7f37;
-  --color-green-600: #116329;
-  --color-green-700: #044f1e;
-  --color-green-800: #003d16;
-  --color-green-900: #002d11;
+  --color-green-600: #15662c;
+  --color-green-700: #104c21;
+  --color-green-800: #0a3316;
+  --color-green-900: #05190b;
 
-  --color-red-50: #ffebe9;
-  --color-red-100: #ffcecb;
-  --color-red-200: #ffaba8;
-  --color-red-300: #ff8182;
-  --color-red-400: #fa4549;
+  --color-red-50: #fbe9ea;
+  --color-red-100: #f7cfd1;
+  --color-red-200: #f0a3a8;
+  --color-red-300: #e8737b;
+  --color-red-400: #e14751;
   --color-red-500: #cf222e;
-  --color-red-600: #a40e26;
-  --color-red-700: #82071e;
-  --color-red-800: #660018;
-  --color-red-900: #4c0014;
+  --color-red-600: #a61b25;
+  --color-red-700: #7b141b;
+  --color-red-800: #530e12;
+  --color-red-900: #270609;
 
-  --color-yellow-50: #fff8c5;
-  --color-yellow-100: #fae17d;
-  --color-yellow-200: #eac54f;
-  --color-yellow-300: #d4a72c;
-  --color-yellow-400: #bf8700;
+  --color-yellow-50: #fff3db;
+  --color-yellow-100: #ffe7b8;
+  --color-yellow-200: #ffcf70;
+  --color-yellow-300: #ffb829;
+  --color-yellow-400: #e09600;
   --color-yellow-500: #9a6700;
-  --color-yellow-600: #7d4e00;
-  --color-yellow-700: #633c01;
-  --color-yellow-800: #4d2d00;
-  --color-yellow-900: #3b2300;
+  --color-yellow-600: #7a5200;
+  --color-yellow-700: #5c3d00;
+  --color-yellow-800: #3d2900;
+  --color-yellow-900: #1f1400;
 
-  --color-purple-50: #fbefff;
-  --color-purple-100: #ecd8ff;
-  --color-purple-200: #d8b9ff;
-  --color-purple-300: #c297ff;
-  --color-purple-400: #a475f9;
+  --color-purple-50: #f3eefc;
+  --color-purple-100: #e6ddf9;
+  --color-purple-200: #cebaf2;
+  --color-purple-300: #b598ec;
+  --color-purple-400: #9c75e6;
   --color-purple-500: #8250df;
-  --color-purple-600: #6639ba;
-  --color-purple-700: #512a97;
-  --color-purple-800: #3e1f79;
-  --color-purple-900: #2e1461;
+  --color-purple-600: #6126cf;
+  --color-purple-700: #491c9b;
+  --color-purple-800: #311367;
+  --color-purple-900: #180934;
 
   --color-fg-normal: var(--color-black);
   --color-fg-emphasized: var(--color-white);
@@ -134,6 +134,11 @@
   --color-fg-primary-hovered: var(--color-blue-600);
   --color-fg-primary-pressed: var(--color-blue-700);
   --color-fg-primary-emphasized: var(--color-blue-50);
+
+  --color-fg-secondary: var(--color-purple-500);
+  --color-fg-secondary-hovered: var(--color-purple-600);
+  --color-fg-secondary-pressed: var(--color-purple-700);
+  --color-fg-secondary-emphasized: var(--color-purple-50);
 
   --color-fg-success: var(--color-green-500);
   --color-fg-success-hovered: var(--color-green-600);
@@ -150,13 +155,8 @@
   --color-fg-danger-pressed: var(--color-red-700);
   --color-fg-danger-emphasized: var(--color-red-50);
 
-  --color-fg-important: var(--color-purple-500);
-  --color-fg-important-hovered: var(--color-purple-600);
-  --color-fg-important-pressed: var(--color-purple-700);
-  --color-fg-important-emphasized: var(--color-purple-50);
-
   --color-bg-normal: var(--color-white);
-  --color-bg-emphasized: var(--color-gray-900);
+  --color-bg-emphasized: var(--color-black);
   --color-bg-muted: var(--color-gray-200);
   --color-bg-subtle: var(--color-gray-100);
   --color-bg-subtlest: var(--color-gray-50);
@@ -167,6 +167,13 @@
   --color-bg-primary-emphasis: var(--color-blue-500);
   --color-bg-primary-emphasis-hovered: var(--color-blue-600);
   --color-bg-primary-emphasis-pressed: var(--color-blue-700);
+
+  --color-bg-secondary: var(--color-purple-50);
+  --color-bg-secondary-hovered: var(--color-purple-100);
+  --color-bg-secondary-pressed: var(--color-purple-200);
+  --color-bg-secondary-emphasis: var(--color-purple-500);
+  --color-bg-secondary-emphasis-hovered: var(--color-purple-600);
+  --color-bg-secondary-emphasis-pressed: var(--color-purple-700);
 
   --color-bg-neutral: var(--color-gray-50);
   --color-bg-neutral-hovered: var(--color-gray-100);
@@ -196,13 +203,6 @@
   --color-bg-danger-emphasis-hovered: var(--color-red-600);
   --color-bg-danger-emphasis-pressed: var(--color-red-700);
 
-  --color-bg-important: var(--color-purple-50);
-  --color-bg-important-hovered: var(--color-purple-100);
-  --color-bg-important-pressed: var(--color-purple-200);
-  --color-bg-important-emphasis: var(--color-purple-500);
-  --color-bg-important-emphasis-hovered: var(--color-purple-600);
-  --color-bg-important-emphasis-pressed: var(--color-purple-700);
-
   --color-bd-normal: var(--color-gray-200);
   --color-bd-subtle: var(--color-gray-100);
   --color-bd-hovered: var(--color-gray-300);
@@ -225,6 +225,11 @@
   --color-fg-primary-pressed: var(--color-blue-400);
   --color-fg-primary-emphasized: var(--color-blue-800);
 
+  --color-fg-secondary: var(--color-purple-200);
+  --color-fg-secondary-hovered: var(--color-purple-300);
+  --color-fg-secondary-pressed: var(--color-purple-400);
+  --color-fg-secondary-emphasized: var(--color-purple-800);
+
   --color-fg-success: var(--color-green-500);
   --color-fg-success-hovered: var(--color-green-600);
   --color-fg-success-pressed: var(--color-green-700);
@@ -240,11 +245,6 @@
   --color-fg-danger-pressed: var(--color-red-400);
   --color-fg-danger-emphasized: var(--color-red-800);
 
-  --color-fg-important: var(--color-purple-200);
-  --color-fg-important-hovered: var(--color-purple-300);
-  --color-fg-important-pressed: var(--color-purple-400);
-  --color-fg-important-emphasized: var(--color-purple-800);
-
   --color-bg-normal: var(--color-gray-900);
   --color-bg-emphasized: var(--color-white);
   --color-bg-muted: var(--color-gray-600);
@@ -257,6 +257,13 @@
   --color-bg-primary-emphasis: var(--color-blue-300);
   --color-bg-primary-emphasis-hovered: var(--color-blue-200);
   --color-bg-primary-emphasis-pressed: var(--color-blue-100);
+
+  --color-bg-secondary: var(--color-purple-800);
+  --color-bg-secondary-hovered: var(--color-purple-700);
+  --color-bg-secondary-pressed: var(--color-purple-600);
+  --color-bg-secondary-emphasis: var(--color-purple-300);
+  --color-bg-secondary-emphasis-hovered: var(--color-purple-200);
+  --color-bg-secondary-emphasis-pressed: var(--color-purple-100);
 
   --color-bg-neutral: var(--color-gray-800);
   --color-bg-neutral-hovered: var(--color-gray-700);
@@ -285,13 +292,6 @@
   --color-bg-danger-emphasis: var(--color-red-300);
   --color-bg-danger-emphasis-hovered: var(--color-red-200);
   --color-bg-danger-emphasis-pressed: var(--color-red-100);
-
-  --color-bg-important: var(--color-purple-800);
-  --color-bg-important-hovered: var(--color-purple-700);
-  --color-bg-important-pressed: var(--color-purple-600);
-  --color-bg-important-emphasis: var(--color-purple-300);
-  --color-bg-important-emphasis-hovered: var(--color-purple-200);
-  --color-bg-important-emphasis-pressed: var(--color-purple-100);
 
   --color-bd-normal: var(--color-gray-600);
   --color-bd-subtle: var(--color-gray-700);

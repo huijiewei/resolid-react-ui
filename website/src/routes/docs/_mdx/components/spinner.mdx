@@ -9,9 +9,13 @@ description: 用于页面和区块的加载中状态 - 页面局部处于等待�
 import { Spinner } from "@resolid/react-ui";
 ```
 
-## 颜色
+## 用法
 
-通过传递 `color` 属性来更改加载器的颜色。加载器支持 `primary`、`success`、`warning`、`danger` 和 `neutral` 这些颜色。
+## 举例
+
+### 颜色
+
+通过传递 `color` 属性来更改加载器的颜色。加载器支持 `primary`、`secondary`、`success`、`warning`、`danger` 和 `neutral` 这些颜色。
 
 ```jsx demo
 import { Spinner } from "@resolid/react-ui";
@@ -20,6 +24,7 @@ export default function App() {
   return (
     <div className={"flex flex-row items-center gap-3"}>
       <Spinner color={"primary"} />
+      <Spinner color={"secondary"} />
       <Spinner color={"success"} />
       <Spinner color={"warning"} />
       <Spinner color={"danger"} />
@@ -29,7 +34,7 @@ export default function App() {
 }
 ```
 
-## 大小
+### 大小
 
 通过传递 `size` 属性来更改加载器的大小。加载器支持 `xs`、`sm`、`md`、`lg` 和 `xl` 这些大小。
 

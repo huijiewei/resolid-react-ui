@@ -12,10 +12,11 @@ export const spinnerStyles = tv({
     },
     color: {
       primary: "border-t-fg-primary border-r-fg-primary border-b-bg-primary border-l-bg-primary",
-      neutral: "border-t-fg-neutral border-r-fg-neutral border-b-bg-neutral border-l-bg-neutral",
+      secondary: "border-t-fg-secondary border-r-fg-secondary border-b-bg-secondary border-l-bg-secondary",
       success: "border-t-fg-success border-r-fg-success border-b-bg-success border-l-bg-success",
       warning: "border-t-fg-warning border-r-fg-warning border-b-bg-warning border-l-bg-warning",
       danger: "border-t-fg-danger border-r-fg-danger border-b-bg-danger border-l-bg-danger",
+      neutral: "border-t-fg-neutral border-r-fg-neutral border-b-bg-neutral border-l-bg-neutral",
     },
   },
 });
