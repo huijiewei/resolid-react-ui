@@ -18,53 +18,156 @@ export default function ({ sourceRoot }) {
   mkdirSync(virtualDir, { recursive: true });
 
   return (tree) => {
-    visit(tree, { type: "leafDirective", name: "PropsTable" }, (node, index, parent) => {
-      const componentFile = node.attributes["componentFile"];
+    visit(
+      tree,
+      [
+        { type: "leafDirective", name: "PropsTable" },
+        { type: "containerDirective", name: "UsageBlock" },
+      ],
+      (node, index, parent) => {
+        const componentFile = node.attributes["file"];
 
-      if (!componentFile) {
-        throw new Error(`Invalid componentFile prop for ${node.name}.`);
-      }
-
-      const componentName = (parse(componentFile).name.match(kebabCaseRegex) || [])
-        .map((w) => `${w.charAt(0).toUpperCase()}${w.slice(1)}`)
-        .join("");
-
-      if (!propsTables[componentName]) {
-        const componentProps = getComponentProps(virtualDir, join(sourceRoot, componentFile), componentName);
-
-        if (componentProps) {
-          propsTables[componentName] = componentProps;
-        }
-      }
-
-      if (propsTables[componentName]) {
-        const propsJSON = JSON.stringify(propsTables[componentName]);
-
-        if (parent === undefined || index === undefined) {
-          return;
+        if (!componentFile) {
+          throw new Error(`Invalid componentFile prop for ${node.name}.`);
         }
 
-        parent.children[index] = {
-          type: "mdxJsxFlowElement",
-          name: "PropsTable",
-          attributes: [
-            {
-              type: "mdxJsxAttribute",
-              name: "props",
-              value: {
-                type: "mdxJsxAttributeValueExpression",
-                value: `(${propsJSON})`,
-                data: {
-                  estree: fromJs(`(${propsJSON})`, {
-                    module: true,
-                  }),
+        const componentName = (parse(componentFile).name.match(kebabCaseRegex) || [])
+          .map((w) => `${w.charAt(0).toUpperCase()}${w.slice(1)}`)
+          .join("");
+
+        if (!propsTables[componentName]) {
+          const componentProps = getComponentProps(virtualDir, join(sourceRoot, componentFile), componentName);
+
+          if (componentProps) {
+            propsTables[componentName] = componentProps;
+          }
+        }
+
+        if (propsTables[componentName]) {
+          const propsJSON = JSON.stringify(propsTables[componentName]);
+
+          if (parent === undefined || index === undefined) {
+            return;
+          }
+
+          if (node.name === "UsageBlock") {
+            const ignoresJson = JSON.stringify(node.attributes["ignores"]?.split(",") ?? []);
+
+            parent.children[index] = {
+              type: "mdxJsxFlowElement",
+              name: "UsageBlock",
+              attributes: [
+                {
+                  type: "mdxJsxAttribute",
+                  name: "props",
+                  value: {
+                    type: "mdxJsxAttributeValueExpression",
+                    value: `(${propsJSON})`,
+                    data: {
+                      estree: fromJs(`(${propsJSON})`, {
+                        module: true,
+                      }),
+                    },
+                  },
                 },
-              },
-            },
-          ],
-        };
-      }
-    });
+                {
+                  type: "mdxJsxAttribute",
+                  name: "ignores",
+                  value: {
+                    type: "mdxJsxAttributeValueExpression",
+                    value: `(${ignoresJson})`,
+                    data: {
+                      estree: fromJs(`(${ignoresJson})`, {
+                        module: true,
+                      }),
+                    },
+                  },
+                },
+              ],
+              children: [
+                ...node.children,
+                {
+                  type: "mdxFlowExpression",
+                  value: "(props) => <Usage {...props} />",
+                  data: {
+                    estree: {
+                      type: "Program",
+                      body: [
+                        {
+                          type: "ExpressionStatement",
+                          expression: {
+                            type: "ArrowFunctionExpression",
+                            id: null,
+                            expression: true,
+                            generator: false,
+                            async: false,
+                            params: [
+                              {
+                                type: "Identifier",
+                                name: "props",
+                              },
+                            ],
+                            body: {
+                              type: "JSXElement",
+                              openingElement: {
+                                type: "JSXOpeningElement",
+                                attributes: [
+                                  {
+                                    type: "JSXSpreadAttribute",
+                                    argument: {
+                                      type: "Identifier",
+                                      name: "props",
+                                    },
+                                  },
+                                ],
+                                name: {
+                                  type: "JSXIdentifier",
+                                  name: "Usage",
+                                },
+                                selfClosing: true,
+                              },
+                              closingElement: null,
+                              children: [],
+                              data: {
+                                _mdxExplicitJsx: true,
+                              },
+                            },
+                          },
+                        },
+                      ],
+                      sourceType: "module",
+                      comments: [],
+                    },
+                  },
+                },
+              ],
+            };
+          }
+
+          if (node.name === "PropsTable") {
+            parent.children[index] = {
+              type: "mdxJsxFlowElement",
+              name: "PropsTable",
+              attributes: [
+                {
+                  type: "mdxJsxAttribute",
+                  name: "props",
+                  value: {
+                    type: "mdxJsxAttributeValueExpression",
+                    value: `(${propsJSON})`,
+                    data: {
+                      estree: fromJs(`(${propsJSON})`, {
+                        module: true,
+                      }),
+                    },
+                  },
+                },
+              ],
+            };
+          }
+        }
+      },
+    );
   };
 }
 

@@ -1,7 +1,7 @@
 import { MDXProvider } from "@mdx-js/react";
 import { cx } from "@resolid/react-ui";
 import { startWith } from "@resolid/utils";
-import { type ComponentProps, type ReactNode, useRef } from "react";
+import { type ComponentProps, type ReactNode, useRef, useState } from "react";
 import { Outlet, useLoaderData } from "react-router";
 import { ClipboardButton } from "~/components/clipboard-button";
 import { SpriteIcon } from "~/components/sprite-icon";
@@ -181,6 +181,156 @@ const mdxComponents = {
           ))}
         </tbody>
       </table>
+    );
+  },
+  UsageBlock: ({
+    children,
+    props,
+    ignores,
+  }: {
+    children: (props: Record<string, string | number | boolean | undefined>) => ReactNode;
+    props: PropItem[];
+    ignores?: string[];
+  }) => {
+    const filteredProps = props
+      .filter((prop) => {
+        return prop.type != "Element" && !/^on[A-Z]/.test(prop.name) && !ignores?.includes(prop.name);
+      })
+      .sort((a, b) => (a.control.length > b.control.length ? 1 : -1));
+
+    const [state, setState] = useState<Record<string, string | boolean | number | undefined>>(
+      Object.fromEntries(
+        filteredProps.map(({ name, defaultValue }) => {
+          const value =
+            defaultValue && /^[Ee0-9+\-.]$/.test(defaultValue)
+              ? defaultValue
+              : defaultValue == "-Infinity" || defaultValue == "Infinity"
+                ? undefined
+                : defaultValue == "true" || defaultValue == "false"
+                  ? defaultValue == "true"
+                  : defaultValue
+                    ? defaultValue.slice(1, -1)
+                    : undefined;
+
+          return [name, value];
+        }),
+      ),
+    );
+
+    return (
+      <div className={"not-prose border-bd-normal flex min-h-28 w-full flex-col rounded-md border lg:flex-row"}>
+        <div className={"flex flex-1 items-center justify-center p-5"}>{children(state)}</div>
+        <div className={"border-bd-normal min-w-[15em] flex-shrink-0 border-t p-3 lg:border-s lg:border-t-0"}>
+          <div className={"flex flex-col gap-3 text-sm"}>
+            {filteredProps.map((prop) => {
+              const propInputId = `prop-${prop.name}`;
+
+              return (
+                <div className={"flex items-center justify-between gap-5"} key={propInputId}>
+                  {prop.control == "boolean" && (
+                    <input
+                      type={"checkbox"}
+                      checked={Boolean(state[prop.name])}
+                      onChange={(e) => {
+                        setState((prev) => ({ ...prev, [prop.name]: e.target.value }));
+                      }}
+                    >
+                      {prop.description}
+                    </input>
+                  )}
+                  {prop.control == "string" && (
+                    <>
+                      <label htmlFor={propInputId}>{prop.description}</label>
+                      <input
+                        id={propInputId}
+                        className={"w-1/2"}
+                        value={state[prop.name] as string}
+                        onChange={(e) => {
+                          setState((prev) => ({ ...prev, [prop.name]: e.target.value }));
+                        }}
+                      />
+                    </>
+                  )}
+                  {prop.control == "number" && (
+                    <>
+                      <label htmlFor={propInputId}>{prop.description}</label>
+                      <input
+                        type={"number"}
+                        id={propInputId}
+                        className={"w-1/2"}
+                        value={state[prop.name] ? Number(state[prop.name]) : undefined}
+                        onChange={(e) => {
+                          setState((prev) => ({ ...prev, [prop.name]: e.target.value }));
+                        }}
+                      />
+                    </>
+                  )}
+                  {prop.control == "select" &&
+                    (prop.name == "color" ? (
+                      <>
+                        <span>{prop.description}</span>
+                        <div className={"inline-flex w-auto justify-between gap-1"}>
+                          {prop.typeValues?.map((option) => {
+                            const color = option.toString().slice(1, -1);
+
+                            return (
+                              <button
+                                className={cx(
+                                  "text-fg-emphasized inline-flex h-6 w-6 items-center justify-center rounded-md",
+                                  color == "primary" && "bg-bg-primary-emphasis",
+                                  color == "secondary" && "bg-bg-secondary-emphasis",
+                                  color == "success" && "bg-bg-success-emphasis",
+                                  color == "warning" && "bg-bg-warning-emphasis",
+                                  color == "danger" && "bg-bg-danger-emphasis",
+                                  color == "neutral" && "bg-bg-neutral-emphasis",
+                                )}
+                                key={`${prop.name}-${color}`}
+                                title={color}
+                                onClick={() => {
+                                  setState((prev) => ({ ...prev, [prop.name]: color }));
+                                }}
+                              >
+                                {state[prop.name] == color && <SpriteIcon size={"sm"} name={"check"} />}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <label htmlFor={propInputId}>{prop.description}</label>
+                        <select
+                          id={propInputId}
+                          className={"border-bd-normal rounded-md border"}
+                          value={String(state[prop.name])}
+                          onChange={(e) => {
+                            setState((prev) => ({
+                              ...prev,
+                              [prop.name]:
+                                e.target.value == "true" || e.target.value == "false"
+                                  ? e.target.value == "true"
+                                  : e.target.value,
+                            }));
+                          }}
+                        >
+                          {prop.typeValues?.map((item) => {
+                            const option = item != "true" && item != "false" ? item.trim().slice(1, -1) : item;
+
+                            return (
+                              <option key={option} value={option}>
+                                {option}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </>
+                    ))}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
     );
   },
 };
