@@ -31,7 +31,8 @@
     "check-exports": "attw --pack . --profile esm-only --exclude-entrypoints tailwindcss",
     "lint": "eslint .",
     "build": "tsup",
-    "test": "vitest run"
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@floating-ui/react": "^0.27.3",
