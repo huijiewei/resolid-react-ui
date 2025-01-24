@@ -99,9 +99,19 @@ export default function App() {
       <span>Label</span>
       <Divider orientation={"vertical"} color={"primary"} />
       <span>Label</span>
-      <Divider orientation={"vertical"} size={3} color={"success"} variant="dotted" />
+      <Divider
+        orientation={"vertical"}
+        size={3}
+        color={"success"}
+        variant="dotted"
+      />
       <span>Label</span>
-      <Divider orientation={"vertical"} size={2} color={"danger"} variant="dashed" />
+      <Divider
+        orientation={"vertical"}
+        size={2}
+        color={"danger"}
+        variant="dashed"
+      />
       <span>Label</span>
     </div>
   );
@@ -123,10 +133,14 @@ export default function App() {
       <Divider position={"left"}>Label on the left</Divider>
       <Divider position={"right"}>Label on the right</Divider>
       <Divider>
-        <SpriteIcon size={"0.813rem"} className={"mr-1"} name={"search"} /> Search results
+        <SpriteIcon size={"0.813rem"} className={"mr-1"} name={"search"} />{" "}
+        Search results
       </Divider>
       <Divider>
-        <a href={"#文本标签"} className={"text-link hover:text-link-hovered hover:underline"}>
+        <a
+          href={"#文本标签"}
+          className={"text-link hover:text-link-hovered hover:underline"}
+        >
           Link label
         </a>
       </Divider>
