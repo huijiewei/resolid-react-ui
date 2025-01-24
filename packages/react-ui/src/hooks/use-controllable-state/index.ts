@@ -1,29 +1,40 @@
-import { useCallback, useState } from "react";
+import { type Dispatch, type SetStateAction, useState } from "react";
+import { useCallbackRef } from "../use-callback-ref";
 
-export type UseControllableStateProps<T> = {
+export type UseControllableStateOptions<T> = {
   value?: T;
   defaultValue?: T;
   onChange?: (value: T) => void;
+  shouldUpdate?: (prev: T, next: T) => boolean;
 };
 
-export const useControllableState = <T>({ value, defaultValue, onChange }: UseControllableStateProps<T>) => {
-  const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
+export const useControllableState = <T>(options: UseControllableStateOptions<T>) => {
+  const { value, defaultValue, onChange, shouldUpdate = (prev, next) => prev !== next } = options;
+
+  const onChangeRef = useCallbackRef(onChange);
+  const shouldUpdateRef = useCallbackRef(shouldUpdate);
+
+  const [uncontrolledState, setUncontrolledState] = useState(defaultValue as T);
 
   const controlled = value !== undefined;
-  const currentValue = controlled ? value : uncontrolledValue;
+  const currentValue = controlled ? value : uncontrolledState;
 
-  const setValue = useCallback(
-    (value: T) => {
-      if (controlled) {
-        return onChange?.(value);
+  const setValue = useCallbackRef(
+    (next: SetStateAction<T>) => {
+      const nextValue = typeof next === "function" ? (next as (prevState?: T) => T)(currentValue) : next;
+
+      if (!shouldUpdateRef(currentValue, nextValue)) {
+        return;
       }
 
-      setUncontrolledValue(value);
+      if (!controlled) {
+        setUncontrolledState(nextValue);
+      }
 
-      return onChange?.(value);
+      onChangeRef(nextValue);
     },
-    [controlled, onChange],
+    [controlled, currentValue, onChangeRef, shouldUpdateRef],
   );
 
-  return [currentValue as T, setValue] as const;
+  return [currentValue, setValue] as [T, Dispatch<SetStateAction<T>>];
 };
