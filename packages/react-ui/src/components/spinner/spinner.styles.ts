@@ -1,4 +1,4 @@
-import { tv, type VariantProps } from "../../utils";
+import { tv, type VP } from "../../utils";
 
 export const spinnerStyles = tv({
   base: "inline-block animate-spin rounded-full",
@@ -21,4 +21,4 @@ export const spinnerStyles = tv({
   },
 });
 
-export type SpinnerStyles = VariantProps<typeof spinnerStyles>;
+export type SpinnerStyles = VP<typeof spinnerStyles>;
