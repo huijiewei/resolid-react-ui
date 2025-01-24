@@ -1,0 +1,10 @@
+@theme {
+  --container-*: initial;
+
+  --shadow-2xs: initial;
+  --shadow-2xl: initial;
+  --inset-shadow-2xs: initial;
+  --drop-shadow-2xl: initial;
+  --blur-2xl: initial;
+  --blur-3xl: initial;
+}

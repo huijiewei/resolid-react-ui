@@ -1,0 +1,10 @@
+@theme {
+  --radius-*: initial;
+  --radius-none: 0;
+  --radius-xs: 0.125rem;
+  --radius-sm: 0.188rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.375rem;
+  --radius-xl: 0.5rem;
+  --radius-full: 999rem;
+}

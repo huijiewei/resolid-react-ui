@@ -1,0 +1,24 @@
+@theme {
+  --font-sans: apple-system, BlinkMacSystemFont, "Segoe UI", "SNoto Sans", Helvetica, Arial, sans-serif,
+  "Apple Color Emoji", "Segoe UI Emoji";
+  --font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
+
+  --font-weight-*: initial;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 600;
+
+  --text-*: initial;
+  --text-xs: 0.813rem;
+  --text-xs--line-height: calc(1 / 0.813);
+  --text-sm: 0.875rem;
+  --text-sm--line-height: calc(1.25 / 0.875);
+  --text-base: 1rem;
+  --text-base--line-height: calc(1.5 / 1);
+  --text-lg: 1.125rem;
+  --text-lg--line-height: calc(1.75 / 1.125);
+  --text-xl: 1.25rem;
+  --text-xl--line-height: calc(1.75 / 1.25);
+}
