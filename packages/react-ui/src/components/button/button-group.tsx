@@ -1,5 +1,5 @@
 import type { PrimitiveProps } from "../../primitives";
-import { cx } from "../../utils";
+import { tx } from "../../utils";
 import { ButtonGroupContext, type ButtonGroupContextValue } from "./button-group-context";
 
 export type ButtonGroupProps = ButtonGroupContextValue;
@@ -10,7 +10,7 @@ export const ButtonGroup = (props: PrimitiveProps<"div", ButtonGroupProps, "role
   return (
     <div
       role={"group"}
-      className={cx(
+      className={tx(
         "inline-flex",
         orientation == "horizontal" ? "flex-row -space-x-px" : "flex-col -space-y-px",
         className,

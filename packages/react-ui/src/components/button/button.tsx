@@ -1,7 +1,7 @@
 import { type ElementType, type ReactNode, useState } from "react";
 import { useMergeRefs } from "../../hooks";
 import type { PolymorphicProps } from "../../primitives";
-import { ariaAttr, cx, dataAttr } from "../../utils";
+import { ariaAttr, dataAttr, tx } from "../../utils";
 import { type ButtonBaseProps, useButtonGroup } from "./button-group-context";
 import { ButtonSpinner } from "./button-spinner";
 import { buttonStyles } from "./button.styles";
@@ -93,10 +93,10 @@ export const Button = <T extends ElementType = "button">(props: PolymorphicProps
 
   return (
     <Component
-      className={cx(
+      className={tx(
         buttonStyles({ variant, color, size, disabled: disabledStatus, fullWidth, iconOnly }),
         group &&
-          cx(
+          tx(
             "not-last:not-first:rounded-none",
             group.orientation == "horizontal"
               ? "not-only:first:rounded-e-none not-only:last:rounded-s-none"
@@ -116,7 +116,7 @@ export const Button = <T extends ElementType = "button">(props: PolymorphicProps
     >
       {loading ? (
         <div
-          className={cx(
+          className={tx(
             "relative inline-flex items-center justify-center gap-2",
             loadingText && spinnerPlacement == "end" && "flex-row-reverse",
           )}

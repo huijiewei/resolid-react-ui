@@ -99,7 +99,8 @@ export default defineConfig(({ command, isSsrBuild }) => {
                   id.includes("/node_modules/@react-router/") ||
                   id.includes("/node_modules/react-router/") ||
                   id.includes("/node_modules/turbo-stream/") ||
-                  id.includes("react-router/with-props")
+                  id.includes("react-router/with-props") ||
+                  id.includes("react-router-meta")
                 ) {
                   return "react-router";
                 }

@@ -1,12 +1,12 @@
-import { cx, tv, type VariantProps } from "../../utils";
+import { tv, type VP } from "../../utils";
 
 export const buttonStyles = tv({
-  base: cx(
+  base: [
     "inline-flex items-center justify-center rounded-md border",
     "select-none appearance-none whitespace-nowrap font-medium",
     "transition-colors",
     "focus-visible:outline-2 focus-visible:outline-offset-2",
-  ),
+  ],
   variants: {
     variant: {
       solid: "text-fg-emphasized border-transparent",
@@ -318,4 +318,4 @@ export const buttonStyles = tv({
   },
 });
 
-export type ButtonStyleProps = VariantProps<typeof buttonStyles>;
+export type ButtonStyleProps = VP<typeof buttonStyles>;

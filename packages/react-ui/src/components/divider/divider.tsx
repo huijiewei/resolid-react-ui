@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import type { PrimitiveProps } from "../../primitives";
-import { cx } from "../../utils";
+import { tx } from "../../utils";
 import { type DividerStyleProps, dividerStyles } from "./divider.styles";
 
 export type DividerProps = {
@@ -59,7 +59,7 @@ export const Divider = (props: PrimitiveProps<"div", DividerProps, "role">) => {
           "--size-var": `${size}px`,
         } as CSSProperties
       }
-      className={cx(dividerStyles({ color, variant, orientation, label: hasLabel, position }), className)}
+      className={tx(dividerStyles({ color, variant, orientation, label: hasLabel, position }), className)}
       {...rest}
     >
       {hasLabel && children}

@@ -34,21 +34,21 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.27.3",
     "@resolid/utils": "^0.1.0",
-    "@tw-classed/core": "^1.7.0",
-    "clsx": "^2.1.1"
+    "cva": "beta"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
-    "@types/node": "^22.10.8",
-    "@types/react": "^19.0.7",
+    "@types/node": "^22.10.10",
+    "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "babel-plugin-react-compiler": "beta",
     "jsdom": "^26.0.0",
     "tsup": "^8.3.5",
-    "vitest": "^3.0.3"
+    "vitest": "^3.0.4"
   },
   "peerDependencies": {
     "react": "^19.0.0",

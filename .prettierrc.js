@@ -7,7 +7,7 @@ const config = {
   ...prettierConfig,
   plugins: [...prettierConfig.plugins, "prettier-plugin-tailwindcss"],
   tailwindStylesheet: "./website/src/root.css",
-  tailwindFunctions: ["cx", "tv"],
+  tailwindFunctions: ["tx", "tv"],
 };
 
 // noinspection JSUnusedGlobalSymbols

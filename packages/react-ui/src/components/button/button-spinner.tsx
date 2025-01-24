@@ -1,5 +1,5 @@
 import type { PrimitiveProps } from "../../primitives";
-import { cx } from "../../utils";
+import { tx } from "../../utils";
 import { Spinner } from "../spinner/spinner";
 import type { ButtonStyleProps } from "./button.styles";
 
@@ -20,7 +20,7 @@ export const ButtonSpinner = (props: PrimitiveProps<"span", ButtonSpinnerProps>)
   const { label, size, className, children = <Spinner size={SpinnerSizes[size]} />, ...rest } = props;
 
   return (
-    <span className={cx("flex items-center justify-center", label ? "relative" : "absolute", className)} {...rest}>
+    <span className={tx("flex items-center justify-center", label ? "relative" : "absolute", className)} {...rest}>
       {children}
     </span>
   );

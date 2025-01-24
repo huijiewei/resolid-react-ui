@@ -1,4 +1,4 @@
-import { tv, type VariantProps } from "../../utils";
+import { tv, type VP } from "../../utils";
 
 export const dividerStyles = tv({
   base: "m-0 border-0",
@@ -153,4 +153,4 @@ export const dividerStyles = tv({
   ],
 });
 
-export type DividerStyleProps = VariantProps<typeof dividerStyles>;
+export type DividerStyleProps = VP<typeof dividerStyles>;

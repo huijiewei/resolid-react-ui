@@ -1,4 +1,4 @@
-import { CloseButton, cx } from "@resolid/react-ui";
+import { CloseButton, tx } from "@resolid/react-ui";
 import { useState } from "react";
 import { Outlet } from "react-router";
 import { AsideLayoutMenu, type Menu } from "~/components/aside-menu";
@@ -31,7 +31,7 @@ export default function Layout() {
         </button>
       </div>
       <aside
-        className={cx(
+        className={tx(
           "z-15 bg-bg-normal md:z-none border-r-bg-normal fixed w-48 border-r md:block md:border-none",
           "scrollbar scrollbar-base overflow-y-auto",
           "max-h-[calc(100vh-var(--spacing)*16)] md:sticky md:top-16",

@@ -1,5 +1,5 @@
 import { MDXProvider } from "@mdx-js/react";
-import { cx } from "@resolid/react-ui";
+import { tx } from "@resolid/react-ui";
 import { startWith } from "@resolid/utils";
 import { type ComponentProps, type ReactNode, useRef, useState } from "react";
 import { Outlet, useLoaderData } from "react-router";
@@ -23,7 +23,7 @@ type PropItem = {
 const mdxComponents = {
   h2: ({ id, children, className, ...rest }: ComponentProps<"h2">) => {
     return (
-      <h2 className={cx("group relative mt-8 flex items-center", className)} {...rest}>
+      <h2 className={tx("group relative mt-8 flex items-center", className)} {...rest}>
         <span id={id} className={"invisible absolute top-[calc(-1*88px)]"} />
         {children}
         <a tabIndex={-1} className={"ml-1 opacity-0 transition-opacity group-hover:opacity-100"} href={`#${id}`}>
@@ -34,7 +34,7 @@ const mdxComponents = {
   },
   h3: ({ id, children, className, ...rest }: ComponentProps<"h3">) => {
     return (
-      <h3 className={cx("group relative mt-6 flex items-center", className)} {...rest}>
+      <h3 className={tx("group relative mt-6 flex items-center", className)} {...rest}>
         <span id={id} className={"invisible absolute top-[calc(-1*88px)]"} />
         {children}
         <a tabIndex={-1} className={"ml-1 opacity-0 transition-opacity group-hover:opacity-100"} href={`#${id}`}>
@@ -62,8 +62,9 @@ const mdxComponents = {
         <pre
           ref={preRef}
           translate={"no"}
-          className={cx(
-            "scrollbar scrollbar-thin border-bd-normal rounded-md border p-3 group-[.demo]:mt-0 group-[.demo]:rounded-t-none group-[.demo]:border-t-0",
+          className={tx(
+            "scrollbar scrollbar-thin border-bd-normal rounded-md border p-3",
+            "group-[.demo]:mt-0 group-[.demo]:rounded-t-none group-[.demo]:border-t-0",
             className,
           )}
           tabIndex={-1}
@@ -83,7 +84,7 @@ const mdxComponents = {
     return (
       <a
         href={href}
-        className={cx(
+        className={tx(
           "text-link hover:text-link-hovered active:text-link-pressed inline-flex items-center no-underline hover:underline",
           className,
         )}
@@ -102,7 +103,7 @@ const mdxComponents = {
       return (
         <div
           role={"alert"}
-          className={cx(
+          className={tx(
             "my-5 flex gap-3 rounded-md px-4",
             alertType == "NOTE" && "bg-bg-primary",
             alertType == "TIP" && "bg-bg-success",
@@ -112,7 +113,7 @@ const mdxComponents = {
           )}
         >
           <span
-            className={cx(
+            className={tx(
               "pt-6.75 shrink-0",
               alertType == "NOTE" && "text-fg-primary",
               alertType == "TIP" && "text-fg-success",
@@ -280,7 +281,7 @@ const mdxComponents = {
 
                             return (
                               <button
-                                className={cx(
+                                className={tx(
                                   "text-fg-emphasized inline-flex h-6 w-6 items-center justify-center rounded-md",
                                   color == "primary" && "bg-bg-primary-emphasis",
                                   color == "secondary" && "bg-bg-secondary-emphasis",
@@ -351,7 +352,7 @@ const Toc = ({ toc }: { toc: { depth: number; text: string; slug: string }[] }) 
           <li key={slug}>
             <a
               href={href}
-              className={cx(
+              className={tx(
                 "border-s-bd-normal -ml-px block border-s py-1",
                 depth == 2 ? "ps-4" : "ps-8",
                 href == "1" ? "border-link text-link" : "text-fg-muted hover:border-link-hovered hover:text-fg-subtle",

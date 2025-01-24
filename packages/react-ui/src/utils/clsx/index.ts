@@ -1,9 +1,8 @@
-import { createClassed } from "@tw-classed/core";
-import { clsx } from "clsx/lite";
+import { cva, cx, type VariantProps } from "cva";
 
-const { classed } = createClassed();
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type VP<T extends (...args: any) => any> = VariantProps<T>;
 
-export type { VariantProps } from "@tw-classed/core";
+export const tx = cx;
 
-export const cx = clsx;
-export const tv = classed;
+export const tv = cva;
