@@ -1,12 +1,18 @@
 import { type ElementType, type ReactNode, useState } from "react";
 import { useMergeRefs } from "../../hooks";
 import type { PolymorphicProps } from "../../primitives";
-import { cx } from "../../utils";
+import { ariaAttr, cx, dataAttr } from "../../utils";
 import { type ButtonBaseProps, useButtonGroup } from "./button-group-context";
 import { ButtonSpinner } from "./button-spinner";
 import { buttonStyles } from "./button.styles";
 
 export type ButtonProps = ButtonBaseProps & {
+  /**
+   * 是否激活
+   * @default false
+   */
+  active?: boolean;
+
   /**
    * 全宽度
    * @default false
@@ -52,6 +58,7 @@ export const Button = <T extends ElementType = "button">(props: PolymorphicProps
     color = group?.color ?? "primary",
     size = group?.size ?? "md",
     disabled = group?.disabled ?? false,
+    active = false,
     loading = false,
     loadingText,
     spinner,
@@ -100,7 +107,9 @@ export const Button = <T extends ElementType = "button">(props: PolymorphicProps
       type={isNativeButton ? type : undefined}
       role={!isNativeButton && !isNativeLink ? "button" : undefined}
       disabled={isNativeButton ? disabledStatus : undefined}
-      aria-disabled={!isNativeButton && disabledStatus ? true : undefined}
+      aria-disabled={ariaAttr(!isNativeButton && disabledStatus)}
+      data-disabled={dataAttr(disabledStatus)}
+      data-active={dataAttr(active)}
       tabIndex={!isNativeButton && !isNativeLink && !disabledStatus ? 0 : undefined}
       ref={refs}
       {...rest}
