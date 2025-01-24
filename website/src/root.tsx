@@ -1,5 +1,6 @@
 import type { PropsWithChildren } from "react";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
+import { RouteProcessBar } from "~/components/route-process-bar";
 import { VercelAnalytics } from "~/components/vercel-analytics";
 
 import "./root.css";
@@ -20,6 +21,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
         <Links />
       </head>
       <body className={"min-h-screen overflow-y-scroll antialiased"}>
+        <RouteProcessBar />
         {children}
         <ScrollRestoration />
         <Scripts />

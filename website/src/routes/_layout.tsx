@@ -1,4 +1,4 @@
-import { Button, tx } from "@resolid/react-ui";
+import { Button, Tooltip, TooltipArrow, TooltipContent, TooltipTrigger, tx } from "@resolid/react-ui";
 import { useState, type MouseEventHandler } from "react";
 import { Link, Outlet } from "react-router";
 import { HistoryNavLink } from "~/components/history-link";
@@ -56,18 +56,24 @@ const NavBar = () => {
       </div>
 
       <div className={"text-fg-muted inline-flex items-center gap-1"}>
-        <Button
-          iconOnly
-          variant={"ghost"}
-          color={"neutral"}
-          aria-label={"Github 上的 Resolid React UI"}
-          as={"a"}
-          href={"https://github.com/huijiewei/resolid-react-ui"}
-          target={"_blank"}
-          rel={"noreferrer"}
-        >
-          <SpriteIcon name={"github"} />
-        </Button>
+        <Tooltip placement={"bottom-end"}>
+          <TooltipTrigger
+            as={"a"}
+            className={
+              "focus-visible:outline-bg-neutral-emphasis/70 hover:bg-bg-neutral active:bg-bg-neutral-hovered inline-flex aspect-square h-9 cursor-pointer select-none appearance-none items-center justify-center whitespace-nowrap rounded-md border border-transparent text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
+            }
+            aria-label={"Github 上的 Resolid React UI"}
+            href={"https://github.com/huijiewei/resolid-react-ui"}
+            target={"_blank"}
+            rel={"noreferrer"}
+          >
+            <SpriteIcon name={"github"} />
+          </TooltipTrigger>
+          <TooltipContent>
+            <TooltipArrow />
+            Github 上的 Resolid React UI
+          </TooltipContent>
+        </Tooltip>
         <Button
           iconOnly
           variant={"ghost"}

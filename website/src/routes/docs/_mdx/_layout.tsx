@@ -1,5 +1,5 @@
 import { MDXProvider } from "@mdx-js/react";
-import { tx } from "@resolid/react-ui";
+import { Tooltip, TooltipArrow, TooltipContent, TooltipTrigger, tx } from "@resolid/react-ui";
 import { startWith } from "@resolid/utils";
 import { type ComponentProps, type ReactNode, useRef, useState } from "react";
 import { Outlet, useLoaderData } from "react-router";
@@ -162,7 +162,42 @@ const mdxComponents = {
             >
               <td className={"block w-full whitespace-nowrap font-bold md:table-cell md:w-auto md:p-2"}>
                 <span className="bg-bg-subtle mr-3 inline-block w-[5.5rem] p-2 text-sm font-bold md:hidden">属性</span>
-                <span className={"inline-flex items-center gap-1.5"}>{prop.name}</span>
+                <span className={"inline-flex items-center gap-1.5"}>
+                  {prop.name}
+
+                  {prop.description && (
+                    <Tooltip trigger={"click"}>
+                      <TooltipTrigger>
+                        <SpriteIcon size={"sm"} name={"info"} />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <TooltipArrow />
+                        {prop.description.split("\n").map((p, idx) => {
+                          const key = `p${idx}`;
+
+                          if (p.slice(0, 6) == "@link") {
+                            const link = p.slice(6);
+
+                            return (
+                              <p key={key}>
+                                <a
+                                  className={"text-link hover:text-link-hovered"}
+                                  href={link}
+                                  rel={"noreferrer"}
+                                  target={"_blank"}
+                                >
+                                  {link}
+                                </a>
+                              </p>
+                            );
+                          }
+
+                          return <p key={key}>{p}</p>;
+                        })}
+                      </TooltipContent>
+                    </Tooltip>
+                  )}
+                </span>
               </td>
               <td className={"block w-full md:table-cell md:w-auto md:p-2"}>
                 <span className="bg-bg-subtle mr-3 inline-block w-[5.5rem] p-2 text-sm font-bold md:hidden">类型</span>
