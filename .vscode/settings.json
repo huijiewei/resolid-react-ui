@@ -6,7 +6,7 @@
     "prettier.printWidth": 120,
     "editor.formatOnSave": true,
     "files.associations": {
-        "*.css": "tailwindcss"
+      "*.css": "tailwindcss"
     },
     "editor.quickSuggestions": {
         "strings": "on"
@@ -15,5 +15,20 @@
       ["tv\\(((?:[^()]|\\([^()]*\\))*)\\)", "[\"'`]?([^\"'`]+)[\"'`]?"],
       ["tx\\(((?:[^()]|\\([^()]*\\))*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
     ],
-    "tailwindCSS.experimental.configFile": "./website/src/root.css"
+    "tailwindCSS.experimental.configFile": "./website/src/root.css",
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "npm.enableRunFromFolder": true,
+    "npm.exclude": [
+      "**/build/**",
+      "**/.vercel/**"
+    ],
+    "files.watcherExclude": {
+      "**/.vercel/**": true,
+      "**/build/**": true,
+      "**/node_modules/**": true
+    },
+    "search.exclude": {
+      "**/.vercel/**": true,
+      "**/build/**": true
+    }
 }

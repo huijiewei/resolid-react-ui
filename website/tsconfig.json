@@ -14,5 +14,8 @@
       "~/*": ["./src/*"],
       "@resolid/react-ui": ["../packages/react-ui/src"]
     }
+  },
+  "mdx": {
+    "plugins": ["remark-directive", "remark-frontmatter", "remark-gfm"]
   }
 }
