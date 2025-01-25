@@ -6,17 +6,17 @@ description: 分隔内容区域并分离模块。
 ## 导入
 
 ```js
-import { Divider } from "@resolid/react-ui";
+import { Separator } from "@resolid/react-ui";
 ```
 
 ## 用法
 
-:::UsageBlock{file=divider/divider.tsx ignores=position}
+:::UsageBlock{file=separator/separator.tsx ignores=position}
 
-import { Divider } from "@resolid/react-ui";
+import { Separator } from "@resolid/react-ui";
 
 export function Usage(props) {
-  return <Divider {...props} />;
+  return <Separator {...props} />;
 }
 
 :::
@@ -28,14 +28,14 @@ export function Usage(props) {
 分割线有三种不同的外观可供使用。通过传递 `variant` 属性，可以选择使用 `solid`、`dotted` 或 `dashed` 中的任意一种。
 
 ```jsx demo
-import { Divider } from "@resolid/react-ui";
+import { Separator } from "@resolid/react-ui";
 
 export default function App() {
   return (
     <div className={"flex flex-col gap-5 py-5"}>
-      <Divider variant={"solid"} />
-      <Divider variant={"dotted"} />
-      <Divider variant={"dashed"} />
+      <Separator variant={"solid"} />
+      <Separator variant={"dotted"} />
+      <Separator variant={"dashed"} />
     </div>
   );
 }
@@ -46,17 +46,17 @@ export default function App() {
 通过传递 `color` 属性来更改分隔线的颜色，分隔线支持 `primary`、`secondary`、`success`、`warning`、`danger` 和 `neutral` 这些颜色。
 
 ```jsx demo
-import { Divider } from "@resolid/react-ui";
+import { Separator } from "@resolid/react-ui";
 
 export default function App() {
   return (
     <div className={"flex flex-col gap-5 py-5"}>
-      <Divider color={"primary"} />
-      <Divider color={"secondary"} />
-      <Divider color={"success"} />
-      <Divider color={"warning"} />
-      <Divider color={"danger"} />
-      <Divider color={"neutral"} />
+      <Separator color={"primary"} />
+      <Separator color={"secondary"} />
+      <Separator color={"success"} />
+      <Separator color={"warning"} />
+      <Separator color={"danger"} />
+      <Separator color={"neutral"} />
     </div>
   );
 }
@@ -67,14 +67,14 @@ export default function App() {
 分隔线使用 `${size}px` 来设置大小，大小应为数字。
 
 ```jsx demo
-import { Divider } from "@resolid/react-ui";
+import { Separator } from "@resolid/react-ui";
 
 export default function App() {
   return (
     <div className={"flex flex-col gap-5 py-5"}>
-      <Divider size={2} />
-      <Divider size={3} />
-      <Divider size={5} />
+      <Separator size={2} />
+      <Separator size={3} />
+      <Separator size={5} />
     </div>
   );
 }
@@ -85,28 +85,28 @@ export default function App() {
 分隔线使用 `orientation` 属性来确定布局方向，`horizontal` 表示横向; `vertical` 表示垂直方向。
 
 ```jsx demo
-import { Divider } from "@resolid/react-ui";
+import { Separator } from "@resolid/react-ui";
 
 export default function App() {
   return (
     <div className={"flex flex-row gap-5 px-5"}>
       <span>Label</span>
-      <Divider orientation={"vertical"} />
+      <Separator orientation={"vertical"} />
       <span>Label</span>
-      <Divider orientation={"vertical"} variant="dashed" />
+      <Separator orientation={"vertical"} variant="dashed" />
       <span>Label</span>
-      <Divider orientation={"vertical"} variant="dotted" />
+      <Separator orientation={"vertical"} variant="dotted" />
       <span>Label</span>
-      <Divider orientation={"vertical"} color={"primary"} />
+      <Separator orientation={"vertical"} color={"primary"} />
       <span>Label</span>
-      <Divider
+      <Separator
         orientation={"vertical"}
         size={3}
         color={"success"}
         variant="dotted"
       />
       <span>Label</span>
-      <Divider
+      <Separator
         orientation={"vertical"}
         size={2}
         color={"danger"}
@@ -123,27 +123,27 @@ export default function App() {
 分割线使用 `children` 属性来表示标签，`position` 属性确定标签所在位置，只有 `orientation` 为 `horizontal` 的时候有效
 
 ```jsx demo
-import { Divider } from "@resolid/react-ui";
+import { Separator } from "@resolid/react-ui";
 import { SpriteIcon } from "~/components/sprite-icon";
 
 export default function App() {
   return (
     <div className={"flex flex-col gap-5 py-5"}>
-      <Divider>Label in the center</Divider>
-      <Divider position={"left"}>Label on the left</Divider>
-      <Divider position={"right"}>Label on the right</Divider>
-      <Divider>
+      <Separator>Label in the center</Separator>
+      <Separator position={"left"}>Label on the left</Separator>
+      <Separator position={"right"}>Label on the right</Separator>
+      <Separator>
         <SpriteIcon size={"0.813rem"} className={"mr-1"} name={"search"} />{" "}
         Search results
-      </Divider>
-      <Divider>
+      </Separator>
+      <Separator>
         <a
           href={"#文本标签"}
           className={"text-link hover:text-link-hovered hover:underline"}
         >
           Link label
         </a>
-      </Divider>
+      </Separator>
     </div>
   );
 }
@@ -151,4 +151,4 @@ export default function App() {
 
 ## 属性
 
-::PropsTable{file=divider/divider.tsx}
+::PropsTable{file=separator/separator.tsx}

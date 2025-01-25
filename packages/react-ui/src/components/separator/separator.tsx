@@ -1,26 +1,26 @@
 import type { CSSProperties } from "react";
 import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
-import { type DividerStyleProps, dividerStyles } from "./divider.styles";
+import { type SeparatorStyleProps, separatorStyles } from "./separator.styles";
 
-export type DividerProps = {
+export type SeparatorProps = {
   /**
    * 外观
    * @default "solid"
    */
-  variant?: DividerStyleProps["variant"];
+  variant?: SeparatorStyleProps["variant"];
 
   /**
    * 颜色
    * @default "neutral"
    */
-  color?: DividerStyleProps["color"];
+  color?: SeparatorStyleProps["color"];
 
   /**
    * 布局方向
    * @default "horizontal"
    */
-  orientation?: DividerStyleProps["orientation"];
+  orientation?: SeparatorStyleProps["orientation"];
 
   /**
    * 大小
@@ -35,7 +35,7 @@ export type DividerProps = {
   position?: "left" | "right" | "center";
 };
 
-export const Divider = (props: PrimitiveProps<"div", DividerProps, "role">) => {
+export const Separator = (props: PrimitiveProps<"div", SeparatorProps, "role">) => {
   const {
     color = "neutral",
     orientation = "horizontal",
@@ -59,7 +59,7 @@ export const Divider = (props: PrimitiveProps<"div", DividerProps, "role">) => {
           "--size-var": `${size}px`,
         } as CSSProperties
       }
-      className={tx(dividerStyles({ color, variant, orientation, label: hasLabel, position }), className)}
+      className={tx(separatorStyles({ color, variant, orientation, label: hasLabel, position }), className)}
       {...rest}
     >
       {hasLabel && children}

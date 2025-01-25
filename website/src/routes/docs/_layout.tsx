@@ -110,7 +110,7 @@ const menus: Menu[] = [
       },
       {
         label: "分割线",
-        path: "components/divider",
+        path: "components/separator",
       },
     ],
   },

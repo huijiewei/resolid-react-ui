@@ -1,6 +1,6 @@
 import { tv, type VP } from "../../utils";
 
-export const dividerStyles = tv({
+export const separatorStyles = tv({
   base: "m-0 border-0",
   variants: {
     color: {
@@ -153,4 +153,4 @@ export const dividerStyles = tv({
   ],
 });
 
-export type DividerStyleProps = VP<typeof dividerStyles>;
+export type SeparatorStyleProps = VP<typeof separatorStyles>;
