@@ -166,7 +166,7 @@ const mdxComponents = {
                   {prop.name}
 
                   {prop.description && (
-                    <Tooltip trigger={"click"}>
+                    <Tooltip interactive>
                       <TooltipTrigger>
                         <SpriteIcon size={"sm"} name={"info"} />
                       </TooltipTrigger>
@@ -241,7 +241,7 @@ const mdxComponents = {
       Object.fromEntries(
         validProps.map(({ name, defaultValue }) => {
           const value =
-            defaultValue && /^[Ee0-9+\-.]$/.test(defaultValue)
+            defaultValue && /^[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$/.test(defaultValue)
               ? defaultValue
               : defaultValue == "-Infinity" || defaultValue == "Infinity"
                 ? undefined
@@ -269,6 +269,7 @@ const mdxComponents = {
                   {prop.control == "boolean" && (
                     <label className={"flex gap-1"}>
                       <input
+                        id={propInputId}
                         type={"checkbox"}
                         checked={Boolean(state[prop.name])}
                         onChange={(e) => {
@@ -298,7 +299,7 @@ const mdxComponents = {
                       <input
                         type={"number"}
                         id={propInputId}
-                        className={"w-1/2"}
+                        className={"border-bd-normal w-1/3 rounded-md border"}
                         value={state[prop.name] ? Number(state[prop.name]) : undefined}
                         onChange={(e) => {
                           setState((prev) => ({ ...prev, [prop.name]: e.target.value }));

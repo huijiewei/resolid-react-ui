@@ -4,12 +4,12 @@ import { useDisclosure } from "./index";
 
 describe("useDisclosure", () => {
   test("handles close correctly", () => {
-    const { result } = renderHook(() => useDisclosure({ defaultOpened: true }));
+    const { result } = renderHook(() => useDisclosure({ defaultOpen: true }));
 
-    const [opened, { close }] = result.current;
-    expect(opened).toBe(true);
+    const [open, { handleClose }] = result.current;
+    expect(open).toBe(true);
 
-    act(close);
+    act(handleClose);
 
     const [next] = result.current;
 
@@ -17,31 +17,31 @@ describe("useDisclosure", () => {
   });
 
   test("handles open correctly", () => {
-    const { result } = renderHook(() => useDisclosure({ defaultOpened: false }));
+    const { result } = renderHook(() => useDisclosure({ defaultOpen: false }));
 
-    const [opened, { open }] = result.current;
-    expect(opened).toBe(false);
+    const [open, { handleOpen }] = result.current;
+    expect(open).toBe(false);
 
-    act(open);
+    act(handleOpen);
 
     const [next] = result.current;
     expect(next).toBe(true);
   });
 
   test("handles toggle correctly", () => {
-    const { result } = renderHook(() => useDisclosure({ defaultOpened: false }));
+    const { result } = renderHook(() => useDisclosure({ defaultOpen: false }));
 
-    const [opened, { toggle }] = result.current;
-    expect(opened).toBe(false);
+    const [open, { handleToggle }] = result.current;
+    expect(open).toBe(false);
 
-    act(toggle);
+    act(handleToggle);
 
     const [next] = result.current;
     expect(next).toBe(true);
 
     act(() => {
-      const [, { toggle }] = result.current;
-      toggle();
+      const [, { handleToggle }] = result.current;
+      handleToggle();
     });
 
     const [last] = result.current;
@@ -49,73 +49,68 @@ describe("useDisclosure", () => {
   });
 
   test("calls onClose when close is called", () => {
-    const onClose = vi.fn();
+    const onOpenChange = vi.fn();
 
-    const { result } = renderHook(() => useDisclosure({ defaultOpened: true, onClose }));
-    expect(onClose).toHaveBeenCalledTimes(0);
-
-    act(() => {
-      const [, { close }] = result.current;
-      close();
-    });
-
-    expect(onClose).toHaveBeenCalledTimes(1);
+    const { result } = renderHook(() => useDisclosure({ defaultOpen: true, onOpenChange }));
+    expect(onOpenChange).toHaveBeenCalledTimes(0);
 
     act(() => {
-      const [, { close }] = result.current;
-      close();
+      const [, { handleClose }] = result.current;
+      handleClose();
     });
 
-    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(onOpenChange).toHaveBeenCalledTimes(1);
+
+    act(() => {
+      const [, { handleClose }] = result.current;
+      handleClose();
+    });
+
+    expect(onOpenChange).toHaveBeenCalledTimes(1);
   });
 
   test("calls onOpen when open is called", () => {
-    const onOpen = vi.fn();
+    const onOpenChange = vi.fn();
 
-    const { result } = renderHook(() => useDisclosure({ defaultOpened: false, onOpen }));
-    expect(onOpen).toHaveBeenCalledTimes(0);
-
-    act(() => {
-      const [, { open }] = result.current;
-      open();
-    });
-
-    expect(onOpen).toHaveBeenCalledTimes(1);
+    const { result } = renderHook(() => useDisclosure({ defaultOpen: false, onOpenChange }));
+    expect(onOpenChange).toHaveBeenCalledTimes(0);
 
     act(() => {
-      const [, { open }] = result.current;
-      open();
+      const [, { handleOpen }] = result.current;
+      handleOpen();
     });
 
-    expect(onOpen).toHaveBeenCalledTimes(1);
+    expect(onOpenChange).toHaveBeenCalledTimes(1);
+
+    act(() => {
+      const [, { handleOpen }] = result.current;
+      handleOpen();
+    });
+
+    expect(onOpenChange).toHaveBeenCalledTimes(1);
   });
 
   test("calls onOpen and onClose correctly when toggle is called", () => {
-    const onOpen = vi.fn();
-    const onClose = vi.fn();
-    const { result } = renderHook(() => useDisclosure({ defaultOpened: false, onOpen, onClose }));
-    expect(onOpen).toHaveBeenCalledTimes(0);
-    expect(onClose).toHaveBeenCalledTimes(0);
+    const onOpenChange = vi.fn();
+    const { result } = renderHook(() => useDisclosure({ defaultOpen: false, onOpenChange }));
+    expect(onOpenChange).toHaveBeenCalledTimes(0);
 
     act(() => {
-      const [, { toggle }] = result.current;
-      toggle();
+      const [, { handleToggle }] = result.current;
+      handleToggle();
     });
-    expect(onOpen).toHaveBeenCalledTimes(1);
-    expect(onClose).toHaveBeenCalledTimes(0);
+    expect(onOpenChange).toHaveBeenCalledTimes(1);
 
     act(() => {
-      const [, { toggle }] = result.current;
-      toggle();
+      const [, { handleToggle }] = result.current;
+      handleToggle();
     });
-    expect(onOpen).toHaveBeenCalledTimes(1);
-    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(onOpenChange).toHaveBeenCalledTimes(2);
 
     act(() => {
-      const [, { toggle }] = result.current;
-      toggle();
+      const [, { handleToggle }] = result.current;
+      handleToggle();
     });
-    expect(onOpen).toHaveBeenCalledTimes(2);
-    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(onOpenChange).toHaveBeenCalledTimes(3);
   });
 });

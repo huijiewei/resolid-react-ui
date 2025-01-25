@@ -5,8 +5,8 @@ import {
   flip,
   offset,
   type Placement,
+  safePolygon,
   shift,
-  useClick,
   useDismiss,
   useFloating,
   useFocus,
@@ -14,7 +14,7 @@ import {
   useInteractions,
   useRole,
 } from "@floating-ui/react";
-import { type PropsWithChildren, type ReactNode, useRef } from "react";
+import { type PropsWithChildren, useRef } from "react";
 import { useDisclosure } from "../../hooks";
 import { PopperArrowContext, type PopperArrowContextValue } from "../popper/popper-arrow-context";
 import { PopperReferenceContext, type PopperReferenceContextValue } from "../popper/popper-reference-context";
@@ -23,10 +23,20 @@ import { tooltipArrowStyles, tooltipFloatingStyles, type TooltipStyleProps } fro
 
 export type TooltipRootProps = {
   /**
-   * 触发模式
-   * @default 'hover'
+   * 受控打开状态
    */
-  trigger?: "click" | "hover";
+  open?: boolean;
+
+  /**
+   * 初始渲染时的默认打开状态
+   * @default false
+   */
+  defaultOpen?: boolean;
+
+  /**
+   * 打开状态改变时调用的事件处理程序
+   */
+  onOpenChange?: (open: boolean) => void;
 
   /**
    * 颜色
@@ -41,21 +51,45 @@ export type TooltipRootProps = {
   placement?: "auto" | Placement;
 
   /**
-   * 动画持续时间
-   * @default '250'
+   * 打开延迟
+   * @default 300
    */
-  duration?: number;
+  openDelay?: number;
 
   /**
-   * @ignore
+   * 关闭延迟
+   * @default 100
    */
-  children?: ReactNode | ((props: { opened: boolean }) => ReactNode);
+  closeDelay?: number;
+
+  /**
+   * 内容是否是交互。在此模式下，当用户将鼠标悬停在内容上时，工具提示将保持打开状态
+   * @default false
+   */
+  interactive?: boolean;
+
+  /**
+   * 动画持续时间
+   * @default 250
+   */
+  duration?: number;
 };
 
 export const TooltipRoot = (props: PropsWithChildren<TooltipRootProps>) => {
-  const { children, trigger = "hover", duration = 250, placement = "auto", color = "neutral" } = props;
+  const {
+    open,
+    defaultOpen = false,
+    onOpenChange,
+    color = "neutral",
+    placement = "auto",
+    interactive = false,
+    openDelay = 300,
+    closeDelay = 100,
+    duration = 250,
+    children,
+  } = props;
 
-  const [openedState, { open, close }] = useDisclosure();
+  const [openState, { handleOpen, handleClose }] = useDisclosure({ open, defaultOpen, onOpenChange });
 
   const arrowRef = useRef<SVGSVGElement>(null);
 
@@ -70,12 +104,12 @@ export const TooltipRoot = (props: PropsWithChildren<TooltipRootProps>) => {
         padding: 4,
       }),
     ],
-    open: openedState,
-    onOpenChange: (opened) => {
-      if (opened) {
-        open();
+    open: openState,
+    onOpenChange: (open) => {
+      if (open) {
+        handleOpen();
       } else {
-        close();
+        handleClose();
       }
     },
     placement: placement == "auto" ? undefined : placement,
@@ -89,35 +123,37 @@ export const TooltipRoot = (props: PropsWithChildren<TooltipRootProps>) => {
   };
 
   const { getFloatingProps, getReferenceProps } = useInteractions([
-    useHover(context, { enabled: trigger == "hover" }),
-    useFocus(context, { enabled: trigger == "hover" }),
-    useClick(context, { enabled: trigger == "click" }),
     useRole(context, { role: "tooltip" }),
-    useDismiss(context),
+    useHover(context, {
+      mouseOnly: true,
+      move: false,
+      delay: { open: openDelay, close: closeDelay },
+      handleClose: interactive ? safePolygon() : null,
+    }),
+    useFocus(context),
+    useDismiss(context, { referencePress: true }),
   ]);
 
   const referenceContext: PopperReferenceContextValue = {
-    opened: openedState,
+    open: openState,
     setReference: refs.setReference,
-    setPositionReference: refs.setPositionReference,
     getReferenceProps,
+    setPositionReference: refs.setPositionReference,
   };
 
   const floatingContext: TooltipFloatingContextValue = {
-    duration,
     context,
-    floatingStyles,
+    duration,
     setFloating: refs.setFloating,
     getFloatingProps,
+    floatingStyles,
     floatingClassName: tooltipFloatingStyles({ color }),
   };
 
   return (
     <PopperArrowContext value={arrowContext}>
       <PopperReferenceContext value={referenceContext}>
-        <TooltipFloatingContext value={floatingContext}>
-          {typeof children == "function" ? children({ opened: openedState }) : children}
-        </TooltipFloatingContext>
+        <TooltipFloatingContext value={floatingContext}>{children}</TooltipFloatingContext>
       </PopperReferenceContext>
     </PopperArrowContext>
   );

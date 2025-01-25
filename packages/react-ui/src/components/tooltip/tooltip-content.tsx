@@ -8,7 +8,7 @@ import { useTooltipFloating } from "./tooltip-context";
 export const TooltipContent = (props: PrimitiveProps<"div">) => {
   const { children, className, ...rest } = props;
 
-  const { floatingStyles, floatingClassName, duration, setFloating, context, getFloatingProps } = useTooltipFloating();
+  const { context, duration, floatingStyles, floatingClassName, setFloating, getFloatingProps } = useTooltipFloating();
 
   const { isMounted, status } = useTransitionStatus(context, {
     duration: duration,

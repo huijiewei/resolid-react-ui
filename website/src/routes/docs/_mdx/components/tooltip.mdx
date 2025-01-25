@@ -30,7 +30,7 @@ import {
 
 ## 用法
 
-:::UsageBlock{file=tooltip/tooltip.tsx ignores=opened,duration}
+:::UsageBlock{file=tooltip/tooltip.tsx ignores=open,defaultOpen,interactive,duration}
 
 import {
   Button,
@@ -43,10 +43,10 @@ import {
 export function Usage(props) {
   return (
     <Tooltip {...props}>
-      <TooltipTrigger as={Button}>带有工具提示的按钮</TooltipTrigger>
+      <TooltipTrigger as={Button}>Hover me</TooltipTrigger>
       <TooltipContent>
         <TooltipArrow />
-        工具提示内容
+        Tooltip content
       </TooltipContent>
     </Tooltip>
   );
@@ -85,7 +85,7 @@ export default function App() {
             </TooltipTrigger>
             <TooltipContent className={"capitalize"}>
               <TooltipArrow />
-              {color} 消息提示
+              {color} tooltip
             </TooltipContent>
           </Tooltip>
         ),
@@ -95,9 +95,9 @@ export default function App() {
 }
 ```
 
-### 触发模式
+### 可交互的
 
-通过传递 `trigger` 属性来更改工具提示的触发模式。工具提示支持 `click` 和 `hover` 两种触发模式。
+使用 `interactive` 属性在与其内容进行交互时保持工具提示打开。
 
 ```jsx demo
 import {
@@ -111,11 +111,74 @@ import {
 export default function App() {
   return (
     <div className={"flex flex-row gap-3"}>
-      <Tooltip trigger={"click"}>
-        <TooltipTrigger as={Button}>点击触发</TooltipTrigger>
+      <Tooltip interactive>
+        <TooltipTrigger as={Button}>Hover me</TooltipTrigger>
         <TooltipContent>
           <TooltipArrow />
-          点击触发工具提示
+          持续时间很长
+        </TooltipContent>
+      </Tooltip>
+    </div>
+  );
+}
+```
+
+### 受控打开
+
+使用 `open` 和 `onOpenChange` 属性来控制工具提示的可见性。
+
+```jsx demo
+import {
+  Button,
+  Tooltip,
+  TooltipArrow,
+  TooltipContent,
+  TooltipTrigger,
+} from "@resolid/react-ui";
+import { useState } from "react";
+
+export default function App() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className={"flex flex-row gap-3"}>
+      <Tooltip open={open} onOpenChange={setOpen}>
+        <TooltipTrigger as={Button}>
+          {open ? "Hide" : "Show"} tooltip
+        </TooltipTrigger>
+        <TooltipContent>
+          <TooltipArrow />
+          Tooltip content
+        </TooltipContent>
+      </Tooltip>
+    </div>
+  );
+}
+```
+
+### 延迟时间
+
+使用 `openDelay` 和 `closeDelay` 属性来更改工具提示的延迟。
+
+```jsx demo
+import {
+  Button,
+  Tooltip,
+  TooltipArrow,
+  TooltipContent,
+  TooltipTrigger,
+} from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row gap-3"}>
+      <Tooltip openDelay={1000} closeDelay={500}>
+        <TooltipTrigger as={Button}>
+          Delay (open: 1000ms, close: 500ms)
+        </TooltipTrigger>
+        <TooltipContent>
+          <TooltipArrow />
+          Tooltip content
         </TooltipContent>
       </Tooltip>
     </div>
@@ -140,42 +203,11 @@ export default function App() {
   return (
     <div className={"flex flex-row gap-3"}>
       <Tooltip duration={2500}>
-        <TooltipTrigger as={Button}>动画持续时间</TooltipTrigger>
+        <TooltipTrigger as={Button}>Hover me</TooltipTrigger>
         <TooltipContent>
           <TooltipArrow />
-          持续时间很长
+          Tooltip content
         </TooltipContent>
-      </Tooltip>
-    </div>
-  );
-}
-```
-
-### 内部状态
-
-工具提示的 `children` 可以使用函数来获得工具提示的内部状态。
-
-```jsx demo
-import {
-  Button,
-  Tooltip,
-  TooltipArrow,
-  TooltipContent,
-  TooltipTrigger,
-} from "@resolid/react-ui";
-
-export default function App() {
-  return (
-    <div className={"flex flex-row gap-3"}>
-      <Tooltip>
-        {({ opened }) => (
-          <>
-            <TooltipTrigger as={Button} variant={"outline"}>
-              {opened ? "出现提示" : "工具提示"}
-            </TooltipTrigger>
-            <TooltipContent>工具提示内容</TooltipContent>
-          </>
-        )}
       </Tooltip>
     </div>
   );
@@ -236,7 +268,7 @@ export default function App() {
           </TooltipTrigger>
           <TooltipContent>
             <TooltipArrow />
-            {name}位置消息提示
+            {name}位置的消息提示
           </TooltipContent>
         </Tooltip>
       ))}

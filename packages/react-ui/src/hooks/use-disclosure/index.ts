@@ -1,38 +1,23 @@
 import { useControllableState } from "../use-controllable-state";
 
 export type UseDisclosureOptions = {
-  opened?: boolean;
-  defaultOpened?: boolean;
-  onOpen?: () => void;
-  onClose?: () => void;
+  open?: boolean;
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
 };
 
-export function useDisclosure(options?: UseDisclosureOptions) {
-  const { opened, defaultOpened = false, onOpen, onClose } = options ?? {};
+export const useDisclosure = (options: UseDisclosureOptions) => {
+  const { open, defaultOpen = false, onOpenChange } = options;
 
-  const [openedState, setOpenedState] = useControllableState({
-    value: opened,
-    defaultValue: defaultOpened,
-    onChange: (opened) => {
-      if (opened) {
-        onOpen?.();
-      } else {
-        onClose?.();
-      }
-    },
+  const [openState, setOpenState] = useControllableState({
+    value: open,
+    defaultValue: defaultOpen,
+    onChange: onOpenChange,
   });
 
-  const open = () => {
-    setOpenedState(true);
-  };
+  const handleOpen = () => setOpenState(true);
+  const handleClose = () => setOpenState(false);
+  const handleToggle = () => setOpenState((prev) => !prev);
 
-  const close = () => {
-    setOpenedState(false);
-  };
-
-  const toggle = () => {
-    setOpenedState((prev) => !prev);
-  };
-
-  return [openedState, { open, close, toggle }] as const;
-}
+  return [openState, { handleOpen, handleClose, handleToggle }] as const;
+};
