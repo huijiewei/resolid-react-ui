@@ -31,7 +31,7 @@ export default function () {
       }
 
       const demoId = `_${pageName}_${demoIndex++}`;
-      const demoName = `Demo${demoId}`;
+      const demoName = `Demo${demoId.replace("-", "_")}`;
       const virtualModulePath = join(virtualDir, `${demoId}.tsx`);
 
       demoMdx.push({
