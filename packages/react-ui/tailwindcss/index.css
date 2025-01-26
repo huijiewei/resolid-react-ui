@@ -1,6 +1,5 @@
 @import "./variants/dark.css";
-@import "./variants/active.css";
-@import "./variants/disabled.css";
+@import "./variants/status.css";
 
 @import "./themes/breakpoint.css";
 @import "./themes/font.css";

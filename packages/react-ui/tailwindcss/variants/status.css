@@ -1,0 +1,3 @@
+@variant active (&:active, &[data-active]);
+@variant disabled (&:disabled, &[data-disabled]);
+@variant open (&:is([open], :popover-open, [data-open]));
