@@ -64,7 +64,7 @@ const mdxComponents = {
           translate={"no"}
           className={tx(
             "scrollbar scrollbar-thin border-bd-normal rounded-md border p-3",
-            "group-[.demo]:mt-0 group-[.demo]:rounded-t-none group-[.demo]:border-t-0",
+            "group-[.is-demo]:mt-0 group-[.is-demo]:rounded-t-none group-[.is-demo]:border-t-0",
             className,
           )}
           tabIndex={-1}
@@ -133,7 +133,7 @@ const mdxComponents = {
   },
   ComponentDemo: ({ children }: { children: ReactNode[] }) => {
     return (
-      <div className={"demo group"}>
+      <div className={"is-demo group"}>
         <div className={"not-prose scrollbar scrollbar-thin border-bd-normal overflow-x-auto rounded-t-md border p-3"}>
           {children?.[1]}
         </div>
