@@ -11,7 +11,7 @@ export const PopperTrigger = (props: PopperTriggerProps<"button">) => {
 
   const { open, setReference, getReferenceProps } = usePopperReference();
 
-  const refs = useMergeRefs(setReference, ref);
+  const refs = useMergeRefs(ref, setReference);
 
   return (
     <Component
