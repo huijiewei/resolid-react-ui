@@ -1,7 +1,7 @@
-import { type ElementType, type ReactNode, useState } from "react";
-import { useMergeRefs } from "../../hooks";
+import type { ElementType, ReactNode } from "react";
+import { useButtonProps, useMergeRefs } from "../../hooks";
 import type { PolymorphicProps } from "../../primitives";
-import { ariaAttr, dataAttr, tx } from "../../utils";
+import { dataAttr, tx } from "../../utils";
 import { type ButtonBaseProps, useButtonGroup } from "./button-group-context";
 import { ButtonSpinner } from "./button-spinner";
 import { buttonStyles } from "./button.styles";
@@ -54,6 +54,7 @@ export const Button = <T extends ElementType = "button">(props: PolymorphicProps
 
   const {
     as: Component = "button",
+    tagName,
     variant = group?.variant ?? "solid",
     color = group?.color ?? "primary",
     size = group?.size ?? "md",
@@ -66,33 +67,27 @@ export const Button = <T extends ElementType = "button">(props: PolymorphicProps
     fullWidth = false,
     iconOnly = false,
     type = "button",
+    tabIndex,
     className,
     children,
     ref,
     ...rest
   } = props;
 
-  const [tagType, setTagType] = useState<"BUTTON" | "INPUT" | "LINK" | null>(null);
-
-  const isNativeButton = tagType == "BUTTON";
-  const isNativeLink = tagType == "LINK";
-
-  const refs = useMergeRefs((element: HTMLElement) => {
-    if (element && element.tagName == "BUTTON") {
-      setTagType("BUTTON");
-    } else if (element && element.tagName == "A" && element.getAttribute("href") != null) {
-      setTagType("LINK");
-    }
-
-    return () => {
-      setTagType(null);
-    };
-  }, ref);
-
   const disabledStatus = disabled || loading;
+
+  const { getButtonProps, buttonRef } = useButtonProps({
+    tagName,
+    type,
+    tabIndex,
+    disabled: disabledStatus,
+  });
+
+  const refs = useMergeRefs(ref, buttonRef);
 
   return (
     <Component
+      ref={refs}
       className={tx(
         buttonStyles({ variant, color, size, disabled: disabledStatus, fullWidth, iconOnly }),
         group &&
@@ -104,15 +99,9 @@ export const Button = <T extends ElementType = "button">(props: PolymorphicProps
           ),
         className,
       )}
-      type={isNativeButton ? type : undefined}
-      role={!isNativeButton && !isNativeLink ? "button" : undefined}
-      disabled={isNativeButton ? disabledStatus : undefined}
-      aria-disabled={ariaAttr(!isNativeButton && disabledStatus)}
       data-disabled={dataAttr(disabledStatus)}
       data-active={dataAttr(active)}
-      tabIndex={!isNativeButton && !isNativeLink && !disabledStatus ? 0 : undefined}
-      ref={refs}
-      {...rest}
+      {...getButtonProps(rest)}
     >
       {loading ? (
         <div
