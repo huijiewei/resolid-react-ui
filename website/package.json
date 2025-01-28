@@ -38,7 +38,7 @@
     "@resolid/react-router-hono": "^1.1.10",
     "@shikijs/rehype": "^2.1.0",
     "@tailwindcss/vite": "^4.0.0",
-    "@types/node": "^22.10.10",
+    "@types/node": "^22.12.0",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "babel-plugin-react-compiler": "beta",
