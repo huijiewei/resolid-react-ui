@@ -13,3 +13,10 @@
 
 @source "../src";
 @source "../dist";
+
+body {
+  font-size: var(--text-base);
+  line-height: var(--text-base--line-height);
+  color: var(--color-fg-normal);
+  background-color: var(--color-bg-normal);
+}
