@@ -7,7 +7,6 @@ export type MenuFloatingContextValue = PopperFloatingContextValue &
   MenuItemContextValue & {
     nested: boolean;
     duration: number;
-    lockScroll: boolean;
     elementsRef: RefObject<(HTMLElement | null)[]>;
     labelsRef: RefObject<(string | null)[]>;
   };

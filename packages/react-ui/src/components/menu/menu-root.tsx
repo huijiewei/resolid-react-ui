@@ -47,11 +47,6 @@ export type MenuRootProps = PopperDisclosureProps & {
    * @default '250'
    */
   duration?: number;
-
-  /**
-   * @ignore
-   */
-  lockScroll?: boolean;
 };
 
 export const MenuRoot = (props: PropsWithChildren<MenuRootProps>) => {
@@ -76,7 +71,6 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
     closeOnSelect = true,
     placement = "bottom-start",
     duration = 250,
-    lockScroll = false,
     children,
   } = props;
 
@@ -117,6 +111,7 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
 
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [hoverEnabled, setHoverEnabled] = useState(true);
+  const typingRef = useRef(false);
 
   const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions([
     useRole(context, { role: "menu" }),
@@ -136,6 +131,7 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
       listRef: elementsRef,
       nested,
       activeIndex,
+      disabledIndices: [],
       onNavigate: setActiveIndex,
     }),
     useTypeahead(context, {
@@ -146,6 +142,9 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
         if (openState && index !== activeIndex) {
           setActiveIndex(index);
         }
+      },
+      onTypingChange: (nextTyping) => {
+        typingRef.current = nextTyping;
       },
     }),
   ]);
@@ -170,9 +169,9 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
     getItemProps,
     nested,
     duration,
-    lockScroll,
     elementsRef,
     labelsRef,
+    typingRef,
   };
 
   const arrowContext: PopperArrowContextValue = {

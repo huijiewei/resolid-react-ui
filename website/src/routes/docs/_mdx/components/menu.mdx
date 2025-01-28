@@ -1,0 +1,478 @@
+---
+title: 菜单
+description: 将一系列次要操作合并到单个交互区域中
+---
+
+## 导入
+
+```js
+import {
+  Menu,
+  MenuTrigger,
+  MenuContent,
+  MenuArrow,
+  MenuGroup,
+  MenuGroupLabel,
+  MenuSeparator,
+  MenuItem,
+  MenuItemIndicator,
+  MenuCheckboxItem,
+  MenuRadioGroup,
+  MenuRadioItem,
+  MenuSubmenuTrigger,
+  MenuContextmenuTrigger,
+} from "@resolid/react-ui";
+```
+
+- `Menu`: 包含菜单的所有部分。
+- `MenuTrigger`: 包装将打开下拉菜单的控件。
+- `MenuContent`: 打开菜单时弹出的组件。
+- `MenuArrow`: 可选的箭头元素，可与菜单内容一起渲染。
+- `MenuGroup`: 用于对多个 `MenuItem` 进行分组。
+- `MenuGroupLabel`: 用于渲染标签。使用方向键无法聚焦。
+- `MenuSeparator`: 菜单项和组之间的可视分隔符。
+- `MenuItem`: 包含菜单项的组件。
+- `MenuRadioGroup`: 用于对多个 `MenuRadioItem` 进行分组。
+- `MenuRadioItem`: 一个可以像单选按钮一样进行控制和渲染的项目。
+- `MenuCheckboxItem`: 一个可以像复选框一样进行控制和渲染的项目。
+- `MenuItemIndicator`: 在父级 `MenuCheckboxItem` 或 `MenuRadioItem` 被选中项目时呈现的视觉指示器。
+- `MenuSubmenuTrigger`: 包装将打开子菜单的控件。
+- `MenuContextmenuTrigger`: 包装将打开右键菜单的控件。
+
+## 举例
+
+### 普通菜单
+
+了解如何在项目中使用菜单组件，让我们看一个最基本的例子：
+
+```jsx demo
+import {
+  Button,
+  Menu,
+  MenuTrigger,
+  MenuContent,
+  MenuItem,
+  MenuSeparator,
+} from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row gap-3"}>
+      <Menu>
+        <MenuTrigger as={Button} color={"neutral"} variant={"outline"}>
+          普通菜单
+        </MenuTrigger>
+        <MenuContent className={"text-sm"}>
+          <MenuItem>
+            新标签页
+            <span
+              className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}
+            >
+              ⌘+T
+            </span>
+          </MenuItem>
+          <MenuItem>
+            打开新窗口
+            <span
+              className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}
+            >
+              ⌘+N
+            </span>
+          </MenuItem>
+          <MenuItem disabled>
+            打开新的无痕式窗口
+            <span className={"ml-auto pl-5 text-xs tracking-widest"}>
+              ⇧+⌘+N
+            </span>
+          </MenuItem>
+          <MenuSeparator />
+          <MenuItem>
+            关闭窗口
+            <span
+              className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}
+            >
+              ⇧+⌘+W
+            </span>
+          </MenuItem>
+          <MenuItem>
+            关闭标签页
+            <span
+              className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}
+            >
+              ⌘+W
+            </span>
+          </MenuItem>
+        </MenuContent>
+      </Menu>
+    </div>
+  );
+}
+```
+
+### 右键菜单
+
+要在右键单击触发元素时显示菜单，请使用 `MenuContextmenuTrigger` 组件。
+
+当指针是笔或触摸时，在大约 `700ms` 的长压期间，右键菜单也会打开。
+
+```jsx demo
+import {
+  Menu,
+  MenuContent,
+  MenuItem,
+  MenuSeparator,
+  MenuContextmenuTrigger,
+} from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row justify-center gap-3"}>
+      <Menu>
+        <MenuContextmenuTrigger
+          className={
+            "border-bd-normal flex h-32 items-center rounded-md border border-dashed p-6"
+          }
+        >
+          右键点击显示菜单
+        </MenuContextmenuTrigger>
+        <MenuContent className={"text-sm"}>
+          <MenuItem>
+            新标签页
+            <span
+              className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}
+            >
+              ⌘+T
+            </span>
+          </MenuItem>
+          <MenuItem>
+            打开新窗口
+            <span
+              className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}
+            >
+              ⌘+N
+            </span>
+          </MenuItem>
+          <MenuItem disabled>
+            打开新的无痕式窗口
+            <span className={"ml-auto pl-5 text-xs tracking-widest"}>
+              ⇧+⌘+N
+            </span>
+          </MenuItem>
+          <MenuSeparator />
+          <MenuItem>
+            关闭窗口
+            <span
+              className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}
+            >
+              ⇧+⌘+W
+            </span>
+          </MenuItem>
+          <MenuItem>
+            关闭标签页
+            <span
+              className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}
+            >
+              ⌘+W
+            </span>
+          </MenuItem>
+        </MenuContent>
+      </Menu>
+    </div>
+  );
+}
+```
+
+### 多级菜单
+
+要显示多级菜单，请渲染另一个 `Menu` 组件并使用 `MenuSubmenuTrigger` 组件打开子菜单。
+
+```jsx demo
+import {
+  Button,
+  Menu,
+  MenuTrigger,
+  MenuContent,
+  MenuItem,
+  MenuArrow,
+  MenuSeparator,
+  MenuSubmenuTrigger,
+} from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row gap-3"}>
+      <Menu>
+        <MenuTrigger as={Button} color={"neutral"} variant={"outline"}>
+          多级菜单
+        </MenuTrigger>
+        <MenuContent className={"text-sm"}>
+          <MenuArrow />
+          <MenuItem label={"New Tab"}>新建标签页</MenuItem>
+          <MenuItem label={"New Window"}>打开新窗口</MenuItem>
+          <MenuItem>打开新的无痕式窗口</MenuItem>
+          <MenuSeparator />
+          <Menu>
+            <MenuSubmenuTrigger label={"Share"}>分享</MenuSubmenuTrigger>
+            <MenuContent className={"text-sm"}>
+              <MenuItem label={"Email"}>邮件</MenuItem>
+              <MenuItem label={"SMS"}>短信</MenuItem>
+              <Menu>
+                <MenuSubmenuTrigger>社交媒体</MenuSubmenuTrigger>
+                <MenuContent className={"text-sm"}>
+                  <Menu>
+                    <MenuSubmenuTrigger>微信</MenuSubmenuTrigger>
+                    <MenuContent className={"text-sm"}>
+                      <MenuItem>聊天</MenuItem>
+                      <MenuItem>朋友圈</MenuItem>
+                    </MenuContent>
+                  </Menu>
+                  <MenuItem>微博</MenuItem>
+                  <MenuItem>抖音</MenuItem>
+                  <MenuItem>知乎</MenuItem>
+                </MenuContent>
+              </Menu>
+            </MenuContent>
+          </Menu>
+          <MenuSeparator />
+          <Menu>
+            <MenuSubmenuTrigger label={"Tools"}>更多工具</MenuSubmenuTrigger>
+            <MenuContent className={"text-sm"}>
+              <MenuItem>保存页面为...</MenuItem>
+              <MenuItem>创建快捷方式</MenuItem>
+              <MenuSeparator />
+              <MenuItem>开发者工具</MenuItem>
+            </MenuContent>
+          </Menu>
+        </MenuContent>
+      </Menu>
+    </div>
+  );
+}
+```
+
+### 分组菜单
+
+使用 `MenuGroup` 组件对相关菜单项进行分组。
+
+```jsx demo
+import {
+  Button,
+  Menu,
+  MenuTrigger,
+  MenuContent,
+  MenuItem,
+  MenuArrow,
+  MenuGroup,
+  MenuGroupLabel,
+  MenuSeparator,
+} from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row gap-3"}>
+      <Menu>
+        <MenuTrigger as={Button} color={"neutral"} variant={"outline"}>
+          View
+        </MenuTrigger>
+        <MenuContent className={"text-sm"}>
+          <MenuArrow />
+          <MenuGroup>
+            <MenuGroupLabel>Sort</MenuGroupLabel>
+            <MenuItem>Date</MenuItem>
+            <MenuItem>Name</MenuItem>
+            <MenuItem>Type</MenuItem>
+          </MenuGroup>
+          <MenuSeparator />
+          <MenuGroup>
+            <MenuGroupLabel>Workspace</MenuGroupLabel>
+            <MenuItem>Minimap</MenuItem>
+            <MenuItem>Search</MenuItem>
+            <MenuItem>Sidebar</MenuItem>
+          </MenuGroup>
+        </MenuContent>
+      </Menu>
+    </div>
+  );
+}
+```
+
+### 链接菜单
+
+将 `as` 属性传递给 `MenuItem` 组件以呈现链接。
+
+```jsx demo
+import {
+  Button,
+  Menu,
+  MenuTrigger,
+  MenuContent,
+  MenuItem,
+  MenuArrow,
+} from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row gap-3"}>
+      <Menu>
+        <MenuTrigger as={Button} color={"neutral"} variant={"outline"}>
+          Favourite
+        </MenuTrigger>
+        <MenuContent className={"text-sm"}>
+          <MenuArrow />
+          <MenuItem
+            as={"a"}
+            target={"_blank"}
+            rel="noreferrer"
+            href={"https://www.github.com"}
+          >
+            Github
+          </MenuItem>
+          <MenuItem
+            as={"a"}
+            target={"_blank"}
+            rel="noreferrer"
+            href={"https://www.vercel.com"}
+          >
+            Vercel
+          </MenuItem>
+          <MenuItem
+            as={"a"}
+            target={"_blank"}
+            rel="noreferrer"
+            href={"https://www.github.com"}
+          >
+            Resolid
+          </MenuItem>
+        </MenuContent>
+      </Menu>
+    </div>
+  );
+}
+```
+
+### 单选组菜单
+
+要单选组菜单项目，请使用 `MenuRadioGroup` 组件。
+
+```jsx demo
+import {
+  Button,
+  Menu,
+  MenuTrigger,
+  MenuContent,
+  MenuArrow,
+  MenuRadioGroup,
+  MenuRadioItem,
+  MenuItemIndicator,
+} from "@resolid/react-ui";
+import { useState } from "react";
+import { SpriteIcon } from "~/components/sprite-icon";
+
+export default function App() {
+  const [value, setValue] = useState("date");
+
+  return (
+    <div className={"flex flex-row gap-3"}>
+      <Menu>
+        <MenuTrigger as={Button} color={"neutral"} variant={"outline"}>
+          Sort
+        </MenuTrigger>
+        <MenuContent className={"text-sm"}>
+          <MenuArrow />
+          <MenuRadioGroup value={value} onChange={setValue}>
+            <MenuRadioItem value={"date"}>
+              <MenuItemIndicator>
+                <SpriteIcon size={"1rem"} name={"dot"} />
+              </MenuItemIndicator>
+              Date
+            </MenuRadioItem>
+            <MenuRadioItem value={"name"}>
+              <MenuItemIndicator>
+                <SpriteIcon size={"1rem"} name={"dot"} />
+              </MenuItemIndicator>
+              Name
+            </MenuRadioItem>
+            <MenuRadioItem value={"type"}>
+              <MenuItemIndicator>
+                <SpriteIcon size={"1rem"} name={"dot"} />
+              </MenuItemIndicator>
+              Type
+            </MenuRadioItem>
+          </MenuRadioGroup>
+        </MenuContent>
+      </Menu>
+    </div>
+  );
+}
+```
+
+### 多选组菜单
+
+要将复选框添加到菜单项中，请使用 `MenuCheckboxItem` 组件。
+
+```jsx demo
+import {
+  Button,
+  Menu,
+  MenuTrigger,
+  MenuContent,
+  MenuArrow,
+  MenuCheckboxItem,
+  MenuItemIndicator,
+} from "@resolid/react-ui";
+import { useState } from "react";
+import { SpriteIcon } from "~/components/sprite-icon";
+
+export default function App() {
+  const [showMinimap, setShowMinimap] = useState(true);
+  const [showSearch, setShowSearch] = useState(true);
+  const [showSidebar, setShowSidebar] = useState(false);
+
+  return (
+    <div className={"flex flex-row gap-3"}>
+      <Menu closeOnSelect={false}>
+        <MenuTrigger as={Button} color={"neutral"} variant={"outline"}>
+          Workspace
+        </MenuTrigger>
+        <MenuContent className={"text-sm"}>
+          <MenuArrow />
+          <MenuCheckboxItem
+            label={"Minimap"}
+            checked={showMinimap}
+            onChange={setShowMinimap}
+          >
+            <MenuItemIndicator>
+              <SpriteIcon size={"1rem"} name={"check"} />
+            </MenuItemIndicator>
+            Minimap
+          </MenuCheckboxItem>
+          <MenuCheckboxItem
+            label={"Search"}
+            checked={showSearch}
+            onChange={setShowSearch}
+          >
+            <MenuItemIndicator>
+              <SpriteIcon size={"1rem"} name={"check"} />
+            </MenuItemIndicator>
+            Search
+          </MenuCheckboxItem>
+          <MenuCheckboxItem
+            label={"Sidebar"}
+            checked={showSidebar}
+            onChange={setShowSidebar}
+          >
+            <MenuItemIndicator>
+              <SpriteIcon size={"1rem"} name={"check"} />
+            </MenuItemIndicator>
+            Sidebar
+          </MenuCheckboxItem>
+        </MenuContent>
+      </Menu>
+    </div>
+  );
+}
+```
+
+## 属性
+
+::PropsTable{file=menu/menu.tsx}

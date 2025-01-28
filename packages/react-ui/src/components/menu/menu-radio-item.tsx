@@ -22,6 +22,7 @@ export const MenuRadioItem = (props: PolymorphicProps<"div", MenuRadioItemProps,
           group.onChange?.(value);
           onClick?.();
         }}
+        label={value as string}
         aria-checked={ariaAttr(checked)}
         className={tx("relative pl-6", className)}
         {...rest}

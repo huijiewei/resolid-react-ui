@@ -23,6 +23,7 @@ export const MenuContent = (props: PrimitiveProps<"div">) => {
     duration,
     elementsRef,
     labelsRef,
+    typingRef,
   } = useMenuFloating();
 
   const menuItemContext: MenuItemContextValue = {
@@ -30,6 +31,7 @@ export const MenuContent = (props: PrimitiveProps<"div">) => {
     closeOnSelect,
     activeIndex,
     getItemProps,
+    typingRef,
   };
 
   const { setHoverEnabled } = useMenuHover();
@@ -42,7 +44,7 @@ export const MenuContent = (props: PrimitiveProps<"div">) => {
     <>
       {isMounted && (
         <Portal>
-          <FloatingFocusManager context={context} modal={false} initialFocus={nested ? -1 : 0}>
+          <FloatingFocusManager context={context} modal={false}>
             <div
               className={tx(
                 "border-bd-normal bg-bg-normal z-30 min-w-32 rounded-md border p-1 shadow-sm outline-none",

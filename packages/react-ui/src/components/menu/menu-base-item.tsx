@@ -1,7 +1,8 @@
 import { useListItem } from "@floating-ui/react";
-import { useMergeRefs } from "../../hooks";
+import type { ElementType } from "react";
+import { useButtonProps, useMergeRefs } from "../../hooks";
 import type { PolymorphicProps } from "../../primitives";
-import { ariaAttr, dataAttr, tx } from "../../utils";
+import { dataAttr, tx } from "../../utils";
 import { useMenuItem } from "./menu-item-context";
 
 export type MenuBaseItemProps = {
@@ -16,29 +17,33 @@ export type MenuBaseItemProps = {
   disabled?: boolean;
 };
 
-export const MenuBaseItem = (props: PolymorphicProps<"div", MenuBaseItemProps, "tabIndex">) => {
-  const { as: Component = "div", className, role, ref, children, label, disabled = false, ...rest } = props;
+export const MenuBaseItem = <T extends ElementType = "div">(props: PolymorphicProps<T, MenuBaseItemProps>) => {
+  const { as: Component = "div", tagName, className, ref, children, label, disabled = false, ...rest } = props;
 
   const { getItemProps, activeIndex } = useMenuItem();
   const { ref: itemRef, index } = useListItem({ label: label ?? (typeof children == "string" ? children : null) });
 
-  const refs = useMergeRefs(ref, itemRef);
-
   const active = index !== null && index === activeIndex;
+
+  const { getButtonProps, buttonRef } = useButtonProps({
+    tagName,
+    tabIndex: active ? 0 : -1,
+    role: "menuitem",
+    disabled,
+  });
+
+  const refs = useMergeRefs(ref, itemRef, buttonRef);
 
   return (
     <Component
       ref={refs}
-      role={role ?? "menuitem"}
-      aria-disabled={ariaAttr(disabled)}
       data-active={dataAttr(active)}
-      tabIndex={active ? 0 : -1}
       className={tx(
         "flex w-full select-none items-center rounded-md px-2 py-1.5 outline-none transition-colors",
         disabled ? "text-fg-muted" : "active:bg-bg-subtle",
         className,
       )}
-      {...getItemProps(rest)}
+      {...getItemProps(getButtonProps(rest))}
     >
       {children}
     </Component>
