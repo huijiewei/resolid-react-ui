@@ -1,5 +1,4 @@
-import { useSyncExternalStore } from "react";
-import { isBrowser } from "../../utils";
+import { type SetStateAction, useSyncExternalStore } from "react";
 import { useIsomorphicEffect } from "../use-isomorphic-effect";
 
 export type UseStorageInitialValue<Value> = (() => Value) | Value;
@@ -11,25 +10,47 @@ export type UseStorageOptions<Value> = {
   serializer?: (value: Value) => string;
 };
 
-const getStorageItem = (storage: Storage, key: string) => {
-  const value = storage.getItem(key);
-
-  if (!value) {
+const getStorageItem = (storage: Storage | undefined, key: string) => {
+  if (storage == undefined) {
     return undefined;
   }
 
-  return value;
+  try {
+    const value = storage.getItem(key);
+    return value ?? undefined;
+  } catch (error) {
+    console.warn(`Failed to get storage item for key "${key}":`, error);
+    return undefined;
+  }
 };
 
-const setStorageItem = (storage: Storage, key: string, value: string) => {
-  const oldValue = storage.getItem(key);
+const setStorageItem = (storage: Storage | undefined, key: string, value: string) => {
+  if (storage == undefined) {
+    return;
+  }
 
-  storage.setItem(key, value);
+  try {
+    const oldValue = storage.getItem(key);
+    storage.setItem(key, value);
 
-  window.dispatchEvent(new StorageEvent("storage", { key, oldValue, newValue: value, storageArea: storage }));
+    window.dispatchEvent(
+      new StorageEvent("storage", {
+        key,
+        oldValue,
+        newValue: value,
+        storageArea: storage,
+      }),
+    );
+  } catch (error) {
+    console.warn(`Failed to set storage item for key "${key}":`, error);
+  }
 };
 
-const removeStorageItem = (storage: Storage, key: string) => {
+const removeStorageItem = (storage: Storage | undefined, key: string) => {
+  if (storage == undefined) {
+    return;
+  }
+
   const oldValue = storage.getItem(key);
 
   storage.removeItem(key);
@@ -43,11 +64,17 @@ const storageSubscribe = (callback: () => void) => {
   return () => window.removeEventListener("storage", callback);
 };
 
-const getServerSnapshot = () => undefined;
-
-export const useStorage = <Value>(key: string, params?: UseStorageInitialValue<Value> | UseStorageOptions<Value>) => {
+export const useStorage = <Value>(
+  key: string,
+  params?: UseStorageInitialValue<Value> | UseStorageOptions<Value>,
+): {
+  value: Value | undefined;
+  setValue: (value: SetStateAction<Value>) => void;
+  remove: () => void;
+} => {
   const options = (typeof params === "object" ? params : undefined) as UseStorageOptions<Value>;
   const initialValue = (options ? options?.initialValue : params) as UseStorageInitialValue<Value>;
+  const initialValueResolved = typeof initialValue === "function" ? (initialValue as () => Value)() : initialValue;
 
   const serializer = (value: Value) => {
     if (options?.serializer) {
@@ -73,17 +100,18 @@ export const useStorage = <Value>(key: string, params?: UseStorageInitialValue<V
     }
   };
 
-  const storage = options?.storage ?? window?.localStorage;
+  const storage = options?.storage;
 
   const getSnapshot = () => getStorageItem(storage, key);
+  const getServerSnapshot = () => serializer(initialValueResolved);
   const store = useSyncExternalStore(storageSubscribe, getSnapshot, getServerSnapshot);
 
-  const set = (value: Value | ((previousValue: Value) => Value)) => {
+  const setValue = (value: SetStateAction<Value>) => {
     let nextValue: Value;
 
-    if (value instanceof Function) {
+    if (typeof value === "function") {
       const parsedStore = store ? deserializer(store) : null;
-      nextValue = value(parsedStore ?? (initialValue instanceof Function ? initialValue() : initialValue));
+      nextValue = (value as (prev: Value) => Value)(parsedStore ?? initialValueResolved);
     } else {
       nextValue = value;
     }
@@ -101,23 +129,15 @@ export const useStorage = <Value>(key: string, params?: UseStorageInitialValue<V
     const value = getStorageItem(storage, key);
 
     if (value === undefined && initialValue !== undefined) {
-      setStorageItem(storage, key, serializer(initialValue instanceof Function ? initialValue() : initialValue));
+      setStorageItem(storage, key, serializer(initialValueResolved));
     }
     // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
 
-  if (!isBrowser) {
-    return {
-      value: initialValue instanceof Function ? initialValue() : initialValue,
-      set,
-      remove,
-    };
-  }
-
   return {
     value: store ? deserializer(store) : undefined,
-    set,
+    setValue,
     remove,
   };
 };
