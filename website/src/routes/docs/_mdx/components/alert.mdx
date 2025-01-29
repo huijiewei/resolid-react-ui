@@ -1,0 +1,116 @@
+---
+title: 警告提示
+description: 以吸引用户注意力的方式显示简短重要信息，而不会打断用户正在进行的任务。
+---
+
+## 导入
+
+```js
+import {
+  Alert,
+  AlertIndicator,
+  AlertTitle,
+  AlertDescription,
+} from "@resolid/react-ui";
+```
+
+- `Alert`: 警告提示组件的包装器。
+- `AlertIndicator`: 根据状态属性变化的警告提示的视觉指示器。<sup>(可以忽略)</sup>
+- `AlertContent`: 警告的内容主体。<sup>(可以忽略)</sup>
+- `AlertTitle`: 警告的标题，可以供屏幕阅读器宣读。<sup>(可以忽略)</sup>
+- `AlertDescription`: 警告的描述，可以供屏幕阅读器宣读。<sup>(可以忽略)</sup>
+
+## 用法
+
+:::UsageBlock{file=alert/alert.tsx}
+
+import {
+  Alert,
+  AlertIndicator,
+  AlertContent,
+  AlertTitle,
+  AlertDescription,
+} from "@resolid/react-ui";
+import { SpriteIcon } from "~/components/sprite-icon";
+
+export function Usage(props) {
+  return (
+    <Alert {...props} className={"flex flex-row gap-2"}>
+      <AlertIndicator className={"pt-1.75"}>
+        <SpriteIcon size={"1rem"} name={"github-NOTE"} />
+      </AlertIndicator>
+      <AlertContent>
+        <AlertTitle>警告提示</AlertTitle>
+        <AlertDescription>
+          以吸引用户注意力的方式显示简短重要信息，而不会打断用户正在进行的任务。
+        </AlertDescription>
+      </AlertContent>
+    </Alert>
+  );
+}
+
+:::
+
+## 外观
+
+警告有四种不同的外观可供使用。通过传递 `variant` 属性，可以选择使用 `solid`、`outline`、`subtle` 和 `soft` 中的任意一种。
+
+警告有六种不同的颜色可供使用。通过传递 `color` 属性，可以选择使用 `primary`、`secondary`、`success`、`warning`、`danger` 和 `neutral` 这些颜色。
+
+```jsx demo
+import {
+  Alert,
+  AlertIndicator,
+  AlertContent,
+  AlertTitle,
+  AlertDescription,
+} from "@resolid/react-ui";
+import { SpriteIcon } from "~/components/sprite-icon";
+
+export default function App() {
+  const alertIcons = {
+    primary: "github-NOTE",
+    secondary: "github-IMPORTANT",
+    success: "github-TIP",
+    warning: "github-WARNING",
+    danger: "github-CAUTION",
+    neutral: undefined,
+  };
+
+  return (
+    <div className={"flex flex-col gap-3"}>
+      {["primary", "secondary", "success", "warning", "danger", "neutral"].map(
+        (color) => (
+          <div
+            key={color}
+            className={"flex flex-row items-center justify-between gap-3"}
+          >
+            {["solid", "outline", "subtle", "soft"].map((variant) => (
+              <Alert
+                key={`${color}-${variant}`}
+                color={color}
+                variant={variant}
+                className={"flex flex-row gap-2"}
+              >
+                {alertIcons[color] ? (
+                  <AlertIndicator className={"pt-1.75"}>
+                    <SpriteIcon size={"1rem"} name={alertIcons[color]} />
+                  </AlertIndicator>
+                ) : null}
+                <AlertContent>
+                  <AlertTitle>警告</AlertTitle>
+                  <AlertDescription>显示简短重要信息</AlertDescription>
+                </AlertContent>
+              </Alert>
+            ))}
+          </div>
+        ),
+      )}
+    </div>
+  );
+}
+```
+
+## 属性
+
+::PropsTable{file=alert/alert.tsx}

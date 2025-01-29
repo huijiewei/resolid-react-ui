@@ -1,3 +1,4 @@
+export * from "./alert/alert";
 export * from "./button/button";
 export * from "./button/button-group";
 export * from "./close-button/close-button";

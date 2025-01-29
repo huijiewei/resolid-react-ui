@@ -1,5 +1,15 @@
 import { MDXProvider } from "@mdx-js/react";
-import { Tooltip, TooltipArrow, TooltipContent, TooltipTrigger, tx } from "@resolid/react-ui";
+import {
+  Alert,
+  AlertIndicator,
+  type AlertProps,
+  AlertTitle,
+  Tooltip,
+  TooltipArrow,
+  TooltipContent,
+  TooltipTrigger,
+  tx,
+} from "@resolid/react-ui";
 import { startWith } from "@resolid/utils";
 import { type ComponentProps, type ReactNode, useRef, useState } from "react";
 import { Outlet } from "react-router";
@@ -96,40 +106,34 @@ const mdxComponents = {
       </a>
     );
   },
-  blockquote: (props: ComponentProps<"blockquote"> & { "data-type": string }) => {
-    if (props["data-type"]) {
-      const alertType = props["data-type"];
+  blockquote: ({
+    children,
+    "data-type": dataType,
+    ...rest
+  }: ComponentProps<"blockquote"> & { "data-type": string }) => {
+    if (dataType) {
+      const alertColors = {
+        NOTE: "primary",
+        IMPORTANT: "secondary",
+        TIP: "success",
+        WARNING: "warning",
+        CAUTION: "danger",
+      };
 
       return (
-        <div
-          role={"alert"}
-          className={tx(
-            "my-5 flex gap-3 rounded-md px-4",
-            alertType == "NOTE" && "bg-bg-primary",
-            alertType == "TIP" && "bg-bg-success",
-            alertType == "IMPORTANT" && "bg-bg-secondary",
-            alertType == "WARNING" && "bg-bg-warning",
-            alertType == "CAUTION" && "bg-bg-danger",
-          )}
+        <Alert
+          color={alertColors[dataType as keyof typeof alertColors] as AlertProps["color"]}
+          className={"not-prose my-5 flex flex-row gap-2"}
         >
-          <span
-            className={tx(
-              "pt-6.75 shrink-0",
-              alertType == "NOTE" && "text-fg-primary",
-              alertType == "TIP" && "text-fg-success",
-              alertType == "IMPORTANT" && "text-fg-secondary",
-              alertType == "WARNING" && "text-fg-warning",
-              alertType == "CAUTION" && "text-fg-danger",
-            )}
-          >
-            <SpriteIcon size={"1rem"} name={`github-${alertType}`} />
-          </span>
-          <div className={"flex-1"}>{props.children}</div>
-        </div>
+          <AlertIndicator className={"pt-1.75"}>
+            <SpriteIcon size={"1rem"} name={`github-${dataType}`} />
+          </AlertIndicator>
+          <AlertTitle>{children}</AlertTitle>
+        </Alert>
       );
     }
 
-    return <blockquote {...props} />;
+    return <blockquote {...rest} />;
   },
   ComponentDemo: ({ children }: { children: ReactNode[] }) => {
     return (

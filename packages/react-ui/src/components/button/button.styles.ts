@@ -10,8 +10,8 @@ export const buttonStyles = tv({
   variants: {
     variant: {
       solid: "text-fg-emphasized border-transparent",
-      outline: "",
-      subtle: "",
+      outline: "bg-bg-normal border-current",
+      subtle: "border-current",
       soft: "border-transparent",
       ghost: "border-transparent",
       link: "underline-offset-3 border-transparent underline",

@@ -105,6 +105,10 @@ export default defineConfig(({ command, isSsrBuild }) => {
                 ) {
                   return "react-router";
                 }
+
+                if (id.includes("/react-ui/src/components/provider/")) {
+                  return "resolid-provider";
+                }
               },
         },
       },
