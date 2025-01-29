@@ -1,4 +1,4 @@
-.dark {
+.dark-mode {
   --color-fg-normal: var(--color-gray-200);
   --color-fg-emphasized: var(--color-black);
   --color-fg-muted: var(--color-gray-300);

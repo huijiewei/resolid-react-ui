@@ -66,6 +66,10 @@ const menus: Menu[] = [
         label: "主题设置",
         path: "theming",
       },
+      {
+        label: "深色模式",
+        path: "dark-mode",
+      },
     ],
   },
   {

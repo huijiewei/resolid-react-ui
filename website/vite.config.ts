@@ -41,6 +41,7 @@ export default defineConfig(({ command, isSsrBuild }) => {
                 light: "github-light",
                 dark: "github-dark",
               },
+              defaultColor: false,
             },
           ],
         ],

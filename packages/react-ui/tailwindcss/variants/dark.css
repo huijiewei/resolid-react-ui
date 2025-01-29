@@ -1,1 +1,1 @@
-@variant dark (&:where(.dark, .dark *));
+@variant dark (&:where(.dark-mode, .dark-mode *));

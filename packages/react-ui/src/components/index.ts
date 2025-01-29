@@ -2,6 +2,8 @@ export * from "./button/button";
 export * from "./button/button-group";
 export * from "./close-button/close-button";
 export * from "./menu/menu";
+export * from "./provider/resolid-provider";
+export * from "./provider/use-color-mode";
 export * from "./separator/separator";
 export * from "./spinner/spinner";
 export * from "./tooltip/tooltip";

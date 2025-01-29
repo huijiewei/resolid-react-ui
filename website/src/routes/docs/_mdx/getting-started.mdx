@@ -5,6 +5,10 @@ description: 了解如何安装和开始使用 Resolid React UI。
 
 按照以下步骤快速开始使用组件库。
 
+## 先决条件
+
+在开始之前，请确保您已经在项目中安装了Tailwind CSS。请先阅读 [Tailwind CSS 安装指南](https://tailwindcss.com/docs/installation/using-vite)
+
 ## 安装
 
 通过以下任一方式安装 Resolid React UI 组件包：
@@ -16,4 +20,47 @@ npm install @resolid/react-ui
 pnpm add @resolid/react-ui
 ## Yarn
 yarn add @resolid/react-ui
+```
+
+## 设置 CSS
+
+在你的 CSS 中导入 Tailwind CSS 和 Resolid React UI
+
+```css
+@import "tailwindcss";
+@import "@resolid/react-ui/tailwindcss";
+```
+
+## 设置 Provider
+
+在您的应用程序的 `root` 添加 `ResolidProvider` 至关重要。
+
+```jsx
+// 1. 导入 `ResolidProvider`
+import { ResolidProvider } from "@resolid/react-ui";
+
+function Root() {
+  // 2. 使用 ResolidProvider 包裹你的 App
+  return (
+    <ResolidProvider>
+      <YourApp />
+    </ResolidProvider>
+  );
+}
+```
+
+## 使用组件
+
+导入您需要的组件并开始构建应用程序。
+
+```jsx demo
+import { Button } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex justify-center"}>
+      <Button>你好</Button>
+    </div>
+  );
+}
 ```

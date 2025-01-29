@@ -2,7 +2,7 @@ import { MDXProvider } from "@mdx-js/react";
 import { Tooltip, TooltipArrow, TooltipContent, TooltipTrigger, tx } from "@resolid/react-ui";
 import { startWith } from "@resolid/utils";
 import { type ComponentProps, type ReactNode, useRef, useState } from "react";
-import { Outlet, useLoaderData } from "react-router";
+import { Outlet } from "react-router";
 import { ClipboardButton } from "~/components/clipboard-button";
 import { SpriteIcon } from "~/components/sprite-icon";
 import { getMdxMeta } from "~/utils/mdx-utils.server";
@@ -412,6 +412,7 @@ export const meta = mergeMeta(({ data }: Route.MetaArgs) => {
   ];
 });
 
+// noinspection JSUnusedGlobalSymbols
 export const loader = async ({ request }: Route.LoaderArgs) => {
   const { pathname } = new URL(request.url);
   const basename = pathname.replace("/docs", "");
@@ -436,9 +437,7 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 };
 
 // noinspection JSUnusedGlobalSymbols
-export default function Layout() {
-  const data = useLoaderData<typeof loader>();
-
+export default function Layout({ loaderData }: Route.ComponentProps) {
   return (
     <>
       <article
@@ -447,25 +446,25 @@ export default function Layout() {
         }
       >
         <div className={"flex items-start justify-between"}>
-          <h1 className={"mb-0 text-[1.875rem]"}>{data.meta.title}</h1>
-          {data.sourceLink && (
-            <a className={"text-sm"} href={data.sourceLink} target={"_blank"} rel={"noreferrer"}>
+          <h1 className={"mb-0 text-[1.875rem]"}>{loaderData.meta.title}</h1>
+          {loaderData.sourceLink && (
+            <a className={"text-sm"} href={loaderData.sourceLink} target={"_blank"} rel={"noreferrer"}>
               查看源代码
             </a>
           )}
         </div>
-        <p>{data.meta.description}</p>
+        <p>{loaderData.meta.description}</p>
         <MDXProvider disableParentContext components={mdxComponents}>
           <Outlet />
         </MDXProvider>
         <p>
-          <a className={"text-sm"} href={data.documentLink} target={"_blank"} rel={"noreferrer"}>
+          <a className={"text-sm"} href={loaderData.documentLink} target={"_blank"} rel={"noreferrer"}>
             建议更改此页面
           </a>
         </p>
       </article>
       <nav className={"hidden w-48 shrink-0 lg:block"}>
-        <Toc toc={data.toc} />
+        <Toc toc={loaderData.toc} />
       </nav>
     </>
   );

@@ -1,0 +1,47 @@
+---
+title: 深色模式
+description: 增加对浅色和深色模式的支持
+---
+
+默认情况下，Resolid React UI 的组件都兼容深色模式。
+
+## 介绍
+
+Resolid React UI 将颜色模式存储在 `localStorage` 中，并将 `className`: `dark-mode` 附加到 `html` 以确保颜色模式持久。
+
+> [!WARNING]
+> 如果你不在 `<html>` 中添加 [suppressHydrationWarning](https://react.dev/reference/react-dom/client/hydrateRoot#suppressing-unavoidable-hydration-mismatch-errors)，你将获得警告，因为 Resolid React UI 会更新该元素。该属性仅适用于一个级别，因此不会阻止其他元素上的水合警告。
+
+## Hooks
+
+你可以使用 `useColorModeState` 和 `useColorModeDispatch` Hook 轻松构建颜色模式按钮。
+
+```jsx demo
+import {
+  Button,
+  useColorModeState,
+  useColorModeDispatch,
+} from "@resolid/react-ui";
+import { SpriteIcon } from "~/components/sprite-icon";
+
+export default function App() {
+  const colorMode = useColorModeState();
+  const setColorMode = useColorModeDispatch();
+
+  return (
+    <div className={"flex justify-center"}>
+      <Button
+        variant={"soft"}
+        color={"neutral"}
+        iconOnly
+        onClick={() => setColorMode(colorMode === "dark" ? "light" : "dark")}
+      >
+        <SpriteIcon
+          size={"1rem"}
+          name={colorMode === "dark" ? "sun" : "moon"}
+        />
+      </Button>
+    </div>
+  );
+}
+```

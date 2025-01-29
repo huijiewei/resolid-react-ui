@@ -1,6 +1,7 @@
 import { Button, Tooltip, TooltipArrow, TooltipContent, TooltipTrigger, tx } from "@resolid/react-ui";
-import { useState, type MouseEventHandler } from "react";
+import { type MouseEventHandler, useState } from "react";
 import { Link, Outlet } from "react-router";
+import { ColorModeToggle } from "~/components/color-mode-toggle";
 import { HistoryNavLink } from "~/components/history-link";
 import { ResolidLogo } from "~/components/resolid-logo";
 import { SpriteIcon } from "~/components/sprite-icon";
@@ -56,6 +57,7 @@ const NavBar = () => {
       </div>
 
       <div className={"text-fg-muted inline-flex items-center gap-1"}>
+        <ColorModeToggle />
         <Tooltip placement={"bottom-end"}>
           <TooltipTrigger
             as={"a"}
