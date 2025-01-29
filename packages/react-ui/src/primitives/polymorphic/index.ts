@@ -12,4 +12,4 @@ export type PolymorphicProps<
   T extends ElementType,
   P extends Record<string, unknown> = Record<never, never>,
   O extends string | number | symbol = never,
-> = Omit<ComponentProps<T>, keyof AsProps<T> | keyof P | O> & P & AsProps<T>;
+> = Omit<ComponentProps<T>, keyof (AsProps<T> & P) | O> & P & AsProps<T>;
