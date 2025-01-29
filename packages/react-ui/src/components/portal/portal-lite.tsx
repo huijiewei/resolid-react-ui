@@ -1,14 +1,10 @@
-import { useFloatingPortalNode } from "@floating-ui/react";
-import type { ReactNode, RefObject } from "react";
+import { useFloatingPortalNode, type UseFloatingPortalNodeProps } from "@floating-ui/react";
+import type { PropsWithChildren } from "react";
 import { createPortal } from "react-dom";
 
-export type PortalLiteProps = {
-  id?: string;
-  root?: HTMLElement | null | RefObject<HTMLElement | null>;
-  children?: ReactNode;
-};
+export type PortalLiteProps = UseFloatingPortalNodeProps;
 
-export const PortalLite = ({ children, root, id = "resolid-portal-lite" }: PortalLiteProps) => {
+export const PortalLite = ({ id, root, children }: PropsWithChildren<PortalLiteProps>) => {
   const node = useFloatingPortalNode({ root, id });
 
   if (node) {
