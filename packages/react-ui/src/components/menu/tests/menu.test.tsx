@@ -2,7 +2,7 @@ import { act, render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type { ReactNode } from "react";
 import { describe, expect, test, vi } from "vitest";
-import { Menu, MenuContent, MenuItem, MenuSubmenuTrigger, MenuTrigger } from "./menu";
+import { Menu, MenuContent, MenuItem, MenuSubmenuTrigger, MenuTrigger } from "../menu";
 
 describe("Menu", () => {
   const setup = (jsx: ReactNode) => ({

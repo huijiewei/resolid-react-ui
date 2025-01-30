@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
-import { Button } from "./button";
+import { Button } from "../button";
 
 describe("Button", () => {
   test("should have attribute 'type=button' by default", () => {

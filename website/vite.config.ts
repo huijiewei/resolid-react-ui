@@ -19,10 +19,6 @@ import remarkDocgen from "./plugins/remark-docgen";
 import remarkGithubAlert from "./plugins/remark-github-alert";
 import viteCopy from "./plugins/vite-copy";
 
-const ReactCompilerConfig = {
-  target: "19",
-};
-
 export default defineConfig(({ command, isSsrBuild }) => {
   const isBuild = command == "build";
 
@@ -66,7 +62,7 @@ export default defineConfig(({ command, isSsrBuild }) => {
         babelConfig: {
           compact: false,
           presets: ["@babel/preset-typescript"],
-          plugins: [["babel-plugin-react-compiler", ReactCompilerConfig]],
+          plugins: ["babel-plugin-react-compiler"],
         },
         loader: (path) => {
           return extname(path).substring(1) as "js" | "jsx";

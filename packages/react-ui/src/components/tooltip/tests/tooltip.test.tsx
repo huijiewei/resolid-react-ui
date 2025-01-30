@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { describe, expect, test } from "vitest";
-import { Tooltip, TooltipArrow, TooltipContent, TooltipTrigger } from "./tooltip";
+import { Tooltip, TooltipArrow, TooltipContent, TooltipTrigger } from "../tooltip";
 
 describe("Tooltip", () => {
   test("renders tooltip trigger", () => {
