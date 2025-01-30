@@ -129,6 +129,7 @@ export const TooltipRoot = (props: PropsWithChildren<TooltipRootProps>) => {
   const floatingContext: TooltipFloatingContextValue = {
     context,
     duration,
+    interactive,
     setFloating: refs.setFloating,
     getFloatingProps,
     floatingStyles,

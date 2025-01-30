@@ -1,71 +1,71 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
-import { describe, expect, test } from "vitest";
-import { Tooltip, TooltipArrow, TooltipContent, TooltipTrigger } from "../tooltip";
+import { afterEach, describe, expect, test } from "vitest";
+import { axe } from "vitest-axe";
+import { Tooltip, TooltipArrow, TooltipContent, type TooltipProps, TooltipTrigger } from "../tooltip";
+
+const ComponentUnderTest = (props: TooltipProps) => (
+  <Tooltip openDelay={0} closeDelay={0} {...props}>
+    <TooltipTrigger>trigger</TooltipTrigger>
+    <TooltipContent>
+      <TooltipArrow />
+      content
+    </TooltipContent>
+  </Tooltip>
+);
 
 describe("Tooltip", () => {
-  test("renders tooltip trigger", () => {
-    render(
-      <Tooltip>
-        <TooltipTrigger>Tooltip Trigger</TooltipTrigger>
-        <TooltipContent>
-          <TooltipArrow />
-          Tooltip Content
-        </TooltipContent>
-      </Tooltip>,
-    );
-
-    expect(screen.getByText("Tooltip Trigger")).toBeInTheDocument();
-    expect(screen.queryByText("Tooltip Content")).not.toBeInTheDocument();
+  afterEach(() => {
+    cleanup();
   });
 
-  test("renders tooltip content when trigger is hovered", async () => {
-    render(
-      <Tooltip openDelay={0}>
-        <TooltipTrigger>Tooltip Trigger</TooltipTrigger>
-        <TooltipContent>
-          <TooltipArrow />
-          Tooltip Content
-        </TooltipContent>
-      </Tooltip>,
-    );
+  test("should have no a11y violations", async () => {
+    const { container } = render(<ComponentUnderTest />);
+    const results = await axe(container);
 
-    const trigger = screen.getByText("Tooltip Trigger");
+    expect(results).toHaveNoViolations();
+  });
 
-    expect(screen.queryByText("Tooltip Content")).not.toBeInTheDocument();
+  test("should show the tooltip on pointerover and close on pointer leave", async () => {
+    render(<ComponentUnderTest />);
 
-    await userEvent.hover(trigger);
+    const tooltipTrigger = screen.getByText("trigger");
+
+    await userEvent.hover(tooltipTrigger);
+
+    await waitFor(() => expect(screen.getByRole("tooltip")).toBeInTheDocument());
+
+    await userEvent.unhover(tooltipTrigger);
 
     await waitFor(() => {
-      expect(screen.queryAllByText("Tooltip Content")[0]).toBeVisible();
+      expect(screen.queryByText("content")).not.toBeInTheDocument();
     });
   });
 
-  test("renders tooltip content is dismissed when trigger is clicked", async () => {
-    render(
-      <Tooltip openDelay={0}>
-        <TooltipTrigger>Tooltip Trigger</TooltipTrigger>
-        <TooltipContent>
-          <TooltipArrow />
-          Tooltip Content
-        </TooltipContent>
-      </Tooltip>,
-    );
+  test("should hide the tooltip when escape is pressed", async () => {
+    render(<ComponentUnderTest />);
 
-    const trigger = screen.getByText("Tooltip Trigger");
+    const tooltipTrigger = screen.getByText("trigger");
+    await userEvent.hover(tooltipTrigger);
 
-    expect(screen.queryByText("Tooltip Content")).not.toBeInTheDocument();
+    await screen.findByRole("tooltip");
+    expect(screen.getByText("content")).toBeInTheDocument();
 
-    await userEvent.hover(trigger);
+    await userEvent.keyboard("[Escape]");
 
     await waitFor(() => {
-      expect(screen.queryAllByText("Tooltip Content")[0]).toBeVisible();
+      expect(screen.queryByText("content")).not.toBeInTheDocument();
     });
+  });
 
-    await userEvent.click(trigger);
+  test("should have pointer-events none style if interactive is set to false", async () => {
+    render(<ComponentUnderTest interactive={false} />);
 
-    await waitFor(() => {
-      expect(screen.queryByText("Tooltip Content")).not.toBeInTheDocument();
-    });
+    const tooltipTrigger = screen.getByText("trigger");
+    await userEvent.hover(tooltipTrigger);
+
+    const tooltipContent = screen.getByText("content");
+
+    expect(tooltipContent).toHaveClass("pointer-events-none");
   });
 });

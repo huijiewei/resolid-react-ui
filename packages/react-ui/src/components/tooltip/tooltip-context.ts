@@ -3,6 +3,7 @@ import type { PopperFloatingContextValue } from "../popper/popper-floating-conte
 
 export type TooltipFloatingContextValue = PopperFloatingContextValue & {
   duration: number;
+  interactive: boolean;
   floatingClassName?: string;
 };
 
