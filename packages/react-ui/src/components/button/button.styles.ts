@@ -37,11 +37,9 @@ export const buttonStyles = tv({
     },
     fullWidth: {
       true: "w-full",
-      false: "",
     },
     iconOnly: {
       true: "aspect-square",
-      false: "",
     },
   },
   compoundVariants: [
@@ -315,6 +313,8 @@ export const buttonStyles = tv({
     variant: "solid",
     color: "primary",
     size: "md",
+    fullWidth: false,
+    iconOnly: false,
   },
 });
 

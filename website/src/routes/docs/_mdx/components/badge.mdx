@@ -1,0 +1,58 @@
+---
+title: 徽标
+description: 一般出现在图标或文字的右上角。提供及时、重要的信息提示。
+---
+
+## 导入
+
+```js
+import { Badge } from "@resolid/react-ui";
+```
+
+## 用法
+
+:::UsageBlock{file=badge/badge.tsx}
+
+import { Badge } from "@resolid/react-ui";
+
+export function Usage(props) {
+  return <Badge {...props}>徽标</Badge>;
+}
+
+:::
+
+## 外观
+
+徽标有四种不同的外观可供使用。通过传递 `variant` 属性，可以选择使用 `solid`、`outline`、`subtle` 和 `soft` 中的任意一种。
+
+徽标有六种不同的颜色可供使用。通过传递 `color` 属性，可以选择使用 `primary`、`secondary`、`success`、`warning`、`danger` 和 `neutral` 这些颜色。
+
+```jsx demo
+import { Badge } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-col gap-3"}>
+      {["primary", "secondary", "success", "warning", "danger", "neutral"].map(
+        (color) => (
+          <div key={color} className={"flex flex-row items-center gap-3"}>
+            {["solid", "outline", "subtle", "soft"].map((variant) => (
+              <Badge
+                key={`${color}-${variant}`}
+                color={color}
+                variant={variant}
+              >
+                徽标
+              </Badge>
+            ))}
+          </div>
+        ),
+      )}
+    </div>
+  );
+}
+```
+
+## 属性
+
+::PropsTable{file=badge/badge.tsx}

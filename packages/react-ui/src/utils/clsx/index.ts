@@ -1,4 +1,4 @@
-import { cva, cx, type VariantProps } from "cva";
+import { compose, cva, cx, type VariantProps } from "cva";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type VP<T extends (...args: any) => any> = VariantProps<T>;
@@ -6,3 +6,5 @@ export type VP<T extends (...args: any) => any> = VariantProps<T>;
 export const tx = cx;
 
 export const tv = cva;
+
+export const tcm = compose;
