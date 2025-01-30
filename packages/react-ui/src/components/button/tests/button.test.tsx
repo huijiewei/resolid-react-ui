@@ -1,8 +1,12 @@
-import { render } from "@testing-library/react";
-import { describe, expect, test } from "vitest";
+import { cleanup, render } from "@testing-library/react";
+import { afterEach, describe, expect, test } from "vitest";
 import { Button } from "../button";
 
 describe("Button", () => {
+  afterEach(() => {
+    cleanup();
+  });
+
   test("should have attribute 'type=button' by default", () => {
     const { getByTestId } = render(<Button data-testid="button">Button</Button>);
 

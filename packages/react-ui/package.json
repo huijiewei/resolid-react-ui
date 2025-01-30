@@ -50,7 +50,8 @@
     "babel-plugin-react-compiler": "beta",
     "jsdom": "^26.0.0",
     "tsup": "^8.3.6",
-    "vitest": "^3.0.4"
+    "vitest": "^3.0.4",
+    "vitest-axe": "pre"
   },
   "peerDependencies": {
     "react": "^19.0.0",
