@@ -1,0 +1,110 @@
+---
+title: 开关
+description: 互斥性的操作控件，用户可打开或关闭某个功能。
+---
+
+## 导入
+
+```js
+import { Switch } from "@resolid/react-ui";
+```
+
+## 用法
+
+:::UsageBlock{file=switch/switch.tsx ignores=value,spacing}
+
+import { Switch } from "@resolid/react-ui";
+
+export function Usage(props) {
+  return (
+    <Switch defaultChecked {...props}>
+      开关
+    </Switch>
+  );
+}
+
+:::
+
+## 举例
+
+### 可控
+
+`value` 属性可用于可控值。当用户输入并接收新值时， `onChange` 事件将被触发。
+
+```jsx demo
+import { Switch } from "@resolid/react-ui";
+import { useState } from "react";
+
+export default function App() {
+  const [checked, setChecked] = useState(false);
+
+  return (
+    <div className={"flex flex-col gap-2"}>
+      <p>
+        飞行模式:{" "}
+        {checked ? <span className="text-fg-success">已激活</span> : "未激活"}.
+      </p>
+      <Switch checked={checked} onChange={setChecked}>
+        飞行模式
+      </Switch>
+    </div>
+  );
+}
+```
+
+### 大小
+
+通过传递 `size` 属性来更改开关的大小。开关支持 `xs`、`sm`、`md`、`lg` 和 `xl` 这些大小。
+
+```jsx demo
+import { Switch } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row items-center gap-3"}>
+      <Switch size={"xs"}>XS</Switch>
+      <Switch size={"sm"}>SM</Switch>
+      <Switch>MD</Switch>
+      <Switch size={"lg"}>LG</Switch>
+      <Switch size={"xl"}>XL</Switch>
+    </div>
+  );
+}
+```
+
+### 颜色
+
+通过传递 `color` 属性来更改开关的大小。开关支持 `primary`、`secondary`、`success`、`warning`、`danger` 和 `neutral` 这些颜色。
+
+```jsx demo
+import { Switch } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row items-center gap-3"}>
+      <Switch defaultChecked color={"primary"} size={"sm"}>
+        Primary
+      </Switch>
+      <Switch defaultChecked color={"secondary"} size={"sm"}>
+        Secondary
+      </Switch>
+      <Switch defaultChecked color={"success"} size={"sm"}>
+        Success
+      </Switch>
+      <Switch defaultChecked color={"warning"} size={"sm"}>
+        Warning
+      </Switch>
+      <Switch defaultChecked color={"danger"} size={"sm"}>
+        Danger
+      </Switch>
+      <Switch defaultChecked color={"neutral"} size={"sm"}>
+        Neutral
+      </Switch>
+    </div>
+  );
+}
+```
+
+## 属性
+
+::PropsTable{file=switch/switch.tsx}

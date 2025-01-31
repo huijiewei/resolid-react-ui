@@ -7,6 +7,7 @@ import {
   Input,
   NativeSelect,
   NumberInput,
+  Switch,
   Tooltip,
   TooltipArrow,
   TooltipContent,
@@ -274,17 +275,15 @@ const mdxComponents = {
               return (
                 <div className={"flex items-center justify-between gap-5"} key={propInputId}>
                   {prop.control == "boolean" && (
-                    <label className={"flex gap-1"}>
-                      <input
-                        id={propInputId}
-                        type={"checkbox"}
-                        checked={Boolean(state[prop.name])}
-                        onChange={(e) => {
-                          setState((prev) => ({ ...prev, [prop.name]: e.target.checked }));
-                        }}
-                      />
+                    <Switch
+                      size={"sm"}
+                      checked={Boolean(state[prop.name])}
+                      onChange={(value) => {
+                        setState((prev) => ({ ...prev, [prop.name]: value }));
+                      }}
+                    >
                       {prop.description}
-                    </label>
+                    </Switch>
                   )}
                   {prop.control == "string" && (
                     <>
