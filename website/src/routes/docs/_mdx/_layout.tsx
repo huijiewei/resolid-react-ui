@@ -5,6 +5,7 @@ import {
   type AlertProps,
   AlertTitle,
   Input,
+  NativeSelect,
   NumberInput,
   Tooltip,
   TooltipArrow,
@@ -348,9 +349,9 @@ const mdxComponents = {
                     ) : (
                       <>
                         <label htmlFor={propInputId}>{prop.description}</label>
-                        <select
+                        <NativeSelect
                           id={propInputId}
-                          className={"border-bd-normal rounded-md border"}
+                          size={"xs"}
                           value={String(state[prop.name])}
                           onChange={(e) => {
                             setState((prev) => ({
@@ -371,7 +372,7 @@ const mdxComponents = {
                               </option>
                             );
                           })}
-                        </select>
+                        </NativeSelect>
                       </>
                     ))}
                 </div>

@@ -10,6 +10,7 @@ export * from "./menu/menu";
 export * from "./number-input/number-input";
 export * from "./provider/resolid-provider";
 export * from "./provider/use-color-mode";
+export * from "./select/native-select";
 export * from "./separator/separator";
 export * from "./spinner/spinner";
 export * from "./tooltip/tooltip";
