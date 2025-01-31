@@ -13,7 +13,8 @@
     },
     "tailwindCSS.experimental.classRegex": [
       ["tv\\(((?:[^()]|\\([^()]*\\))*)\\)", "[\"'`]?([^\"'`]+)[\"'`]?"],
-      ["tx\\(((?:[^()]|\\([^()]*\\))*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+      ["tx\\(((?:[^()]|\\([^()]*\\))*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
+      ["ShareStyles\\s*(?::\\s*[^=]+)?\\s*=\\s*([^;]*);", "['\"`]([^'\"`]*)['\"`]"]
     ],
     "tailwindCSS.experimental.configFile": "./website/src/root.css",
     "typescript.tsdk": "node_modules/typescript/lib",
