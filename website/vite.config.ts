@@ -10,7 +10,7 @@ import remarkDirective from "remark-directive";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
-import { defineConfig, type UserConfig } from "vite";
+import { type AliasOptions, defineConfig, type UserConfig } from "vite";
 import babel from "vite-plugin-babel";
 import viteInspect from "vite-plugin-inspect";
 import tsconfigPaths from "vite-tsconfig-paths";
@@ -68,7 +68,7 @@ export default defineConfig(({ command, isSsrBuild }) => {
           return extname(path).substring(1) as "js" | "jsx";
         },
       }),
-      tsconfigPaths(),
+      !isBuild && tsconfigPaths(),
       !isBuild && viteInspect(),
       viteCopy({
         targets: ["src/routes/docs/_mdx/**/*.mdx"],
@@ -110,6 +110,9 @@ export default defineConfig(({ command, isSsrBuild }) => {
       },
     },
     esbuild: { legalComments: "none" },
+    resolve: {
+      alias: [isBuild && { find: "~", replacement: join(__dirname, "./src") }].filter(Boolean) as AliasOptions,
+    },
   };
 
   return config;

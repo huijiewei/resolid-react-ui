@@ -10,9 +10,9 @@
     "format": "prettier --write .",
     "build": "pnpm --filter @resolid/react-ui build",
     "website:dev": "pnpm --filter website dev",
-    "website:build": "pnpm --filter website build",
+    "website:build": "pnpm --filter website... build",
     "website:start": "pnpm --filter website start",
-    "website:vercel": "pnpm --filter website vercel"
+    "website:vercel": "pnpm --filter website... vercel"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.17.3",

@@ -4,10 +4,11 @@ import { reactCompilerEsbuildPlugin } from "./plugins/react-compiler-plugin";
 // noinspection JSUnusedGlobalSymbols
 export default defineConfig({
   entry: ["src/index.ts"],
-  format: ["esm"],
+  format: "esm",
+  platform: "browser",
   target: "es2022",
   esbuildPlugins: [reactCompilerEsbuildPlugin({ filter: /\.[jt]sx?$/ })],
   dts: true,
-  treeshake: true,
+  treeshake: { preset: "smallest" },
   clean: true,
 });
