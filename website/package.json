@@ -7,7 +7,6 @@
     "typegen": "react-router typegen",
     "dev": "react-router dev",
     "build": "react-router build",
-    "vercel": "VERCEL=1 react-router build",
     "start": "NODE_ENV=production SERVER_PORT=3001 node ./build/server/server.mjs"
   },
   "dependencies": {
