@@ -56,7 +56,7 @@ export const Separator = (props: PrimitiveProps<"div", SeparatorProps, "role">) 
       aria-orientation={orientation}
       style={
         {
-          "--size-var": `${size}px`,
+          "--sv": `${size}px`,
         } as CSSProperties
       }
       className={tx(separatorStyles({ color, variant, orientation, label: hasLabel, position }), className)}

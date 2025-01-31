@@ -34,16 +34,16 @@ export const separatorStyles = tv({
     {
       label: false,
       orientation: "horizontal",
-      class: "border-t-[length:var(--size-var)]",
+      class: "border-t-(length:--sv)",
     },
     {
       label: false,
       orientation: "vertical",
-      class: "border-s-[length:var(--size-var)]",
+      class: "border-s-(length:--sv)",
     },
     {
       label: true,
-      class: "before:border-t-[length:var(--size-var)] after:border-t-[length:var(--size-var)]",
+      class: "before:border-t-(length:--sv) after:border-t-(length:--sv)",
     },
     {
       label: false,
