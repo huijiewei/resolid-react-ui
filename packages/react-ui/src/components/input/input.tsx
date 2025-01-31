@@ -151,8 +151,8 @@ export const Input = (props: PrimitiveProps<"input", InputProps, "children">) =>
   return (
     <div
       className={tx(
-        "relative inline-flex items-center rounded-md border outline-transparent transition-colors",
-        "focus-within:border-bg-primary-emphasis focus-within:outline-bg-primary-emphasis/70 focus-within:outline-1",
+        "relative inline-flex items-center rounded-md border outline-1 outline-transparent transition-colors",
+        "focus-within:border-bg-primary-emphasis focus-within:outline-bg-primary-emphasis/70",
         fullWidth && "w-full",
         invalid ? "border-bd-invalid" : "border-bd-normal",
         group && inputGroupStyles,

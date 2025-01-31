@@ -35,8 +35,9 @@ export const NativeSelect = (props: PrimitiveProps<"select", NativeSelectProps>)
       <select
         disabled={disabled}
         className={tx(
-          "bg-bg-normal border-bd-normal w-full appearance-none rounded-md border outline-transparent transition-colors",
-          "focus:border-bg-primary-emphasis focus:outline-bg-primary-emphasis/70 focus:outline-1",
+          "bg-bg-normal border-bd-normal w-full appearance-none rounded-md border",
+          "outline-1 outline-transparent transition-colors",
+          "focus:border-bg-primary-emphasis focus:outline-bg-primary-emphasis/70",
           invalid && "border-bd-invalid",
           !invalid && !disabled && "hover:border-bd-hovered",
           sizeStyle.select,

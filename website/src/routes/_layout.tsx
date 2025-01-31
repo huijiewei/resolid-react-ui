@@ -62,7 +62,7 @@ const NavBar = () => {
           <TooltipTrigger
             as={"a"}
             className={
-              "focus-visible:outline-bg-neutral-emphasis/70 hover:bg-bg-neutral active:bg-bg-neutral-hovered inline-flex aspect-square h-9 cursor-pointer select-none appearance-none items-center justify-center whitespace-nowrap rounded-md border border-transparent text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
+              "focus-visible:outline-bg-neutral-emphasis/70 hover:bg-bg-neutral active:bg-bg-neutral-hovered inline-flex aspect-square h-8 cursor-pointer select-none appearance-none items-center justify-center whitespace-nowrap rounded-md border border-transparent text-sm font-medium outline-2 outline-offset-2 outline-transparent transition-colors"
             }
             aria-label={"Github 上的 Resolid React UI"}
             href={"https://github.com/huijiewei/resolid-react-ui"}
