@@ -10,6 +10,8 @@ export const inputTextShareStyles = {
   xl: "text-lg",
 };
 
+export const toggleLabelShareStyles = "gap-(--sv) relative inline-flex items-center";
+
 export const toggleColorShareStyles = {
   primary: {
     focus: "peer-focus-visible:outline-bg-primary-emphasis/70",
@@ -38,6 +40,43 @@ export const toggleColorShareStyles = {
 };
 
 export type ToggleColor = keyof typeof toggleColorShareStyles;
+
+export const binaryColorShareStyles = {
+  primary: {
+    ...toggleColorShareStyles.primary,
+    border: "border-bg-primary-emphasis",
+  },
+  secondary: {
+    ...toggleColorShareStyles.secondary,
+    border: "border-bg-secondary-emphasis",
+  },
+  success: {
+    ...toggleColorShareStyles.success,
+    border: "border-bg-success-emphasis",
+  },
+  warning: {
+    ...toggleColorShareStyles.warning,
+    border: "border-bg-warning-emphasis",
+  },
+  danger: {
+    ...toggleColorShareStyles.danger,
+    border: "border-bg-danger-emphasis",
+  },
+  neutral: {
+    ...toggleColorShareStyles.neutral,
+    border: "border-bg-neutral-emphasis",
+  },
+};
+
+export const binarySizeShareStyles = {
+  xs: "h-3.5 w-3.5",
+  sm: "h-4 w-4",
+  md: "h-5 w-5",
+  lg: "h-6 w-6",
+  xl: "h-7 w-7",
+};
+
+export type BinarySize = keyof typeof binarySizeShareStyles;
 
 export const alertAndBadgeShareStyles = tv({
   variants: {

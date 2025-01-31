@@ -1,0 +1,155 @@
+---
+title: 单选框
+description: 在一组相关且互斥数据中，用户仅能选择一个选项。
+---
+
+## 导入
+
+```js
+import { Radio, RadioGroup } from "@resolid/react-ui";
+```
+
+## 用法
+
+:::UsageBlock{file=radio/radio.tsx ignores=value,spacing}
+
+import { Radio } from "@resolid/react-ui";
+
+export function Usage(props) {
+  return <Radio {...props}>单选框</Radio>;
+}
+
+:::
+
+>
+
+## 举例
+
+### 可控
+
+使用 `RadioGroup` 组件的 `value` 和 `onChange` 属性来控制选定的单选项目
+
+```jsx demo
+import { Radio, RadioGroup } from "@resolid/react-ui";
+import { useState } from "react";
+
+export default function App() {
+  const [checkedValue, setCheckedValue] = useState("");
+
+  return (
+    <div className={"flex flex-col gap-2"}>
+      <p>你最喜欢的 JS 框架是: {checkedValue}</p>
+      <RadioGroup
+        name={"sizesRadioGroup"}
+        value={checkedValue}
+        onChange={setCheckedValue}
+        className={"flex flex-row items-center gap-5"}
+      >
+        <Radio value={"React"}>React</Radio>
+        <Radio value={"Angular"}>Angular</Radio>
+        <Radio value={"Vue"}>Vue</Radio>
+        <Radio value={"SolidJS"}>SolidJS</Radio>
+        <Radio value={"Svelte"}>Svelte</Radio>
+      </RadioGroup>
+    </div>
+  );
+}
+```
+
+### 大小
+
+通过传递 `size` 属性来更改单选框的大小。单选框支持 `xs`、`sm`、`md`、`lg` 和 `xl` 这些大小。
+
+```jsx demo
+import { Radio, RadioGroup } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <RadioGroup
+      name={"sizesRadioGroup"}
+      defaultValue={"md"}
+      className={"flex flex-row items-center gap-5"}
+    >
+      <Radio value={"xs"} size={"xs"}>
+        XS
+      </Radio>
+      <Radio value={"sm"} size={"sm"}>
+        SM
+      </Radio>
+      <Radio value={"md"}>MD</Radio>
+      <Radio value={"lg"} size={"lg"}>
+        LG
+      </Radio>
+      <Radio value={"xl"} size={"xl"}>
+        XL
+      </Radio>
+    </RadioGroup>
+  );
+}
+```
+
+### 颜色
+
+通过传递 `color` 属性来更改单选框的颜色。单选框支持 `primary`、`secondary`、`success`、`warning`、`danger` 和 `neutral` 这些颜色。
+
+```jsx demo
+import { Radio, RadioGroup } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <RadioGroup
+      name={"colorsRadioGroup"}
+      defaultValue={"secondary"}
+      className={"flex flex-row items-center gap-5"}
+    >
+      <Radio value={"primary"} color={"primary"}>
+        Primary
+      </Radio>
+      <Radio value={"secondary"} color={"secondary"}>
+        Secondary
+      </Radio>
+      <Radio value={"success"} color={"success"}>
+        Success
+      </Radio>
+      <Radio value={"warning"} color={"warning"}>
+        Warning
+      </Radio>
+      <Radio value={"danger"} color={"danger"}>
+        Danger
+      </Radio>
+      <Radio value={"neutral"} color={"neutral"}>
+        Neutral
+      </Radio>
+    </RadioGroup>
+  );
+}
+```
+
+### 注意事项
+
+我们建议把名字道具传给 `RadioGroup` 组件，而不是传给每个 `Radio` 组件。默认情况下，`RadioGroup` 的名称道具是优先的。
+
+```jsx
+// 应该这样做 ✅
+<RadioGroup name="form-name">
+  <Radio value={1}>Radio 1</Radio>
+  <Radio value={2}>Radio 2</Radio>
+</RadioGroup>
+
+
+// 不要这样做 ❌
+<RadioGroup >
+  <Radio name="form-name">Radio 1</Radio>
+  <Radio name="form-name">Radio 2</Radio>
+</RadioGroup>
+```
+
+## 属性
+
+### 单选框组
+
+::PropsTable{file=radio/radio-group.tsx}
+
+### 单选框
+
+::PropsTable{file=radio/radio.tsx}

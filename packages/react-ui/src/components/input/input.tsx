@@ -15,6 +15,7 @@ export type InputProps = Partial<InputGroupContextValue> & {
 
   /**
    * 默认值
+   * @default ""
    */
   defaultValue?: string | number;
 
@@ -155,8 +156,7 @@ export const Input = (props: PrimitiveProps<"input", InputProps, "children">) =>
         "outline-1 outline-transparent transition-colors",
         "focus-within:border-bg-primary-emphasis focus-within:outline-bg-primary-emphasis/70",
         fullWidth && "w-full",
-        group && inputGroupStyles,
-        group && "focus-within:z-1",
+        group && [inputGroupStyles, "focus-within:z-1"],
         invalid ? "border-bd-invalid" : "border-bd-normal",
         !disabled && !invalid && "not-focus-within:hover:border-bd-hovered",
         disabled && disabledShareStyles,
