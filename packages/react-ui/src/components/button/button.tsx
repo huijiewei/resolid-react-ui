@@ -92,10 +92,10 @@ export const Button = <T extends ElementType = "button">(props: PolymorphicProps
         buttonStyles({ variant, color, size, disabled: disabledStatus, fullWidth, iconOnly }),
         group &&
           tx(
-            "not-last:not-first:rounded-none",
+            "not-last:not-first:rounded-none focus-visible:z-1",
             group.orientation == "horizontal"
-              ? "not-only:first:rounded-e-none not-only:last:rounded-s-none"
-              : "not-only:first:rounded-b-none not-only:last:rounded-t-none",
+              ? "not-only:first:rounded-e-none not-only:last:rounded-s-none not-first:-ms-px"
+              : "not-only:first:rounded-b-none not-only:last:rounded-t-none not-first:-mt-px",
           ),
         className,
       )}

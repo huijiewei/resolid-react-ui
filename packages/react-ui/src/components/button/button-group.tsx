@@ -10,11 +10,7 @@ export const ButtonGroup = (props: PrimitiveProps<"div", ButtonGroupProps, "role
   return (
     <div
       role={"group"}
-      className={tx(
-        "inline-flex",
-        orientation == "horizontal" ? "flex-row -space-x-px" : "flex-col -space-y-px",
-        className,
-      )}
+      className={tx("inline-flex", orientation == "horizontal" ? "flex-row" : "flex-col", className)}
       {...rest}
     >
       <ButtonGroupContext value={{ variant, color, size, disabled, orientation }}>{children}</ButtonGroupContext>

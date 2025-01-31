@@ -4,7 +4,7 @@ export const buttonStyles = tv({
   base: [
     "inline-flex items-center justify-center rounded-md border",
     "select-none appearance-none whitespace-nowrap font-medium",
-    "transition-colors",
+    "outline-transparent transition-colors",
     "focus-visible:outline-2 focus-visible:outline-offset-2",
   ],
   variants: {
