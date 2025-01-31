@@ -106,3 +106,11 @@ export const alertAndBadgeShareStyles = tv({
     },
   ],
 });
+
+export const inputTextShareStyles = {
+  xs: "text-xs",
+  sm: "text-sm",
+  md: "text-base",
+  lg: "text-base",
+  xl: "text-lg",
+};

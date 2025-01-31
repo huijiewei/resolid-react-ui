@@ -1,0 +1,158 @@
+---
+title: 输入框
+description: 基本表单组件，并在原生控件基础上进行了功能扩展，可以组合使用。
+---
+
+## 导入
+
+```js
+import { Input, InputAddon, InputGroup } from "@resolid/react-ui";
+```
+
+## 用法
+
+:::UsageBlock{file=input/input.tsx ignores=type,value,defaultValue,placeholder,prefix,prefixWidth,suffix,suffixWidth}
+
+import { Input } from "@resolid/react-ui";
+
+export function Usage(props) {
+  return <Input placeholder={"输入框"} {...props} />;
+}
+
+:::
+
+## 举例
+
+### 可控
+
+`value` 属性可用于可控值。当用户输入并接收新值时， `onChange` 事件将被触发。
+
+```jsx demo
+import { Input } from "@resolid/react-ui";
+import { useState } from "react";
+
+export default function App() {
+  const [value, setValue] = useState("");
+
+  return (
+    <div className={"flex flex-col items-start gap-2"}>
+      <div>你输入的是: {value}</div>
+      <Input
+        value={value}
+        onChange={(value) => setValue(value)}
+        placeholder="输入框"
+      />
+    </div>
+  );
+}
+```
+
+### 大小
+
+通过传递 `size` 属性来更改输入框的大小。输入框支持 `xs`、`sm`、`md`、`lg` 和 `xl` 这些大小。
+
+```jsx demo
+import { Input } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row items-center gap-3"}>
+      <Input size={"xs"} defaultValue={"XS 超小"} placeholder={"XS 超小"} />
+      <Input size={"sm"} defaultValue={"SM 小型"} />
+      <Input defaultValue={"普通输入框"} />
+      <Input size={"lg"} defaultValue={"LG 大型"} />
+      <Input size={"xl"} defaultValue={"XL 超大"} />
+    </div>
+  );
+}
+```
+
+### 前后置元素
+
+```jsx demo
+import { Input, Button } from "@resolid/react-ui";
+import { SpriteIcon } from "~/components/sprite-icon";
+
+export default function App() {
+  return (
+    <div className={"flex flex-col items-start gap-3"}>
+      <Input
+        placeholder={"邮箱地址"}
+        prefix={<SpriteIcon size={"sm"} name={"email"} />}
+      />
+      <Input placeholder={"金额"} suffix={"RMB"} suffixWidth={50} />
+      <Input
+        placeholder={"搜索..."}
+        suffix={
+          <Button
+            className={"pointer-events-auto"}
+            variant={"ghost"}
+            color={"neutral"}
+            size={"xs"}
+            iconOnly
+          >
+            <SpriteIcon size={"sm"} name={"search"} />
+          </Button>
+        }
+      />
+      <Input
+        placeholder={"邮件地址"}
+        suffix={
+          <Button className={"pointer-events-auto"} size={"xs"}>
+            订阅
+          </Button>
+        }
+        suffixWidth={56}
+      />
+    </div>
+  );
+}
+```
+
+### 输入框组
+
+使用 `InputGroup` 和 `InputAddon` 组件在输入中添加一个附加组件。
+
+```jsx demo
+import { Input, InputGroup, InputAddon } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-col gap-3"}>
+      <InputGroup>
+        <InputAddon>@</InputAddon>
+        <Input placeholder={"用户名"} />
+      </InputGroup>
+      <InputGroup>
+        <Input placeholder={"收件人的用户名"} />
+        <InputAddon>@example.com</InputAddon>
+      </InputGroup>
+      <InputGroup>
+        <InputAddon>姓名</InputAddon>
+        <Input placeholder={"姓"} />
+        <Input placeholder={"名"} />
+      </InputGroup>
+      <InputGroup size={"sm"}>
+        <InputAddon>¥</InputAddon>
+        <Input suffix={"RMB"} suffixWidth={50} placeholder={"金额"} />
+        <InputAddon>.00</InputAddon>
+      </InputGroup>
+      <InputGroup>
+        <Input placeholder={"用户名"} />
+        <InputAddon>@</InputAddon>
+        <Input placeholder={"服务器"} />
+      </InputGroup>
+    </div>
+  );
+}
+```
+
+## 属性
+
+### 输入框
+
+::PropsTable{file=input/input.tsx}
+
+### 输入框组
+
+::PropsTable{file=input/input-group.tsx}
