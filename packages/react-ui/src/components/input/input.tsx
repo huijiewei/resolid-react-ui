@@ -1,7 +1,7 @@
 import { type ChangeEvent, type CSSProperties, type HTMLInputTypeAttribute, type ReactNode, useRef } from "react";
 import { useControllableState, useMergeRefs } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
-import { inputTextShareStyles } from "../../shared/styles";
+import { disabledShareStyles, inputTextShareStyles } from "../../shared/styles";
 import { tx } from "../../utils";
 import { InputAffix } from "./input-affix";
 import { type InputGroupContextValue, useInputGroup } from "./input-group-context";
@@ -151,13 +151,15 @@ export const Input = (props: PrimitiveProps<"input", InputProps, "children">) =>
   return (
     <div
       className={tx(
-        "relative inline-flex items-center rounded-md border outline-1 outline-transparent transition-colors",
+        "relative inline-flex items-center rounded-md border",
+        "outline-1 outline-transparent transition-colors",
         "focus-within:border-bg-primary-emphasis focus-within:outline-bg-primary-emphasis/70",
         fullWidth && "w-full",
-        invalid ? "border-bd-invalid" : "border-bd-normal",
         group && inputGroupStyles,
         group && "focus-within:z-1",
+        invalid ? "border-bd-invalid" : "border-bd-normal",
         !disabled && !invalid && "not-focus-within:hover:border-bd-hovered",
+        disabled && disabledShareStyles,
         className,
       )}
       style={
@@ -173,7 +175,7 @@ export const Input = (props: PrimitiveProps<"input", InputProps, "children">) =>
         className={tx(
           "w-full resize-none appearance-none text-left align-middle outline-none",
           "bg-bg-normal rounded-md transition-colors",
-          "disabled:bg-bg-subtlest disabled:cursor-not-allowed disabled:opacity-60",
+          disabled && "bg-bg-subtlest/60",
           inputSizeStyles[size],
           inputTextShareStyles[size],
           prefix && "ps-(--pw)",

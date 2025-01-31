@@ -2,10 +2,10 @@ import type { ChangeEvent, CSSProperties } from "react";
 import { useControllableState } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import {
+  disabledShareStyles,
   inputTextShareStyles,
   type ToggleColor,
   toggleColorShareStyles,
-  toggleDisabledShareStyles,
 } from "../../shared/styles";
 import { ariaAttr, tx } from "../../utils";
 import { type SwitchSize, switchSizeStyles } from "./switch.styles";
@@ -116,11 +116,11 @@ export const Switch = (props: PrimitiveProps<"input", SwitchProps, "role" | "typ
         className={tx(
           "inline-flex shrink-0 justify-start rounded-full border-2 transition-colors",
           "outline-2 outline-offset-2 outline-transparent",
-          disabled ? "cursor-not-allowed" : "cursor-pointer",
+          !disabled && !readOnly && "cursor-pointer",
           colorStyle.focus,
           sizeStyle.track,
           checkedState ? colorStyle.checked : "bg-bg-muted",
-          disabled && toggleDisabledShareStyles,
+          disabled && disabledShareStyles,
           invalid ? "border-bg-danger-emphasis/70" : "border-transparent",
         )}
       >
@@ -131,9 +131,7 @@ export const Switch = (props: PrimitiveProps<"input", SwitchProps, "role" | "typ
           )}
         />
       </span>
-      {children && (
-        <div className={tx("select-none", labelSizeStyle, disabled && toggleDisabledShareStyles)}>{children}</div>
-      )}
+      {children && <div className={tx("select-none", labelSizeStyle, disabled && disabledShareStyles)}>{children}</div>}
     </label>
   );
 };

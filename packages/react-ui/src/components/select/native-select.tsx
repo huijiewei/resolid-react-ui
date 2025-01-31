@@ -1,6 +1,6 @@
 import type { PrimitiveProps } from "../../primitives";
 import { AngleDownIcon } from "../../shared/icons";
-import { inputTextShareStyles } from "../../shared/styles";
+import { disabledShareStyles, inputTextShareStyles } from "../../shared/styles";
 import { tx } from "../../utils";
 import { type SelectSize, selectSizeStyles } from "./select.styles";
 
@@ -35,11 +35,12 @@ export const NativeSelect = (props: PrimitiveProps<"select", NativeSelectProps>)
       <select
         disabled={disabled}
         className={tx(
-          "bg-bg-normal border-bd-normal w-full appearance-none rounded-md border",
+          "bg-bg-normal w-full appearance-none rounded-md border",
           "outline-1 outline-transparent transition-colors",
           "focus:border-bg-primary-emphasis focus:outline-bg-primary-emphasis/70",
-          invalid && "border-bd-invalid",
-          !invalid && !disabled && "hover:border-bd-hovered",
+          invalid ? "border-bd-invalid" : "border-bd-normal",
+          !invalid && !disabled && "not-focus:hover:border-bd-hovered",
+          disabled && disabledShareStyles,
           sizeStyle.select,
           className,
         )}

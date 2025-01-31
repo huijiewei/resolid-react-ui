@@ -1,6 +1,6 @@
 import type { PrimitiveProps } from "../../primitives";
 import { AngleDownIcon, AngleUpIcon } from "../../shared/icons";
-import { inputTextShareStyles } from "../../shared/styles";
+import { disabledShareStyles, inputTextShareStyles } from "../../shared/styles";
 import { tx } from "../../utils";
 import type { InputSize } from "../input/input.styles";
 
@@ -22,7 +22,7 @@ export const NumberInputControl = (
       aria-controls={inputId}
       className={tx(
         "bg-bg-subtle pointer-events-auto flex h-full select-none appearance-none items-center justify-center transition-colors",
-        disabled ? "cursor-not-allowed opacity-60" : "hover:bg-bg-muted active:bg-bg-muted",
+        disabled ? disabledShareStyles : "hover:bg-bg-muted active:bg-bg-muted",
         stepper == "increment" && "rounded-tr-md",
         stepper == "decrement" && "rounded-br-md",
         inputTextShareStyles[size],

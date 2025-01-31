@@ -1,3 +1,4 @@
+import { disabledShareStyles } from "../../shared/styles";
 import { tv, type VP } from "../../utils";
 
 export const buttonStyles = tv({
@@ -31,7 +32,7 @@ export const buttonStyles = tv({
       xl: "h-11 text-base",
     },
     disabled: {
-      true: "pointer-events-none opacity-50",
+      true: disabledShareStyles,
       false: "cursor-pointer",
     },
     fullWidth: {
