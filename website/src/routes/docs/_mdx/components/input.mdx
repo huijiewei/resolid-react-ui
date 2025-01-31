@@ -36,7 +36,7 @@ export default function App() {
 
   return (
     <div className={"flex flex-col items-start gap-2"}>
-      <div>你输入的是: {value}</div>
+      <p>你输入的是: {value}</p>
       <Input
         value={value}
         onChange={(value) => setValue(value)}
@@ -68,6 +68,8 @@ export default function App() {
 ```
 
 ### 前后置元素
+
+使用 `prefix` 和 `suffix` 来设置输入框的前后置元素。
 
 ```jsx demo
 import { Input, Button } from "@resolid/react-ui";

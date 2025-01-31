@@ -7,6 +7,7 @@ export * from "./input/input";
 export * from "./input/input-addon";
 export * from "./input/input-group";
 export * from "./menu/menu";
+export * from "./number-input/number-input";
 export * from "./provider/resolid-provider";
 export * from "./provider/use-color-mode";
 export * from "./separator/separator";

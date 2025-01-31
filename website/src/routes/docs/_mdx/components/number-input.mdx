@@ -1,0 +1,162 @@
+---
+title: 数字输入框
+description: 仅允许输入数字格式的输入框。
+---
+
+## 导入
+
+```js
+import { NumberInput } from "@resolid/react-ui";
+```
+
+## 用法
+
+:::UsageBlock{file=number-input/number-input.tsx ignores=value,defaultValue,placeholder,inputMode,prefix,prefixWidth,format,parse}
+
+import { NumberInput } from "@resolid/react-ui";
+
+export function Usage(props) {
+  return <NumberInput placeholder={"数字输入框"} {...props} />;
+}
+
+:::
+
+## 举例
+
+### 默认值
+
+可以使用 `defaultValue` 属性提供初始的、不受控制的值。
+
+```jsx demo
+import { NumberInput } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row items-center gap-3"}>
+      <NumberInput defaultValue={32} />
+    </div>
+  );
+}
+```
+
+### 可控值
+
+使用 `value` 和 `onChange` 属性来控制数字输入的值。
+
+```jsx demo
+import { NumberInput } from "@resolid/react-ui";
+import { useState } from "react";
+
+export default function App() {
+  const [value, setValue] = useState(10);
+
+  return (
+    <div className={"flex flex-col items-start gap-2"}>
+      <p>当前值: {value}</p>
+      <NumberInput value={value} onChange={setValue} />
+    </div>
+  );
+}
+```
+
+### 值限制
+
+使用 `min` 和 `max` 属性设置数字输入的最小值和最大值。
+
+```jsx demo
+import { NumberInput } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row items-center gap-3"}>
+      <NumberInput max={10} />
+      <NumberInput min={10} />
+      <NumberInput min={10} max={20} />
+    </div>
+  );
+}
+```
+
+### 格式化
+
+使用 `format` 和 `parse` 格式化数字输入值。
+
+```jsx demo
+import { NumberInput } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row gap-3"}>
+      <NumberInput
+        parse={(value) => value.replace(/\$\s?|(,*)/g, "")}
+        format={(value) =>
+          !Number.isNaN(value)
+            ? `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            : "$ "
+        }
+      />
+    </div>
+  );
+}
+```
+
+### 大小
+
+通过传递 `size` 属性来更改数字输入框的大小。数字输入框支持 `xs`、`sm`、`md`、`lg` 和 `xl` 这些大小。
+
+```jsx demo
+import { NumberInput } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row items-center gap-3"}>
+      <NumberInput size={"xs"} placeholder={"XS 超小"} />
+      <NumberInput size={"sm"} placeholder={"SM 小型"} />
+      <NumberInput placeholder={"默认大小"} />
+      <NumberInput size={"lg"} placeholder={"LG 大型"} />
+      <NumberInput size={"xl"} placeholder={"XL 超大"} />
+    </div>
+  );
+}
+```
+
+### 前置元素
+
+使用 `prefix` 来设置数字输入框的前置元素。
+
+```jsx demo
+import { NumberInput } from "@resolid/react-ui";
+import { SpriteIcon } from "~/components/sprite-icon";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row items-center gap-3"}>
+      <NumberInput
+        min={0}
+        prefix={<SpriteIcon size={"sm"} name={"github"} />}
+        placeholder={"仓库数量"}
+      />
+    </div>
+  );
+}
+```
+
+### 滚轮改变
+
+使用 `changeOnWheel` 属性启用或禁用鼠标滚轮改变值
+
+```jsx demo
+import { NumberInput } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row items-center gap-3"}>
+      <NumberInput changeOnWheel />
+    </div>
+  );
+}
+```
+
+## 属性
+
+::PropsTable{file=number-input/number-input.tsx}

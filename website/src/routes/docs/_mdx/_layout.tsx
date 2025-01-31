@@ -4,6 +4,8 @@ import {
   AlertIndicator,
   type AlertProps,
   AlertTitle,
+  Input,
+  NumberInput,
   Tooltip,
   TooltipArrow,
   TooltipContent,
@@ -247,7 +249,7 @@ const mdxComponents = {
           const value =
             defaultValue && /^[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$/.test(defaultValue)
               ? defaultValue
-              : defaultValue == "-Infinity" || defaultValue == "Infinity"
+              : defaultValue == "Number.MIN_SAFE_INTEGER" || defaultValue == "Number.MAX_SAFE_INTEGER"
                 ? undefined
                 : defaultValue == "true" || defaultValue == "false"
                   ? defaultValue == "true"
@@ -286,13 +288,14 @@ const mdxComponents = {
                   {prop.control == "string" && (
                     <>
                       <label htmlFor={propInputId}>{prop.description}</label>
-                      <input
+                      <Input
                         id={propInputId}
-                        className={"border-bd-normal w-1/2 rounded-md border"}
+                        size={"xs"}
+                        className={"w-1/2"}
                         autoComplete={"off"}
                         value={state[prop.name] as string}
-                        onChange={(e) => {
-                          setState((prev) => ({ ...prev, [prop.name]: e.target.value }));
+                        onChange={(value) => {
+                          setState((prev) => ({ ...prev, [prop.name]: value }));
                         }}
                       />
                     </>
@@ -300,13 +303,13 @@ const mdxComponents = {
                   {prop.control == "number" && (
                     <>
                       <label htmlFor={propInputId}>{prop.description}</label>
-                      <input
-                        type={"number"}
+                      <NumberInput
                         id={propInputId}
-                        className={"border-bd-normal w-1/3 rounded-md border"}
+                        size={"xs"}
+                        className={"w-1/2"}
                         value={state[prop.name] ? Number(state[prop.name]) : undefined}
-                        onChange={(e) => {
-                          setState((prev) => ({ ...prev, [prop.name]: e.target.value }));
+                        onChange={(value) => {
+                          setState((prev) => ({ ...prev, [prop.name]: value }));
                         }}
                       />
                     </>
