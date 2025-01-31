@@ -131,7 +131,6 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
       listRef: elementsRef,
       nested,
       activeIndex,
-      disabledIndices: [],
       onNavigate: setActiveIndex,
     }),
     useTypeahead(context, {

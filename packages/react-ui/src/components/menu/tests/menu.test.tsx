@@ -34,6 +34,7 @@ const ComponentUnderTest = (
         <MenuArrow />
         <MenuGroup>
           <MenuGroupLabel>Resolid UI</MenuGroupLabel>
+          <MenuItem>Button</MenuItem>
           <MenuItem disabled>Dialog</MenuItem>
         </MenuGroup>
         <MenuSeparator />
