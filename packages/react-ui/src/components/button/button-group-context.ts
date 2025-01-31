@@ -4,19 +4,19 @@ import type { ButtonStyleProps } from "./button.styles";
 export type ButtonBaseProps = {
   /**
    * 外观
-   * @default 'solid'
+   * @default "solid"
    */
   variant?: ButtonStyleProps["variant"];
 
   /**
    * 颜色
-   * @default 'primary'
+   * @default "primary"
    */
   color?: ButtonStyleProps["color"];
 
   /**
    * 大小
-   * @default 'md'
+   * @default "md"
    */
   size?: ButtonStyleProps["size"];
 

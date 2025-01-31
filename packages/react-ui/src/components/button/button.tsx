@@ -44,7 +44,7 @@ export type ButtonProps = ButtonBaseProps & {
 
   /**
    * 加载器位置
-   * @default 'start'
+   * @default "start"
    */
   spinnerPlacement?: "start" | "end";
 };

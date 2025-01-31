@@ -4,7 +4,7 @@ import type { InputSize } from "./input.styles";
 export type InputGroupContextValue = {
   /**
    * 大小
-   * @default 'md'
+   * @default "md"
    */
   size: InputSize;
 };

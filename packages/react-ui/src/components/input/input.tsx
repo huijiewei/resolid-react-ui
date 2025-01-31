@@ -81,7 +81,7 @@ export type InputProps = Partial<InputGroupContextValue> & {
   /**
    * 输入框类型
    * @ignore
-   * @default 'text'
+   * @default "text"
    */
   type?: Omit<
     HTMLInputTypeAttribute,

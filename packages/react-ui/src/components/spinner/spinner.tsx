@@ -6,19 +6,19 @@ import { type SpinnerStyles, spinnerStyles } from "./spinner.styles";
 export type SpinnerProps = {
   /**
    * 颜色
-   * @default 'primary'
+   * @default "primary"
    */
   color?: SpinnerStyles["color"];
 
   /**
    * 大小
-   * @default 'md'
+   * @default "md"
    */
   size?: SpinnerStyles["size"];
 
   /**
    * 标签
-   * @default '加载中'
+   * @default "加载中"
    */
   label?: string;
 };

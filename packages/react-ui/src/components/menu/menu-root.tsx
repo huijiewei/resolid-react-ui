@@ -38,13 +38,13 @@ export type MenuRootProps = PopperDisclosureProps & {
 
   /**
    * 放置位置
-   * @default 'bottom-start'
+   * @default "bottom-start"
    */
   placement?: Placement;
 
   /**
    * 动画持续时间
-   * @default '250'
+   * @default 250
    */
   duration?: number;
 };

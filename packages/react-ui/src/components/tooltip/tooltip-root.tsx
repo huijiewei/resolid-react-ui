@@ -25,13 +25,13 @@ import { tooltipArrowStyles, tooltipFloatingStyles, type TooltipStyleProps } fro
 export type TooltipRootProps = PopperDisclosureProps & {
   /**
    * 颜色
-   * @default 'neutral'
+   * @default "neutral"
    */
   color?: TooltipStyleProps["color"];
 
   /**
    * 放置位置
-   * @default 'auto'
+   * @default "auto"
    */
   placement?: "auto" | Placement;
 

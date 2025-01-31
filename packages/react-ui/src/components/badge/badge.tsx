@@ -5,13 +5,13 @@ import { type BadgeStyleProps, badgeStyles } from "./badge.styles";
 export type BadgeProps = {
   /**
    * 外观
-   * @default 'solid'
+   * @default "solid"
    */
   variant?: BadgeStyleProps["variant"];
 
   /**
    * 颜色
-   * @default 'primary'
+   * @default "primary"
    */
   color?: BadgeStyleProps["color"];
 };
