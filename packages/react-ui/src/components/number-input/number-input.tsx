@@ -5,7 +5,7 @@ import type { PrimitiveProps } from "../../primitives";
 import { Input, type InputProps } from "../input/input";
 import { NumberInputControl } from "./number-input-control";
 
-export type NumberInputProps = Omit<InputProps, "suffix" | "suffixWidth"> & {
+export type NumberInputProps = Omit<InputProps, "suffix" | "suffixWidth" | "onChange"> & {
   /**
    * 可控值
    */
