@@ -20,6 +20,18 @@ export type RadioBaseProps = {
    * @default false
    */
   disabled?: boolean;
+
+  /**
+   * 是否必选
+   * @default false
+   */
+  required?: boolean;
+
+  /**
+   * 是否只读
+   * @default false
+   */
+  readOnly?: boolean;
 };
 
 export type RadioGroupBaseProps = RadioBaseProps & {

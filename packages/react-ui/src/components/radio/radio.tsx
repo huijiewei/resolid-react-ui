@@ -35,22 +35,10 @@ export type RadioProps = RadioBaseProps & {
   value?: string | number;
 
   /**
-   * 是否必选
-   * @default false
-   */
-  required?: boolean;
-
-  /**
    * 是否无效
    * @default false
    */
   invalid?: boolean;
-
-  /**
-   * 是否只读
-   * @default false
-   */
-  readOnly?: boolean;
 
   /**
    * 间距
@@ -67,13 +55,13 @@ export const Radio = (props: PrimitiveProps<"input", RadioProps, "role" | "type"
     size = group?.size || "md",
     color = group?.color || "primary",
     disabled = group?.disabled || false,
-    readOnly = false,
+    readOnly = group?.readOnly || false,
+    required = group?.required || false,
+    invalid = false,
     spacing = "0.5em",
     checked,
     defaultChecked = false,
     onChange,
-    required = false,
-    invalid = false,
     value,
     style,
     className,
@@ -138,7 +126,7 @@ export const Radio = (props: PrimitiveProps<"input", RadioProps, "role" | "type"
           sizeStyle,
           disabled && disabledShareStyles,
           checkedState &&
-            `before:relative before:inline-block before:h-1/2 before:w-1/2 before:rounded-[50%] before:bg-current before:content-['']`,
+            "before:relative before:inline-block before:h-1/2 before:w-1/2 before:rounded-[50%] before:bg-current before:content-['']",
         )}
       />
       {children && <div className={tx("select-none", labelSizeStyle, disabled && disabledShareStyles)}>{children}</div>}

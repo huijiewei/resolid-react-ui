@@ -14,6 +14,12 @@ export type RadioGroupProps = RadioGroupBaseProps & {
    * onChange 回调
    */
   onChange?: (value: string | number) => void;
+
+  /**
+   * 方向
+   * @default 'horizontal'
+   */
+  orientation?: "horizontal" | "vertical";
 };
 
 export const RadioGroup = (props: PrimitiveProps<"div", RadioGroupProps, "role">) => {
@@ -21,6 +27,9 @@ export const RadioGroup = (props: PrimitiveProps<"div", RadioGroupProps, "role">
     color = "primary",
     size = "md",
     disabled = false,
+    required = false,
+    readOnly = false,
+    orientation = "horizontal",
     name,
     value,
     defaultValue = "",
@@ -46,12 +55,14 @@ export const RadioGroup = (props: PrimitiveProps<"div", RadioGroupProps, "role">
     size,
     color,
     disabled,
+    required,
+    readOnly,
     value: valueState,
     onChange: handleChange,
   };
 
   return (
-    <div role={"radiogroup"} {...rest}>
+    <div role={"radiogroup"} aria-orientation={orientation} {...rest}>
       <RadioGroupContext value={groupContext}>{children}</RadioGroupContext>
     </div>
   );
