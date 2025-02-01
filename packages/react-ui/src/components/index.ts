@@ -2,6 +2,8 @@ export * from "./alert/alert";
 export * from "./badge/badge";
 export * from "./button/button";
 export * from "./button/button-group";
+export * from "./checkbox/checkbox";
+export * from "./checkbox/checkbox-group";
 export * from "./close-button/close-button";
 export * from "./input/input";
 export * from "./input/input-addon";

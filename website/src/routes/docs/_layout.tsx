@@ -159,7 +159,7 @@ const menus: Menu[] = [
         path: "components/slider",
       },
       {
-        label: "复选框",
+        label: "多选框",
         path: "components/checkbox",
       },
       {

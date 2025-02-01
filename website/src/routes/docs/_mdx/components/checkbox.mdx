@@ -1,0 +1,196 @@
+---
+title: 多选框
+description: 在一组数据中，用户可通过多选框选择一个或多个数据。
+---
+
+## 导入
+
+```js
+import { Checkbox, CheckboxGroup } from "@resolid/react-ui";
+```
+
+## 用法
+
+:::UsageBlock{file=checkbox/checkbox.tsx ignores=value,spacing,checked,defaultChecked}
+
+import { Checkbox } from "@resolid/react-ui";
+
+export function Usage(props) {
+  return <Checkbox {...props}>多选框</Checkbox>;
+}
+
+:::
+
+>
+
+## 举例
+
+### 可控
+
+使用 `checked` 和 `onChange` 属性来控制复选框的状态。
+
+```jsx demo
+import { Checkbox } from "@resolid/react-ui";
+import { useState } from "react";
+
+export default function App() {
+  const [checked, setChecked] = useState(false);
+
+  return (
+    <div className={"flex flex-col gap-2"}>
+      <p>
+        {checked ? (
+          <span className={"text-fg-success"}>你已成功订阅</span>
+        ) : (
+          "你取消了订阅"
+        )}
+      </p>
+      <Checkbox value={"React"} checked={checked} onChange={setChecked}>
+        订阅更新
+      </Checkbox>
+    </div>
+  );
+}
+```
+
+### 大小
+
+通过传递 `size` 属性来更改多选框的大小。多选框支持 `xs`、`sm`、`md`、`lg` 和 `xl` 这些大小。
+
+```jsx demo
+import { Checkbox } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row gap-5"}>
+      <Checkbox size={"xs"}>XS</Checkbox>
+      <Checkbox size={"sm"}>SM</Checkbox>
+      <Checkbox>MD</Checkbox>
+      <Checkbox size={"lg"}>LG</Checkbox>
+      <Checkbox size={"xl"}>XL</Checkbox>
+    </div>
+  );
+}
+```
+
+### 颜色
+
+通过传递 `color` 属性来更改多选框的颜色。多选框支持 `primary`、`secondary`、`success`、`warning`、`danger` 和 `neutral` 这些颜色。
+
+```jsx demo
+import { Checkbox } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row gap-5"}>
+      <Checkbox defaultChecked color={"primary"}>
+        Primary
+      </Checkbox>
+      <Checkbox defaultChecked color={"secondary"}>
+        Secondary
+      </Checkbox>
+      <Checkbox defaultChecked color={"success"}>
+        Success
+      </Checkbox>
+      <Checkbox defaultChecked color={"warning"}>
+        Warning
+      </Checkbox>
+      <Checkbox defaultChecked color={"danger"}>
+        Danger
+      </Checkbox>
+      <Checkbox defaultChecked color={"neutral"}>
+        Neutral
+      </Checkbox>
+    </div>
+  );
+}
+```
+
+### 多选框组
+
+使用 `CheckboxGroup` 组件将多个多选框分组在一起。
+
+```jsx demo
+import { Checkbox, CheckboxGroup } from "@resolid/react-ui";
+import { useState } from "react";
+
+export default function App() {
+  const [value, setValue] = useState(["React"]);
+
+  return (
+    <div className={"flex flex-col gap-2"}>
+      <p>你选择了框架: {value.join(", ")}</p>
+      <CheckboxGroup
+        value={value}
+        onChange={setValue}
+        className={"flex flex-row gap-5"}
+      >
+        <Checkbox value={"React"}>React</Checkbox>
+        <Checkbox value={"Angular"}>Angular</Checkbox>
+        <Checkbox value={"Vue"}>Vue</Checkbox>
+        <Checkbox value={"SolidJS"}>SolidJS</Checkbox>
+        <Checkbox value={"Svelte"}>Svelte</Checkbox>
+      </CheckboxGroup>
+    </div>
+  );
+}
+```
+
+### 部分选中
+
+设置 `indeterminate` 属性以在不确定状态下显示复选框。
+
+```jsx demo
+import { Checkbox } from "@resolid/react-ui";
+import { useState } from "react";
+
+export default function App() {
+  const [values, setValues] = useState([false, false, false, false, false]);
+
+  const allChecked = values.every(Boolean);
+  const isIndeterminate = values.some(Boolean) && !allChecked;
+
+  return (
+    <div className={"flex flex-col gap-2"}>
+      <Checkbox
+        checked={allChecked}
+        indeterminate={isIndeterminate}
+        onChange={(checked) =>
+          setValues([checked, checked, checked, checked, checked])
+        }
+      >
+        工作日
+      </Checkbox>
+      <div className={"flex flex-row gap-5"}>
+        {["周一", "周二", "周三", "周四", "周五"].map((day, index) => (
+          <Checkbox
+            key={day}
+            checked={values[index]}
+            onChange={(checked) => {
+              setValues((prev) => {
+                return [
+                  ...prev.slice(0, index),
+                  !!checked,
+                  ...prev.slice(index + 1),
+                ];
+              });
+            }}
+          >
+            {day}
+          </Checkbox>
+        ))}
+      </div>
+    </div>
+  );
+}
+```
+
+## 属性
+
+### 多选框
+
+::PropsTable{file=checkbox/checkbox.tsx}
+
+### 多选框组
+
+::PropsTable{file=checkbox/checkbox-group.tsx}
