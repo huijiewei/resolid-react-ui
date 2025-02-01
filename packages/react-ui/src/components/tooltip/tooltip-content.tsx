@@ -15,34 +15,34 @@ export const TooltipContent = (props: PrimitiveProps<"div">) => {
     duration: duration,
   });
 
+  if (!isMounted) {
+    return null;
+  }
+
   return (
-    <>
-      {isMounted && (
-        <PortalLite>
-          <div
-            ref={setFloating}
-            style={
-              {
-                ...floatingStyles,
-                "--duration-var": `${duration}ms`,
-              } as CSSProperties
-            }
-            className={tx(
-              "z-90 text-fg-emphasized inline-block max-w-96 rounded-md border px-2 py-1 text-sm shadow-sm",
-              "duration-(--duration-var) transition-opacity",
-              status == "open" ? "opacity-100" : "opacity-0",
-              !interactive && "pointer-events-none",
-              floatingClassName,
-              className,
-            )}
-            {...getFloatingProps({
-              ...rest,
-            })}
-          >
-            {children}
-          </div>
-        </PortalLite>
-      )}
-    </>
+    <PortalLite>
+      <div
+        ref={setFloating}
+        style={
+          {
+            ...floatingStyles,
+            "--dv": `${duration}ms`,
+          } as CSSProperties
+        }
+        className={tx(
+          "z-90 text-fg-emphasized inline-block max-w-96 rounded-md border px-2 py-1 text-sm shadow-sm",
+          "duration-(--dv) transition-opacity",
+          status == "open" ? "opacity-100" : "opacity-0",
+          !interactive && "pointer-events-none",
+          floatingClassName,
+          className,
+        )}
+        {...getFloatingProps({
+          ...rest,
+        })}
+      >
+        {children}
+      </div>
+    </PortalLite>
   );
 };

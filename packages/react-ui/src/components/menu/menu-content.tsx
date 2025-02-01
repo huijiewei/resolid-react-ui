@@ -40,38 +40,38 @@ export const MenuContent = (props: PrimitiveProps<"div">) => {
     duration: duration,
   });
 
+  if (!isMounted) {
+    return null;
+  }
+
   return (
-    <>
-      {isMounted && (
-        <Portal>
-          <FloatingFocusManager context={context} modal={false}>
-            <div
-              className={tx(
-                "border-bd-normal bg-bg-normal z-30 min-w-32 rounded-md border p-1 shadow-sm outline-none",
-                "duration-(--duration-var) transition-opacity",
-                status == "open" ? "opacity-100" : "opacity-0",
-                className,
-              )}
-              ref={setFloating}
-              style={{ ...floatingStyles, "--duration-var": `${duration}ms` } as CSSProperties}
-              {...getFloatingProps({
-                ...rest,
-                onMouseEnter: () => {
-                  if (nested) {
-                    setHoverEnabled(false);
-                  }
-                },
-              })}
-            >
-              <MenuItemContext value={menuItemContext}>
-                <FloatingList elementsRef={elementsRef} labelsRef={labelsRef}>
-                  {children}
-                </FloatingList>
-              </MenuItemContext>
-            </div>
-          </FloatingFocusManager>
-        </Portal>
-      )}
-    </>
+    <Portal>
+      <FloatingFocusManager context={context} modal={false}>
+        <div
+          ref={setFloating}
+          style={{ ...floatingStyles, "--dv": `${duration}ms` } as CSSProperties}
+          className={tx(
+            "border-bd-normal bg-bg-normal min-w-25 z-30 rounded-md border p-1 shadow-sm outline-none",
+            "duration-(--dv) transition-opacity",
+            status == "open" ? "opacity-100" : "opacity-0",
+            className,
+          )}
+          {...getFloatingProps({
+            ...rest,
+            onMouseEnter: () => {
+              if (nested) {
+                setHoverEnabled(false);
+              }
+            },
+          })}
+        >
+          <MenuItemContext value={menuItemContext}>
+            <FloatingList elementsRef={elementsRef} labelsRef={labelsRef}>
+              {children}
+            </FloatingList>
+          </MenuItemContext>
+        </div>
+      </FloatingFocusManager>
+    </Portal>
   );
 };
