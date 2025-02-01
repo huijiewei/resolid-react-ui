@@ -4,7 +4,7 @@ import type { PrimitiveProps } from "../../primitives";
 import { isInputEvent } from "../../utils";
 import { type RadioGroupBaseProps, RadioGroupContext } from "./radio-group-context";
 
-type RadioGroupProps = RadioGroupBaseProps & {
+export type RadioGroupProps = RadioGroupBaseProps & {
   /**
    * 默认值
    */
@@ -17,7 +17,17 @@ type RadioGroupProps = RadioGroupBaseProps & {
 };
 
 export const RadioGroup = (props: PrimitiveProps<"div", RadioGroupProps, "role">) => {
-  const { color, size, children, disabled, value, name, defaultValue = "", onChange, ...rest } = props;
+  const {
+    color = "primary",
+    size = "md",
+    disabled = false,
+    name,
+    value,
+    defaultValue = "",
+    onChange,
+    children,
+    ...rest
+  } = props;
 
   const [valueState, setValueState] = useControllableState({
     value,
@@ -31,10 +41,6 @@ export const RadioGroup = (props: PrimitiveProps<"div", RadioGroupProps, "role">
     setValueState(nextValue);
   };
 
-  const handleReset = () => {
-    setValueState(defaultValue);
-  };
-
   const groupContext = {
     name,
     size,
@@ -42,7 +48,6 @@ export const RadioGroup = (props: PrimitiveProps<"div", RadioGroupProps, "role">
     disabled,
     value: valueState,
     onChange: handleChange,
-    onReset: handleReset,
   };
 
   return (

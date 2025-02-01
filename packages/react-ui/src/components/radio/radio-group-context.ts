@@ -5,13 +5,13 @@ import type { BinarySize, ToggleColor } from "../../shared/styles";
 export type RadioBaseProps = {
   /**
    * 颜色
-   * @default 'primary'
+   * @default "primary"
    */
   color?: ToggleColor;
 
   /**
    * 大小
-   * @default 'md'
+   * @default "md"
    */
   size?: BinarySize;
 
@@ -36,7 +36,6 @@ export type RadioGroupBaseProps = RadioBaseProps & {
 
 export type RadioGroupContextValue = RadioGroupBaseProps & {
   onChange: (event: ChangeEvent<HTMLInputElement> | string | number) => void;
-  onReset: () => void;
 };
 
 export const [RadioGroupContext, useRadioGroup] = createSafeContext<RadioGroupContextValue, boolean>({

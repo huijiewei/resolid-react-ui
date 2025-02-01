@@ -12,6 +12,9 @@ export const inputTextShareStyles = {
 
 export const toggleLabelShareStyles = "gap-(--sv) relative inline-flex items-center";
 
+export const toggleControlShareStyles =
+  "inline-flex shrink-0 select-none border-2 outline-2 outline-offset-2 outline-transparent";
+
 export const toggleColorShareStyles = {
   primary: {
     focus: "peer-focus-visible:outline-bg-primary-emphasis/70",

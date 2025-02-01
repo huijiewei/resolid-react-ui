@@ -6,6 +6,7 @@ import {
   inputTextShareStyles,
   type ToggleColor,
   toggleColorShareStyles,
+  toggleControlShareStyles,
   toggleLabelShareStyles,
 } from "../../shared/styles";
 import { ariaAttr, tx } from "../../utils";
@@ -130,9 +131,11 @@ export const Switch = (props: PrimitiveProps<"input", SwitchProps, "role" | "typ
         {...rest}
       />
       <span
+        aria-checked={ariaAttr(checkedState)}
+        aria-hidden={true}
         className={tx(
-          "inline-flex shrink-0 justify-start rounded-full border-2 transition-colors",
-          "outline-2 outline-offset-2 outline-transparent",
+          "inline-flex shrink-0 justify-start rounded-full border-2",
+          toggleControlShareStyles,
           !disabled && !readOnly && "cursor-pointer",
           colorStyle.focus,
           sizeStyle.track,

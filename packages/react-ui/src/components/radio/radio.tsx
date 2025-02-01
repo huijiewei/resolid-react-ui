@@ -6,6 +6,7 @@ import {
   binarySizeShareStyles,
   disabledShareStyles,
   inputTextShareStyles,
+  toggleControlShareStyles,
   toggleLabelShareStyles,
 } from "../../shared/styles";
 import { ariaAttr, tx } from "../../utils";
@@ -53,7 +54,7 @@ export type RadioProps = RadioBaseProps & {
 
   /**
    * 间距
-   * @default '0.5em'
+   * @default "0.5em"
    */
   spacing?: string | number;
 };
@@ -126,8 +127,10 @@ export const Radio = (props: PrimitiveProps<"input", RadioProps, "role" | "type"
       <span
         role={"radio"}
         aria-checked={ariaAttr(checkedState)}
+        aria-hidden={true}
         className={tx(
-          "inline-flex shrink-0 select-none items-center justify-center rounded-full border-2",
+          "items-center justify-center rounded-full",
+          toggleControlShareStyles,
           !disabled && !readOnly && "cursor-pointer",
           colorStyle.focus,
           invalid ? "border-bd-invalid" : checkedState ? colorStyle.border : "border-bd-normal",

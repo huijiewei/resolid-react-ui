@@ -34,15 +34,15 @@ import { Radio, RadioGroup } from "@resolid/react-ui";
 import { useState } from "react";
 
 export default function App() {
-  const [checkedValue, setCheckedValue] = useState("");
+  const [value, setValue] = useState("");
 
   return (
     <div className={"flex flex-col gap-2"}>
-      <p>你最喜欢的 JS 框架是: {checkedValue}</p>
+      <p>你选择的框架是: {value}</p>
       <RadioGroup
         name={"sizesRadioGroup"}
-        value={checkedValue}
-        onChange={setCheckedValue}
+        value={value}
+        onChange={setValue}
         className={"flex flex-row items-center gap-5"}
       >
         <Radio value={"React"}>React</Radio>
