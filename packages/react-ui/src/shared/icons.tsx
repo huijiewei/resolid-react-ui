@@ -2,7 +2,7 @@ import type { SVGAttributes } from "react";
 
 export const AngleRightIcon = ({ size = "1em" }: { size?: string }) => {
   return (
-    <svg width={size} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+    <svg style={{ width: size }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
       <path d="M9 5l7 7-7 7" />
     </svg>
   );
@@ -10,7 +10,7 @@ export const AngleRightIcon = ({ size = "1em" }: { size?: string }) => {
 
 type IconProps = Omit<
   SVGAttributes<HTMLOrSVGElement>,
-  "viewBox" | "stroke" | "strokeWidth" | "strokeLinejoin" | "strokeLinecap" | "fill"
+  "viewBox" | "stroke" | "strokeWidth" | "strokeLinejoin" | "strokeLinecap" | "fill" | "style"
 > & { size?: string };
 
 export const AngleUpIcon = (props: IconProps) => {
@@ -18,7 +18,7 @@ export const AngleUpIcon = (props: IconProps) => {
 
   return (
     <svg
-      width={size}
+      style={{ width: size }}
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -37,7 +37,7 @@ export const AngleDownIcon = (props: IconProps) => {
 
   return (
     <svg
-      width={size}
+      style={{ width: size }}
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -56,7 +56,7 @@ export const CheckedIcon = (props: IconProps) => {
 
   return (
     <svg
-      width={size}
+      style={{ width: size }}
       fill="none"
       viewBox="0 0 12 10"
       stroke="currentColor"
@@ -74,7 +74,7 @@ export const IndeterminateIcon = (props: IconProps) => {
   const { size = "1em", ...rest } = props;
 
   return (
-    <svg width={size} viewBox="0 0 24 24" stroke="currentColor" strokeWidth="4" {...rest}>
+    <svg style={{ width: size }} viewBox="0 0 24 24" stroke="currentColor" strokeWidth="4" {...rest}>
       <line x1="21" x2="3" y1="12" y2="12" />
     </svg>
   );

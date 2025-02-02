@@ -35,8 +35,7 @@ export const CloseButton = (props: PrimitiveProps<"button", CloseButtonProps>) =
     >
       {children || (
         <svg
-          width={sizeValue}
-          height={sizeValue}
+          style={{ width: sizeValue }}
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"

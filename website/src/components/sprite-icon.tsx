@@ -26,7 +26,7 @@ export const SpriteIcon = (props: SpriteIconProps) => {
     isString(size) && ["xs", "sm", "md", "lg", "xl"].includes(size) ? iconSizes[size as IconSizes] : size;
 
   return (
-    <svg width={sizeValue} height={sizeValue} className={tx("aspect-square", className)}>
+    <svg style={{ width: sizeValue }} className={tx("aspect-square", className)}>
       <use color={color} href={`${spriteIcons}#${name}`} />
     </svg>
   );
