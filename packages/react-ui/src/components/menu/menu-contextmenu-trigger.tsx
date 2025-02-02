@@ -1,4 +1,4 @@
-import { type MouseEvent, type PointerEvent, type PointerEventHandler, useCallback, useEffect, useRef } from "react";
+import { type MouseEvent, type PointerEvent, useCallback, useEffect, useRef } from "react";
 import type { PolymorphicProps } from "../../primitives";
 import { dataAttr } from "../../utils";
 import { usePopperDispatch } from "../popper/popper-dispatch-context";
@@ -21,7 +21,7 @@ export const MenuContextmenuTrigger = (props: PolymorphicProps<"div", MenuContex
     ...rest
   } = props;
 
-  const { setPositionReference, open } = usePopperReference();
+  const { open, setPositionReference } = usePopperReference();
   const { handleOpen } = usePopperDispatch();
 
   const longPressTimerRef = useRef(0);
@@ -63,35 +63,33 @@ export const MenuContextmenuTrigger = (props: PolymorphicProps<"div", MenuContex
   const handlePointerDown = (e: PointerEvent<HTMLDivElement>) => {
     onPointerDown?.(e);
 
-    if (!disabled) {
-      whenTouchOrPen((e) => {
-        clearLongPress();
-        longPressTimerRef.current = window.setTimeout(() => openMenu(e), 700);
-      });
+    if (!disabled && e.pointerType != "mouse") {
+      clearLongPress();
+      longPressTimerRef.current = window.setTimeout(() => openMenu(e), 700);
     }
   };
 
   const handlePointerMove = (e: PointerEvent<HTMLDivElement>) => {
     onPointerMove?.(e);
 
-    if (!disabled) {
-      whenTouchOrPen(clearLongPress);
+    if (!disabled && e.pointerType != "mouse") {
+      clearLongPress();
     }
   };
 
   const handlePointerCancel = (e: PointerEvent<HTMLDivElement>) => {
     onPointerCancel?.(e);
 
-    if (!disabled) {
-      whenTouchOrPen(clearLongPress);
+    if (!disabled && e.pointerType != "mouse") {
+      clearLongPress();
     }
   };
 
   const handlePointerUp = (e: PointerEvent<HTMLDivElement>) => {
     onPointerUp?.(e);
 
-    if (!disabled) {
-      whenTouchOrPen(clearLongPress);
+    if (!disabled && e.pointerType != "mouse") {
+      clearLongPress();
     }
   };
 
@@ -109,8 +107,3 @@ export const MenuContextmenuTrigger = (props: PolymorphicProps<"div", MenuContex
     </Component>
   );
 };
-
-const whenTouchOrPen =
-  <E extends Element>(handler: PointerEventHandler<E>): PointerEventHandler<E> =>
-  (event) =>
-    event.pointerType != "mouse" ? handler(event) : undefined;
