@@ -1,10 +1,21 @@
 import { ResolidProvider } from "@resolid/react-ui";
 import type { PropsWithChildren } from "react";
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
+import { Links, type LinksFunction, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import { RouteProcessBar } from "~/components/route-process-bar";
 import { VercelAnalytics } from "~/components/vercel-analytics";
 
-import "./root.css";
+import styles from "~/root.css?url";
+
+// noinspection JSUnusedGlobalSymbols
+export const links: LinksFunction = () => {
+  return [
+    {
+      rel: "stylesheet",
+      href: styles,
+      precedence: "high",
+    },
+  ];
+};
 
 // noinspection JSUnusedGlobalSymbols
 export const Layout = ({ children }: PropsWithChildren) => {
