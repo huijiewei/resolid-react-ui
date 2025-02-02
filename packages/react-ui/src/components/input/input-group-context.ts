@@ -9,7 +9,6 @@ export type InputGroupContextValue = {
   size: InputSize;
 };
 
-export const [InputGroupContext, useInputGroup] = createSafeContext<InputGroupContextValue, boolean>({
-  strict: false,
+export const [InputGroupContext, useInputGroup] = createSafeContext<InputGroupContextValue>({
   name: "InputGroupContext",
 });

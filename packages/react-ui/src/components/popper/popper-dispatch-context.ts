@@ -6,6 +6,5 @@ export type PopperDispatchContextValue = {
 };
 
 export const [PopperDispatchContext, usePopperDispatch] = createSafeContext<PopperDispatchContextValue>({
-  strict: true,
   name: "PopperDispatchContext",
 });

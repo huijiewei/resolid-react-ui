@@ -3,7 +3,7 @@ import { tx } from "../../utils";
 import { AlertContext, type AlertContextValue, useAlert } from "./alert-context";
 import { alertStyles } from "./alert.styles";
 
-export type AlertProps = AlertContextValue;
+export type AlertProps = Partial<AlertContextValue>;
 
 export const Alert = (props: PrimitiveProps<"div", AlertProps, "role">) => {
   const { children, className, color = "primary", variant = "soft", ...rest } = props;

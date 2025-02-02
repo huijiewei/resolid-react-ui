@@ -7,6 +7,5 @@ type MenuItemIndicatorContextValue = {
 };
 
 export const [MenuItemIndicatorContext, useMenuItemIndicator] = createSafeContext<MenuItemIndicatorContextValue>({
-  strict: true,
   name: "MenuItemIndicatorContext",
 });

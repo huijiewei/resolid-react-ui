@@ -6,6 +6,5 @@ export type PopperAriaContextValue = {
 };
 
 export const [PopperAriaContext, usePopperAria] = createSafeContext<PopperAriaContextValue>({
-  strict: true,
   name: "PopperAriaContext",
 });

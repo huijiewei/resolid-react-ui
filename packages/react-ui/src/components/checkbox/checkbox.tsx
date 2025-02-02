@@ -67,7 +67,7 @@ export type CheckboxProps = CheckboxBaseProps & {
 };
 
 export const Checkbox = (props: PrimitiveProps<"input", CheckboxProps, "role" | "type">) => {
-  const group = useCheckboxGroup();
+  const group = useCheckboxGroup(true);
 
   const {
     name = group?.name,

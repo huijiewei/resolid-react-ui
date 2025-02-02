@@ -10,6 +10,5 @@ export type PopperReferenceContextValue = {
 };
 
 export const [PopperReferenceContext, usePopperReference] = createSafeContext<PopperReferenceContextValue>({
-  strict: true,
   name: "PopperReferenceContext",
 });

@@ -11,6 +11,5 @@ export type MenuItemContextValue = {
 };
 
 export const [MenuItemContext, useMenuItem] = createSafeContext<MenuItemContextValue>({
-  strict: true,
   name: "MenuItemContext",
 });

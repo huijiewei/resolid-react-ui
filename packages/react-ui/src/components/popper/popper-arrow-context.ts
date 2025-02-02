@@ -9,6 +9,5 @@ export type PopperArrowContextValue = {
 };
 
 export const [PopperArrowContext, usePopperArrow] = createSafeContext<PopperArrowContextValue>({
-  strict: true,
   name: "PopperArrowContext",
 });

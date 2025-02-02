@@ -6,16 +6,15 @@ export type AlertContextValue = {
    * 外观
    * @default "soft"
    */
-  variant?: AlertStyleProps["variant"];
+  variant: AlertStyleProps["variant"];
 
   /**
    * 颜色
    * @default "primary"
    */
-  color?: AlertStyleProps["color"];
+  color: AlertStyleProps["color"];
 };
 
-export const [AlertContext, useAlert] = createSafeContext<Required<AlertContextValue>>({
-  strict: true,
+export const [AlertContext, useAlert] = createSafeContext<AlertContextValue>({
   name: "AlertContext",
 });

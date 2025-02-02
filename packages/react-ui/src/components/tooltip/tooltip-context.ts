@@ -8,6 +8,5 @@ export type TooltipFloatingContextValue = PopperFloatingContextValue & {
 };
 
 export const [TooltipFloatingContext, useTooltipFloating] = createSafeContext<TooltipFloatingContextValue>({
-  strict: true,
   name: "TooltipFloatingContext",
 });

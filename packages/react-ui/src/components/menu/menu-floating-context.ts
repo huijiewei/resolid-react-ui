@@ -12,6 +12,5 @@ export type MenuFloatingContextValue = PopperFloatingContextValue &
   };
 
 export const [MenuFloatingContext, useMenuFloating] = createSafeContext<MenuFloatingContextValue>({
-  strict: true,
   name: "MenuFloatingContext",
 });

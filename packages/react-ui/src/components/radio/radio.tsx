@@ -48,7 +48,7 @@ export type RadioProps = RadioBaseProps & {
 };
 
 export const Radio = (props: PrimitiveProps<"input", RadioProps, "role" | "type">) => {
-  const group = useRadioGroup();
+  const group = useRadioGroup(true);
 
   const {
     name = group?.name,

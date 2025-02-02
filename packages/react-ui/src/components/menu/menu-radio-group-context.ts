@@ -6,6 +6,5 @@ export type MenuRadioGroupContextValue = {
 };
 
 export const [MenuRadioGroupContext, useMenuRadioGroup] = createSafeContext<MenuRadioGroupContextValue>({
-  strict: true,
   name: "MenuRadioGroupContext",
 });

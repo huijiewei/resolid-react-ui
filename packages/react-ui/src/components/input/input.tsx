@@ -105,7 +105,7 @@ export type InputProps = Partial<InputGroupContextValue> & {
 };
 
 export const Input = (props: PrimitiveProps<"input", InputProps, "children">) => {
-  const group = useInputGroup();
+  const group = useInputGroup(true);
 
   const {
     size = group?.size ?? "md",

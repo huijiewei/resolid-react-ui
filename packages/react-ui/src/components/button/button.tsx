@@ -50,7 +50,7 @@ export type ButtonProps = ButtonBaseProps & {
 };
 
 export const Button = <T extends ElementType = "button">(props: PolymorphicProps<T, ButtonProps, "role">) => {
-  const group = useButtonGroup();
+  const group = useButtonGroup(true);
 
   const {
     as: Component = "button",

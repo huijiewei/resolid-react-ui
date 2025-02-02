@@ -50,7 +50,6 @@ export type RadioGroupContextValue = RadioGroupBaseProps & {
   onChange: (event: ChangeEvent<HTMLInputElement> | string | number) => void;
 };
 
-export const [RadioGroupContext, useRadioGroup] = createSafeContext<RadioGroupContextValue, boolean>({
-  strict: false,
+export const [RadioGroupContext, useRadioGroup] = createSafeContext<RadioGroupContextValue>({
   name: "RadioGroupContext",
 });

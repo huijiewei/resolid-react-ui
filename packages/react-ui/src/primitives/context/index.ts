@@ -1,30 +1,26 @@
 import { createContext, use } from "react";
 
-type SafeContextOptions<S> = {
+type SafeContextOptions = {
   name: string;
-  strict?: S;
   errorMessage?: string;
 };
 
-export const createSafeContext = <T, S extends boolean = true>(options: SafeContextOptions<S>) => {
-  const { name, strict = true, errorMessage } = options;
+export const createSafeContext = <T>(options: SafeContextOptions) => {
+  const { name, errorMessage } = options;
 
   const SafeContext = createContext<T | undefined>(undefined);
 
-  const useSafeContext = () => {
+  const useSafeContext = <O extends boolean = false>(optional: O = false as O) => {
     const context = use(SafeContext);
 
-    if (strict && context === undefined) {
-      const error = new Error(
+    if (!optional && context === undefined) {
+      throw new Error(
         errorMessage ??
           `use${name.replace("Context", "")} returned \`undefined\`. Seems you forgot to wrap component within ${name}`,
       );
-      error.name = "ContextError";
-      Error.captureStackTrace?.(error, useSafeContext);
-      throw error;
     }
 
-    return context as S extends true ? T : T | undefined;
+    return context as O extends true ? T | undefined : T;
   };
 
   return [SafeContext, useSafeContext] as const;

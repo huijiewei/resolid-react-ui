@@ -8,10 +8,6 @@ export const InputAddon = (props: PrimitiveProps<"div">) => {
 
   const group = useInputGroup();
 
-  if (group == undefined) {
-    throw new Error("useInputGroup returned `undefined`. Seems you forgot to wrap component within InputGroup");
-  }
-
   return (
     <div
       className={tx(
