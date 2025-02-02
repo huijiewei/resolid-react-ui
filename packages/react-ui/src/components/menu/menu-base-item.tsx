@@ -13,6 +13,7 @@ export type MenuBaseItemProps = {
 
   /**
    * 该项目是否被禁用
+   * @default false
    */
   disabled?: boolean;
 };

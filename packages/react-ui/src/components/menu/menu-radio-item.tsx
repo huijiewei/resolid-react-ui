@@ -5,11 +5,14 @@ import { MenuItemIndicatorContext } from "./menu-item-indicator-context";
 import { useMenuRadioGroup } from "./menu-radio-group-context";
 
 export type MenuRadioItemProps = MenuItemProps & {
+  /**
+   * 菜单单选项的价值
+   */
   value: string | number;
 };
 
 export const MenuRadioItem = (props: PolymorphicProps<"div", MenuRadioItemProps, "role" | "tabIndex">) => {
-  const { value, onClick, children, className, ...rest } = props;
+  const { value, onSelect, children, className, ...rest } = props;
 
   const group = useMenuRadioGroup();
   const checked = value == group.value;
@@ -18,9 +21,9 @@ export const MenuRadioItem = (props: PolymorphicProps<"div", MenuRadioItemProps,
     <MenuItemIndicatorContext value={{ checked }}>
       <MenuItem
         role="menuitemradio"
-        onClick={() => {
+        onSelect={() => {
           group.onChange?.(value);
-          onClick?.();
+          onSelect?.();
         }}
         label={value as string}
         aria-checked={ariaAttr(checked)}

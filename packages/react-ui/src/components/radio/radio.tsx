@@ -109,6 +109,7 @@ export const Radio = (props: PrimitiveProps<"input", RadioProps, "role" | "type"
         checked={checkedState}
         disabled={disabled}
         required={required}
+        readOnly={readOnly}
         onChange={handleChange}
         {...rest}
       />

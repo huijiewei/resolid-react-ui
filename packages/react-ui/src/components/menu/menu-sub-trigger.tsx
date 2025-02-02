@@ -7,10 +7,10 @@ import { usePopperReference } from "../popper/popper-reference-context";
 import { MenuBaseItem, type MenuBaseItemProps } from "./menu-base-item";
 import { useMenuHover } from "./menu-hover-context";
 
-export type MenuSubmenuTriggerProps = MenuBaseItemProps;
+export type MenuSubTriggerProps = MenuBaseItemProps;
 
-export const MenuSubmenuTrigger = <T extends ElementType = "div">(
-  props: PolymorphicProps<T, MenuSubmenuTriggerProps, "role">,
+export const MenuSubTrigger = <T extends ElementType = "div">(
+  props: PolymorphicProps<T, MenuSubTriggerProps, "role">,
 ) => {
   const { as, children, ref, className, disabled, ...rest } = props;
 

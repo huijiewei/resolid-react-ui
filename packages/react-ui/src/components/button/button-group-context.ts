@@ -1,4 +1,5 @@
 import { createSafeContext } from "../../primitives";
+import type { Orientation } from "../../shared/types";
 import type { ButtonStyleProps } from "./button.styles";
 
 export type ButtonBaseProps = {
@@ -32,7 +33,7 @@ export type ButtonGroupContextValue = ButtonBaseProps & {
    * 布局方向
    * @default "horizontal"
    */
-  orientation?: "horizontal" | "vertical";
+  orientation?: Orientation;
 };
 
 export const [ButtonGroupContext, useButtonGroup] = createSafeContext<ButtonGroupContextValue>({

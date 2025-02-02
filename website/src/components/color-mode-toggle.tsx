@@ -1,10 +1,11 @@
 import {
   Button,
   type ColorMode,
-  Menu,
-  MenuContent,
-  MenuItem,
-  MenuTrigger,
+  DropdownMenu,
+  DropdownMenuArrow,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
   useColorModeDispatch,
   useColorModeState,
 } from "@resolid/react-ui";
@@ -30,8 +31,8 @@ export const ColorModeToggle = () => {
   const setColorMode = useColorModeDispatch();
 
   return (
-    <Menu placement={"bottom"}>
-      <MenuTrigger
+    <DropdownMenu placement={"bottom"}>
+      <DropdownMenuTrigger
         as={Button}
         active={true}
         aria-label={"颜色模式"}
@@ -41,24 +42,25 @@ export const ColorModeToggle = () => {
         size={"sm"}
       >
         <SpriteIcon name={colorModes[colorMode].icon} />
-      </MenuTrigger>
-      <MenuContent className={"text-sm"}>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className={"text-sm"}>
+        <DropdownMenuArrow />
         {Object.entries(colorModes).map(([key, mode]) => {
           return (
-            <MenuItem
+            <DropdownMenuItem
               key={key}
               label={key}
               className={colorMode == key ? "text-link" : ""}
-              onClick={() => {
+              onSelect={() => {
                 setColorMode(key as ColorMode);
               }}
             >
               <SpriteIcon size={"xs"} name={mode.icon} className={"me-1.5"} />
               <span>{mode.label}</span>
-            </MenuItem>
+            </DropdownMenuItem>
           );
         })}
-      </MenuContent>
-    </Menu>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };

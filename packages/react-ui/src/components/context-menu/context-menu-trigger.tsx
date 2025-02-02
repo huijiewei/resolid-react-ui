@@ -4,11 +4,15 @@ import { dataAttr } from "../../utils";
 import { usePopperDispatch } from "../popper/popper-dispatch-context";
 import { usePopperReference } from "../popper/popper-reference-context";
 
-type MenuContextmenuTriggerProps = {
+type ContextMenuTriggerProps = {
+  /**
+   * 是否被禁用
+   * @default false
+   */
   disabled?: boolean;
 };
 
-export const MenuContextmenuTrigger = (props: PolymorphicProps<"div", MenuContextmenuTriggerProps>) => {
+export const ContextMenuTrigger = (props: PolymorphicProps<"div", ContextMenuTriggerProps>) => {
   const {
     as: Component = "div",
     disabled = false,

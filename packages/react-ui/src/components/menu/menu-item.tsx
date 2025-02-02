@@ -5,21 +5,28 @@ import { MenuBaseItem, type MenuBaseItemProps } from "./menu-base-item";
 import { useMenuItem } from "./menu-item-context";
 
 export type MenuItemProps = MenuBaseItemProps & {
+  /**
+   * 选择项目后, 菜单将关闭
+   */
   closeOnSelect?: boolean;
-  onClick?: () => void;
+
+  /**
+   * 当用户选择一个项目（通过鼠标或键盘）时调用事件处理程序
+   */
+  onSelect?: () => void;
 };
 
 export const MenuItem = <T extends ElementType = "div">(props: PolymorphicProps<T, MenuItemProps, "tabIndex">) => {
   const { menuEvents, closeOnSelect: menuCloseOnSelect, typingRef } = useMenuItem();
 
-  const { as, className, children, onClick, disabled = false, closeOnSelect = menuCloseOnSelect, ...rest } = props;
+  const { as, className, children, onSelect, disabled = false, closeOnSelect = menuCloseOnSelect, ...rest } = props;
 
   const handleClick = () => {
     if (disabled) {
       return;
     }
 
-    onClick?.();
+    onSelect?.();
 
     if (closeOnSelect) {
       menuEvents.emit("close");

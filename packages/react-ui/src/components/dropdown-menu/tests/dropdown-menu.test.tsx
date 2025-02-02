@@ -3,64 +3,63 @@ import { userEvent } from "@testing-library/user-event";
 import { afterEach, describe, expect, test, vi } from "vitest";
 import { axe } from "vitest-axe";
 import {
-  Menu,
-  MenuArrow,
-  MenuCheckboxItem,
-  MenuContent,
-  MenuContextmenuTrigger,
-  MenuGroup,
-  MenuGroupLabel,
-  MenuItem,
-  MenuItemIndicator,
-  type MenuProps,
-  MenuRadioGroup,
-  MenuRadioItem,
-  MenuSeparator,
-  MenuSubmenuTrigger,
-  MenuTrigger,
-} from "../menu";
+  DropdownMenu,
+  DropdownMenuArrow,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuGroupLabel,
+  DropdownMenuItemIndicator,
+  type DropdownMenuProps,
+  DropdownMenuSeparator,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "../dropdown-menu";
+import { DropdownMenuCheckboxItem } from "../dropdown-menu-checkbox-item";
+import { DropdownMenuItem } from "../dropdown-menu-item";
+import { DropdownMenuRadioGroup } from "../dropdown-menu-radio-group";
+import { DropdownMenuRadioItem } from "../dropdown-menu-radio-item";
 
 const ComponentUnderTest = (
-  props: MenuProps & {
+  props: DropdownMenuProps & {
     onValueChange?: (value: string | number) => void;
   },
 ) => {
   const { onValueChange, ...rest } = props;
   return (
-    <Menu {...rest}>
-      <MenuTrigger>Open menu</MenuTrigger>
-      <MenuContextmenuTrigger>Open Context Menu</MenuContextmenuTrigger>
-      <MenuContent>
-        <MenuArrow />
-        <MenuGroup>
-          <MenuGroupLabel>Resolid UI</MenuGroupLabel>
-          <MenuItem>Button</MenuItem>
-          <MenuItem disabled>Dialog</MenuItem>
-        </MenuGroup>
-        <MenuSeparator />
-        <MenuCheckboxItem checked>
-          <MenuItemIndicator>✅</MenuItemIndicator>
+    <DropdownMenu {...rest}>
+      <DropdownMenuTrigger>Open menu</DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuArrow />
+        <DropdownMenuGroup>
+          <DropdownMenuGroupLabel>Resolid UI</DropdownMenuGroupLabel>
+          <DropdownMenuItem>Button</DropdownMenuItem>
+          <DropdownMenuItem disabled>Dialog</DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuCheckboxItem checked>
+          <DropdownMenuItemIndicator>✅</DropdownMenuItemIndicator>
           Check me
-        </MenuCheckboxItem>
-        <MenuSeparator />
-        <MenuRadioGroup value="react" onChange={onValueChange}>
-          <MenuGroupLabel>JS Frameworks</MenuGroupLabel>
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuRadioGroup value="react" onChange={onValueChange}>
+          <DropdownMenuGroupLabel>JS Frameworks</DropdownMenuGroupLabel>
           {["react", "solid", "vue", "svelte"].map((framework) => (
-            <MenuRadioItem key={framework} value={framework} disabled={framework === "svelte"}>
-              <MenuItemIndicator>✅</MenuItemIndicator>
+            <DropdownMenuRadioItem key={framework} value={framework} disabled={framework === "svelte"}>
+              <DropdownMenuItemIndicator>✅</DropdownMenuItemIndicator>
               {framework}
-            </MenuRadioItem>
+            </DropdownMenuRadioItem>
           ))}
-        </MenuRadioGroup>
-        <MenuSeparator />
-        <Menu>
-          <MenuSubmenuTrigger>CSS Frameworks</MenuSubmenuTrigger>
-          <MenuContent>
-            <MenuItem>Tailwind CSS</MenuItem>
-          </MenuContent>
-        </Menu>
-      </MenuContent>
-    </Menu>
+        </DropdownMenuRadioGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenu>
+          <DropdownMenuSubTrigger>CSS Frameworks</DropdownMenuSubTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem>Tailwind CSS</DropdownMenuItem>
+            <DropdownMenuItem>UnoCSS</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 
@@ -100,16 +99,6 @@ describe("Menu", () => {
     fireEvent.click(button);
 
     await waitFor(() => expect(screen.getAllByRole("group")).toHaveLength(2));
-  });
-
-  test("should open on context menu", async () => {
-    render(<ComponentUnderTest />);
-
-    const div = screen.getByText(/Open Context Menu/i);
-
-    fireEvent.contextMenu(div);
-
-    await waitFor(() => expect(screen.getByText(/Resolid UI/i)).toBeVisible());
   });
 
   test("should open on nested menu", async () => {

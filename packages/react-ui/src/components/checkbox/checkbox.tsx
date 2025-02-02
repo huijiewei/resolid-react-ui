@@ -42,22 +42,10 @@ export type CheckboxProps = CheckboxBaseProps & {
   indeterminate?: boolean;
 
   /**
-   * 是否必选
-   * @default false
-   */
-  required?: boolean;
-
-  /**
    * 是否无效
    * @default false
    */
   invalid?: boolean;
-
-  /**
-   * 是否只读
-   * @default false
-   */
-  readOnly?: boolean;
 
   /**
    * 间距
@@ -74,8 +62,8 @@ export const Checkbox = (props: PrimitiveProps<"input", CheckboxProps, "role" | 
     size = group?.size || "md",
     color = group?.color || "primary",
     disabled = group?.disabled || false,
-    required = false,
-    readOnly = false,
+    readOnly = group?.readOnly || false,
+    required = group?.required || false,
     invalid = false,
     spacing = "0.5em",
     checked,
@@ -151,6 +139,7 @@ export const Checkbox = (props: PrimitiveProps<"input", CheckboxProps, "role" | 
         checked={checkedState}
         disabled={disabled}
         required={required}
+        readOnly={readOnly}
         onChange={handleChange}
         {...rest}
       />

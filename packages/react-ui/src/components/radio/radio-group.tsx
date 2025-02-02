@@ -1,6 +1,7 @@
 import type { ChangeEvent } from "react";
 import { useControllableState } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
+import type { Orientation } from "../../shared/types";
 import { isInputEvent } from "../../utils";
 import { type RadioGroupBaseProps, RadioGroupContext } from "./radio-group-context";
 
@@ -19,7 +20,7 @@ export type RadioGroupProps = RadioGroupBaseProps & {
    * 方向
    * @default 'horizontal'
    */
-  orientation?: "horizontal" | "vertical";
+  orientation?: Orientation;
 };
 
 export const RadioGroup = (props: PrimitiveProps<"div", RadioGroupProps, "role">) => {
