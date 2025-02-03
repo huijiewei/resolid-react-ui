@@ -41,7 +41,7 @@ const mdxComponents = {
         <span id={id} className={"invisible absolute top-[calc(-1*88px)]"} />
         {children}
         <a tabIndex={-1} className={"ml-1 opacity-0 transition-opacity group-hover:opacity-100"} href={`#${id}`}>
-          <SpriteIcon size={"sm"} name={"link"} />
+          <SpriteIcon size={"0.75em"} name={"link"} />
         </a>
       </h2>
     );
@@ -52,7 +52,7 @@ const mdxComponents = {
         <span id={id} className={"invisible absolute top-[calc(-1*88px)]"} />
         {children}
         <a tabIndex={-1} className={"ml-1 opacity-0 transition-opacity group-hover:opacity-100"} href={`#${id}`}>
-          <SpriteIcon size={"sm"} name={"link"} />
+          <SpriteIcon size={"0.75em"} name={"link"} />
         </a>
       </h3>
     );
@@ -106,7 +106,7 @@ const mdxComponents = {
         {...rest}
       >
         {children}
-        {external && <SpriteIcon size={"xs"} className={"ml-1"} name={"external-link"} />}
+        {external && <SpriteIcon size={"1em"} className={"ml-1"} name={"external-link"} />}
       </a>
     );
   },
@@ -130,7 +130,7 @@ const mdxComponents = {
           className={"not-prose my-5 flex flex-row gap-2"}
         >
           <AlertIndicator className={"pt-1.75"}>
-            <SpriteIcon size={"1rem"} name={`github-${dataType}`} />
+            <SpriteIcon name={`github-${dataType}`} />
           </AlertIndicator>
           <AlertTitle>{children}</AlertTitle>
         </Alert>
@@ -176,7 +176,7 @@ const mdxComponents = {
                   {prop.description && (
                     <Tooltip interactive>
                       <TooltipTrigger>
-                        <SpriteIcon size={"sm"} name={"info"} />
+                        <SpriteIcon size={"1.25em"} name={"info"} />
                       </TooltipTrigger>
                       <TooltipContent>
                         <TooltipArrow />
@@ -339,7 +339,7 @@ const mdxComponents = {
                                   setState((prev) => ({ ...prev, [prop.name]: color }));
                                 }}
                               >
-                                {state[prop.name] == color && <SpriteIcon size={"sm"} name={"check"} />}
+                                {state[prop.name] == color && <SpriteIcon size={"1.25em"} name={"check"} />}
                               </button>
                             );
                           })}

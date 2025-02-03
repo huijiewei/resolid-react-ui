@@ -25,9 +25,9 @@ export default function Layout() {
           "z-15 bg-bg-normal border-b-bd-normal fixed flex h-9 w-full items-center justify-between border-b px-2 text-sm md:hidden"
         }
       >
-        <button type={"button"} onClick={() => setOpened(true)} className={"flex items-center gap-1 p-2"}>
-          <SpriteIcon size={"xs"} name={"menu"} />
-          <span>导航</span>
+        <button type={"button"} onClick={() => setOpened(true)} className={"inline-flex items-center gap-1"}>
+          <SpriteIcon name={"menu"} />
+          导航
         </button>
       </div>
       <aside

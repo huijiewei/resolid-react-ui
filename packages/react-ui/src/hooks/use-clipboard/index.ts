@@ -5,8 +5,8 @@ export type UseClipboardOptions = {
   onError?: (error: Error) => void;
 };
 
-export const useClipboard = (text: string, options?: UseClipboardOptions) => {
-  const duration = options?.duration ?? 2000;
+export const useClipboard = (options?: UseClipboardOptions) => {
+  const { duration = 2000, onError } = options ?? {};
 
   const [copied, setCopied] = useState(false);
 
@@ -20,16 +20,15 @@ export const useClipboard = (text: string, options?: UseClipboardOptions) => {
     };
   }, [duration, copied]);
 
-  return [
-    copied,
-    async () => {
-      try {
-        await navigator.clipboard.writeText(text);
-      } catch (e) {
-        options?.onError?.(e as Error);
-      }
+  const copy = async (source: string) => {
+    try {
+      await navigator.clipboard.writeText(source);
+    } catch (e) {
+      onError?.(e as Error);
+    }
 
-      setCopied(true);
-    },
-  ] as const;
+    setCopied(true);
+  };
+
+  return { copy, copied };
 };

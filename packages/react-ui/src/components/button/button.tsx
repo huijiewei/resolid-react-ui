@@ -104,7 +104,7 @@ export const Button = <T extends ElementType = "button">(props: PolymorphicProps
       {...getButtonProps(rest)}
     >
       {loading ? (
-        <div
+        <span
           className={tx(
             "relative inline-flex items-center justify-center gap-2",
             loadingText && spinnerPlacement == "end" && "flex-row-reverse",
@@ -114,7 +114,7 @@ export const Button = <T extends ElementType = "button">(props: PolymorphicProps
             {spinner}
           </ButtonSpinner>
           {loadingText || <span className={"opacity-0"}>{children}</span>}
-        </div>
+        </span>
       ) : (
         children
       )}

@@ -1,7 +1,7 @@
 import type { Dispatch, SetStateAction } from "react";
 import { createSafeContext } from "../../primitives";
 
-export type ColorMode = "system" | "light" | "dark";
+export type ColorMode = "auto" | "light" | "dark";
 
 export const [ColorModeStateContext, useColorModeState] = createSafeContext<ColorMode>({
   name: "ColorModeStateContext",

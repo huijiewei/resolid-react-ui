@@ -16,23 +16,23 @@ export const ColorModeProvider = ({
   nonce,
   disableTransitionOnChange = false,
 }: PropsWithChildren<ColorModeProviderProps>) => {
-  const darkOS = useMediaQuery(COLOR_SCHEME_QUERY);
+  const osDark = useMediaQuery(COLOR_SCHEME_QUERY);
 
-  const { value, setValue } = useLocalStorage<ColorMode>(COLOR_MODE_STORAGE_KEY, "system");
+  const { value, setValue } = useLocalStorage<ColorMode>(COLOR_MODE_STORAGE_KEY, "auto");
 
   useEffect(() => {
     const root = document.documentElement;
 
     const enable = disableTransitionOnChange ? disableTransition(nonce) : null;
 
-    if (value == "dark" || (value == "system" && darkOS)) {
+    if (value == "dark" || (value == "auto" && osDark)) {
       root.classList.add("dark-mode");
     } else {
       root.classList.remove("dark-mode");
     }
 
     enable?.();
-  }, [value, darkOS, disableTransitionOnChange, nonce]);
+  }, [value, osDark, disableTransitionOnChange, nonce]);
 
   return (
     <ColorModeDispatchContext value={setValue}>

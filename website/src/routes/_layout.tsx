@@ -69,7 +69,7 @@ const NavBar = () => {
             target={"_blank"}
             rel={"noreferrer"}
           >
-            <SpriteIcon name={"github"} />
+            <SpriteIcon size={"1.5em"} name={"github"} />
           </TooltipTrigger>
           <TooltipContent>
             <TooltipArrow />
@@ -84,7 +84,7 @@ const NavBar = () => {
           className={"md:hidden"}
           onClick={() => setOpened((prev) => !prev)}
         >
-          {opened ? <SpriteIcon name={"close"} /> : <SpriteIcon name={"menu"} />}
+          {opened ? <SpriteIcon size={"1.5em"} name={"close"} /> : <SpriteIcon size={"1.5em"} name={"menu"} />}
         </Button>
       </div>
     </nav>

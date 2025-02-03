@@ -20,7 +20,7 @@ const colorModes = {
     label: "暗色模式",
     icon: "moon",
   },
-  system: {
+  auto: {
     label: "跟随系统",
     icon: "auto",
   },
@@ -41,7 +41,7 @@ export const ColorModeToggle = () => {
         variant={"ghost"}
         size={"sm"}
       >
-        <SpriteIcon name={colorModes[colorMode].icon} />
+        <SpriteIcon size={"1.5em"} name={colorModes[colorMode]?.icon} />
       </DropdownMenuTrigger>
       <DropdownMenuContent className={"text-sm"}>
         <DropdownMenuArrow />
@@ -55,8 +55,8 @@ export const ColorModeToggle = () => {
                 setColorMode(key as ColorMode);
               }}
             >
-              <SpriteIcon size={"xs"} name={mode.icon} className={"me-1.5"} />
-              <span>{mode.label}</span>
+              <SpriteIcon name={mode.icon} className={"me-1.5"} />
+              {mode.label}
             </DropdownMenuItem>
           );
         })}

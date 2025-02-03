@@ -25,7 +25,7 @@ export default function Index() {
           target={"_blank"}
           rel={"noreferrer"}
         >
-          <SpriteIcon className={"me-2"} name={"github"} />
+          <SpriteIcon size={"1.5em"} className={"me-2"} name={"github"} />
           Github
         </Button>
       </div>

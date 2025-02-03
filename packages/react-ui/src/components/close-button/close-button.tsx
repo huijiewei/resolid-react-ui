@@ -1,4 +1,3 @@
-import { isNumber } from "@resolid/utils";
 import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
 
@@ -14,12 +13,10 @@ export const CloseButton = (props: PrimitiveProps<"button", CloseButtonProps>) =
     disabled,
     textClassName = "text-fg-muted",
     statusClassName = "hover:bg-bg-subtle active:bg-bg-muted",
-    size = "1.5rem",
+    size = "1.5em",
     children,
     ...rest
   } = props;
-
-  const sizeValue = isNumber(size) ? `${size}px` : size;
 
   return (
     <button
@@ -35,7 +32,7 @@ export const CloseButton = (props: PrimitiveProps<"button", CloseButtonProps>) =
     >
       {children || (
         <svg
-          style={{ width: sizeValue }}
+          style={{ width: size }}
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"

@@ -37,7 +37,7 @@ export function Usage(props) {
   return (
     <Alert {...props} className={"flex flex-row gap-2"}>
       <AlertIndicator className={"pt-1.75"}>
-        <SpriteIcon size={"1rem"} name={"github-NOTE"} />
+        <SpriteIcon name={"github-NOTE"} />
       </AlertIndicator>
       <AlertContent>
         <AlertTitle>警告提示</AlertTitle>
@@ -94,7 +94,7 @@ export default function App() {
               >
                 {alertIcons[color] ? (
                   <AlertIndicator className={"pt-1.75"}>
-                    <SpriteIcon size={"1rem"} name={alertIcons[color]} />
+                    <SpriteIcon name={alertIcons[color]} />
                   </AlertIndicator>
                 ) : null}
                 <AlertContent>
