@@ -7,4 +7,5 @@ export * from "./use-isomorphic-effect";
 export * from "./use-local-storage";
 export * from "./use-media-query";
 export * from "./use-merge-refs";
+export * from "./use-prevent-scroll";
 export * from "./use-session-storage";

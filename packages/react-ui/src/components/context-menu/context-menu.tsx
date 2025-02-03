@@ -6,9 +6,11 @@ import { MenuRoot, type MenuRootProps } from "../menu/menu-root";
 import { MenuSeparator } from "../menu/menu-separator";
 import { MenuSubTrigger } from "../menu/menu-sub-trigger";
 
-export type ContextMenuProps = Omit<MenuRootProps, "placement">;
+export type ContextMenuProps = Omit<MenuRootProps, "placement" | "preventScroll">;
 
-export const ContextMenu = MenuRoot;
+export const ContextMenu = (props: ContextMenuProps) => {
+  return <MenuRoot preventScroll {...props} />;
+};
 
 export { ContextMenuTrigger } from "./context-menu-trigger";
 

@@ -21,7 +21,7 @@ import {
   useTypeahead,
 } from "@floating-ui/react";
 import { type PropsWithChildren, useEffect, useRef, useState } from "react";
-import { useDisclosure } from "../../hooks";
+import { useDisclosure, usePreventScroll } from "../../hooks";
 import { PopperArrowContext, type PopperArrowContextValue } from "../popper/popper-arrow-context";
 import type { PopperDisclosureProps } from "../popper/popper-disclosure";
 import { PopperDispatchContext, type PopperDispatchContextValue } from "../popper/popper-dispatch-context";
@@ -35,6 +35,12 @@ export type MenuRootProps = PopperDisclosureProps & {
    * @default true
    */
   closeOnSelect?: boolean;
+
+  /**
+   * 打开时阻止背景页面滚动
+   * @default false
+   */
+  preventScroll?: boolean;
 
   /**
    * 放置位置
@@ -69,6 +75,7 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
     defaultOpen = false,
     onOpenChange,
     closeOnSelect = true,
+    preventScroll = false,
     placement = "bottom-start",
     duration = 250,
     children,
@@ -83,16 +90,6 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
   const arrowRef = useRef<SVGSVGElement>(null);
 
   const { floatingStyles, refs, context } = useFloating({
-    middleware: [
-      offset({ mainAxis: nested ? 0 : 8, alignmentAxis: nested ? -5 : 0 }),
-      flip(),
-      shift({ padding: 8 }),
-      // eslint-disable-next-line react-compiler/react-compiler
-      arrow({
-        element: arrowRef,
-        padding: 4,
-      }),
-    ].filter(Boolean),
     open: openState,
     onOpenChange: (open) => {
       if (open) {
@@ -102,8 +99,23 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
       }
     },
     nodeId,
+    middleware: [
+      offset({ mainAxis: nested ? 0 : 8, alignmentAxis: nested ? -5 : 0 }),
+      flip(),
+      shift({ padding: 8 }),
+      // eslint-disable-next-line react-compiler/react-compiler
+      arrow({
+        element: arrowRef,
+        padding: 4,
+      }),
+    ],
     placement: nested ? "right-start" : placement,
     whileElementsMounted: autoUpdate,
+  });
+
+  usePreventScroll({
+    enabled: preventScroll && openState && !nested,
+    contentElement: context.elements.reference as HTMLElement,
   });
 
   const elementsRef = useRef<(HTMLElement | null)[]>([]);
