@@ -1,0 +1,385 @@
+---
+title: 头像
+description: 头像组件用于表示用户，显示个人资料图片、首字母或备用内容。
+---
+
+## 导入
+
+```js
+import {
+  Avatar,
+  AvatarImage,
+  AvatarFallback,
+  AvatarIndicator,
+  AvatarGroup,
+} from "@resolid/react-ui";
+```
+
+- `Avatar`: 头像组件的根容器。
+- `AvatarImage`: 代表用户的图片。
+- `AvatarFallback`: 一个包装器，其内容在图像未能加载时显示。
+- `AvatarIndicator`: 一个包装器，其内容显示为头像的装饰。
+- `AvatarGroup`: 一个用于将多个头像堆叠在一起的包装器。
+
+## 举例
+
+### 演示
+
+```jsx demo
+import { Avatar, AvatarImage, AvatarFallback } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row justify-center gap-6"}>
+      <Avatar name={"Alex Suprun"}>
+        <AvatarImage src={"https://file.resolid.tech/images%2Fa007.png"} />
+        <AvatarFallback />
+      </Avatar>
+    </div>
+  );
+}
+```
+
+### 大小
+
+使用 `size` 属性来改变头像的大小
+
+```jsx demo
+import { Avatar, AvatarImage, AvatarFallback } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row items-center justify-center gap-6"}>
+      <Avatar size={72} name={"Alex Suprun"}>
+        <AvatarImage src={"https://file.resolid.tech/images%2Fa001.jpg"} />
+        <AvatarFallback />
+      </Avatar>
+      <Avatar name={"Alex Suprun"} className={"bg-blue-100"}>
+        <AvatarImage src={"https://file.resolid.tech/images%2Fa006.png"} />
+        <AvatarFallback />
+      </Avatar>
+      <Avatar size={"3rem"} name={"Alex Suprun"}>
+        <AvatarImage src={"https://file.resolid.tech/images%2Fa003.jpg"} />
+        <AvatarFallback />
+      </Avatar>
+      <Avatar size={36} name={"Alex Suprun"}>
+        <AvatarImage src={"https://file.resolid.tech/images%2Fa004.jpg"} />
+        <AvatarFallback />
+      </Avatar>
+    </div>
+  );
+}
+```
+
+### 圆角
+
+使用 `radius` 属性来改变头像的圆角大小
+
+```jsx demo
+import { Avatar, AvatarFallback, AvatarImage } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row items-center justify-center gap-6"}>
+      <Avatar radius={false} name={"Alex Suprun"}>
+        <AvatarImage src={"https://file.resolid.tech/images%2Fa001.jpg"} />
+        <AvatarFallback />
+      </Avatar>
+      <Avatar radius={12} name={"Alex Suprun"}>
+        <AvatarImage src={"https://file.resolid.tech/images%2Fa001.jpg"} />
+        <AvatarFallback />
+      </Avatar>
+      <Avatar name={"Alex Suprun"}>
+        <AvatarImage src={"https://file.resolid.tech/images%2Fa001.jpg"} />
+        <AvatarFallback />
+      </Avatar>
+    </div>
+  );
+}
+```
+
+### 备用
+
+使用 `fallback` 属性并使用 `AvatarFallback` 组件包裹可以在头像图片不可用的时候显示备用头像, 默认使用 `name` 属性来生成字母显示的头像, 如果 `name` 未定义使用系统默认的头像
+
+```jsx demo
+import { Avatar, AvatarFallback, AvatarImage } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row items-center justify-center gap-6"}>
+      <Avatar name={"Alex Suprun"}>
+        <AvatarImage />
+        <AvatarFallback />
+      </Avatar>
+      <Avatar name={"Linh Le"}>
+        <AvatarImage />
+        <AvatarFallback />
+      </Avatar>
+      <Avatar>
+        <AvatarImage />
+        <AvatarFallback />
+      </Avatar>
+      <Avatar>
+        <AvatarImage />
+        <AvatarFallback>
+          <svg viewBox="0 0 512 512">
+            <path d="M256 .063C114.62.063.062 114.618.062 256 .063 397.38 114.62 511.938 256 511.938S511.938 397.381 511.938 256 397.38.062 256 .062Zm0 21.287c129.322 0 234.65 105.205 234.65 234.65 0 57.217-20.548 109.635-54.632 150.363-24.61-10.09-81.088-29.654-114.311-39.498-2.953-.861-3.322-1.107-3.322-13.166 0-9.967 4.06-20.056 8.12-28.67 4.43-9.228 9.475-24.855 11.321-38.883 5.168-6.029 12.305-17.841 16.735-40.482 3.937-19.934 2.091-27.193-.493-33.96-.246-.74-.615-1.477-.738-2.093-.984-4.675.37-28.916 3.815-47.742 2.337-12.92-.616-40.36-18.334-63.123-11.198-14.396-32.73-31.992-71.983-34.453h-21.533c-38.637 2.46-60.047 20.057-71.367 34.453-17.842 22.764-20.795 50.203-18.457 63.123 3.445 18.826 4.799 43.067 3.814 47.742-.246.862-.492 1.477-.738 2.215-2.584 6.768-4.553 14.028-.492 33.961 4.552 22.64 11.566 34.453 16.734 40.483 1.846 14.027 7.014 29.53 11.32 38.882 3.2 6.768 4.676 15.996 4.676 29.04 0 12.181-.492 12.304-3.2 13.165-34.575 10.213-89.331 29.9-111.233 39.375C42.022 365.881 21.35 313.34 21.35 256 21.35 126.678 126.678 21.35 256 21.35" />
+          </svg>
+        </AvatarFallback>
+      </Avatar>
+    </div>
+  );
+}
+```
+
+### 指示器
+
+使用 `indicator` 属性并使用 `AvatarIndicator` 组件包裹可以在头像图片上显示一个绝对定位的指示器, 通常用于显示状态或通知。
+
+```jsx demo
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  AvatarIndicator,
+} from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row items-center justify-center gap-6"}>
+      <Avatar name={"Alex Suprun"}>
+        <AvatarImage src={"https://file.resolid.tech/images%2Fa001.jpg"} />
+        <AvatarFallback />
+        <AvatarIndicator>
+          <span
+            className={
+              "border-bg-subtlest bg-bg-success-emphasis h-5 w-5 rounded-full border-4"
+            }
+          />
+        </AvatarIndicator>
+      </Avatar>
+      <Avatar name={"Alex Suprun"}>
+        <AvatarImage src={"https://file.resolid.tech/images%2Fa007.png"} />
+        <AvatarFallback />
+        <AvatarIndicator position={"bottom"}>
+          <svg viewBox={"0 0 28 28"} className={"h-6 w-6"}>
+            <path
+              fill="#fff"
+              d="m18.343 3.515-2.222-2.222a3 3 0 0 0-4.242 0L9.657 3.515H6.515a3 3 0 0 0-3 3v3.142l-2.222 2.222a3 3 0 0 0 0 4.242l2.222 2.222v3.142a3 3 0 0 0 3 3h3.142l2.222 2.222a3 3 0 0 0 4.242 0l2.222-2.222h3.142a3 3 0 0 0 3-3v-3.142l2.222-2.222a3 3 0 0 0 0-4.242l-2.222-2.222V6.515a3 3 0 0 0-3-3h-3.142Zm-1.121 1.707a1 1 0 0 0 .707.293h3.556a1 1 0 0 1 1 1v3.556a1 1 0 0 0 .293.707l2.515 2.515a1 1 0 0 1 0 1.414l-2.515 2.515a1 1 0 0 0-.293.707v3.556a1 1 0 0 1-1 1H17.93a1 1 0 0 0-.707.293l-2.515 2.515a1 1 0 0 1-1.414 0l-2.515-2.515a1 1 0 0 0-.707-.293H6.515a1 1 0 0 1-1-1V17.93a1 1 0 0 0-.293-.707l-2.515-2.515a1 1 0 0 1 0-1.414l2.515-2.515a1 1 0 0 0 .293-.707V6.515a1 1 0 0 1 1-1h3.556a1 1 0 0 0 .707-.293l2.515-2.515a1 1 0 0 1 1.414 0l2.515 2.515Z"
+            />
+            <path
+              fill="#47c2ff"
+              d="M17.929 5.515a1 1 0 0 1-.707-.293l-2.515-2.515a1 1 0 0 0-1.414 0l-2.515 2.515a1 1 0 0 1-.707.293H6.515a1 1 0 0 0-1 1v3.556a1 1 0 0 1-.293.707l-2.515 2.515a1 1 0 0 0 0 1.414l2.515 2.515a1 1 0 0 1 .293.707v3.556a1 1 0 0 0 1 1h3.556a1 1 0 0 1 .707.293l2.515 2.515a1 1 0 0 0 1.414 0l2.515-2.515a1 1 0 0 1 .707-.293h3.556a1 1 0 0 0 1-1V17.93a1 1 0 0 1 .293-.707l2.515-2.515a1 1 0 0 0 0-1.414l-2.515-2.515a1 1 0 0 1-.293-.707V6.515a1 1 0 0 0-1-1H17.93Z"
+            />
+            <path
+              fill="#fff"
+              d="m19.374 11.374-6.707 6.707-3.374-3.374 1.414-1.414 1.96 1.96 5.292-5.293 1.415 1.414Z"
+            />
+          </svg>
+        </AvatarIndicator>
+      </Avatar>
+      <Avatar name={"Alex Suprun"}>
+        <AvatarImage />
+        <AvatarFallback />
+        <AvatarIndicator position={"bottom"}>
+          <span
+            className={
+              "border-bg-subtlest bg-bg-danger-emphasis h-5 w-5 rounded-full border-4"
+            }
+          />
+        </AvatarIndicator>
+      </Avatar>
+      <Avatar className={"bg-blue-100"} name={"Alex Suprun"}>
+        <AvatarImage src={"https://file.resolid.tech/images%2Fa006.png"} />
+        <AvatarFallback />
+        <AvatarIndicator>
+          <img
+            className={"h-6 w-6 rounded-full border-2 border-white"}
+            alt={"solaris"}
+            src={"https://file.resolid.tech/images/solaris.svg"}
+          />
+        </AvatarIndicator>
+      </Avatar>
+    </div>
+  );
+}
+```
+
+### 头像组
+
+使用 `AvatarGroup` 组件将多个头像组合在一起
+
+```jsx demo
+import {
+  Avatar,
+  AvatarImage,
+  AvatarFallback,
+  AvatarGroup,
+} from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-col items-center justify-center gap-3"}>
+      <AvatarGroup size={50} spacing={"-0.75rem"}>
+        <Avatar name={"Alex Suprun"}>
+          <AvatarImage src={"https://file.resolid.tech/images%2Fa001.jpg"} />
+          <AvatarFallback />
+        </Avatar>
+        <Avatar name={"Alex Suprun"}>
+          <AvatarImage />
+          <AvatarFallback />
+        </Avatar>
+        <Avatar className={"bg-blue-100"} name={"Alex Suprun"}>
+          <AvatarImage src={"https://file.resolid.tech/images%2Fa006.png"} />
+          <AvatarFallback />
+        </Avatar>
+        <Avatar name={"Alex Suprun"}>
+          <AvatarImage src={"https://file.resolid.tech/images%2Fa003.jpg"} />
+          <AvatarFallback />
+        </Avatar>
+        <Avatar name={"Alex Suprun"}>
+          <AvatarImage src={"https://file.resolid.tech/images%2Fa007.png"} />
+          <AvatarFallback />
+        </Avatar>
+        <Avatar>
+          <AvatarImage />
+          <AvatarFallback className={"bg-bg-subtlest"}>+3</AvatarFallback>
+        </Avatar>
+      </AvatarGroup>
+      <AvatarGroup
+        className={"rounded-full border-4 border-blue-100 bg-blue-100"}
+        size={39}
+        spacing={"-0.75rem"}
+      >
+        <Avatar name={"Alex Suprun"}>
+          <AvatarImage src={"https://file.resolid.tech/images%2Fa001.jpg"} />
+          <AvatarFallback />
+        </Avatar>
+        <Avatar name={"Alex Suprun"}>
+          <AvatarImage />
+          <AvatarFallback />
+        </Avatar>
+        <Avatar className={"bg-blue-100"} name={"Alex Suprun"}>
+          <AvatarImage src={"https://file.resolid.tech/images%2Fa006.png"} />
+          <AvatarFallback />
+        </Avatar>
+        <Avatar name={"Alex Suprun"}>
+          <AvatarImage src={"https://file.resolid.tech/images%2Fa003.jpg"} />
+          <AvatarFallback />
+        </Avatar>
+        <Avatar name={"Alex Suprun"}>
+          <AvatarImage src={"https://file.resolid.tech/images%2Fa007.png"} />
+          <AvatarFallback />
+        </Avatar>
+        <Avatar>
+          <AvatarImage />
+          <AvatarFallback className={"bg-blue-100"}>+3</AvatarFallback>
+        </Avatar>
+      </AvatarGroup>
+    </div>
+  );
+}
+```
+
+### 头像组溢出
+
+这个示例是如何通过组合 `DropdownMenu` 组件来处理头像组的溢出。
+
+```jsx demo
+import {
+  Avatar,
+  AvatarImage,
+  AvatarFallback,
+  AvatarGroup,
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuArrow,
+  DropdownMenuItem,
+} from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-col items-center justify-center gap-3"}>
+      <AvatarGroup
+        className={"rounded-full border-4 border-blue-100 bg-blue-100"}
+        size={39}
+        spacing={"-0.75rem"}
+      >
+        <Avatar name={"Alex Suprun"}>
+          <AvatarImage src={"https://file.resolid.tech/images%2Fa001.jpg"} />
+          <AvatarFallback />
+        </Avatar>
+        <Avatar name={"Alex Suprun"}>
+          <AvatarImage />
+          <AvatarFallback />
+        </Avatar>
+        <Avatar className={"bg-blue-100"} name={"Alex Suprun"}>
+          <AvatarImage src={"https://file.resolid.tech/images%2Fa006.png"} />
+          <AvatarFallback />
+        </Avatar>
+        <Avatar name={"Alex Suprun"}>
+          <AvatarImage src={"https://file.resolid.tech/images%2Fa003.jpg"} />
+          <AvatarFallback />
+        </Avatar>
+        <Avatar name={"Alex Suprun"}>
+          <AvatarImage src={"https://file.resolid.tech/images%2Fa007.png"} />
+          <AvatarFallback />
+        </Avatar>
+        <DropdownMenu placement={"bottom"}>
+          <DropdownMenuTrigger as={Avatar}>
+            <AvatarImage />
+            <AvatarFallback className={"bg-blue-100"}>+3</AvatarFallback>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className={"text-sm"}>
+            <DropdownMenuArrow />
+            <DropdownMenuItem className={"gap-2"}>
+              <Avatar size={32} name={"Alex Suprun"}>
+                <AvatarImage
+                  src={"https://file.resolid.tech/images%2Fa004.jpg"}
+                />
+                <AvatarFallback />
+              </Avatar>
+              Hilda Surrey
+            </DropdownMenuItem>
+            <DropdownMenuItem className={"gap-2"}>
+              <Avatar size={32} name={"Alex Suprun"}>
+                <AvatarImage
+                  src={"https://file.resolid.tech/images%2Fa002.jpg"}
+                />
+                <AvatarFallback />
+              </Avatar>
+              Valentina Juliana
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </AvatarGroup>
+    </div>
+  );
+}
+```
+
+## 属性
+
+### Avatar
+
+::PropsTable{file=avatar/avatar.tsx}
+
+### AvatarImage
+
+`AvatarImage` 组件支持 HTML `img` 标签的属性
+
+::PropsTable{file=avatar/avatar-image.tsx}
+
+### AvatarFallback
+
+::PropsTable{file=avatar/avatar-fallback.tsx}
+
+### AvatarIndicator
+
+::PropsTable{file=avatar/avatar-indicator.tsx}
+
+### AvatarGroup
+
+::PropsTable{file=avatar/avatar-group.tsx}
