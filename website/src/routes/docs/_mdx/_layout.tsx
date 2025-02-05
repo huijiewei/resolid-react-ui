@@ -7,6 +7,7 @@ import {
   Input,
   NativeSelect,
   NumberInput,
+  type PolymorphicProps,
   Switch,
   Tooltip,
   TooltipArrow,
@@ -33,29 +34,31 @@ type PropItem = {
   required: boolean;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
+const MdxHeading = (props: PolymorphicProps<"h2" | "h3" | "h4">) => {
+  const { as: Component = "h2", id, children, className, ...rest } = props;
+
+  return (
+    <Component className={tx("group relative flex items-center", className)} {...rest}>
+      <span id={id} className={"invisible absolute top-[calc(-1*88px)]"} />
+      {children}
+      <a tabIndex={-1} className={"ml-1 opacity-0 transition-opacity group-hover:opacity-100"} href={`#${id}`}>
+        <SpriteIcon size={"0.75em"} name={"hash"} />
+      </a>
+    </Component>
+  );
+};
+
 // noinspection JSUnusedGlobalSymbols
 const mdxComponents = {
-  h2: ({ id, children, className, ...rest }: ComponentProps<"h2">) => {
-    return (
-      <h2 className={tx("group relative mt-8 flex items-center", className)} {...rest}>
-        <span id={id} className={"invisible absolute top-[calc(-1*88px)]"} />
-        {children}
-        <a tabIndex={-1} className={"ml-1 opacity-0 transition-opacity group-hover:opacity-100"} href={`#${id}`}>
-          <SpriteIcon size={"0.75em"} name={"link"} />
-        </a>
-      </h2>
-    );
+  h2: ({ className, ...rest }: ComponentProps<"h2">) => {
+    return <MdxHeading as={"h2"} className={tx("mt-8", className)} {...rest} />;
   },
-  h3: ({ id, children, className, ...rest }: ComponentProps<"h3">) => {
-    return (
-      <h3 className={tx("group relative mt-6 flex items-center", className)} {...rest}>
-        <span id={id} className={"invisible absolute top-[calc(-1*88px)]"} />
-        {children}
-        <a tabIndex={-1} className={"ml-1 opacity-0 transition-opacity group-hover:opacity-100"} href={`#${id}`}>
-          <SpriteIcon size={"0.75em"} name={"link"} />
-        </a>
-      </h3>
-    );
+  h3: ({ className, ...rest }: ComponentProps<"h3">) => {
+    return <MdxHeading as={"h3"} className={tx("mt-6", className)} {...rest} />;
+  },
+  h4: ({ className, ...rest }: ComponentProps<"h3">) => {
+    return <MdxHeading as={"h4"} className={tx("mt-6", className)} {...rest} />;
   },
   pre: ({ children, className, ...rest }: ComponentProps<"pre"> & { "data-inline"?: boolean }) => {
     if (rest["data-inline"]) {
@@ -424,7 +427,7 @@ const Toc = ({ toc }: { toc: { depth: number; text: string; slug: string }[] }) 
               href={href}
               className={tx(
                 "border-s-bd-normal -ml-px block border-s py-1",
-                depth == 2 ? "ps-4" : "ps-8",
+                depth == 2 ? "ps-4" : depth == 3 ? "ps-8" : "ps-10",
                 href == "1" ? "border-link text-link" : "text-fg-muted hover:border-link-hovered hover:text-fg-subtle",
               )}
             >
