@@ -164,7 +164,7 @@ const mdxComponents = {
           {props.map((prop, i) => (
             <tr
               className={
-                "border-b-bg-subtle md:flex-no-wrap mb-[1px] flex flex-row flex-wrap border-b pb-[1px] last:mb-0 last:border-none last:pb-0 md:mb-0 md:table-row md:border-none"
+                "border-b-bg-subtle md:flex-no-wrap mb-px flex flex-row flex-wrap border-b pb-px last:mb-0 last:border-none last:pb-0 md:mb-0 md:table-row md:border-none"
               }
               key={`${prop.name}-${i}`}
             >
@@ -176,7 +176,7 @@ const mdxComponents = {
                   {prop.description && (
                     <Tooltip interactive>
                       <TooltipTrigger>
-                        <SpriteIcon size={"1.25em"} name={"info"} />
+                        <SpriteIcon className={"hidden md:block"} size={"1.25em"} name={"info"} />
                       </TooltipTrigger>
                       <TooltipContent>
                         <TooltipArrow />
@@ -205,6 +205,33 @@ const mdxComponents = {
                       </TooltipContent>
                     </Tooltip>
                   )}
+                </span>
+              </td>
+              <td className={"block w-full whitespace-nowrap font-bold md:hidden"}>
+                <span className="bg-bg-subtle mr-3 inline-block w-[5.5rem] p-2 text-sm font-bold">简介</span>
+                <span className={"inline-flex items-center gap-1.5"}>
+                  {prop.description.split("\n").map((p, idx) => {
+                    const key = `p${idx}`;
+
+                    if (p.slice(0, 6) == "@link") {
+                      const link = p.slice(6);
+
+                      return (
+                        <p key={key}>
+                          <a
+                            className={"text-link hover:text-link-hovered"}
+                            href={link}
+                            rel={"noreferrer"}
+                            target={"_blank"}
+                          >
+                            {link}
+                          </a>
+                        </p>
+                      );
+                    }
+
+                    return <p key={key}>{p}</p>;
+                  })}
                 </span>
               </td>
               <td className={"block w-full md:table-cell md:w-auto md:p-2"}>
