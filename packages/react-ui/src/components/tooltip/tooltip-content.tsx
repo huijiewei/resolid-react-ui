@@ -1,21 +1,18 @@
-import { useTransitionStatus } from "@floating-ui/react";
 import type { CSSProperties } from "react";
 import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
+import { usePopperTransition } from "../popper/popper-transtion-context";
 import { PortalLite } from "../portal/portal-lite";
 import { useTooltipFloating } from "./tooltip-context";
 
 export const TooltipContent = (props: PrimitiveProps<"div">) => {
-  const { children, className, ...rest } = props;
+  const { children, className, style, ...rest } = props;
 
-  const { context, duration, interactive, floatingStyles, floatingClassName, setFloating, getFloatingProps } =
-    useTooltipFloating();
+  const { interactive, floatingStyles, floatingClassName, setFloating, getFloatingProps } = useTooltipFloating();
 
-  const { isMounted, status } = useTransitionStatus(context, {
-    duration: duration,
-  });
+  const { status, mounted, duration } = usePopperTransition();
 
-  if (!isMounted) {
+  if (!mounted) {
     return null;
   }
 
@@ -26,6 +23,7 @@ export const TooltipContent = (props: PrimitiveProps<"div">) => {
         style={
           {
             ...floatingStyles,
+            ...style,
             "--dv": `${duration}ms`,
           } as CSSProperties
         }

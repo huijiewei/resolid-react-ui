@@ -6,7 +6,6 @@ import type { MenuItemContextValue } from "./menu-item-context";
 export type MenuFloatingContextValue = PopperFloatingContextValue &
   MenuItemContextValue & {
     nested: boolean;
-    duration: number;
     elementsRef: RefObject<(HTMLElement | null)[]>;
     labelsRef: RefObject<(string | null)[]>;
   };

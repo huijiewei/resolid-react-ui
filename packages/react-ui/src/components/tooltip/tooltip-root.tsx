@@ -13,12 +13,14 @@ import {
   useHover,
   useInteractions,
   useRole,
+  useTransitionStatus,
 } from "@floating-ui/react";
 import { type PropsWithChildren, useRef } from "react";
 import { useDisclosure } from "../../hooks";
 import { PopperArrowContext, type PopperArrowContextValue } from "../popper/popper-arrow-context";
 import type { PopperDisclosureProps } from "../popper/popper-disclosure";
 import { PopperReferenceContext, type PopperReferenceContextValue } from "../popper/popper-reference-context";
+import { PopperTransitionContext, type PopperTransitionContextValue } from "../popper/popper-transtion-context";
 import { TooltipFloatingContext, type TooltipFloatingContextValue } from "./tooltip-context";
 import { tooltipArrowStyles, tooltipFloatingStyles, type TooltipStyleProps } from "./tooltip.styles";
 
@@ -127,8 +129,6 @@ export const TooltipRoot = (props: PropsWithChildren<TooltipRootProps>) => {
   };
 
   const floatingContext: TooltipFloatingContextValue = {
-    context,
-    duration,
     interactive,
     setFloating: refs.setFloating,
     getFloatingProps,
@@ -136,10 +136,22 @@ export const TooltipRoot = (props: PropsWithChildren<TooltipRootProps>) => {
     floatingClassName: tooltipFloatingStyles({ color }),
   };
 
+  const { isMounted, status } = useTransitionStatus(context, {
+    duration: duration,
+  });
+
+  const transtionContext: PopperTransitionContextValue = {
+    status,
+    mounted: isMounted,
+    duration,
+  };
+
   return (
     <PopperArrowContext value={arrowContext}>
       <PopperReferenceContext value={referenceContext}>
-        <TooltipFloatingContext value={floatingContext}>{children}</TooltipFloatingContext>
+        <TooltipFloatingContext value={floatingContext}>
+          <PopperTransitionContext value={transtionContext}>{children}</PopperTransitionContext>
+        </TooltipFloatingContext>
       </PopperReferenceContext>
     </PopperArrowContext>
   );

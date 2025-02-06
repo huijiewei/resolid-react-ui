@@ -1,8 +1,7 @@
 import { createSafeContext } from "../../primitives";
 import type { PopperFloatingContextValue } from "../popper/popper-floating-context";
 
-export type TooltipFloatingContextValue = PopperFloatingContextValue & {
-  duration: number;
+export type TooltipFloatingContextValue = Omit<PopperFloatingContextValue, "context"> & {
   interactive: boolean;
   floatingClassName?: string;
 };

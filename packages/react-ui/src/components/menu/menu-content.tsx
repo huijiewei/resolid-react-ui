@@ -1,14 +1,15 @@
-import { FloatingFocusManager, FloatingList, useTransitionStatus } from "@floating-ui/react";
+import { FloatingFocusManager, FloatingList } from "@floating-ui/react";
 import type { CSSProperties } from "react";
 import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
+import { usePopperTransition } from "../popper/popper-transtion-context";
 import { Portal } from "../portal/portal";
 import { useMenuFloating } from "./menu-floating-context";
 import { useMenuHover } from "./menu-hover-context";
 import { MenuItemContext, type MenuItemContextValue } from "./menu-item-context";
 
 export const MenuContent = (props: PrimitiveProps<"div">) => {
-  const { children, className, ...rest } = props;
+  const { children, className, style, ...rest } = props;
 
   const {
     context,
@@ -20,7 +21,6 @@ export const MenuContent = (props: PrimitiveProps<"div">) => {
     activeIndex,
     getItemProps,
     nested,
-    duration,
     elementsRef,
     labelsRef,
     typingRef,
@@ -35,12 +35,9 @@ export const MenuContent = (props: PrimitiveProps<"div">) => {
   };
 
   const { setHoverEnabled } = useMenuHover();
+  const { status, mounted, duration } = usePopperTransition();
 
-  const { isMounted, status } = useTransitionStatus(context, {
-    duration: duration,
-  });
-
-  if (!isMounted) {
+  if (!mounted) {
     return null;
   }
 
@@ -49,7 +46,7 @@ export const MenuContent = (props: PrimitiveProps<"div">) => {
       <FloatingFocusManager context={context} modal={false}>
         <div
           ref={setFloating}
-          style={{ ...floatingStyles, "--dv": `${duration}ms` } as CSSProperties}
+          style={{ ...floatingStyles, ...style, "--dv": `${duration}ms` } as CSSProperties}
           className={tx(
             "border-bd-normal bg-bg-normal min-w-25 z-30 rounded-md border p-1 shadow-sm outline-none",
             "duration-(--dv) transition-opacity",

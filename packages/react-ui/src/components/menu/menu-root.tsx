@@ -18,6 +18,7 @@ import {
   useInteractions,
   useListNavigation,
   useRole,
+  useTransitionStatus,
   useTypeahead,
 } from "@floating-ui/react";
 import { type PropsWithChildren, useEffect, useRef, useState } from "react";
@@ -26,6 +27,7 @@ import { PopperArrowContext, type PopperArrowContextValue } from "../popper/popp
 import type { PopperDisclosureProps } from "../popper/popper-disclosure";
 import { PopperDispatchContext, type PopperDispatchContextValue } from "../popper/popper-dispatch-context";
 import { PopperReferenceContext, type PopperReferenceContextValue } from "../popper/popper-reference-context";
+import { PopperTransitionContext, type PopperTransitionContextValue } from "../popper/popper-transtion-context";
 import { MenuFloatingContext, type MenuFloatingContextValue } from "./menu-floating-context";
 import { MenuHoverContext } from "./menu-hover-context";
 
@@ -171,15 +173,14 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
 
   const floatingContext: MenuFloatingContextValue = {
     context,
-    floatingStyles,
     setFloating: refs.setFloating,
     getFloatingProps,
+    floatingStyles,
     menuEvents,
     closeOnSelect,
     activeIndex,
     getItemProps,
     nested,
-    duration,
     elementsRef,
     labelsRef,
     typingRef,
@@ -224,14 +225,26 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
     }
   }, [menuEvents, nodeId, parentId, openState]);
 
+  const { isMounted, status } = useTransitionStatus(context, {
+    duration: duration,
+  });
+
+  const transtionContext: PopperTransitionContextValue = {
+    status,
+    mounted: isMounted,
+    duration,
+  };
+
   return (
     <PopperArrowContext value={arrowContext}>
       <PopperReferenceContext value={referenceContext}>
         <MenuFloatingContext value={floatingContext}>
           <PopperDispatchContext value={dispatchContext}>
-            <MenuHoverContext value={{ setHoverEnabled }}>
-              <FloatingNode id={nodeId}>{children}</FloatingNode>
-            </MenuHoverContext>
+            <PopperTransitionContext value={transtionContext}>
+              <MenuHoverContext value={{ setHoverEnabled }}>
+                <FloatingNode id={nodeId}>{children}</FloatingNode>
+              </MenuHoverContext>
+            </PopperTransitionContext>
           </PopperDispatchContext>
         </MenuFloatingContext>
       </PopperReferenceContext>
