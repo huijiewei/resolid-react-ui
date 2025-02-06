@@ -10,36 +10,36 @@ describe("useLocalStorage", () => {
   test("initial state is in the returned state", () => {
     const { result } = renderHook(() => useLocalStorage("key", "value"));
 
-    expect(result.current.value).toBe("value");
+    expect(result.current[0]).toBe("value");
   });
 
   test("Initial state is a callback function", () => {
     const { result } = renderHook(() => useLocalStorage("key", () => "value"));
 
-    expect(result.current.value).toBe("value");
+    expect(result.current[0]).toBe("value");
   });
 
   test("Initial state is an array", () => {
     const { result } = renderHook(() => useLocalStorage("digits", [1, 2]));
 
-    expect(result.current.value).toEqual([1, 2]);
+    expect(result.current[0]).toEqual([1, 2]);
   });
 
   test("Update the state", () => {
     const { result } = renderHook(() => useLocalStorage("key", "value"));
 
     act(() => {
-      result.current.setValue("edited");
+      result.current[1]("edited");
     });
 
-    expect(result.current.value).toBe("edited");
+    expect(result.current[0]).toBe("edited");
   });
 
   test("Update the state writes localStorage", () => {
     const { result } = renderHook(() => useLocalStorage("key", "value"));
 
     act(() => {
-      result.current.setValue("edited");
+      result.current[1]("edited");
     });
 
     expect(window.localStorage.getItem("key")).toBe(JSON.stringify("edited"));
@@ -60,27 +60,37 @@ describe("useLocalStorage", () => {
       );
     });
 
-    expect(result.current.value).toBe("edited");
+    expect(result.current[0]).toBe("edited");
+  });
+
+  test("Update the state with null", () => {
+    const { result } = renderHook(() => useLocalStorage<string | null>("key", "value"));
+
+    act(() => {
+      result.current[1](null);
+    });
+
+    expect(result.current[0]).toBeNull();
   });
 
   test("Update the state with undefined", () => {
     const { result } = renderHook(() => useLocalStorage<string | undefined>("key", "value"));
 
     act(() => {
-      result.current.setValue(undefined);
+      result.current[1](undefined);
     });
 
-    expect(result.current.value).toBeUndefined();
+    expect(result.current[0]).toBeUndefined();
   });
 
   test("Update the state with a callback function", () => {
     const { result } = renderHook(() => useLocalStorage("count", 2));
 
     act(() => {
-      result.current.setValue((prev: number) => prev + 1);
+      result.current[1]((prev: number) => prev + 1);
     });
 
-    expect(result.current.value).toBe(3);
+    expect(result.current[0]).toBe(3);
     expect(window.localStorage.getItem("count")).toEqual("3");
   });
 });

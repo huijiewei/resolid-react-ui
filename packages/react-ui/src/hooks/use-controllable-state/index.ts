@@ -1,4 +1,4 @@
-import { type Dispatch, type SetStateAction, useState } from "react";
+import { type SetStateAction, useState } from "react";
 
 export type UseControllableStateOptions<T> = {
   value?: T;
@@ -15,8 +15,8 @@ export const useControllableState = <T>(options: UseControllableStateOptions<T>)
   const controlled = value !== undefined;
   const currentValue = controlled ? value : uncontrolledState;
 
-  const setValue = (next: SetStateAction<T>) => {
-    const nextValue = typeof next === "function" ? (next as (prevState?: T) => T)(currentValue) : next;
+  const setValue = (value: SetStateAction<T>) => {
+    const nextValue = typeof value === "function" ? (value as (prevState?: T) => T)(currentValue) : value;
 
     if (!shouldUpdate(currentValue, nextValue)) {
       return;
@@ -29,5 +29,5 @@ export const useControllableState = <T>(options: UseControllableStateOptions<T>)
     onChange?.(nextValue);
   };
 
-  return [currentValue, setValue] as [T, Dispatch<SetStateAction<T>>];
+  return [currentValue, setValue] as const;
 };

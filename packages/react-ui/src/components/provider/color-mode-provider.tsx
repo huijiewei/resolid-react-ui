@@ -18,7 +18,7 @@ export const ColorModeProvider = ({
 }: PropsWithChildren<ColorModeProviderProps>) => {
   const osDark = useMediaQuery(COLOR_SCHEME_QUERY);
 
-  const { value, setValue } = useLocalStorage<ColorMode>(COLOR_MODE_STORAGE_KEY, "auto");
+  const [value, setValue] = useLocalStorage<ColorMode>(COLOR_MODE_STORAGE_KEY, "auto");
 
   useEffect(() => {
     const root = document.documentElement;
