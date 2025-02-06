@@ -2,6 +2,7 @@ export * from "./use-button-props";
 export * from "./use-clipboard";
 export * from "./use-controllable-state";
 export * from "./use-disclosure";
+export * from "./use-effect-event";
 export * from "./use-event-listener";
 export * from "./use-image-load";
 export * from "./use-isomorphic-effect";
