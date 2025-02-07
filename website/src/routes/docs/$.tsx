@@ -3,14 +3,14 @@ import { mergeMeta } from "~/utils/react-router-meta";
 
 // noinspection JSUnusedGlobalSymbols
 export const loader = async () => {
-  throw new Response("页面未找到", { status: 404 });
+  throw new Response("文档未找到", { status: 404 });
 };
 
 // noinspection JSUnusedGlobalSymbols
 export const meta = mergeMeta(() => {
   return [
     {
-      title: "页面未找到",
+      title: "文档未找到",
     },
   ];
 });
