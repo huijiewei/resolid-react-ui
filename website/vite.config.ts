@@ -33,6 +33,7 @@ export default defineConfig(({ command, isSsrBuild }) => {
           [
             rehypeShiki,
             {
+              langs: ["bash", "js", "jsx", "ts", "tsx", "html", "css"],
               themes: {
                 light: "github-light",
                 dark: "github-dark",
@@ -70,9 +71,10 @@ export default defineConfig(({ command, isSsrBuild }) => {
       }),
       !isBuild && tsconfigPaths(),
       !isBuild && viteInspect(),
-      viteCopy({
-        targets: ["src/routes/docs/_mdx/**/*.mdx"],
-      }),
+      isBuild &&
+        viteCopy({
+          targets: ["src/routes/docs/_mdx/**/*.mdx"],
+        }),
     ].filter(Boolean),
     build: {
       target: isSsrBuild ? "node22" : "modules",
