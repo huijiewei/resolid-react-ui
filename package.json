@@ -25,14 +25,15 @@
     "eslint": "^9.19.0",
     "lefthook": "^1.10.10",
     "prettier": "^3.4.2",
+    "prettier-plugin-organize-imports": "^4.1.0",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "typescript": "^5.7.3"
   },
   "engines": {
     "node": "22.x",
-    "pnpm": "9.x"
+    "pnpm": "10.x"
   },
-  "packageManager": "pnpm@9.15.5",
+  "packageManager": "pnpm@10.2.1",
   "homepage": "https://ui.resolid.tech",
   "repository": {
     "type": "git",
@@ -60,6 +61,10 @@
       "safer-buffer": "npm:@nolyfill/safer-buffer@^1",
       "isarray": "npm:@nolyfill/isarray@^1",
       "safe-buffer": "npm:@nolyfill/safe-buffer@^1"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "lefthook"
+    ]
   }
 }
