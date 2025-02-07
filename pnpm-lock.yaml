@@ -46,8 +46,8 @@ importers:
         specifier: ^19.7.1
         version: 19.7.1
       '@resolid/config':
-        specifier: ^3.2.1
-        version: 3.2.1(eslint@9.19.0(jiti@2.4.2))(prettier@3.4.2)(typescript@5.7.3)
+        specifier: ^3.2.2
+        version: 3.2.2(eslint@9.19.0(jiti@2.4.2))(prettier-plugin-organize-imports@4.1.0(prettier@3.4.2)(typescript@5.7.3))(prettier@3.4.2)(typescript@5.7.3)
       '@types/node':
         specifier: ^22.13.1
         version: 22.13.1
@@ -189,14 +189,14 @@ importers:
         specifier: ^7.1.5
         version: 7.1.5(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.3)(vite@6.1.0(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0))(yaml@2.7.0)
       '@resolid/config':
-        specifier: ^3.2.1
-        version: 3.2.1(eslint@9.19.0(jiti@2.4.2))(prettier@3.4.2)(typescript@5.7.3)
+        specifier: ^3.2.2
+        version: 3.2.2(eslint@9.19.0(jiti@2.4.2))(prettier-plugin-organize-imports@4.1.0(prettier@3.4.2)(typescript@5.7.3))(prettier@3.4.2)(typescript@5.7.3)
       '@resolid/flex-routes':
-        specifier: ^1.1.8
-        version: 1.1.8(@react-router/dev@7.1.5(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.3)(vite@6.1.0(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0))(yaml@2.7.0))
+        specifier: ^1.1.9
+        version: 1.1.9(@react-router/dev@7.1.5(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.3)(vite@6.1.0(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0))(yaml@2.7.0))
       '@resolid/react-router-hono':
-        specifier: ^1.1.11
-        version: 1.1.11(@react-router/dev@7.1.5(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.3)(vite@6.1.0(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0))(yaml@2.7.0))(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(rollup@4.34.5)(vite@6.1.0(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0))
+        specifier: ^1.1.12
+        version: 1.1.12(@react-router/dev@7.1.5(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.3)(vite@6.1.0(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0))(yaml@2.7.0))(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(rollup@4.34.5)(vite@6.1.0(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0))
       '@shikijs/rehype':
         specifier: ^2.3.2
         version: 2.3.2
@@ -1012,30 +1012,31 @@ packages:
       typescript:
         optional: true
 
-  '@resolid/config@3.2.1':
-    resolution: {integrity: sha512-1OZAoJjDDJGAhiL7ApyzBpYe97Fksw87dpug4dcOdVW8vX15pgC9u5kZkq8t7b1Autysn/J2i8Z3G/VUvJHWjQ==}
+  '@resolid/config@3.2.2':
+    resolution: {integrity: sha512-4ZottS1DlsXfp2f0nC6Q07/lxvUf9OGhrdHzvUl2vuJQ0fU/U+8leuqGV1DjEXvbsEp4O9dxRKDZ7zHeRRqxtA==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       eslint: ^9.19.0
       prettier: ^3.4.2
+      prettier-plugin-organize-imports: ^4.1.0
       typescript: ^5.7.3
     peerDependenciesMeta:
       typescript:
         optional: true
 
-  '@resolid/flex-routes@1.1.8':
-    resolution: {integrity: sha512-/m19dWNRbNLvYJZMUiQs/ylgi+j8qAB0GAcVb+mhdiGEp7D79SUKtbW2xRh84lRBkmS+hCbaUpyKdFmdd0MJfA==}
+  '@resolid/flex-routes@1.1.9':
+    resolution: {integrity: sha512-aIi94EcSzOCklGWQT5mRoe8pHx12S1iZT1AxP1iZbk0yu6kxdJwTYIsOI8FQ4nSydPHY+TXpBOPd5s4hjItsWA==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       '@react-router/dev': ^7.1.5
 
-  '@resolid/react-router-hono@1.1.11':
-    resolution: {integrity: sha512-Z92eWScMqPSmDZrS3n6XxVUAMEny2v4hj7I2AGilz9kx/Ln5JZH7Nre0nkPUyE3NCHV5wrv5sqTto9t2mOuScA==}
+  '@resolid/react-router-hono@1.1.12':
+    resolution: {integrity: sha512-mMPLMAThxvaSFopp/V5V6VhLR7sLx3EGZSbDZIdf7kODgLdI0yNfzGbEUMKEN7DZprb98ZRlkrFylCs8+WENpQ==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       '@react-router/dev': ^7.1.5
       react-router: ^7.1.5
-      vite: ^6.0.11
+      vite: ^6.1.0
 
   '@resolid/utils@0.1.0':
     resolution: {integrity: sha512-dVCPNsivTh19SIjTTb2q4oZjSk9WTUQx0brdOLSrMKbFiWGn+um6dXYR4rj8vbiR+j/kdZ3t2KjdOeAFlSaq9Q==}
@@ -5155,7 +5156,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.7.3
 
-  '@resolid/config@3.2.1(eslint@9.19.0(jiti@2.4.2))(prettier@3.4.2)(typescript@5.7.3)':
+  '@resolid/config@3.2.2(eslint@9.19.0(jiti@2.4.2))(prettier-plugin-organize-imports@4.1.0(prettier@3.4.2)(typescript@5.7.3))(prettier@3.4.2)(typescript@5.7.3)':
     dependencies:
       '@eslint/js': 9.19.0
       eslint: 9.19.0(jiti@2.4.2)
@@ -5173,14 +5174,13 @@ snapshots:
       typescript: 5.7.3
     transitivePeerDependencies:
       - supports-color
-      - vue-tsc
 
-  '@resolid/flex-routes@1.1.8(@react-router/dev@7.1.5(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.3)(vite@6.1.0(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0))(yaml@2.7.0))':
+  '@resolid/flex-routes@1.1.9(@react-router/dev@7.1.5(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.3)(vite@6.1.0(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0))(yaml@2.7.0))':
     dependencies:
       '@react-router/dev': 7.1.5(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.3)(vite@6.1.0(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0))(yaml@2.7.0)
       minimatch: 10.0.1
 
-  '@resolid/react-router-hono@1.1.11(@react-router/dev@7.1.5(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.3)(vite@6.1.0(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0))(yaml@2.7.0))(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(rollup@4.34.5)(vite@6.1.0(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0))':
+  '@resolid/react-router-hono@1.1.12(@react-router/dev@7.1.5(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.3)(vite@6.1.0(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0))(yaml@2.7.0))(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(rollup@4.34.5)(vite@6.1.0(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0))':
     dependencies:
       '@hono/node-server': 1.13.8(hono@4.7.0)
       '@react-router/dev': 7.1.5(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.3)(vite@6.1.0(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0))(yaml@2.7.0)

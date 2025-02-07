@@ -20,7 +20,7 @@
     "@changesets/cli": "^2.27.12",
     "@commitlint/cli": "^19.7.1",
     "@commitlint/config-conventional": "^19.7.1",
-    "@resolid/config": "^3.2.1",
+    "@resolid/config": "^3.2.2",
     "@types/node": "^22.13.1",
     "eslint": "^9.19.0",
     "lefthook": "^1.10.10",
