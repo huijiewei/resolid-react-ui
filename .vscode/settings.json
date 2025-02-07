@@ -31,5 +31,10 @@
     "search.exclude": {
       "**/.vercel/**": true,
       "**/build/**": true
-    }
+    },
+    "github.copilot.chat.commitMessageGeneration.instructions": [
+      {
+        "text": "Use conventional commit message format. Use english. Use docs for website folder changes."
+      }
+    ]
 }
