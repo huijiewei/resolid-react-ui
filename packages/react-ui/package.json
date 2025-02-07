@@ -35,7 +35,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@floating-ui/react": "^0.27.3",
+    "@floating-ui/react": "^0.27.4",
     "@resolid/utils": "^0.1.0",
     "cva": "beta"
   },
