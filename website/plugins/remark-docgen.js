@@ -268,7 +268,7 @@ const getComponentProps = (virtualDir, componentFile, componentName) => {
     return 0;
   });
 
-  writeFileSync(componentPropsFile, JSON.stringify(props), "utf8");
+  writeFileSync(componentPropsFile, JSON.stringify(props, null, 2), "utf8");
 
   return props;
 };

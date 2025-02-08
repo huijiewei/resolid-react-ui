@@ -1,5 +1,5 @@
 import fg from "fast-glob";
-import { copy } from "fs-extra";
+import { cp } from "node:fs/promises";
 import { isAbsolute, relative, resolve } from "node:path";
 import { cwd } from "node:process";
 
@@ -36,7 +36,7 @@ export default function (options) {
           const resolvedSrc = resolve(config.root, relativeMatchedPath);
           const resolvedDest = resolve(config.root, config.build.outDir, relativeMatchedPath);
 
-          await copy(resolvedSrc, resolvedDest);
+          await cp(resolvedSrc, resolvedDest, { recursive: true });
         }
       }
 

@@ -77,14 +77,14 @@ export default function () {
       });
 
       if (existsSync(virtualModulePath)) {
-        const content = readFileSync(virtualModulePath, "utf-8");
+        const content = readFileSync(virtualModulePath, "utf8");
 
         if (content === code) {
           return;
         }
       }
 
-      writeFileSync(virtualModulePath, code);
+      writeFileSync(virtualModulePath, code, "utf8");
     });
 
     tree.children.unshift(...demoMdx);

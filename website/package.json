@@ -40,7 +40,6 @@
     "babel-plugin-react-compiler": "beta",
     "esast-util-from-js": "^2.0.1",
     "fast-glob": "^3.3.3",
-    "fs-extra": "^11.3.0",
     "react-docgen-typescript": "beta",
     "rehype-slug": "^6.0.0",
     "remark-directive": "^3.0.1",
@@ -49,7 +48,7 @@
     "unist-util-visit": "^5.0.0",
     "vite": "^6.1.0",
     "vite-plugin-babel": "^1.3.0",
-    "vite-plugin-inspect": "^0.10.6",
+    "vite-plugin-inspect": "^10.1.1",
     "vite-tsconfig-paths": "^5.1.4"
   },
   "engines": {
