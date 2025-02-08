@@ -4,6 +4,7 @@ import { Links, type LinksFunction, Meta, Outlet, Scripts, ScrollRestoration } f
 import { RouteProcessBar } from "~/components/route-process-bar";
 import { VercelAnalytics } from "~/components/vercel-analytics";
 
+import { SiteLayout } from "~/components/site-layout";
 import styles from "~/root.css?url";
 
 // noinspection JSUnusedGlobalSymbols
@@ -13,6 +14,17 @@ export const links: LinksFunction = () => {
       rel: "stylesheet",
       href: styles,
       precedence: "high",
+    },
+  ];
+};
+
+// noinspection JSUnusedGlobalSymbols
+export const meta = () => {
+  return [
+    { title: "Resolid UI" },
+    {
+      name: "description",
+      content: "React 19 and TailwindCSS components",
     },
   ];
 };
@@ -34,9 +46,12 @@ export const Layout = ({ children }: PropsWithChildren) => {
       </head>
       <body className={"min-h-screen overflow-y-scroll antialiased"}>
         <RouteProcessBar />
-        <ResolidProvider colorMode={{ disableTransitionOnChange: true }}>{children}</ResolidProvider>
+        <ResolidProvider colorMode={{ disableTransitionOnChange: true }}>
+          <SiteLayout>{children}</SiteLayout>
+        </ResolidProvider>
         <ScrollRestoration />
         <Scripts />
+        {!!import.meta.env.VITE_VERCEL_URL && <VercelAnalytics endpoint={"/growth"} scriptSrc={"/growth/script.js"} />}
       </body>
     </html>
   );
@@ -44,13 +59,5 @@ export const Layout = ({ children }: PropsWithChildren) => {
 
 // noinspection JSUnusedGlobalSymbols
 export default function Root() {
-  return (
-    <>
-      {!!import.meta.env.VITE_VERCEL_URL && <VercelAnalytics endpoint={"/growth"} scriptSrc={"/growth/script.js"} />}
-      <Outlet />
-    </>
-  );
+  return <Outlet />;
 }
-
-// noinspection JSUnusedGlobalSymbols
-export const HydrateFallback = () => <p className={"p-20 text-center"}>正在加载</p>;

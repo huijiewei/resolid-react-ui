@@ -1,9 +1,9 @@
-import { isRouteErrorResponse, useRouteError } from "react-router";
+import { isRouteErrorResponse } from "react-router";
 import { HistoryBack } from "~/components/history-link";
 
-export const ErrorComponent = () => {
-  const error = useRouteError();
+export type ErrorComponentProps = { error: unknown };
 
+export const ErrorComponent = ({ error }: ErrorComponentProps) => {
   if (isRouteErrorResponse(error) && error.status == 404) {
     return (
       <div className={"max-w-144 relative mx-auto flex justify-center px-4 py-8"}>

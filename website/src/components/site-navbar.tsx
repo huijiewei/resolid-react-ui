@@ -1,44 +1,12 @@
 import { Button, Tooltip, TooltipArrow, TooltipContent, TooltipTrigger, tx } from "@resolid/react-ui";
-import { type MouseEventHandler, useState } from "react";
-import { Link, Outlet } from "react-router";
+import { useState } from "react";
+import { Link } from "react-router";
 import { ColorModeToggle } from "~/components/color-mode-toggle";
 import { HistoryNavLink } from "~/components/history-link";
 import { ResolidLogo } from "~/components/resolid-logo";
 import { SpriteIcon } from "~/components/sprite-icon";
 
-// noinspection JSUnusedGlobalSymbols
-export const meta = () => {
-  return [
-    { title: "Resolid UI" },
-    {
-      name: "description",
-      content: "React 19 components",
-    },
-  ];
-};
-
-// noinspection JSUnusedGlobalSymbols
-export default function Layout() {
-  return (
-    <>
-      <header className={"bg-bg-normal border-b-bd-normal sticky top-0 z-20 w-full border-b"}>
-        <NavBar />
-      </header>
-      <div className={"min-h-[calc(100vh-var(--spacing)*16-78px)]"}>
-        <Outlet />
-      </div>
-      <footer className={"border-t-bd-normal border-t"}>
-        <div className={"text-fg-muted max-w-288 mx-auto flex flex-col gap-1 p-4 text-center text-sm"}>
-          <p>Released under the MIT License</p>
-          <p>Copyright Ⓒ 2022-present Resolid Tech</p>
-        </div>
-      </footer>
-    </>
-  );
-}
-
-// eslint-disable-next-line react-refresh/only-export-components
-const NavBar = () => {
+export const SiteNavbar = () => {
   const [opened, setOpened] = useState(false);
 
   return (
@@ -53,7 +21,31 @@ const NavBar = () => {
           opened ? "block" : "hidden",
         )}
       >
-        <NavMenu onClick={() => setOpened(false)} />
+        <ul
+          className={tx(
+            "mx-auto flex max-w-xs list-none flex-col p-4 text-center font-medium tracking-widest",
+            "md:max-w-none md:flex-row md:p-0 md:tracking-normal",
+          )}
+        >
+          {[
+            { name: "主页", href: "", end: true },
+            { name: "文档", href: "docs" },
+            { name: "关于", href: "about" },
+          ].map((menu) => {
+            return (
+              <li className={"p-2.5 md:px-4"} key={menu.name}>
+                <HistoryNavLink
+                  className={({ isActive }) => tx("hover:text-link-hovered block", isActive && "text-link-pressed")}
+                  onClick={() => setOpened(false)}
+                  to={menu.href}
+                  end={menu.end}
+                >
+                  {menu.name}
+                </HistoryNavLink>
+              </li>
+            );
+          })}
+        </ul>
       </div>
 
       <div className={"text-fg-muted inline-flex items-center gap-1"}>
@@ -88,36 +80,5 @@ const NavBar = () => {
         </Button>
       </div>
     </nav>
-  );
-};
-
-// eslint-disable-next-line react-refresh/only-export-components
-const NavMenu = ({ onClick }: { onClick?: MouseEventHandler<HTMLAnchorElement> }) => {
-  return (
-    <ul
-      className={tx(
-        "mx-auto flex max-w-xs list-none flex-col p-4 text-center font-medium tracking-widest",
-        "md:max-w-none md:flex-row md:p-0 md:tracking-normal",
-      )}
-    >
-      {[
-        { name: "主页", href: "", end: true },
-        { name: "文档", href: "docs" },
-        { name: "关于", href: "about" },
-      ].map((menu) => {
-        return (
-          <li className={"p-2.5 md:px-4"} key={menu.name}>
-            <HistoryNavLink
-              className={({ isActive }) => tx("hover:text-link-hovered block", isActive && "text-link-pressed")}
-              onClick={onClick}
-              to={menu.href}
-              end={menu.end}
-            >
-              {menu.name}
-            </HistoryNavLink>
-          </li>
-        );
-      })}
-    </ul>
   );
 };

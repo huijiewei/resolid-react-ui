@@ -9,7 +9,6 @@ import rehypeSlug from "rehype-slug";
 import remarkDirective from "remark-directive";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
-import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import { type AliasOptions, defineConfig, type UserConfig } from "vite";
 import babel from "vite-plugin-babel";
 import viteInspect from "vite-plugin-inspect";
@@ -17,6 +16,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import remarkCodeDemo from "./plugins/remark-code-demo";
 import remarkDocgen from "./plugins/remark-docgen";
 import remarkGithubAlert from "./plugins/remark-github-alert";
+import remarkRemove from "./plugins/remark-remove";
 import viteCopy from "./plugins/vite-copy";
 
 export default defineConfig(({ command, isSsrBuild }) => {
@@ -45,11 +45,11 @@ export default defineConfig(({ command, isSsrBuild }) => {
         remarkPlugins: [
           remarkDirective,
           remarkFrontmatter,
-          remarkMdxFrontmatter,
           remarkGfm,
           remarkGithubAlert,
           remarkCodeDemo,
           [remarkDocgen, { sourceRoot: join(__dirname, "../packages/react-ui/src/components") }],
+          remarkRemove,
         ],
       }),
       reactRouterHonoServer({
@@ -72,6 +72,7 @@ export default defineConfig(({ command, isSsrBuild }) => {
       !isBuild && tsconfigPaths(),
       !isBuild && viteInspect(),
       isBuild &&
+        isSsrBuild &&
         viteCopy({
           targets: ["src/routes/docs/_mdx/**/*.mdx"],
         }),
@@ -104,8 +105,8 @@ export default defineConfig(({ command, isSsrBuild }) => {
                   return "react-router";
                 }
 
-                if (id.includes("/react-ui/src/components/provider/")) {
-                  return "resolid-provider";
+                if (id.includes("src/components/history-link.tsx") || id.includes("src/components/sprite-icon.tsx")) {
+                  return "components";
                 }
               },
         },

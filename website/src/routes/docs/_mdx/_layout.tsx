@@ -140,7 +140,7 @@ const mdxComponents = {
       );
     }
 
-    return <blockquote {...rest} />;
+    return <blockquote {...rest}>{children}</blockquote>;
   },
   ComponentDemo: ({ children }: { children: ReactNode[] }) => {
     return (

@@ -12,6 +12,7 @@ const MenuItem = ({ menu, depth, onClickMenu }: { menu: Menu; depth: number; onC
     <li>
       {menu.path != null ? (
         <HistoryNavLink
+          discover={"none"}
           className={({ isActive }) => {
             return tx(
               "block rounded-md py-1.5",

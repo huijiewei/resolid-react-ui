@@ -19,14 +19,19 @@ export default function () {
 
       const [possibleTypeDeclaration, ...textNodes] = firstParagraphChild.value.split("\n");
 
-      if (possibleTypeDeclaration === undefined) {
+      if (!possibleTypeDeclaration) {
         return;
       }
 
       const match = possibleTypeDeclaration.match(GITHUB_ALERT_DECLARATION_REGEX);
-      const type = match?.groups?.type;
 
-      if (type == null) {
+      if (!match) {
+        return;
+      }
+
+      const type = match.groups?.type;
+
+      if (!type) {
         return;
       }
 
@@ -43,7 +48,7 @@ export default function () {
           ]
         : [];
 
-      if (parent === undefined || index === undefined) {
+      if (index === undefined || !parent) {
         return;
       }
 
