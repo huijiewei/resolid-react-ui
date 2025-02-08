@@ -2,7 +2,7 @@
   "extends": "@resolid/config/tsconfig/react",
   "include": [
     ".react-router/types/**/*",
-    ".resolid/component-demo/*",
+    ".resolid/code-demos/*",
     "src/**/*",
     "env.d.ts",
     "react-router.config.ts",

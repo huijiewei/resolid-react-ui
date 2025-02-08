@@ -142,7 +142,7 @@ const mdxComponents = {
 
     return <blockquote {...rest}>{children}</blockquote>;
   },
-  ComponentDemo: ({ children }: { children: ReactNode[] }) => {
+  CodeDemo: ({ children }: { children: ReactNode[] }) => {
     return (
       <div className={"is-demo group"}>
         <div className={"not-prose scrollbar scrollbar-thin border-bd-normal overflow-x-auto rounded-t-md border p-3"}>

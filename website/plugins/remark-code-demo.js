@@ -4,7 +4,7 @@ import { cwd } from "node:process";
 import { visit } from "unist-util-visit";
 
 export default function () {
-  const virtualDir = join(cwd(), ".resolid", "component-demo");
+  const virtualDir = join(cwd(), ".resolid", "code-demos");
 
   mkdirSync(virtualDir, { recursive: true });
 
@@ -31,7 +31,7 @@ export default function () {
       }
 
       const demoId = `_${pageName}_${demoIndex++}`;
-      const demoName = `Demo${demoId.replace("-", "_")}`;
+      const demoName = `D_${demoId.replace("-", "_")}`;
       const virtualModulePath = join(virtualDir, `${demoId}.tsx`);
 
       demoMdx.push({
@@ -63,7 +63,7 @@ export default function () {
 
       Object.assign(node, {
         type: "mdxJsxFlowElement",
-        name: "ComponentDemo",
+        name: "CodeDemo",
         children: [
           {
             ...node,
