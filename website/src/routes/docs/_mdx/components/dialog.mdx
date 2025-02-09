@@ -1,0 +1,523 @@
+---
+title: 对话框
+description: 在整个页面顶部打开的弹出窗口。
+---
+
+## 导入
+
+```js
+import {
+  Dialog,
+  DialogTrigger,
+  DialogPortal,
+  DialogBackdrop,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+} from "@resolid/react-ui";
+```
+
+- `Dialog`: 包含对话框的所有部分。
+- `DialogTrigger`: 包装将打开对话框的控件。
+- `DialogPortal`: 当对话框打开时，将其子项传送到 `body` 中。
+- `DialogBackdrop`: 对话框打开时覆盖视图惰性部分的层。
+- `DialogContent`: 包含对话框打开时要呈现的内容。
+- `DialogTitle`: 打开对话框时要宣布的可访问标题。
+- `DialogDescription`: 打开对话框时要宣布的可选描述。
+- `DialogClose`: 关闭对话框的控件。
+
+## 演示
+
+对话框默认的样式并不是很多，你可以通过 `DialogContent`、`DialogTitle` 和 `DialogDescription` 的 `className` 自定义对话框的样式。
+
+```jsx demo
+import {
+  Button,
+  CloseButton,
+  Dialog,
+  DialogTrigger,
+  DialogPortal,
+  DialogBackdrop,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+} from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row gap-3"}>
+      <Dialog>
+        <DialogTrigger as={Button}>打开对话框</DialogTrigger>
+        <DialogPortal>
+          <DialogBackdrop />
+          <DialogContent className="max-w-128 my-20">
+            <DialogClose
+              className={"absolute end-2 top-2 p-1"}
+              as={CloseButton}
+            />
+            <DialogTitle className={"p-4"}>对话框标题</DialogTitle>
+            <DialogDescription className={"p-4 pt-1"}>
+              这是一个对话框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
+            </DialogDescription>
+            <div className={"flex justify-end gap-4 p-4 pt-1"}>
+              <DialogClose color={"neutral"} variant={"soft"} as={Button}>
+                取消
+              </DialogClose>
+              <Button color={"neutral"}>确定</Button>
+            </div>
+          </DialogContent>
+        </DialogPortal>
+      </Dialog>
+    </div>
+  );
+}
+```
+
+## 举例
+
+### 位置
+
+使用 `placement` 属性更改对话框组件的位置，对话框支持 `top`、`center` 和 `bottom` 三个位置。
+
+```jsx demo
+import {
+  Button,
+  CloseButton,
+  Dialog,
+  DialogTrigger,
+  DialogPortal,
+  DialogBackdrop,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+} from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row gap-3"}>
+      <Dialog placement={"top"}>
+        <DialogTrigger as={Button}>打开对话框(顶部)</DialogTrigger>
+        <DialogPortal>
+          <DialogBackdrop />
+          <DialogContent className="max-w-128 my-20">
+            <DialogClose
+              className={"absolute end-2 top-2 p-1"}
+              as={CloseButton}
+            />
+            <DialogTitle className={"p-4"}>对话框标题</DialogTitle>
+            <DialogDescription className={"p-4 pt-1"}>
+              这是一个对话框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
+            </DialogDescription>
+            <div className={"flex justify-end gap-4 p-4 pt-1"}>
+              <DialogClose color={"neutral"} variant={"soft"} as={Button}>
+                取消
+              </DialogClose>
+              <Button color={"neutral"}>确定</Button>
+            </div>
+          </DialogContent>
+        </DialogPortal>
+      </Dialog>
+      <Dialog placement={"center"}>
+        <DialogTrigger as={Button}>打开对话框(中间)</DialogTrigger>
+        <DialogPortal>
+          <DialogBackdrop />
+          <DialogContent className="max-w-128 my-20">
+            <DialogClose
+              className={"absolute end-2 top-2 p-1"}
+              as={CloseButton}
+            />
+            <DialogTitle className={"p-4"}>对话框标题</DialogTitle>
+            <DialogDescription className={"p-4 pt-1"}>
+              这是一个对话框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
+            </DialogDescription>
+            <div className={"flex justify-end gap-4 p-4 pt-1"}>
+              <DialogClose color={"neutral"} variant={"soft"} as={Button}>
+                取消
+              </DialogClose>
+              <Button color={"neutral"}>确定</Button>
+            </div>
+          </DialogContent>
+        </DialogPortal>
+      </Dialog>
+      <Dialog placement={"bottom"}>
+        <DialogTrigger as={Button}>打开对话框(底部)</DialogTrigger>
+        <DialogPortal>
+          <DialogBackdrop />
+          <DialogContent className="max-w-128 my-20">
+            <DialogClose
+              className={"absolute end-2 top-2 p-1"}
+              as={CloseButton}
+            />
+            <DialogTitle className={"p-4"}>对话框标题</DialogTitle>
+            <DialogDescription className={"p-4 pt-1"}>
+              这是一个对话框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
+            </DialogDescription>
+            <div className={"flex justify-end gap-4 p-4 pt-1"}>
+              <DialogClose color={"neutral"} variant={"soft"} as={Button}>
+                取消
+              </DialogClose>
+              <Button color={"neutral"}>确定</Button>
+            </div>
+          </DialogContent>
+        </DialogPortal>
+      </Dialog>
+    </div>
+  );
+}
+```
+
+### 嵌套
+
+你可以正常的嵌套对话框。
+
+```jsx demo
+import {
+  Button,
+  CloseButton,
+  Dialog,
+  DialogBackdrop,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
+} from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row gap-3"}>
+      <Dialog>
+        <DialogTrigger as={Button}>打开对话框</DialogTrigger>
+        <DialogPortal>
+          <DialogBackdrop />
+          <DialogContent className="max-w-128 my-25">
+            <DialogClose
+              className={"absolute end-2 top-2 p-1"}
+              as={CloseButton}
+            />
+            <DialogTitle className={"p-4"}>对话框标题</DialogTitle>
+            <DialogDescription className={"p-4 pt-1"}>
+              你正在进行一项操作，这可能会影响当前的设置或数据。请确认是否继续？如果不确定，可以先查看相关文档，或者咨询管理员获取更多信息。
+            </DialogDescription>
+            <div className={"flex justify-end gap-4 p-4 pt-1"}>
+              <DialogClose color={"neutral"} variant={"soft"} as={Button}>
+                取消
+              </DialogClose>
+              <Dialog>
+                <DialogTrigger color={"danger"} as={Button}>
+                  删除
+                </DialogTrigger>
+                <DialogPortal>
+                  <DialogBackdrop />
+                  <DialogContent className="max-w-86 my-20">
+                    <DialogClose
+                      className={"absolute end-2 top-2 p-1"}
+                      as={CloseButton}
+                    />
+                    <DialogTitle className={"p-4"}>操作确认</DialogTitle>
+                    <DialogDescription className={"p-4 pt-1"}>
+                      你正在进行一项操作，这可能会影响当前的设置或数据。请确认是否继续？如果不确定，可以先查看相关文档，或者咨询管理员获取更多信息。
+                    </DialogDescription>
+                    <div className={"flex justify-end gap-4 p-4 pt-1"}>
+                      <DialogClose
+                        color={"neutral"}
+                        variant={"soft"}
+                        as={Button}
+                      >
+                        取消
+                      </DialogClose>
+                      <Button color={"danger"}>确认</Button>
+                    </div>
+                  </DialogContent>
+                </DialogPortal>
+              </Dialog>
+            </div>
+          </DialogContent>
+        </DialogPortal>
+      </Dialog>
+    </div>
+  );
+}
+```
+
+### 滚动行为
+
+使用 `scrollBehavior` 属性在其内容溢出时更改对话框的滚动行为，支持 `inside` 和 `outside` 两种行为。
+
+```jsx demo
+import {
+  Button,
+  CloseButton,
+  Dialog,
+  DialogTrigger,
+  DialogPortal,
+  DialogBackdrop,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+  RadioGroup,
+  Radio,
+} from "@resolid/react-ui";
+import { useState } from "react";
+
+export default function App() {
+  const [scrollBehavior, setScrollBehavior] = useState("inside");
+
+  return (
+    <div className={"flex flex-row items-center gap-5"}>
+      <RadioGroup value={scrollBehavior} onChange={setScrollBehavior}>
+        <div className={"flex flex-row gap-5"}>
+          <Radio value="inside">内部</Radio>
+          <Radio value="outside">外部</Radio>
+        </div>
+      </RadioGroup>
+      <Dialog scrollBehavior={scrollBehavior}>
+        <DialogTrigger as={Button}>打开对话框</DialogTrigger>
+        <DialogPortal>
+          <DialogBackdrop />
+          <DialogContent className="max-w-160 my-20 flex flex-col">
+            <DialogClose
+              className={"absolute end-2 top-2 p-1"}
+              as={CloseButton}
+            />
+            <DialogTitle className={"p-4"}>对话框标题</DialogTitle>
+            <div
+              className={
+                scrollBehavior === "inside"
+                  ? "scrollbar scrollbar-thin flex-1 overflow-y-auto overscroll-contain"
+                  : ""
+              }
+            >
+              <DialogDescription className={"p-4 pt-1"}>
+                这是一个对话框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
+              </DialogDescription>
+              <article className={"p-4 py-1"}>
+                {Array.from({ length: 16 }, (x, i) => i + 1).map((i) => (
+                  <p key={i} className={"mb-4"}>
+                    这是一个演示文本，用于填充内容，以便展示排版效果。你可以根据需要替换为实际内容。
+                  </p>
+                ))}
+              </article>
+            </div>
+          </DialogContent>
+        </DialogPortal>
+      </Dialog>
+    </div>
+  );
+}
+```
+
+### 警告对话框
+
+设置 `role: "alertdialog"` 属性将对话框组件更改为警告对话框。
+
+```jsx demo
+import {
+  Button,
+  CloseButton,
+  Dialog,
+  DialogTrigger,
+  DialogPortal,
+  DialogBackdrop,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+} from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row gap-3"}>
+      <Dialog role={"alertdialog"}>
+        <DialogTrigger as={Button}>打开对话框</DialogTrigger>
+        <DialogPortal>
+          <DialogBackdrop />
+          <DialogContent className="max-w-128 my-20">
+            <DialogClose
+              className={"absolute end-2 top-2 p-1"}
+              as={CloseButton}
+            />
+            <DialogTitle className={"p-4"}>对话框标题</DialogTitle>
+            <DialogDescription className={"p-4 pt-1"}>
+              你正在进行一项操作，这可能会影响当前的设置或数据。请确认是否继续？如果不确定，可以先查看相关文档，或者咨询管理员获取更多信息。
+            </DialogDescription>
+            <div className={"flex justify-end gap-4 p-4 pt-1"}>
+              <DialogClose color={"neutral"} variant={"soft"} as={Button}>
+                取消
+              </DialogClose>
+              <Button color={"danger"}>确认</Button>
+            </div>
+          </DialogContent>
+        </DialogPortal>
+      </Dialog>
+    </div>
+  );
+}
+```
+
+### 焦点管理
+
+模态框打开会自动将焦点设置在第一个可用的元素上(一般默认是关闭按钮)，关闭时会自动返回焦点，你可以通过设置 `initialFocus` 和 `finalFocus` 属性来自定义焦点目标
+
+```jsx demo
+import {
+  Button,
+  Dialog,
+  DialogTrigger,
+  DialogPortal,
+  DialogBackdrop,
+  DialogContent,
+  DialogTitle,
+  DialogClose,
+  Input,
+} from "@resolid/react-ui";
+import { useRef } from "react";
+
+export default function App() {
+  const initialRef = useRef(null);
+  const finalRef = useRef(null);
+
+  return (
+    <div className={"flex flex-row gap-3"}>
+      <Dialog initialFocus={initialRef} finalFocus={finalRef}>
+        <DialogTrigger as={Button}>打开对话框</DialogTrigger>
+        <Button color={"neutral"} ref={finalRef}>
+          键盘关闭对话框后获得焦点
+        </Button>
+        <DialogPortal>
+          <DialogBackdrop />
+          <DialogContent className="max-w-128 my-20">
+            <DialogTitle className={"p-4"}>对话框标题</DialogTitle>
+            <div className={"flex flex-col gap-4 p-4 pt-1"}>
+              <div className={"flex flex-col gap-1"}>
+                <label htmlFor={"username"}>姓名</label>
+                <Input id={"username"} />
+              </div>
+              <div className={"flex flex-col gap-1"}>
+                <label htmlFor={"email"}>邮件</label>
+                <Input ref={initialRef} id={"email"} />
+              </div>
+            </div>
+            <div className={"flex justify-end gap-4 p-4 pt-1"}>
+              <DialogClose color={"neutral"} variant={"soft"} as={Button}>
+                取消
+              </DialogClose>
+              <Button color={"neutral"}>保存</Button>
+            </div>
+          </DialogContent>
+        </DialogPortal>
+      </Dialog>
+    </div>
+  );
+}
+```
+
+### 关闭确认
+
+此示例显示了一个嵌套的确认对话框，该对话框如果要丢弃父母对话框中输入的文本。
+
+为了实现这一点，应控制两个对话框。当“父级”对话框的 `onOpenChange` 回调接收到关闭请求时，可以打开“确认”对话框。这样，当用户单击背景，按 ESC 键或单击关闭按钮时，将自动显示确认。
+
+```jsx demo
+import {
+  Button,
+  Dialog,
+  DialogBackdrop,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
+} from "@resolid/react-ui";
+import { useState } from "react";
+
+export default function App() {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [textareaValue, setTextareaValue] = useState("");
+
+  return (
+    <div className={"flex flex-row gap-3"}>
+      <Dialog
+        open={dialogOpen}
+        onOpenChange={(open) => {
+          if (!open && textareaValue) {
+            setConfirmOpen(true);
+          } else {
+            setTextareaValue("");
+            setDialogOpen(open);
+          }
+        }}
+      >
+        <DialogTrigger as={Button}>打开对话框</DialogTrigger>
+        <DialogPortal>
+          <DialogBackdrop />
+          <DialogContent className="my-25 w-96">
+            <DialogTitle className={"p-4"}>新推文</DialogTitle>
+            <form
+              className={"p-4 pt-1"}
+              onSubmit={(event) => {
+                event.preventDefault();
+                setDialogOpen(false);
+              }}
+            >
+              <textarea
+                rows={6}
+                required
+                className={
+                  "border-bd-normal w-full rounded-md border px-3 py-2"
+                }
+                placeholder={"有什么新想法吗?"}
+                onChange={(e) => setTextareaValue(e.target.value)}
+              />
+              <div className={"flex justify-end gap-4"}>
+                <DialogClose color={"neutral"} variant={"soft"} as={Button}>
+                  取消
+                </DialogClose>
+                <Button type={"submit"} color={"neutral"}>
+                  发布
+                </Button>
+              </div>
+            </form>
+          </DialogContent>
+        </DialogPortal>
+      </Dialog>
+      <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
+        <DialogPortal>
+          <DialogBackdrop />
+          <DialogContent className="my-30 w-96">
+            <DialogTitle className={"p-4"}>丢弃推文？</DialogTitle>
+            <DialogDescription className={"p-4 pt-1"}>
+              您的推文将丢失。
+            </DialogDescription>
+            <div className={"flex justify-end gap-4 p-4 pt-1"}>
+              <DialogClose color={"neutral"} variant={"soft"} as={Button}>
+                返回
+              </DialogClose>
+              <Button
+                color={"danger"}
+                onClick={() => {
+                  setConfirmOpen(false);
+                  setDialogOpen(false);
+                }}
+              >
+                丢弃
+              </Button>
+            </div>
+          </DialogContent>
+        </DialogPortal>
+      </Dialog>
+    </div>
+  );
+}
+```
+
+## 属性
+
+::PropsTable{file=dialog/dialog.tsx}

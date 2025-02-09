@@ -33,8 +33,9 @@
       "**/build/**": true
     },
     "github.copilot.chat.commitMessageGeneration.instructions": [
+
       {
-        "text": "Use conventional commit message format. Use english. Use docs for website folder changes."
+        "text": "Use conventional commit message format. Use english. Use docs for website folder changes. If it's a component update, the component name should use an uppercase first letter."
       }
     ]
 }

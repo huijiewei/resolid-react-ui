@@ -15,6 +15,7 @@ export * from "./context-menu/context-menu-checkbox-item";
 export * from "./context-menu/context-menu-item";
 export * from "./context-menu/context-menu-radio-group";
 export * from "./context-menu/context-menu-radio-item";
+export * from "./dialog/dialog";
 export * from "./dropdown-menu/dropdown-menu";
 export * from "./dropdown-menu/dropdown-menu-checkbox-item";
 export * from "./dropdown-menu/dropdown-menu-item";

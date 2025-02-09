@@ -192,8 +192,8 @@ const menus: Menu[] = [
         path: "components/popover",
       },
       {
-        label: "模态框",
-        path: "components/modal",
+        label: "对话框",
+        path: "components/dialog",
       },
       {
         label: "抽屉",
