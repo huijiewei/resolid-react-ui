@@ -63,7 +63,14 @@ export default defineConfig(({ command, isSsrBuild }) => {
         babelConfig: {
           compact: false,
           presets: ["@babel/preset-typescript"],
-          plugins: ["babel-plugin-react-compiler"],
+          plugins: [
+            [
+              "babel-plugin-react-compiler",
+              {
+                target: "19",
+              },
+            ],
+          ],
         },
         loader: (path) => {
           return extname(path).substring(1) as "js" | "jsx";

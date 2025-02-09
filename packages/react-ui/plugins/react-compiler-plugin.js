@@ -1,5 +1,4 @@
 import { transformAsync } from "@babel/core";
-import BabelPluginReactCompiler from "babel-plugin-react-compiler";
 import { readFile } from "node:fs/promises";
 
 // noinspection JSUnusedGlobalSymbols
@@ -26,14 +25,23 @@ export const reactCompilerEsbuildPlugin = ({ filter }) => ({
 
       const result = await transformAsync(contents, {
         filename: args.path,
-        plugins: [[BabelPluginReactCompiler]],
+        cloneInputAst: false,
+        plugins: [
+          [
+            "babel-plugin-react-compiler",
+            {
+              target: "19",
+            },
+          ],
+        ],
         parserOpts: {
           plugins: ["jsx", "typescript"],
         },
         ast: false,
+        compact: false,
         sourceMaps: false,
-        configFile: false,
         babelrc: false,
+        configFile: false,
       });
 
       timings.push(performance.now() - t0);
