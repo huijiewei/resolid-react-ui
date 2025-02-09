@@ -17,7 +17,17 @@ export default function ({ sourceRoot }) {
 
   mkdirSync(virtualDir, { recursive: true });
 
-  return (tree) => {
+  const usageVirtualDir = join(cwd(), ".resolid", "code-demos");
+
+  mkdirSync(usageVirtualDir, { recursive: true });
+
+  return (tree, vfile) => {
+    const pageName = vfile.basename.replace(vfile.extname, "");
+
+    let usageIndex = 1;
+
+    const usageMdx = [];
+
     visit(
       tree,
       [
@@ -51,7 +61,39 @@ export default function ({ sourceRoot }) {
           }
 
           if (node.name === "UsageBlock") {
+            const usageId = `_${pageName}_u_${usageIndex++}`;
+            const usageName = `U_${usageId.replace("-", "_")}`;
+            const virtualModulePath = join(usageVirtualDir, `${usageId}.tsx`);
+
+            usageMdx.push({
+              type: "mdxjsEsm",
+              value: `import ${usageName} from ${JSON.stringify(virtualModulePath)}`,
+              data: {
+                estree: {
+                  type: "Program",
+                  sourceType: "module",
+                  body: [
+                    {
+                      type: "ImportDeclaration",
+                      specifiers: [
+                        {
+                          type: "ImportDefaultSpecifier",
+                          local: { type: "Identifier", name: usageName },
+                        },
+                      ],
+                      source: {
+                        type: "Literal",
+                        value: virtualModulePath,
+                        raw: `${JSON.stringify(virtualModulePath)}`,
+                      },
+                    },
+                  ],
+                },
+              },
+            });
+
             const ignoresJson = JSON.stringify(node.attributes["ignores"]?.split(",") ?? []);
+            const code = node.children.map((child) => child.value).join("\n");
 
             parent.children[index] = {
               type: "mdxJsxFlowElement",
@@ -85,10 +127,9 @@ export default function ({ sourceRoot }) {
                 },
               ],
               children: [
-                ...node.children,
                 {
                   type: "mdxFlowExpression",
-                  value: "(props) => <Usage {...props} />",
+                  value: `(props) => <${usageName} {...props} />`,
                   data: {
                     estree: {
                       type: "Program",
@@ -122,7 +163,7 @@ export default function ({ sourceRoot }) {
                                 ],
                                 name: {
                                   type: "JSXIdentifier",
-                                  name: "Usage",
+                                  name: usageName,
                                 },
                                 selfClosing: true,
                               },
@@ -142,6 +183,16 @@ export default function ({ sourceRoot }) {
                 },
               ],
             };
+
+            if (existsSync(virtualModulePath)) {
+              const content = readFileSync(virtualModulePath, "utf8");
+
+              if (content === code) {
+                return;
+              }
+            }
+
+            writeFileSync(virtualModulePath, code, "utf8");
           }
 
           if (node.name === "PropsTable") {
@@ -168,6 +219,8 @@ export default function ({ sourceRoot }) {
         }
       },
     );
+
+    tree.children.unshift(...usageMdx);
   };
 }
 
