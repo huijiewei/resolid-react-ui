@@ -9,6 +9,6 @@ export default defineConfig({
   target: "es2022",
   esbuildPlugins: [reactCompilerEsbuildPlugin({ filter: /\.[jt]sx?$/ })],
   dts: true,
-  treeshake: { preset: "smallest" },
+  treeshake: true,
   clean: true,
 });

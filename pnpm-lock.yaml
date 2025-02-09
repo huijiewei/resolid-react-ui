@@ -109,6 +109,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.3
         version: 19.0.3(@types/react@19.0.8)
+      babel-plugin-annotate-pure-calls:
+        specifier: ^0.5.0
+        version: 0.5.0(@babel/core@7.26.8)
       babel-plugin-react-compiler:
         specifier: beta
         version: 19.0.0-beta-714736e-20250131
@@ -1563,6 +1566,12 @@ packages:
 
   babel-dead-code-elimination@1.0.9:
     resolution: {integrity: sha512-JLIhax/xullfInZjtu13UJjaLHDeTzt3vOeomaSUdO/nAMEL/pWC/laKrSvWylXMnVWyL5bpmG9njqBZlUQOdg==}
+
+  babel-plugin-annotate-pure-calls@0.5.0:
+    resolution: {integrity: sha512-bWlaZl2qsJKHv9BJgF1g6bQ04wK/7Topq9g59I795W9jpx9lNs9N5LK5NjlEBCDhHncrO0vcoAMuHJR3oWnTeQ==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@babel/core': ^7.0.0
 
   babel-plugin-react-compiler@19.0.0-beta-714736e-20250131:
     resolution: {integrity: sha512-frj2l6fRWVi26iw9WthFKyFyE4u5ZSHH3KdKiscOOwpz210seTtwnp0QbJmi8Zoa5HK7Fk2fH40JffN2y8GvLg==}
@@ -5684,6 +5693,10 @@ snapshots:
       '@babel/types': 7.26.8
     transitivePeerDependencies:
       - supports-color
+
+  babel-plugin-annotate-pure-calls@0.5.0(@babel/core@7.26.8):
+    dependencies:
+      '@babel/core': 7.26.8
 
   babel-plugin-react-compiler@19.0.0-beta-714736e-20250131:
     dependencies:

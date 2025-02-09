@@ -33,6 +33,7 @@ export const reactCompilerEsbuildPlugin = ({ filter }) => ({
               target: "19",
             },
           ],
+          "annotate-pure-calls",
         ],
         parserOpts: {
           plugins: ["jsx", "typescript"],
