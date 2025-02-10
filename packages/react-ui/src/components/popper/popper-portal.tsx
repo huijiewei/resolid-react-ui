@@ -1,8 +1,8 @@
 import type { PropsWithChildren } from "react";
-import { usePopperTransition } from "../popper/popper-transtion-context";
 import { Portal } from "../portal/portal";
+import { usePopperTransition } from "./popper-transtion-context";
 
-export const DialogPortal = ({ children }: PropsWithChildren) => {
+export const PopperPortal = ({ children }: PropsWithChildren) => {
   const { mounted } = usePopperTransition();
 
   if (!mounted) {
