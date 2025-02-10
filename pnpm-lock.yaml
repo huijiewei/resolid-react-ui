@@ -47,7 +47,7 @@ importers:
         version: 19.7.1
       '@resolid/config':
         specifier: ^3.2.2
-        version: 3.2.2(eslint@9.20.0(jiti@2.4.2))(prettier-plugin-organize-imports@4.1.0(prettier@3.4.2)(typescript@5.7.3))(prettier@3.4.2)(typescript@5.7.3)
+        version: 3.2.2(eslint@9.20.0(jiti@2.4.2))(prettier-plugin-organize-imports@4.1.0(prettier@3.5.0)(typescript@5.7.3))(prettier@3.5.0)(typescript@5.7.3)
       '@types/node':
         specifier: ^22.13.1
         version: 22.13.1
@@ -58,14 +58,14 @@ importers:
         specifier: ^1.10.10
         version: 1.10.10
       prettier:
-        specifier: ^3.4.2
-        version: 3.4.2
+        specifier: ^3.5.0
+        version: 3.5.0
       prettier-plugin-organize-imports:
         specifier: ^4.1.0
-        version: 4.1.0(prettier@3.4.2)(typescript@5.7.3)
+        version: 4.1.0(prettier@3.5.0)(typescript@5.7.3)
       prettier-plugin-tailwindcss:
         specifier: ^0.6.11
-        version: 0.6.11(prettier-plugin-organize-imports@4.1.0(prettier@3.4.2)(typescript@5.7.3))(prettier@3.4.2)
+        version: 0.6.11(prettier-plugin-organize-imports@4.1.0(prettier@3.5.0)(typescript@5.7.3))(prettier@3.5.0)
       typescript:
         specifier: ^5.7.3
         version: 5.7.3
@@ -187,7 +187,7 @@ importers:
         version: 7.1.5(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.3)(vite@6.1.0(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0))(yaml@2.7.0)
       '@resolid/config':
         specifier: ^3.2.2
-        version: 3.2.2(eslint@9.20.0(jiti@2.4.2))(prettier-plugin-organize-imports@4.1.0(prettier@3.4.2)(typescript@5.7.3))(prettier@3.4.2)(typescript@5.7.3)
+        version: 3.2.2(eslint@9.20.0(jiti@2.4.2))(prettier-plugin-organize-imports@4.1.0(prettier@3.5.0)(typescript@5.7.3))(prettier@3.5.0)(typescript@5.7.3)
       '@resolid/flex-routes':
         specifier: ^1.1.9
         version: 1.1.9(@react-router/dev@7.1.5(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.3)(vite@6.1.0(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0))(yaml@2.7.0))
@@ -3326,8 +3326,8 @@ packages:
     engines: {node: '>=10.13.0'}
     hasBin: true
 
-  prettier@3.4.2:
-    resolution: {integrity: sha512-e9MewbtFo+Fevyuxn/4rrcDAaq0IYxPGLvObpQjiZBMAzB9IGmzlnG9RZy3FFas+eBMu2vA0CszMeduow5dIuQ==}
+  prettier@3.5.0:
+    resolution: {integrity: sha512-quyMrVt6svPS7CjQ9gKb3GLEX/rl3BCL2oa/QkNcXv4YNVBC9olt3s+H7ukto06q7B1Qz46PbrKLO34PR6vXcA==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -5144,7 +5144,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.7.3
 
-  '@resolid/config@3.2.2(eslint@9.20.0(jiti@2.4.2))(prettier-plugin-organize-imports@4.1.0(prettier@3.4.2)(typescript@5.7.3))(prettier@3.4.2)(typescript@5.7.3)':
+  '@resolid/config@3.2.2(eslint@9.20.0(jiti@2.4.2))(prettier-plugin-organize-imports@4.1.0(prettier@3.5.0)(typescript@5.7.3))(prettier@3.5.0)(typescript@5.7.3)':
     dependencies:
       '@eslint/js': 9.20.0
       eslint: 9.20.0(jiti@2.4.2)
@@ -5155,8 +5155,8 @@ snapshots:
       eslint-plugin-react-hooks: 5.1.0(eslint@9.20.0(jiti@2.4.2))
       eslint-plugin-react-refresh: 0.4.19(eslint@9.20.0(jiti@2.4.2))
       globals: 15.14.0
-      prettier: 3.4.2
-      prettier-plugin-organize-imports: 4.1.0(prettier@3.4.2)(typescript@5.7.3)
+      prettier: 3.5.0
+      prettier-plugin-organize-imports: 4.1.0(prettier@3.5.0)(typescript@5.7.3)
       typescript-eslint: 8.23.0(eslint@9.20.0(jiti@2.4.2))(typescript@5.7.3)
     optionalDependencies:
       typescript: 5.7.3
@@ -7665,20 +7665,20 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-organize-imports@4.1.0(prettier@3.4.2)(typescript@5.7.3):
+  prettier-plugin-organize-imports@4.1.0(prettier@3.5.0)(typescript@5.7.3):
     dependencies:
-      prettier: 3.4.2
+      prettier: 3.5.0
       typescript: 5.7.3
 
-  prettier-plugin-tailwindcss@0.6.11(prettier-plugin-organize-imports@4.1.0(prettier@3.4.2)(typescript@5.7.3))(prettier@3.4.2):
+  prettier-plugin-tailwindcss@0.6.11(prettier-plugin-organize-imports@4.1.0(prettier@3.5.0)(typescript@5.7.3))(prettier@3.5.0):
     dependencies:
-      prettier: 3.4.2
+      prettier: 3.5.0
     optionalDependencies:
-      prettier-plugin-organize-imports: 4.1.0(prettier@3.4.2)(typescript@5.7.3)
+      prettier-plugin-organize-imports: 4.1.0(prettier@3.5.0)(typescript@5.7.3)
 
   prettier@2.8.8: {}
 
-  prettier@3.4.2: {}
+  prettier@3.5.0: {}
 
   pretty-format@27.5.1:
     dependencies:
