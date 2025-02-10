@@ -54,7 +54,6 @@ export const Button = <T extends ElementType = "button">(props: PolymorphicProps
 
   const {
     as: Component = "button",
-    tagName,
     variant = group?.variant ?? "solid",
     color = group?.color ?? "primary",
     size = group?.size ?? "md",
@@ -77,7 +76,6 @@ export const Button = <T extends ElementType = "button">(props: PolymorphicProps
   const disabledStatus = disabled || loading;
 
   const { getButtonProps, buttonRef } = useButtonProps({
-    tagName,
     type,
     tabIndex,
     disabled: disabledStatus,
@@ -99,7 +97,6 @@ export const Button = <T extends ElementType = "button">(props: PolymorphicProps
           ),
         className,
       )}
-      data-disabled={dataAttr(disabledStatus)}
       data-active={dataAttr(active)}
       {...getButtonProps(rest)}
     >

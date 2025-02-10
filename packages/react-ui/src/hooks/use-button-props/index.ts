@@ -16,7 +16,6 @@ export type UseButtonPropsOptions = {
   role?: AriaRole;
   disabled?: boolean;
   tabIndex?: number;
-  tagName?: string;
 };
 
 export type ButtonEvent<E extends SyntheticEvent<Element, Event>> = E & {
@@ -32,15 +31,17 @@ type GenericButtonProps = Omit<HTMLAttributes<HTMLElement>, "onClick"> & {
 };
 
 export const useButtonProps = (options: UseButtonPropsOptions) => {
-  const { tagName, type = "button", role, disabled = false, tabIndex } = options;
+  const { type = "button", role, disabled = false, tabIndex } = options;
 
   const [tagType, setTagType] = useState<"BUTTON" | "LINK" | null>(null);
 
-  const buttonRef = (tag: HTMLElement | null) => {
-    if (tagName?.toUpperCase() == "BUTTON" || tag?.tagName == "BUTTON") {
-      setTagType("BUTTON");
-    } else if ((tagName?.toUpperCase() == "A" || tag?.tagName == "A") && tag?.getAttribute("href") != null) {
-      setTagType("LINK");
+  const buttonRef = (node: HTMLElement | null) => {
+    if (node) {
+      if (node.tagName == "BUTTON") {
+        setTagType("BUTTON");
+      } else if (node.tagName == "A" && node.getAttribute("href") != null) {
+        setTagType("LINK");
+      }
     }
 
     return () => {
@@ -64,9 +65,9 @@ export const useButtonProps = (options: UseButtonPropsOptions) => {
 
     const internalProps: ComponentProps<ElementType> = {
       ...buttonProps,
-      onClick(event: MouseEvent) {
+      onClick: (e: MouseEvent) => {
         if (!disabled) {
-          onClick?.(event);
+          onClick?.(e);
         }
       },
       onKeyDown: (e: KeyboardEvent) => {

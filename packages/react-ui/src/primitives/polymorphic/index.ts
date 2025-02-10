@@ -6,7 +6,7 @@ export type PrimitiveProps<
   O extends string | number | symbol = never,
 > = Omit<JSX.IntrinsicElements[T], keyof P | O> & P;
 
-type AsProps<T extends ElementType> = { as?: T; tagName?: keyof JSX.IntrinsicElements };
+type AsProps<T extends ElementType> = { as?: T };
 
 export type PolymorphicProps<
   T extends ElementType,

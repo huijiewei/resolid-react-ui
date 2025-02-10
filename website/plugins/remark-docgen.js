@@ -232,7 +232,7 @@ const tsParser = withCustomConfig("tsconfig.json", {
   shouldExtractValuesFromUnion: true,
   shouldRemoveUndefinedFromOptional: true,
   propFilter: (prop) => {
-    if (["as", "ref", "style", "className", "tagName"].includes(prop.name)) {
+    if (["as", "ref", "style", "className"].includes(prop.name)) {
       return false;
     }
 

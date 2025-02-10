@@ -19,7 +19,7 @@ export type MenuBaseItemProps = {
 };
 
 export const MenuBaseItem = <T extends ElementType = "div">(props: PolymorphicProps<T, MenuBaseItemProps>) => {
-  const { as: Component = "div", tagName, className, ref, children, label, disabled = false, ...rest } = props;
+  const { as: Component = "div", className, ref, children, label, disabled = false, ...rest } = props;
 
   const { getItemProps, activeIndex } = useMenuItem();
   const { ref: itemRef, index } = useListItem({ label: label ?? (typeof children == "string" ? children : null) });
@@ -27,7 +27,6 @@ export const MenuBaseItem = <T extends ElementType = "div">(props: PolymorphicPr
   const active = index !== null && index === activeIndex;
 
   const { getButtonProps, buttonRef } = useButtonProps({
-    tagName,
     tabIndex: active ? 0 : -1,
     role: "menuitem",
     disabled,
