@@ -1,0 +1,240 @@
+---
+title: 弹出框
+description: 鼠标点击在某个组件时，弹出的气泡式的卡片浮层。可以对卡片上的元素进行操作。
+---
+
+## 导入
+
+```js
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverArrow,
+  PopoverTitle,
+  PopoverDescription,
+  PopoverClose,
+} from "@resolid/react-ui";
+```
+
+- `Popover`: 包含弹出框的所有部分。
+- `PopoverTrigger`: 包装将打开弹出框的控件。
+- `PopoverContent`: 包含弹出框打开时要呈现的内容。
+- `PopoverArrow`: 一个可选的箭头元素，与弹出框一起渲染。
+- `PopoverTitle`: 打开弹出框时要宣布的可访问标题。
+- `PopoverDescription`: 打开弹出框时要宣布的可选描述。
+- `PopoverClose`: 关闭弹出框的控件。
+
+## 演示
+
+弹出框默认的样式并不是很多，你可以通过 `PopoverContent`、`PopoverTitle` 和 `PopoverDescription` 的 `className` 自定义弹出框的样式。
+
+```jsx demo
+import {
+  Button,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverArrow,
+  PopoverTitle,
+  PopoverDescription,
+  PopoverClose,
+} from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row gap-3"}>
+      <Popover>
+        <PopoverTrigger as={Button}>打开弹出框</PopoverTrigger>
+        <PopoverContent className="max-w-96">
+          <PopoverArrow />
+          <PopoverTitle className={"p-4"}>弹出框标题</PopoverTitle>
+          <PopoverDescription className={"p-4 pt-1"}>
+            这是一个弹出框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
+          </PopoverDescription>
+          <div className={"flex justify-end gap-4 p-4 pt-1"}>
+            <PopoverClose color={"neutral"} variant={"soft"} as={Button}>
+              取消
+            </PopoverClose>
+            <Button color={"neutral"}>确定</Button>
+          </div>
+        </PopoverContent>
+      </Popover>
+    </div>
+  );
+}
+```
+
+## 举例
+
+### 嵌套
+
+你可以正常的嵌套弹出框。
+
+```jsx demo
+import {
+  Button,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverArrow,
+  PopoverTitle,
+  PopoverDescription,
+} from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row gap-3"}>
+      <Popover>
+        <PopoverTrigger as={Button}>打开弹出框</PopoverTrigger>
+        <PopoverContent className="max-w-96">
+          <PopoverArrow />
+          <PopoverTitle className={"p-4"}>弹出框标题</PopoverTitle>
+          <PopoverDescription className={"p-4 pt-1"}>
+            你正在进行一项操作，这可能会影响当前的设置或数据。请确认是否继续？如果不确定，可以先查看相关文档，或者咨询管理员获取更多信息。
+          </PopoverDescription>
+          <div className={"flex p-4 pt-1"}>
+            <Popover>
+              <PopoverTrigger color={"neutral"} variant={"soft"} as={Button}>
+                打开嵌套弹出框
+              </PopoverTrigger>
+              <PopoverContent className="max-w-86">
+                <PopoverArrow />
+                <PopoverDescription className={"p-4"}>
+                  一些嵌套的弹出内容
+                </PopoverDescription>
+              </PopoverContent>
+            </Popover>
+          </div>
+        </PopoverContent>
+      </Popover>
+    </div>
+  );
+}
+```
+
+### 焦点管理
+
+弹出框打开会自动将焦点设置在第一个可用的元素上，关闭时会自动返回焦点，你可以通过设置 `initialFocus` 和 `finalFocus` 属性来自定义焦点目标
+
+```jsx demo
+import {
+  Button,
+  Input,
+  Popover,
+  PopoverArrow,
+  PopoverClose,
+  PopoverContent,
+  PopoverTitle,
+  PopoverTrigger,
+} from "@resolid/react-ui";
+import { useRef } from "react";
+
+export default function App() {
+  const initialRef = useRef(null);
+  const finalRef = useRef(null);
+
+  return (
+    <div className={"flex flex-row gap-3"}>
+      <Popover initialFocus={initialRef} finalFocus={finalRef}>
+        <PopoverTrigger as={Button}>打开弹出框</PopoverTrigger>
+        <Button color={"neutral"} ref={finalRef}>
+          键盘关闭对话框后获得焦点
+        </Button>
+        <PopoverContent className="max-w-128">
+          <PopoverArrow />
+          <PopoverTitle className={"p-4"}>弹出框标题</PopoverTitle>
+          <div className={"flex flex-col gap-4 p-4 pt-1"}>
+            <div className={"flex flex-col gap-1"}>
+              <label htmlFor={"username"}>姓名</label>
+              <Input id={"username"} />
+            </div>
+            <div className={"flex flex-col gap-1"}>
+              <label htmlFor={"email"}>邮件</label>
+              <Input ref={initialRef} id={"email"} />
+            </div>
+          </div>
+          <div className={"flex justify-end gap-4 p-4 pt-1"}>
+            <PopoverClose color={"neutral"} variant={"soft"} as={Button}>
+              取消
+            </PopoverClose>
+            <Button color={"neutral"}>保存</Button>
+          </div>
+        </PopoverContent>
+      </Popover>
+    </div>
+  );
+}
+```
+
+### 放置位置
+
+通过传递 `placement` 属性来更改弹出框的放置位置。
+
+```jsx demo
+import {
+  Button,
+  Popover,
+  PopoverArrow,
+  PopoverContent,
+  PopoverDescription,
+  PopoverTitle,
+  PopoverTrigger,
+} from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div
+      className={"mx-auto grid w-fit gap-2"}
+      style={{
+        gridTemplateAreas:
+          '".           top-start     top         top-end       .            "' +
+          '"left-start  .             .           .             right-start  "' +
+          '"left        .             center      .             right        "' +
+          '"left-end    .             .           .             right-end    "' +
+          '".           bottom-start  bottom      bottom-end    .            "',
+      }}
+    >
+      {[
+        ["top-start", "上左"],
+        ["top", "上"],
+        ["top-end", "上右"],
+        ["left-start", "左上"],
+        ["left", "左"],
+        ["left-end", "左下"],
+        ["auto", "自动"],
+        ["right-start", "右上"],
+        ["right", "右"],
+        ["right-end", "右下"],
+        ["bottom-start", "下左"],
+        ["bottom", "下"],
+        ["bottom-end", "下右"],
+      ].map(([placement, name]) => (
+        <Popover key={placement} placement={placement}>
+          <PopoverTrigger
+            as={Button}
+            variant={"soft"}
+            color={"neutral"}
+            style={{
+              gridArea: placement === "auto" ? "center" : placement,
+            }}
+          >
+            {name}
+          </PopoverTrigger>
+          <PopoverContent className="max-w-96">
+            <PopoverArrow />
+            <PopoverTitle className={"p-4"}>弹出框标题</PopoverTitle>
+            <PopoverDescription className={"p-4 pt-0"}>
+              这是一个弹出框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
+            </PopoverDescription>
+          </PopoverContent>
+        </Popover>
+      ))}
+    </div>
+  );
+}
+```
+
+## 属性
+
+::PropsTable{file=popover/popover.tsx}
