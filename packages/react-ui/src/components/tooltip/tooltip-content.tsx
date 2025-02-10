@@ -1,15 +1,14 @@
-import type { CSSProperties } from "react";
 import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
+import { PopperFloating } from "../popper/popper-floating";
 import { usePopperTransition } from "../popper/popper-transtion-context";
 import { PortalLite } from "../portal/portal-lite";
-import { useTooltipFloating } from "./tooltip-context";
+import { useTooltip } from "./tooltip-context";
 
 export const TooltipContent = (props: PrimitiveProps<"div">) => {
-  const { children, className, style, ...rest } = props;
+  const { children, className, ...rest } = props;
 
-  const { interactive, floatingStyles, floatingClassName, setFloating, getFloatingProps } = useTooltipFloating();
-
+  const { interactive, contentClassName } = useTooltip();
   const { status, mounted, duration } = usePopperTransition();
 
   if (!mounted) {
@@ -18,29 +17,19 @@ export const TooltipContent = (props: PrimitiveProps<"div">) => {
 
   return (
     <PortalLite>
-      <div
-        ref={setFloating}
-        style={
-          {
-            ...floatingStyles,
-            ...style,
-            "--dv": `${duration}ms`,
-          } as CSSProperties
-        }
+      <PopperFloating
+        status={status}
+        duration={duration}
         className={tx(
-          "z-90 text-fg-emphasized inline-block max-w-96 rounded-md border px-2 py-1 text-sm shadow-sm",
-          "duration-(--dv) transition-opacity",
-          status == "open" ? "opacity-100" : "opacity-0",
+          "z-90 text-fg-emphasized inline-block max-w-96 border px-2 py-1 text-sm shadow-sm",
           !interactive && "pointer-events-none",
-          floatingClassName,
+          contentClassName,
           className,
         )}
-        {...getFloatingProps({
-          ...rest,
-        })}
+        {...rest}
       >
         {children}
-      </div>
+      </PopperFloating>
     </PortalLite>
   );
 };

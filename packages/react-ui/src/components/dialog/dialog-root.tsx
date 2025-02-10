@@ -12,6 +12,7 @@ import { useDisclosure, usePreventScroll } from "../../hooks";
 import { PopperAriaContext } from "../popper/popper-aria-context";
 import type { PopperDisclosureProps } from "../popper/popper-disclosure";
 import { PopperDispatchContext, type PopperDispatchContextValue } from "../popper/popper-dispatch-context";
+import { PopperFloatingContext, type PopperFloatingContextValue } from "../popper/popper-floating-context";
 import { PopperReferenceContext, type PopperReferenceContextValue } from "../popper/popper-reference-context";
 import { PopperTransitionContext, type PopperTransitionContextValue } from "../popper/popper-transtion-context";
 import { DialogContext, type DialogBaseProps, type DialogContextValue } from "./dialog-context";
@@ -103,14 +104,18 @@ export const DialogRoot = (props: PropsWithChildren<DialogRootProps>) => {
     useDismiss(context, { escapeKey: closeOnEscape, outsidePress: closeOnOutsideClick }),
   ]);
 
+  const floatingContext: PopperFloatingContextValue = {
+    setFloating,
+    getFloatingProps,
+    floatingStyles: {},
+  };
+
   const dialogContext: DialogContextValue = {
     context,
     initialFocus,
     finalFocus,
     scrollBehavior,
     placement,
-    setFloating,
-    getFloatingProps,
   };
 
   const dispatchContext: PopperDispatchContextValue = {
@@ -142,7 +147,9 @@ export const DialogRoot = (props: PropsWithChildren<DialogRootProps>) => {
       <PopperReferenceContext value={referenceContext}>
         <DialogContext value={dialogContext}>
           <PopperDispatchContext value={dispatchContext}>
-            <PopperTransitionContext value={transitionContext}>{children}</PopperTransitionContext>
+            <PopperTransitionContext value={transitionContext}>
+              <PopperFloatingContext value={floatingContext}>{children}</PopperFloatingContext>
+            </PopperTransitionContext>
           </PopperDispatchContext>
         </DialogContext>
       </PopperReferenceContext>

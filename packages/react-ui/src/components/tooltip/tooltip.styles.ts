@@ -1,6 +1,6 @@
 import { tv, type VP } from "../../utils";
 
-export const tooltipFloatingStyles = tv({
+export const tooltipContentStyles = tv({
   variants: {
     color: {
       primary: "border-bg-primary-emphasis-hovered bg-bg-primary-emphasis-hovered",
@@ -26,4 +26,4 @@ export const tooltipArrowStyles = tv({
   },
 });
 
-export type TooltipStyleProps = VP<typeof tooltipFloatingStyles>;
+export type TooltipStyleProps = VP<typeof tooltipContentStyles>;

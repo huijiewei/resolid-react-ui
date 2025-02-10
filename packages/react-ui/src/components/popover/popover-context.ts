@@ -1,6 +1,6 @@
+import type { FloatingRootContext } from "@floating-ui/react";
 import type { RefObject } from "react";
 import { createSafeContext } from "../../primitives";
-import type { PopperFloatingContextValue } from "../popper/popper-floating-context";
 
 export type PopoverBaseProps = {
   /**
@@ -14,6 +14,8 @@ export type PopoverBaseProps = {
   finalFocus?: RefObject<HTMLElement>;
 };
 
-export type PopoverContextValue = PopoverBaseProps & PopperFloatingContextValue;
+export type PopoverContextValue = PopoverBaseProps & {
+  context: FloatingRootContext;
+};
 
 export const [PopoverContext, usePopover] = createSafeContext<PopoverContextValue>({ name: "PopoverContext" });

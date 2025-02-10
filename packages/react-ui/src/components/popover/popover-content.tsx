@@ -1,16 +1,16 @@
 import { FloatingFocusManager } from "@floating-ui/react";
-import type { CSSProperties } from "react";
 import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
 import { usePopperAria } from "../popper/popper-aria-context";
+import { PopperFloating } from "../popper/popper-floating";
 import { usePopperTransition } from "../popper/popper-transtion-context";
 import { Portal } from "../portal/portal";
 import { usePopover } from "./popover-context";
 
 export const PopoverContent = (props: PrimitiveProps<"div">) => {
-  const { children, className, style, ...rest } = props;
+  const { children, className, ...rest } = props;
 
-  const { context, setFloating, getFloatingProps, floatingStyles, initialFocus, finalFocus } = usePopover();
+  const { context, initialFocus, finalFocus } = usePopover();
   const { status, mounted, duration } = usePopperTransition();
 
   const { labelId, descriptionId } = usePopperAria();
@@ -22,31 +22,20 @@ export const PopoverContent = (props: PrimitiveProps<"div">) => {
   return (
     <Portal>
       <FloatingFocusManager context={context} initialFocus={initialFocus} returnFocus={finalFocus}>
-        <div
-          ref={setFloating}
-          style={
-            {
-              ...floatingStyles,
-              ...style,
-              "--dv": `${duration}ms`,
-            } as CSSProperties
-          }
+        <PopperFloating
+          status={status}
+          duration={duration}
           className={tx(
-            "border-bd-normal relative z-30 rounded-md border shadow-md outline-none",
-            "duration-(--dv) transition-opacity",
-            status == "open" ? "opacity-100" : "opacity-0",
+            "border-bd-normal relative z-30 border shadow-md",
             !className?.split(" ").some((cls) => cls.startsWith("bg-")) && "bg-bg-normal",
             className,
           )}
-          {...getFloatingProps({
-            ...rest,
-            "aria-labelledby": labelId,
-            "aria-describedby": descriptionId,
-            tabIndex: -1,
-          })}
+          aria-labelledby={labelId}
+          aria-describedby={descriptionId}
+          {...rest}
         >
           {children}
-        </div>
+        </PopperFloating>
       </FloatingFocusManager>
     </Portal>
   );

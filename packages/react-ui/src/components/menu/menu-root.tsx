@@ -26,9 +26,10 @@ import { useDisclosure, usePreventScroll } from "../../hooks";
 import { PopperArrowContext, type PopperArrowContextValue } from "../popper/popper-arrow-context";
 import type { PopperDisclosureProps } from "../popper/popper-disclosure";
 import { PopperDispatchContext, type PopperDispatchContextValue } from "../popper/popper-dispatch-context";
+import { PopperFloatingContext, type PopperFloatingContextValue } from "../popper/popper-floating-context";
 import { PopperReferenceContext, type PopperReferenceContextValue } from "../popper/popper-reference-context";
 import { PopperTransitionContext, type PopperTransitionContextValue } from "../popper/popper-transtion-context";
-import { MenuFloatingContext, type MenuFloatingContextValue } from "./menu-floating-context";
+import { MenuContext, type MenuContextValue } from "./menu-context";
 import { MenuHoverContext } from "./menu-hover-context";
 
 export type MenuRootProps = PopperDisclosureProps & {
@@ -171,11 +172,14 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
 
   const { events: menuEvents } = useFloatingTree()!;
 
-  const floatingContext: MenuFloatingContextValue = {
-    context,
+  const floatingContext: PopperFloatingContextValue = {
     setFloating: refs.setFloating,
     getFloatingProps,
     floatingStyles,
+  };
+
+  const menuContext: MenuContextValue = {
+    context,
     menuEvents,
     closeOnSelect,
     activeIndex,
@@ -238,15 +242,17 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
   return (
     <PopperArrowContext value={arrowContext}>
       <PopperReferenceContext value={referenceContext}>
-        <MenuFloatingContext value={floatingContext}>
+        <MenuContext value={menuContext}>
           <PopperDispatchContext value={dispatchContext}>
             <PopperTransitionContext value={transitionContext}>
-              <MenuHoverContext value={{ setHoverEnabled }}>
-                <FloatingNode id={nodeId}>{children}</FloatingNode>
-              </MenuHoverContext>
+              <PopperFloatingContext value={floatingContext}>
+                <MenuHoverContext value={{ setHoverEnabled }}>
+                  <FloatingNode id={nodeId}>{children}</FloatingNode>
+                </MenuHoverContext>
+              </PopperFloatingContext>
             </PopperTransitionContext>
           </PopperDispatchContext>
-        </MenuFloatingContext>
+        </MenuContext>
       </PopperReferenceContext>
     </PopperArrowContext>
   );

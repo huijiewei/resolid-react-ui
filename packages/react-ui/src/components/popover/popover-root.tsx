@@ -19,6 +19,7 @@ import { PopperAriaContext } from "../popper/popper-aria-context";
 import { PopperArrowContext, type PopperArrowContextValue } from "../popper/popper-arrow-context";
 import type { PopperDisclosureProps } from "../popper/popper-disclosure";
 import { PopperDispatchContext, type PopperDispatchContextValue } from "../popper/popper-dispatch-context";
+import { PopperFloatingContext, type PopperFloatingContextValue } from "../popper/popper-floating-context";
 import { PopperReferenceContext, type PopperReferenceContextValue } from "../popper/popper-reference-context";
 import { PopperTransitionContext, type PopperTransitionContextValue } from "../popper/popper-transtion-context";
 import { type PopoverBaseProps, PopoverContext, type PopoverContextValue } from "./popover-context";
@@ -125,13 +126,16 @@ export const PopoverRoot = (props: PropsWithChildren<PopoverRootProps>) => {
     setPositionReference: refs.setPositionReference,
   };
 
+  const floatingContext: PopperFloatingContextValue = {
+    setFloating: refs.setFloating,
+    getFloatingProps,
+    floatingStyles,
+  };
+
   const popoverContext: PopoverContextValue = {
     context,
     initialFocus,
     finalFocus,
-    setFloating: refs.setFloating,
-    getFloatingProps,
-    floatingStyles,
   };
 
   const dispatchContext: PopperDispatchContextValue = {
@@ -155,7 +159,9 @@ export const PopoverRoot = (props: PropsWithChildren<PopoverRootProps>) => {
         <PopperReferenceContext value={referenceContext}>
           <PopoverContext value={popoverContext}>
             <PopperDispatchContext value={dispatchContext}>
-              <PopperTransitionContext value={transitionContext}>{children}</PopperTransitionContext>
+              <PopperTransitionContext value={transitionContext}>
+                <PopperFloatingContext value={floatingContext}>{children}</PopperFloatingContext>
+              </PopperTransitionContext>
             </PopperDispatchContext>
           </PopoverContext>
         </PopperReferenceContext>

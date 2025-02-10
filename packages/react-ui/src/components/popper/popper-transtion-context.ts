@@ -1,7 +1,9 @@
 import { createSafeContext } from "../../primitives";
 
+export type PopperTransitionStatus = "unmounted" | "initial" | "open" | "close";
+
 export type PopperTransitionContextValue = {
-  status: "unmounted" | "initial" | "open" | "close";
+  status: PopperTransitionStatus;
   mounted: boolean;
   duration: number;
 };

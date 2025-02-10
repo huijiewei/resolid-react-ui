@@ -1,7 +1,6 @@
 import type { FloatingRootContext } from "@floating-ui/react";
 import type { RefObject } from "react";
 import { createSafeContext } from "../../primitives";
-import type { PopperFloatingContextValue } from "../popper/popper-floating-context";
 
 export type DialogBaseProps = {
   /**
@@ -27,7 +26,6 @@ export type DialogBaseProps = {
   placement?: "top" | "center" | "bottom";
 };
 
-export type DialogContextValue = DialogBaseProps &
-  Omit<PopperFloatingContextValue, "context" | "floatingStyles"> & { context: FloatingRootContext };
+export type DialogContextValue = DialogBaseProps & { context: FloatingRootContext };
 
 export const [DialogContext, useDialog] = createSafeContext<DialogContextValue>({ name: "DialogContext" });

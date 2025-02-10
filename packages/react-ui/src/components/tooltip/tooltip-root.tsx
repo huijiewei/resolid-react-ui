@@ -19,10 +19,11 @@ import { type PropsWithChildren, useRef } from "react";
 import { useDisclosure } from "../../hooks";
 import { PopperArrowContext, type PopperArrowContextValue } from "../popper/popper-arrow-context";
 import type { PopperDisclosureProps } from "../popper/popper-disclosure";
+import { PopperFloatingContext, type PopperFloatingContextValue } from "../popper/popper-floating-context";
 import { PopperReferenceContext, type PopperReferenceContextValue } from "../popper/popper-reference-context";
 import { PopperTransitionContext, type PopperTransitionContextValue } from "../popper/popper-transtion-context";
-import { TooltipFloatingContext, type TooltipFloatingContextValue } from "./tooltip-context";
-import { tooltipArrowStyles, tooltipFloatingStyles, type TooltipStyleProps } from "./tooltip.styles";
+import { TooltipContext, type TooltipContextValue } from "./tooltip-context";
+import { tooltipArrowStyles, tooltipContentStyles, type TooltipStyleProps } from "./tooltip.styles";
 
 export type TooltipRootProps = PopperDisclosureProps & {
   /**
@@ -128,12 +129,15 @@ export const TooltipRoot = (props: PropsWithChildren<TooltipRootProps>) => {
     setPositionReference: refs.setPositionReference,
   };
 
-  const floatingContext: TooltipFloatingContextValue = {
-    interactive,
+  const floatingContext: PopperFloatingContextValue = {
     setFloating: refs.setFloating,
     getFloatingProps,
     floatingStyles,
-    floatingClassName: tooltipFloatingStyles({ color }),
+  };
+
+  const tooltipContext: TooltipContextValue = {
+    interactive,
+    contentClassName: tooltipContentStyles({ color }),
   };
 
   const { isMounted, status } = useTransitionStatus(context, {
@@ -149,9 +153,11 @@ export const TooltipRoot = (props: PropsWithChildren<TooltipRootProps>) => {
   return (
     <PopperArrowContext value={arrowContext}>
       <PopperReferenceContext value={referenceContext}>
-        <TooltipFloatingContext value={floatingContext}>
-          <PopperTransitionContext value={transitionContext}>{children}</PopperTransitionContext>
-        </TooltipFloatingContext>
+        <TooltipContext value={tooltipContext}>
+          <PopperTransitionContext value={transitionContext}>
+            <PopperFloatingContext value={floatingContext}>{children}</PopperFloatingContext>
+          </PopperTransitionContext>
+        </TooltipContext>
       </PopperReferenceContext>
     </PopperArrowContext>
   );

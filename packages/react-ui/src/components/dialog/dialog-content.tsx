@@ -1,15 +1,15 @@
 import { FloatingFocusManager } from "@floating-ui/react";
-import type { CSSProperties } from "react";
 import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
 import { usePopperAria } from "../popper/popper-aria-context";
+import { PopperFloating } from "../popper/popper-floating";
 import { usePopperTransition } from "../popper/popper-transtion-context";
 import { useDialog } from "./dialog-context";
 
 export const DialogContent = (props: PrimitiveProps<"div">) => {
-  const { children, className, style, ...rest } = props;
+  const { children, className, ...rest } = props;
 
-  const { context, setFloating, getFloatingProps, initialFocus, finalFocus, scrollBehavior, placement } = useDialog();
+  const { context, initialFocus, finalFocus, scrollBehavior, placement } = useDialog();
   const { status, mounted, duration } = usePopperTransition();
 
   const { labelId, descriptionId } = usePopperAria();
@@ -28,26 +28,21 @@ export const DialogContent = (props: PrimitiveProps<"div">) => {
       )}
     >
       <FloatingFocusManager context={context} initialFocus={initialFocus} returnFocus={finalFocus}>
-        <div
-          ref={setFloating}
-          style={{ ...style, "--dv": `${duration}ms` } as CSSProperties}
+        <PopperFloating
+          status={status}
+          duration={duration}
           className={tx(
-            "relative mx-auto rounded-md shadow-md",
-            "duration-(--dv) transition-opacity",
-            status == "open" ? "opacity-100" : "opacity-0",
+            "relative mx-auto shadow-md",
             scrollBehavior == "inside" && "max-h-[calc(100%-10rem)]",
             !className?.split(" ").some((cls) => cls.startsWith("bg-")) && "bg-bg-normal",
             className,
           )}
-          {...getFloatingProps({
-            ...rest,
-            "aria-labelledby": labelId,
-            "aria-describedby": descriptionId,
-            tabIndex: -1,
-          })}
+          aria-labelledby={labelId}
+          aria-describedby={descriptionId}
+          {...rest}
         >
           {children}
-        </div>
+        </PopperFloating>
       </FloatingFocusManager>
     </div>
   );
