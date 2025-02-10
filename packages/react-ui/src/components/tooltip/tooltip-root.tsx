@@ -140,7 +140,7 @@ export const TooltipRoot = (props: PropsWithChildren<TooltipRootProps>) => {
     duration: duration,
   });
 
-  const transtionContext: PopperTransitionContextValue = {
+  const transitionContext: PopperTransitionContextValue = {
     status,
     mounted: isMounted,
     duration,
@@ -150,7 +150,7 @@ export const TooltipRoot = (props: PropsWithChildren<TooltipRootProps>) => {
     <PopperArrowContext value={arrowContext}>
       <PopperReferenceContext value={referenceContext}>
         <TooltipFloatingContext value={floatingContext}>
-          <PopperTransitionContext value={transtionContext}>{children}</PopperTransitionContext>
+          <PopperTransitionContext value={transitionContext}>{children}</PopperTransitionContext>
         </TooltipFloatingContext>
       </PopperReferenceContext>
     </PopperArrowContext>

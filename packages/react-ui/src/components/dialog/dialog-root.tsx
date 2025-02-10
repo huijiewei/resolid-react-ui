@@ -131,7 +131,7 @@ export const DialogRoot = (props: PropsWithChildren<DialogRootProps>) => {
     duration: duration,
   });
 
-  const transtionContext: PopperTransitionContextValue = {
+  const transitionContext: PopperTransitionContextValue = {
     status,
     mounted: isMounted,
     duration,
@@ -142,7 +142,7 @@ export const DialogRoot = (props: PropsWithChildren<DialogRootProps>) => {
       <PopperReferenceContext value={referenceContext}>
         <DialogContext value={dialogContext}>
           <PopperDispatchContext value={dispatchContext}>
-            <PopperTransitionContext value={transtionContext}>{children}</PopperTransitionContext>
+            <PopperTransitionContext value={transitionContext}>{children}</PopperTransitionContext>
           </PopperDispatchContext>
         </DialogContext>
       </PopperReferenceContext>

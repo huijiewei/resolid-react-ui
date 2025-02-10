@@ -229,7 +229,7 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
     duration: duration,
   });
 
-  const transtionContext: PopperTransitionContextValue = {
+  const transitionContext: PopperTransitionContextValue = {
     status,
     mounted: isMounted,
     duration,
@@ -240,7 +240,7 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
       <PopperReferenceContext value={referenceContext}>
         <MenuFloatingContext value={floatingContext}>
           <PopperDispatchContext value={dispatchContext}>
-            <PopperTransitionContext value={transtionContext}>
+            <PopperTransitionContext value={transitionContext}>
               <MenuHoverContext value={{ setHoverEnabled }}>
                 <FloatingNode id={nodeId}>{children}</FloatingNode>
               </MenuHoverContext>
