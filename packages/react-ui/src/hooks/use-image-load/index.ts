@@ -38,7 +38,6 @@ export const useImageLoad = (options: UseImageLoadOptions) => {
 
     image.onload = updateStatus("loaded");
     image.onerror = updateStatus("error");
-    image.src = src;
 
     if (crossOrigin) {
       image.crossOrigin = crossOrigin;
@@ -47,6 +46,8 @@ export const useImageLoad = (options: UseImageLoadOptions) => {
     if (referrerPolicy) {
       image.referrerPolicy = referrerPolicy;
     }
+
+    image.src = src;
 
     return () => {
       isMounted = false;
