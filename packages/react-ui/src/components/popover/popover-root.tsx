@@ -144,7 +144,7 @@ export const PopoverRoot = (props: PropsWithChildren<PopoverRootProps>) => {
   };
 
   const { isMounted, status } = useTransitionStatus(context, {
-    duration: duration,
+    duration,
   });
 
   const transitionContext: PopperTransitionContextValue = {

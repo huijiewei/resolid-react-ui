@@ -141,7 +141,7 @@ export const TooltipRoot = (props: PropsWithChildren<TooltipRootProps>) => {
   };
 
   const { isMounted, status } = useTransitionStatus(context, {
-    duration: duration,
+    duration,
   });
 
   const transitionContext: PopperTransitionContextValue = {

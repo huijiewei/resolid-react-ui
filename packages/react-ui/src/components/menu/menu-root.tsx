@@ -230,7 +230,7 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
   }, [menuEvents, nodeId, parentId, openState]);
 
   const { isMounted, status } = useTransitionStatus(context, {
-    duration: duration,
+    duration,
   });
 
   const transitionContext: PopperTransitionContextValue = {

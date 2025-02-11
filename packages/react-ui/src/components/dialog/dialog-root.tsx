@@ -133,7 +133,7 @@ export const DialogRoot = (props: PropsWithChildren<DialogRootProps>) => {
   };
 
   const { isMounted, status } = useTransitionStatus(context as FloatingContext, {
-    duration: duration,
+    duration,
   });
 
   const transitionContext: PopperTransitionContextValue = {

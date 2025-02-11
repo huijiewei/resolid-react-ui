@@ -43,10 +43,6 @@ export const useButtonProps = (options: UseButtonPropsOptions) => {
         setTagType("LINK");
       }
     }
-
-    return () => {
-      setTagType(null);
-    };
   };
 
   const isNativeButton = tagType == "BUTTON";
