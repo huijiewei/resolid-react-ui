@@ -1,0 +1,21 @@
+@theme {
+  @keyframes slide-up {
+    from {
+      /*noinspection CssUnresolvedCustomProperty*/
+      height: var(--hv);
+    }
+    to {
+      height: 0;
+    }
+  }
+
+  @keyframes slide-down {
+    from {
+      height: 0;
+    }
+    to {
+      /*noinspection CssUnresolvedCustomProperty*/
+      height: var(--hv);
+    }
+  }
+}

@@ -2,10 +2,11 @@
 @import "./variants/status.css";
 
 @import "./themes/breakpoint.css";
-@import "./themes/font.css";
 @import "./themes/color.css";
 @import "./themes/color-light.css";
 @import "./themes/color-dark.css";
+@import "./themes/font.css";
+@import "./themes/keyframes.css";
 @import "./themes/radius.css";
 @import "./themes/reset.css";
 

@@ -10,6 +10,7 @@ export * from "./button/button-group";
 export * from "./checkbox/checkbox";
 export * from "./checkbox/checkbox-group";
 export * from "./close-button/close-button";
+export * from "./collapsible/collapsible";
 export * from "./context-menu/context-menu";
 export * from "./context-menu/context-menu-checkbox-item";
 export * from "./context-menu/context-menu-item";
