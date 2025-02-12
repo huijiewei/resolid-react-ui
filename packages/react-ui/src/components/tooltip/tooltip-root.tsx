@@ -15,7 +15,7 @@ import {
   useRole,
   useTransitionStatus,
 } from "@floating-ui/react";
-import { type PropsWithChildren, useRef } from "react";
+import { type PropsWithChildren, useState } from "react";
 import { useDisclosure } from "../../hooks";
 import { PopperArrowContext, type PopperArrowContextValue } from "../popper/popper-arrow-context";
 import type { PopperDisclosureProps } from "../popper/popper-disclosure";
@@ -79,16 +79,15 @@ export const TooltipRoot = (props: PropsWithChildren<TooltipRootProps>) => {
 
   const [openState, { handleOpen, handleClose }] = useDisclosure({ open, defaultOpen, onOpenChange });
 
-  const arrowRef = useRef<SVGSVGElement>(null);
+  const [arrowElem, setArrowElem] = useState<SVGSVGElement | null>(null);
 
   const { floatingStyles, refs, context } = useFloating({
     middleware: [
       offset(8),
       placement == "auto" ? autoPlacement() : flip(),
       shift({ padding: 8 }),
-      // eslint-disable-next-line react-compiler/react-compiler
       arrow({
-        element: arrowRef,
+        element: arrowElem,
         padding: 4,
       }),
     ],
@@ -106,7 +105,7 @@ export const TooltipRoot = (props: PropsWithChildren<TooltipRootProps>) => {
 
   const arrowContext: PopperArrowContextValue = {
     context,
-    setArrow: arrowRef,
+    setArrow: setArrowElem,
     arrowClassName: tooltipArrowStyles({ color }),
   };
 

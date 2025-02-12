@@ -1,10 +1,9 @@
 import type { FloatingContext } from "@floating-ui/react";
-import type { RefObject } from "react";
 import { createSafeContext } from "../../primitives";
 
 export type PopperArrowContextValue = {
   context: FloatingContext;
-  setArrow: RefObject<SVGSVGElement | null>;
+  setArrow: (node: SVGSVGElement) => void;
   arrowClassName?: string;
 };
 

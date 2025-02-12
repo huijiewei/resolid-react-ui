@@ -13,7 +13,7 @@ import {
   useRole,
   useTransitionStatus,
 } from "@floating-ui/react";
-import { type PropsWithChildren, useId, useRef } from "react";
+import { type PropsWithChildren, useId, useState } from "react";
 import { useDisclosure } from "../../hooks";
 import { PopperAriaContext } from "../popper/popper-aria-context";
 import { PopperArrowContext, type PopperArrowContextValue } from "../popper/popper-arrow-context";
@@ -76,16 +76,15 @@ export const PopoverRoot = (props: PropsWithChildren<PopoverRootProps>) => {
     descriptionId,
   };
 
-  const arrowRef = useRef<SVGSVGElement>(null);
+  const [arrowElem, setArrowElem] = useState<SVGSVGElement | null>(null);
 
   const { floatingStyles, refs, context } = useFloating({
     middleware: [
       offset(8),
       placement == "auto" ? autoPlacement() : flip(),
       shift({ padding: 8 }),
-      // eslint-disable-next-line react-compiler/react-compiler
       arrow({
-        element: arrowRef,
+        element: arrowElem,
         padding: 4,
       }),
     ],
@@ -103,7 +102,7 @@ export const PopoverRoot = (props: PropsWithChildren<PopoverRootProps>) => {
 
   const arrowContext: PopperArrowContextValue = {
     context,
-    setArrow: arrowRef,
+    setArrow: setArrowElem,
     arrowClassName: "fill-bg-normal [&>path:first-of-type]:stroke-bd-normal",
   };
 

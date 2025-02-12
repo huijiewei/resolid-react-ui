@@ -90,7 +90,7 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
 
   const [openState, { handleOpen, handleClose }] = useDisclosure({ open, defaultOpen, onOpenChange });
 
-  const arrowRef = useRef<SVGSVGElement>(null);
+  const [arrowElem, setArrowElem] = useState<SVGSVGElement | null>(null);
 
   const { floatingStyles, refs, context } = useFloating({
     open: openState,
@@ -106,15 +106,20 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
       offset({ mainAxis: nested ? 0 : 8, alignmentAxis: nested ? -5 : 0 }),
       flip(),
       shift({ padding: 8 }),
-      // eslint-disable-next-line react-compiler/react-compiler
       arrow({
-        element: arrowRef,
+        element: arrowElem,
         padding: 4,
       }),
     ],
     placement: nested ? "right-start" : placement,
     whileElementsMounted: autoUpdate,
   });
+
+  const arrowContext: PopperArrowContextValue = {
+    context,
+    setArrow: setArrowElem,
+    arrowClassName: "fill-bg-normal [&>path:first-of-type]:stroke-bg-muted",
+  };
 
   usePreventScroll({
     enabled: preventScroll && openState && !nested,
@@ -123,10 +128,10 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
 
   const elementsRef = useRef<(HTMLElement | null)[]>([]);
   const labelsRef = useRef<(string | null)[]>([]);
+  const typingRef = useRef(false);
 
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [hoverEnabled, setHoverEnabled] = useState(true);
-  const typingRef = useRef(false);
 
   const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions([
     useRole(context, { role: "menu" }),
@@ -188,12 +193,6 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
     elementsRef,
     labelsRef,
     typingRef,
-  };
-
-  const arrowContext: PopperArrowContextValue = {
-    context,
-    setArrow: arrowRef,
-    arrowClassName: "fill-bg-normal [&>path:first-of-type]:stroke-bg-muted",
   };
 
   const dispatchContext: PopperDispatchContextValue = {
