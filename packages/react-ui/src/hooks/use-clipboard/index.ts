@@ -30,5 +30,5 @@ export const useClipboard = (options?: UseClipboardOptions) => {
     setCopied(true);
   };
 
-  return { copy, copied };
+  return [copied, copy] as const;
 };

@@ -2,7 +2,7 @@ import { Button, useClipboard } from "@resolid/react-ui";
 import { SpriteIcon } from "~/components/sprite-icon";
 
 export const ClipboardButton = ({ content }: { content: string }) => {
-  const { copy, copied } = useClipboard();
+  const [copied, copy] = useClipboard();
 
   return (
     <Button size={"xs"} iconOnly color={"neutral"} variant={"soft"} onClick={() => copy(content)}>
