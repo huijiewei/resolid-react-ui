@@ -1,10 +1,10 @@
 import { type CSSProperties, useState } from "react";
 import { useMergeRefs } from "../../hooks";
-import type { PrimitiveProps } from "../../primitives";
+import type { EmptyObject, PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
 import { useCollapsibleContent } from "./collapsible-context";
 
-export const CollapsibleContent = (props: PrimitiveProps<"div", Record<never, never>, "id">) => {
+export const CollapsibleContent = (props: PrimitiveProps<"div", EmptyObject, "id">) => {
   const { children, ref, ...rest } = props;
 
   const { id, mounted, status, setElement } = useCollapsibleContent();

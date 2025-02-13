@@ -1,7 +1,7 @@
-import type { PrimitiveProps } from "../../primitives";
+import type { EmptyObject, PrimitiveProps } from "../../primitives";
 import { usePopperAria } from "./popper-aria-context";
 
-export const PopperDescrition = (props: PrimitiveProps<"div", Record<never, never>, "id">) => {
+export const PopperDescrition = (props: PrimitiveProps<"div", EmptyObject, "id">) => {
   const { children, ...rest } = props;
 
   const { descriptionId } = usePopperAria();

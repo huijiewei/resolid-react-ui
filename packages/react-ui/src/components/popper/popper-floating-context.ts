@@ -1,9 +1,9 @@
 import type { CSSProperties, HTMLProps } from "react";
-import { createSafeContext } from "../../primitives";
+import { type AnyObject, createSafeContext } from "../../primitives";
 
 export type PopperFloatingContextValue = {
   setFloating: (node: HTMLElement | null) => void;
-  getFloatingProps: (userProps?: HTMLProps<HTMLElement> | undefined) => Record<string, unknown>;
+  getFloatingProps: (userProps?: HTMLProps<HTMLElement> | undefined) => AnyObject;
   floatingStyles: CSSProperties;
 };
 

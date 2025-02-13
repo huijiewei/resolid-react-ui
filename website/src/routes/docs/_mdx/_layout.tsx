@@ -4,10 +4,12 @@ import {
   AlertIndicator,
   type AlertProps,
   AlertTitle,
+  type Dict,
   Input,
   NativeSelect,
   NumberInput,
   type PolymorphicProps,
+  type PrimitiveProps,
   Switch,
   Tooltip,
   TooltipArrow,
@@ -51,16 +53,16 @@ const MdxHeading = (props: PolymorphicProps<"h2" | "h3" | "h4">) => {
 
 // noinspection JSUnusedGlobalSymbols
 const mdxComponents = {
-  h2: ({ className, ...rest }: ComponentProps<"h2">) => {
+  h2: ({ className, ...rest }: PrimitiveProps<"h2">) => {
     return <MdxHeading as={"h2"} className={tx("mt-8", className)} {...rest} />;
   },
-  h3: ({ className, ...rest }: ComponentProps<"h3">) => {
+  h3: ({ className, ...rest }: PrimitiveProps<"h3">) => {
     return <MdxHeading as={"h3"} className={tx("mt-6", className)} {...rest} />;
   },
-  h4: ({ className, ...rest }: ComponentProps<"h3">) => {
+  h4: ({ className, ...rest }: PrimitiveProps<"h3">) => {
     return <MdxHeading as={"h4"} className={tx("mt-6", className)} {...rest} />;
   },
-  pre: ({ children, className, ...rest }: ComponentProps<"pre"> & { "data-inline"?: boolean }) => {
+  pre: ({ children, className, ...rest }: PrimitiveProps<"pre", { "data-inline"?: boolean }>) => {
     if (rest["data-inline"]) {
       rest["data-inline"] = undefined;
 
@@ -262,7 +264,7 @@ const mdxComponents = {
     props,
     ignores,
   }: {
-    children: (props: Record<string, string | number | boolean | undefined>) => ReactNode;
+    children: (props: Dict<string | number | boolean | undefined>) => ReactNode;
     props: PropItem[];
     ignores?: string[];
   }) => {
@@ -275,7 +277,7 @@ const mdxComponents = {
       );
     });
 
-    const [state, setState] = useState<Record<string, string | boolean | number | undefined>>(
+    const [state, setState] = useState<Dict<string | boolean | number | undefined>>(
       Object.fromEntries(
         validProps.map(({ name, defaultValue }) => {
           const value =

@@ -1,5 +1,6 @@
 import { getDocument, getPlatform } from "@floating-ui/react/utils";
 import { useEffect } from "react";
+import type { Dict } from "../../primitives";
 
 export type UsePreventScrollOptions = {
   enabled?: boolean;
@@ -13,13 +14,10 @@ const assignStyle = (element: HTMLElement | null | undefined, style: Partial<CSS
     return;
   }
 
-  const current = Object.keys(style).reduce(
-    (acc, key) => {
-      acc[key] = element.style.getPropertyValue(key);
-      return acc;
-    },
-    {} as Record<string, string>,
-  );
+  const current = Object.keys(style).reduce((acc, key) => {
+    acc[key] = element.style.getPropertyValue(key);
+    return acc;
+  }, {} as Dict<string>);
 
   Object.assign(element.style, style);
 

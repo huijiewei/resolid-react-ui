@@ -1,4 +1,4 @@
-import type { PrimitiveProps } from "../../primitives";
+import type { Dict, PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
 import { Spinner } from "../spinner/spinner";
 import type { ButtonStyleProps } from "./button.styles";
@@ -8,7 +8,7 @@ export type ButtonSpinnerProps = {
   label?: string;
 };
 
-const SpinnerSizes: Record<string, ButtonSpinnerProps["size"]> = {
+const SpinnerSizes: Dict<ButtonSpinnerProps["size"]> = {
   xs: "xs",
   sm: "xs",
   md: "sm",

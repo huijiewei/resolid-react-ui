@@ -1,12 +1,12 @@
 import type { FloatingEvents } from "@floating-ui/react";
 import type { HTMLProps, RefObject } from "react";
-import { createSafeContext } from "../../primitives";
+import { type AnyObject, createSafeContext } from "../../primitives";
 
 export type MenuItemContextValue = {
   menuEvents: FloatingEvents;
   closeOnSelect: boolean;
   activeIndex: number | null;
-  getItemProps: (userProps?: HTMLProps<HTMLElement> | undefined) => Record<string, unknown>;
+  getItemProps: (userProps?: HTMLProps<HTMLElement> | undefined) => AnyObject;
   typingRef: RefObject<boolean>;
 };
 
