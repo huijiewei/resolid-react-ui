@@ -5,7 +5,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "postinstall": "lefthook install",
-    "test": "pnpm test -r --if-present",
+    "test": "pnpm run -r --if-present test",
     "lint": "pnpm run -r --if-present lint",
     "format": "prettier --write .",
     "build": "pnpm --filter @resolid/react-ui build",
