@@ -5,7 +5,7 @@ import { tx } from "../../utils";
 import { useCollapsibleContent } from "./collapsible-context";
 
 export const CollapsibleContent = (props: PrimitiveProps<"div", Record<never, never>, "id">) => {
-  const { children, className, style, ref, ...rest } = props;
+  const { children, ref, ...rest } = props;
 
   const { id, mounted, status, setElement } = useCollapsibleContent();
 
@@ -25,22 +25,17 @@ export const CollapsibleContent = (props: PrimitiveProps<"div", Record<never, ne
 
   return (
     <div
-      id={id}
-      ref={refs}
+      role={"presentation"}
       style={
         {
-          ...style,
           "--hv": height ? `${height}px` : undefined,
         } as CSSProperties
       }
-      className={tx(
-        "overflow-hidden",
-        status == "open" ? "animate-[slide-down_var(--dv)_ease-out]" : "animate-[slide-up_var(--dv)_ease-out]",
-        className,
-      )}
-      {...rest}
+      className={tx("duration-(--dv) overflow-hidden transition-[height]", status == "open" ? "h-(--hv)" : "h-0")}
     >
-      {children}
+      <div id={id} ref={refs} {...rest}>
+        {children}
+      </div>
     </div>
   );
 };

@@ -41,19 +41,18 @@ export default function App() {
           }
         >
           <h6 className={"font-medium"}>Resolid React UI 是什么?</h6>
-          <span
+
+          <SpriteIcon
             className={
               "duration-(--dv) transition-transform group-aria-expanded:rotate-180"
             }
-          >
-            <SpriteIcon size={"1.5em"} name={"angle-down"} />
-          </span>
+            size={"1.5em"}
+            name={"angle-down"}
+          />
         </CollapsibleTrigger>
-        <CollapsibleContent className={"border-bd-normal border-t"}>
-          <div className={"p-3"}>
-            Resolid React UI 是 React 的开源设计系统。使用 React 和 Tailwind CSS
-            构建。它提供了一组即用型组件，用于构建具有一致外观的 Web 应用程序。
-          </div>
+        <CollapsibleContent className={"border-bd-normal border-t p-3"}>
+          Resolid React UI 是 React 的开源设计系统。使用 React 和 Tailwind CSS
+          构建。它提供了一组即用型组件，用于构建具有一致外观的 Web 应用程序。
         </CollapsibleContent>
       </Collapsible>
     </div>
@@ -86,13 +85,13 @@ export default function App() {
             variant={"ghost"}
             className={"group"}
           >
-            <span
+            <SpriteIcon
               className={
                 "duration-(--dv) transition-transform group-aria-expanded:rotate-180"
               }
-            >
-              <SpriteIcon size={"1.5em"} name={"angle-down"} />
-            </span>
+              size={"1.5em"}
+              name={"angle-down"}
+            />
           </CollapsibleTrigger>
         </div>
         <div className={"border-bd-normal rounded-md border px-3 py-2"}>
