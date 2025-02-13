@@ -93,22 +93,30 @@ export const useButtonProps = (options: UseButtonPropsOptions) => {
           typeof value === "function"
         ) {
           acc[key] = (event: SyntheticEvent) => {
-            let isPrevented = false;
-
             const extHandler = value;
             const ourHandler = internalProps[key];
 
-            const buttonEvent = event as ButtonEvent<typeof event>;
+            if (event != null && typeof event === "object" && "nativeEvent" in event) {
+              let isPrevented = false;
 
-            buttonEvent.preventButtonHandler = () => {
-              isPrevented = true;
-            };
+              const buttonEvent = event as ButtonEvent<typeof event>;
 
-            const result = extHandler(buttonEvent);
+              buttonEvent.preventButtonHandler = () => {
+                isPrevented = true;
+              };
 
-            if (!isPrevented) {
-              ourHandler?.(buttonEvent);
+              const result = extHandler(buttonEvent);
+
+              if (!isPrevented) {
+                ourHandler?.(buttonEvent);
+              }
+
+              return result;
             }
+
+            const result = extHandler(event);
+
+            ourHandler?.(event);
 
             return result;
           };
