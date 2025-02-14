@@ -20,11 +20,11 @@
     "@changesets/cli": "^2.27.12",
     "@commitlint/cli": "^19.7.1",
     "@commitlint/config-conventional": "^19.7.1",
-    "@resolid/config": "^3.2.2",
-    "@types/node": "^22.13.2",
+    "@resolid/config": "^3.2.3",
+    "@types/node": "^22.13.4",
     "eslint": "^9.20.1",
     "lefthook": "^1.10.10",
-    "prettier": "^3.5.0",
+    "prettier": "^3.5.1",
     "prettier-plugin-organize-imports": "^4.1.0",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "typescript": "^5.7.3"
@@ -33,7 +33,7 @@
     "node": "22.x",
     "pnpm": "10.x"
   },
-  "packageManager": "pnpm@10.3.0",
+  "packageManager": "pnpm@10.4.0",
   "homepage": "https://ui.resolid.tech",
   "repository": {
     "type": "git",
