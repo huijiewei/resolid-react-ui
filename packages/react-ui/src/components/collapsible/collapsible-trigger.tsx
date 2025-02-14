@@ -1,8 +1,9 @@
+import type { ElementType } from "react";
 import type { PolymorphicProps } from "../../primitives";
 import { ariaAttr } from "../../utils";
 import { useCollapsibleTrigger } from "./collapsible-context";
 
-export const CollapsibleTrigger = (props: PolymorphicProps<"button">) => {
+export const CollapsibleTrigger = <T extends ElementType = "button">(props: PolymorphicProps<T>) => {
   const { as: Component = "button", children, ...rest } = props;
 
   const { id, open, disabled, toggle } = useCollapsibleTrigger();

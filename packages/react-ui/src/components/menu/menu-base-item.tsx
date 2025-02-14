@@ -18,7 +18,9 @@ export type MenuBaseItemProps = {
   disabled?: boolean;
 };
 
-export const MenuBaseItem = <T extends ElementType = "div">(props: PolymorphicProps<T, MenuBaseItemProps>) => {
+export const MenuBaseItem = <T extends ElementType = "div">(
+  props: PolymorphicProps<T, MenuBaseItemProps, "tabIndex">,
+) => {
   const { as: Component = "div", className, ref, children, label, disabled = false, ...rest } = props;
 
   const { getItemProps, activeIndex } = useMenuItem();

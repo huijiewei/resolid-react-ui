@@ -1,3 +1,4 @@
+import type { ElementType } from "react";
 import type { PolymorphicProps } from "../../primitives";
 import { tx } from "../../utils";
 import { type BadgeStyleProps, badgeStyles } from "./badge.styles";
@@ -16,7 +17,7 @@ export type BadgeProps = {
   color?: BadgeStyleProps["color"];
 };
 
-export const Badge = (props: PolymorphicProps<"span", BadgeProps>) => {
+export const Badge = <T extends ElementType = "span">(props: PolymorphicProps<T, BadgeProps>) => {
   const { as: Component = "span", color = "primary", variant = "solid", className, children, ...rest } = props;
 
   return (

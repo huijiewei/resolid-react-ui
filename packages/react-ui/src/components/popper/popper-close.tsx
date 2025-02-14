@@ -1,8 +1,8 @@
-import type { MouseEvent } from "react";
+import type { ElementType, MouseEvent } from "react";
 import type { PolymorphicProps } from "../../primitives";
 import { usePopperDispatch } from "./popper-dispatch-context";
 
-export const PopperClose = (props: PolymorphicProps<"button">) => {
+export const PopperClose = <T extends ElementType = "button">(props: PolymorphicProps<T>) => {
   const { as: Component = "button", children, onClick, ...rest } = props;
 
   const { handleClose } = usePopperDispatch();

@@ -1,4 +1,4 @@
-import type { ElementType } from "react";
+import type { ComponentProps, ElementType } from "react";
 import { useMergeRefs } from "../../hooks";
 import type { PolymorphicProps } from "../../primitives";
 import { AngleRightIcon } from "../../shared/icons";
@@ -10,7 +10,7 @@ import { useMenuHover } from "./menu-hover-context";
 export type MenuSubTriggerProps = MenuBaseItemProps;
 
 export const MenuSubTrigger = <T extends ElementType = "div">(
-  props: PolymorphicProps<T, MenuSubTriggerProps, "role">,
+  props: PolymorphicProps<T, MenuSubTriggerProps, "role" | "tabIndex">,
 ) => {
   const { as, children, ref, className, disabled, ...rest } = props;
 
@@ -30,7 +30,7 @@ export const MenuSubTrigger = <T extends ElementType = "div">(
         onMouseEnter: () => {
           setHoverEnabled(true);
         },
-      }) as PolymorphicProps<T, MenuBaseItemProps>)}
+      }) as ComponentProps<typeof MenuBaseItem>)}
     >
       {children}
       <span className={tx("ms-5", disabled ? "text-fg-subtle" : "text-fg-muted")}>
