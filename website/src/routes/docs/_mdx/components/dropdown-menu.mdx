@@ -57,48 +57,32 @@ export default function App() {
   return (
     <div className={"flex flex-row gap-3"}>
       <DropdownMenu>
-        <DropdownMenuTrigger as={Button} color={"neutral"} variant={"outline"}>
+        <DropdownMenuTrigger
+          render={(props) => <Button color={"neutral"} variant={"outline"} {...props} />}
+        >
           普通菜单
         </DropdownMenuTrigger>
         <DropdownMenuContent className={"text-sm"}>
           <DropdownMenuItem>
             新标签页
-            <span
-              className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}
-            >
-              ⌘+T
-            </span>
+            <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+T</span>
           </DropdownMenuItem>
           <DropdownMenuItem>
             打开新窗口
-            <span
-              className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}
-            >
-              ⌘+N
-            </span>
+            <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+N</span>
           </DropdownMenuItem>
           <DropdownMenuItem disabled>
             打开新的无痕式窗口
-            <span className={"ml-auto pl-5 text-xs tracking-widest"}>
-              ⇧+⌘+N
-            </span>
+            <span className={"ml-auto pl-5 text-xs tracking-widest"}>⇧+⌘+N</span>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
             关闭窗口
-            <span
-              className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}
-            >
-              ⇧+⌘+W
-            </span>
+            <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⇧+⌘+W</span>
           </DropdownMenuItem>
           <DropdownMenuItem>
             关闭标签页
-            <span
-              className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}
-            >
-              ⌘+W
-            </span>
+            <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+W</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -127,7 +111,9 @@ export default function App() {
   return (
     <div className={"flex flex-row gap-3"}>
       <DropdownMenu>
-        <DropdownMenuTrigger as={Button} color={"neutral"} variant={"outline"}>
+        <DropdownMenuTrigger
+          render={(props) => <Button color={"neutral"} variant={"outline"} {...props} />}
+        >
           多级菜单
         </DropdownMenuTrigger>
         <DropdownMenuContent className={"text-sm"}>
@@ -137,9 +123,7 @@ export default function App() {
           <DropdownMenuItem>打开新的无痕式窗口</DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenu>
-            <DropdownMenuSubTrigger label={"Share"}>
-              分享
-            </DropdownMenuSubTrigger>
+            <DropdownMenuSubTrigger label={"Share"}>分享</DropdownMenuSubTrigger>
             <DropdownMenuContent className={"text-sm"}>
               <DropdownMenuItem label={"Email"}>邮件</DropdownMenuItem>
               <DropdownMenuItem label={"SMS"}>短信</DropdownMenuItem>
@@ -162,9 +146,7 @@ export default function App() {
           </DropdownMenu>
           <DropdownMenuSeparator />
           <DropdownMenu>
-            <DropdownMenuSubTrigger label={"Tools"}>
-              更多工具
-            </DropdownMenuSubTrigger>
+            <DropdownMenuSubTrigger label={"Tools"}>更多工具</DropdownMenuSubTrigger>
             <DropdownMenuContent className={"text-sm"}>
               <DropdownMenuItem>保存页面为...</DropdownMenuItem>
               <DropdownMenuItem>创建快捷方式</DropdownMenuItem>
@@ -200,7 +182,9 @@ export default function App() {
   return (
     <div className={"flex flex-row gap-3"}>
       <DropdownMenu>
-        <DropdownMenuTrigger as={Button} color={"neutral"} variant={"outline"}>
+        <DropdownMenuTrigger
+          render={(props) => <Button color={"neutral"} variant={"outline"} {...props} />}
+        >
           View
         </DropdownMenuTrigger>
         <DropdownMenuContent className={"text-sm"}>
@@ -233,45 +217,44 @@ export default function App() {
 import {
   Button,
   DropdownMenu,
-  DropdownMenuTrigger,
+  DropdownMenuArrow,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuArrow,
+  DropdownMenuTrigger,
 } from "@resolid/react-ui";
 
 export default function App() {
   return (
     <div className={"flex flex-row gap-3"}>
       <DropdownMenu>
-        <DropdownMenuTrigger as={Button} color={"neutral"} variant={"outline"}>
+        <DropdownMenuTrigger
+          render={(props) => <Button color={"neutral"} variant={"outline"} {...props} />}
+        >
           Favourite
         </DropdownMenuTrigger>
         <DropdownMenuContent className={"text-sm"}>
           <DropdownMenuArrow />
           <DropdownMenuItem
-            as={"a"}
-            target={"_blank"}
-            rel="noreferrer"
-            href={"https://www.github.com"}
-          >
-            Github
-          </DropdownMenuItem>
+            render={(props) => (
+              <a target={"_blank"} rel="noreferrer" href={"https://www.github.com"} {...props}>
+                Github
+              </a>
+            )}
+          />
           <DropdownMenuItem
-            as={"a"}
-            target={"_blank"}
-            rel="noreferrer"
-            href={"https://www.vercel.com"}
-          >
-            Vercel
-          </DropdownMenuItem>
+            render={(props) => (
+              <a target={"_blank"} rel="noreferrer" href={"https://www.vercel.com"} {...props}>
+                Vercel
+              </a>
+            )}
+          />
           <DropdownMenuItem
-            as={"a"}
-            target={"_blank"}
-            rel="noreferrer"
-            href={"https://www.github.com"}
-          >
-            Resolid
-          </DropdownMenuItem>
+            render={(props) => (
+              <a target={"_blank"} rel="noreferrer" href={"https://www.resolid.tech"} {...props}>
+                Resolid
+              </a>
+            )}
+          />
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
@@ -287,12 +270,12 @@ export default function App() {
 import {
   Button,
   DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
   DropdownMenuArrow,
+  DropdownMenuContent,
+  DropdownMenuItemIndicator,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
-  DropdownMenuItemIndicator,
+  DropdownMenuTrigger,
 } from "@resolid/react-ui";
 import { useState } from "react";
 import { SpriteIcon } from "~/components/sprite-icon";
@@ -303,7 +286,9 @@ export default function App() {
   return (
     <div className={"flex flex-row gap-3"}>
       <DropdownMenu>
-        <DropdownMenuTrigger as={Button} color={"neutral"} variant={"outline"}>
+        <DropdownMenuTrigger
+          render={(props) => <Button color={"neutral"} variant={"outline"} {...props} />}
+        >
           Sort
         </DropdownMenuTrigger>
         <DropdownMenuContent className={"text-sm"}>
@@ -343,11 +328,11 @@ export default function App() {
 import {
   Button,
   DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
   DropdownMenuArrow,
   DropdownMenuCheckboxItem,
+  DropdownMenuContent,
   DropdownMenuItemIndicator,
+  DropdownMenuTrigger,
 } from "@resolid/react-ui";
 import { useState } from "react";
 import { SpriteIcon } from "~/components/sprite-icon";
@@ -360,7 +345,9 @@ export default function App() {
   return (
     <div className={"flex flex-row gap-3"}>
       <DropdownMenu closeOnSelect={false}>
-        <DropdownMenuTrigger as={Button} color={"neutral"} variant={"outline"}>
+        <DropdownMenuTrigger
+          render={(props) => <Button color={"neutral"} variant={"outline"} {...props} />}
+        >
           Workspace
         </DropdownMenuTrigger>
         <DropdownMenuContent className={"text-sm"}>
@@ -375,11 +362,7 @@ export default function App() {
             </DropdownMenuItemIndicator>
             Minimap
           </DropdownMenuCheckboxItem>
-          <DropdownMenuCheckboxItem
-            label={"Search"}
-            checked={showSearch}
-            onChange={setShowSearch}
-          >
+          <DropdownMenuCheckboxItem label={"Search"} checked={showSearch} onChange={setShowSearch}>
             <DropdownMenuItemIndicator>
               <SpriteIcon size={"1rem"} name={"check"} />
             </DropdownMenuItemIndicator>

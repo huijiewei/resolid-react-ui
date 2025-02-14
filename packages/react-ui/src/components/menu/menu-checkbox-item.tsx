@@ -1,5 +1,4 @@
-import type { ComponentProps, ElementType } from "react";
-import type { PolymorphicProps } from "../../primitives";
+import type { HtmlProps, PolymorphicProps } from "../../primitives";
 import { ariaAttr, tx } from "../../utils";
 import { MenuItem, type MenuItemProps } from "./menu-item";
 import { type CheckedState, MenuItemIndicatorContext } from "./menu-item-indicator-context";
@@ -16,9 +15,9 @@ export type MenuCheckboxItemProps = MenuItemProps & {
   onChange?: (checked: CheckedState) => void;
 };
 
-export const MenuCheckboxItem = <T extends ElementType = "div">(
-  props: PolymorphicProps<T, MenuCheckboxItemProps, "role" | "tabIndex">,
-) => {
+type MenuCheckboxItemHtmlProps = HtmlProps<"div", MenuCheckboxItemProps, "role" | "tabIndex">;
+
+export const MenuCheckboxItem = (props: PolymorphicProps<MenuCheckboxItemHtmlProps, MenuCheckboxItemProps>) => {
   const { checked = false, className, onChange, onSelect, children, ...rest } = props;
 
   return (
@@ -31,7 +30,7 @@ export const MenuCheckboxItem = <T extends ElementType = "div">(
         }}
         aria-checked={checked == "indeterminate" ? "mixed" : ariaAttr(checked)}
         className={tx("relative pl-6", className)}
-        {...(rest as ComponentProps<typeof MenuItem>)}
+        {...rest}
       >
         {children}
       </MenuItem>

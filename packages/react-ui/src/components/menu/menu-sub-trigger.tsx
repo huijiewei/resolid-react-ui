@@ -1,6 +1,6 @@
-import type { ComponentProps, ElementType } from "react";
+import type { ComponentProps } from "react";
 import { useMergeRefs } from "../../hooks";
-import type { PolymorphicProps } from "../../primitives";
+import type { HtmlProps, PolymorphicProps } from "../../primitives";
 import { AngleRightIcon } from "../../shared/icons";
 import { dataAttr, tx } from "../../utils";
 import { usePopperReference } from "../popper/popper-reference-context";
@@ -9,10 +9,10 @@ import { useMenuHover } from "./menu-hover-context";
 
 export type MenuSubTriggerProps = MenuBaseItemProps;
 
-export const MenuSubTrigger = <T extends ElementType = "div">(
-  props: PolymorphicProps<T, MenuSubTriggerProps, "role" | "tabIndex">,
-) => {
-  const { as, children, ref, className, disabled, ...rest } = props;
+type MenuSubTriggerHtmlProps = HtmlProps<"div", MenuSubTriggerProps, "role" | "tabIndex">;
+
+export const MenuSubTrigger = (props: PolymorphicProps<MenuSubTriggerHtmlProps, MenuSubTriggerProps>) => {
+  const { render, children, ref, className, disabled, ...rest } = props;
 
   const { open, setReference, getReferenceProps } = usePopperReference();
   const { setHoverEnabled } = useMenuHover();
@@ -21,7 +21,7 @@ export const MenuSubTrigger = <T extends ElementType = "div">(
 
   return (
     <MenuBaseItem
-      as={as}
+      render={render}
       ref={refs}
       data-open={dataAttr(open)}
       className={tx("open:not-active:bg-bg-subtlest justify-between pe-0.5", className)}

@@ -8,7 +8,7 @@ import {
   Input,
   NativeSelect,
   NumberInput,
-  type PolymorphicProps,
+  Polymorphic,
   type PrimitiveProps,
   Switch,
   Tooltip,
@@ -37,17 +37,17 @@ type PropItem = {
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
-const MdxHeading = (props: PolymorphicProps<"h2" | "h3" | "h4">) => {
-  const { as: Component = "h2", id, children, className, ...rest } = props;
+const MdxHeading = (props: ComponentProps<"h2" | "h3" | "h4"> & { as: string }) => {
+  const { as, id, children, className, ...rest } = props;
 
   return (
-    <Component className={tx("group relative flex items-center", className)} {...rest}>
+    <Polymorphic as={as} className={tx("group relative flex items-center", className)} {...rest}>
       <span id={id} className={"invisible absolute top-[calc(-1*88px)]"} />
       {children}
       <a tabIndex={-1} className={"ml-1 opacity-0 transition-opacity group-hover:opacity-100"} href={`#${id}`}>
         <SpriteIcon size={"0.75em"} name={"hash"} />
       </a>
-    </Component>
+    </Polymorphic>
   );
 };
 

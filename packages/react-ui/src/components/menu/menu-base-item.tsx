@@ -1,7 +1,6 @@
 import { useListItem } from "@floating-ui/react";
-import type { ElementType } from "react";
 import { useButtonProps, useMergeRefs } from "../../hooks";
-import type { PolymorphicProps } from "../../primitives";
+import { type HtmlProps, Polymorphic, type PolymorphicProps } from "../../primitives";
 import { dataAttr, tx } from "../../utils";
 import { useMenuItem } from "./menu-item-context";
 
@@ -18,10 +17,10 @@ export type MenuBaseItemProps = {
   disabled?: boolean;
 };
 
-export const MenuBaseItem = <T extends ElementType = "div">(
-  props: PolymorphicProps<T, MenuBaseItemProps, "tabIndex">,
-) => {
-  const { as: Component = "div", className, ref, children, label, disabled = false, ...rest } = props;
+type MenuBaseItemHtmlProps = HtmlProps<"div", MenuBaseItemProps, "tabIndex">;
+
+export const MenuBaseItem = (props: PolymorphicProps<MenuBaseItemHtmlProps, MenuBaseItemProps>) => {
+  const { render, className, ref, children, label, disabled = false, ...rest } = props;
 
   const { getItemProps, activeIndex } = useMenuItem();
   const { ref: itemRef, index } = useListItem({ label: label ?? (typeof children == "string" ? children : null) });
@@ -37,7 +36,9 @@ export const MenuBaseItem = <T extends ElementType = "div">(
   const refs = useMergeRefs(ref, itemRef, buttonRef);
 
   return (
-    <Component
+    <Polymorphic<MenuBaseItemHtmlProps>
+      as={"div"}
+      render={render}
       ref={refs}
       data-active={dataAttr(active)}
       className={tx(
@@ -48,6 +49,6 @@ export const MenuBaseItem = <T extends ElementType = "div">(
       {...getItemProps(getButtonProps(rest))}
     >
       {children}
-    </Component>
+    </Polymorphic>
   );
 };

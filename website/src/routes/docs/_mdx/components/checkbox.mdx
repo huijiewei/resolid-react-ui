@@ -38,13 +38,7 @@ export default function App() {
 
   return (
     <div className={"flex flex-col gap-2"}>
-      <p>
-        {checked ? (
-          <span className={"text-fg-success"}>你已成功订阅</span>
-        ) : (
-          "你取消了订阅"
-        )}
-      </p>
+      <p>{checked ? <span className={"text-fg-success"}>你已成功订阅</span> : "你取消了订阅"}</p>
       <Checkbox value={"React"} checked={checked} onChange={setChecked}>
         订阅更新
       </Checkbox>
@@ -120,11 +114,7 @@ export default function App() {
   return (
     <div className={"flex flex-col gap-2"}>
       <p>你选择了框架: {value.join(", ")}</p>
-      <CheckboxGroup
-        value={value}
-        onChange={setValue}
-        className={"flex flex-row gap-5"}
-      >
+      <CheckboxGroup value={value} onChange={setValue} className={"flex flex-row gap-5"}>
         <Checkbox value={"React"}>React</Checkbox>
         <Checkbox value={"Angular"}>Angular</Checkbox>
         <Checkbox value={"Vue"}>Vue</Checkbox>
@@ -155,9 +145,7 @@ export default function App() {
       <Checkbox
         checked={allChecked}
         indeterminate={isIndeterminate}
-        onChange={(checked) =>
-          setValues([checked, checked, checked, checked, checked])
-        }
+        onChange={(checked) => setValues([checked, checked, checked, checked, checked])}
       >
         工作日
       </Checkbox>
@@ -168,11 +156,7 @@ export default function App() {
             checked={values[index]}
             onChange={(checked) => {
               setValues((prev) => {
-                return [
-                  ...prev.slice(0, index),
-                  !!checked,
-                  ...prev.slice(index + 1),
-                ];
+                return [...prev.slice(0, index), !!checked, ...prev.slice(index + 1)];
               });
             }}
           >

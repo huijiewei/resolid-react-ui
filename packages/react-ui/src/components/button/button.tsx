@@ -1,6 +1,6 @@
-import type { ElementType, ReactNode } from "react";
+import type { ReactNode } from "react";
 import { useButtonProps, useMergeRefs } from "../../hooks";
-import type { PolymorphicProps } from "../../primitives";
+import { type HtmlProps, Polymorphic, type PolymorphicProps } from "../../primitives";
 import { dataAttr, tx } from "../../utils";
 import { type ButtonBaseProps, useButtonGroup } from "./button-group-context";
 import { ButtonSpinner } from "./button-spinner";
@@ -49,11 +49,13 @@ export type ButtonProps = ButtonBaseProps & {
   spinnerPlacement?: "start" | "end";
 };
 
-export const Button = <T extends ElementType = "button">(props: PolymorphicProps<T, ButtonProps, "role">) => {
+type ButtonHtmlProps = HtmlProps<"button", ButtonProps, "role">;
+
+export const Button = (props: PolymorphicProps<ButtonHtmlProps, ButtonProps>) => {
   const group = useButtonGroup(true);
 
   const {
-    as: Component = "button",
+    render,
     variant = group?.variant ?? "solid",
     color = group?.color ?? "primary",
     size = group?.size ?? "md",
@@ -75,7 +77,7 @@ export const Button = <T extends ElementType = "button">(props: PolymorphicProps
 
   const disabledStatus = disabled || loading;
 
-  const { getButtonProps, buttonRef } = useButtonProps({
+  const { getButtonProps, buttonRef } = useButtonProps<HTMLButtonElement>({
     type,
     tabIndex,
     disabled: disabledStatus,
@@ -84,7 +86,9 @@ export const Button = <T extends ElementType = "button">(props: PolymorphicProps
   const refs = useMergeRefs(ref, buttonRef);
 
   return (
-    <Component
+    <Polymorphic<ButtonHtmlProps>
+      as={"button"}
+      render={render}
       ref={refs}
       className={tx(
         buttonStyles({ variant, color, size, disabled: disabledStatus, fullWidth, iconOnly }),
@@ -115,6 +119,6 @@ export const Button = <T extends ElementType = "button">(props: PolymorphicProps
       ) : (
         children
       )}
-    </Component>
+    </Polymorphic>
   );
 };

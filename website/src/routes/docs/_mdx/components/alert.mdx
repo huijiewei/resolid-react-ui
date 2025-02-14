@@ -6,12 +6,7 @@ description: 以吸引用户注意力的方式显示简短重要信息，而不�
 ## 导入
 
 ```js
-import {
-  Alert,
-  AlertIndicator,
-  AlertTitle,
-  AlertDescription,
-} from "@resolid/react-ui";
+import { Alert, AlertIndicator, AlertTitle, AlertDescription } from "@resolid/react-ui";
 ```
 
 - `Alert`: 警告提示组件的包装器。
@@ -79,33 +74,28 @@ export default function App() {
 
   return (
     <div className={"flex flex-col gap-3"}>
-      {["primary", "secondary", "success", "warning", "danger", "neutral"].map(
-        (color) => (
-          <div
-            key={color}
-            className={"flex flex-row items-center justify-between gap-3"}
-          >
-            {["solid", "outline", "subtle", "soft"].map((variant) => (
-              <Alert
-                key={`${color}-${variant}`}
-                color={color}
-                variant={variant}
-                className={"flex flex-row gap-2"}
-              >
-                {alertIcons[color] ? (
-                  <AlertIndicator className={"pt-1.75"}>
-                    <SpriteIcon name={alertIcons[color]} />
-                  </AlertIndicator>
-                ) : null}
-                <AlertContent>
-                  <AlertTitle>警告</AlertTitle>
-                  <AlertDescription>显示简短重要信息</AlertDescription>
-                </AlertContent>
-              </Alert>
-            ))}
-          </div>
-        ),
-      )}
+      {["primary", "secondary", "success", "warning", "danger", "neutral"].map((color) => (
+        <div key={color} className={"flex flex-row items-center justify-between gap-3"}>
+          {["solid", "outline", "subtle", "soft"].map((variant) => (
+            <Alert
+              key={`${color}-${variant}`}
+              color={color}
+              variant={variant}
+              className={"flex flex-row gap-2"}
+            >
+              {alertIcons[color] ? (
+                <AlertIndicator className={"pt-1.75"}>
+                  <SpriteIcon name={alertIcons[color]} />
+                </AlertIndicator>
+              ) : null}
+              <AlertContent>
+                <AlertTitle>警告</AlertTitle>
+                <AlertDescription>显示简短重要信息</AlertDescription>
+              </AlertContent>
+            </Alert>
+          ))}
+        </div>
+      ))}
     </div>
   );
 }

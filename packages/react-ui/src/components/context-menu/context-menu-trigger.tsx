@@ -1,5 +1,5 @@
-import { type ElementType, type MouseEvent, type PointerEvent, useCallback, useEffect, useRef } from "react";
-import type { PolymorphicProps } from "../../primitives";
+import { type MouseEvent, type PointerEvent, useCallback, useEffect, useRef } from "react";
+import { type HtmlProps, Polymorphic, type PolymorphicProps } from "../../primitives";
 import { dataAttr } from "../../utils";
 import { usePopperDispatch } from "../popper/popper-dispatch-context";
 import { usePopperReference } from "../popper/popper-reference-context";
@@ -12,11 +12,11 @@ type ContextMenuTriggerProps = {
   disabled?: boolean;
 };
 
-export const ContextMenuTrigger = <T extends ElementType = "div">(
-  props: PolymorphicProps<T, ContextMenuTriggerProps>,
-) => {
+type ContextMenuTriggerHtmlProps = HtmlProps<"div", ContextMenuTriggerProps>;
+
+export const ContextMenuTrigger = (props: PolymorphicProps<ContextMenuTriggerHtmlProps, ContextMenuTriggerProps>) => {
   const {
-    as: Component = "div",
+    render,
     disabled = false,
     onContextMenu,
     onPointerDown,
@@ -100,7 +100,9 @@ export const ContextMenuTrigger = <T extends ElementType = "div">(
   };
 
   return (
-    <Component
+    <Polymorphic<ContextMenuTriggerHtmlProps>
+      as={"div"}
+      render={render}
       data-active={dataAttr(open)}
       onContextMenu={handleContextMenu}
       onPointerDown={handlePointerDown}
@@ -110,6 +112,6 @@ export const ContextMenuTrigger = <T extends ElementType = "div">(
       {...rest}
     >
       {children}
-    </Component>
+    </Polymorphic>
   );
 };

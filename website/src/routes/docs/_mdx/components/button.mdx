@@ -38,23 +38,15 @@ import { Button } from "@resolid/react-ui";
 export default function App() {
   return (
     <div className={"flex flex-col gap-3"}>
-      {["primary", "secondary", "success", "warning", "danger", "neutral"].map(
-        (color) => (
-          <div key={color} className={"flex flex-row items-center gap-3"}>
-            {["solid", "outline", "subtle", "soft", "ghost", "link"].map(
-              (variant) => (
-                <Button
-                  key={`${color}-${variant}`}
-                  variant={variant}
-                  color={color}
-                >
-                  Button
-                </Button>
-              ),
-            )}
-          </div>
-        ),
-      )}
+      {["primary", "secondary", "success", "warning", "danger", "neutral"].map((color) => (
+        <div key={color} className={"flex flex-row items-center gap-3"}>
+          {["solid", "outline", "subtle", "soft", "ghost", "link"].map((variant) => (
+            <Button key={`${color}-${variant}`} variant={variant} color={color}>
+              Button
+            </Button>
+          ))}
+        </div>
+      ))}
     </div>
   );
 }

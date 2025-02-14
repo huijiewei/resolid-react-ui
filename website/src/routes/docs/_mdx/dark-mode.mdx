@@ -17,11 +17,7 @@ Resolid React UI 将颜色模式存储在 `localStorage` 中，并将 `className
 你可以使用 `useColorModeState` 和 `useColorModeDispatch` Hook 轻松构建颜色模式按钮。
 
 ```jsx demo
-import {
-  Button,
-  useColorModeState,
-  useColorModeDispatch,
-} from "@resolid/react-ui";
+import { Button, useColorModeState, useColorModeDispatch } from "@resolid/react-ui";
 import { SpriteIcon } from "~/components/sprite-icon";
 
 export default function App() {
@@ -36,10 +32,7 @@ export default function App() {
         iconOnly
         onClick={() => setColorMode(colorMode === "dark" ? "light" : "dark")}
       >
-        <SpriteIcon
-          size={"1.5em"}
-          name={colorMode === "dark" ? "sun" : "moon"}
-        />
+        <SpriteIcon size={"1.5em"} name={colorMode === "dark" ? "sun" : "moon"} />
       </Button>
     </div>
   );

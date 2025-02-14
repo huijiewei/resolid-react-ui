@@ -1,5 +1,4 @@
 import {
-  type AriaAttributes,
   type AriaRole,
   type ButtonHTMLAttributes,
   type ComponentProps,
@@ -18,24 +17,16 @@ export type UseButtonPropsOptions = {
   tabIndex?: number;
 };
 
-export type ButtonEvent<E extends SyntheticEvent<Element, Event>> = E & {
+export type ButtonEvent<E extends SyntheticEvent> = E & {
   preventButtonHandler: () => void;
 };
 
-type GenericButtonProps = Omit<HTMLAttributes<HTMLElement>, "onClick"> & {
-  role?: AriaRole;
-  tabIndex?: number;
-  disabled?: boolean;
-  "aria-disabled"?: AriaAttributes["aria-disabled"];
-  onClick?: (event: SyntheticEvent) => void;
-};
-
-export const useButtonProps = (options: UseButtonPropsOptions) => {
+export const useButtonProps = <T extends HTMLElement>(options: UseButtonPropsOptions) => {
   const { type = "button", role, disabled = false, tabIndex } = options;
 
   const [tagType, setTagType] = useState<"BUTTON" | "LINK" | null>(null);
 
-  const buttonRef = (node: HTMLElement | null) => {
+  const buttonRef = (node: T | null) => {
     if (node) {
       if (node.tagName == "BUTTON") {
         setTagType("BUTTON");
@@ -56,29 +47,29 @@ export const useButtonProps = (options: UseButtonPropsOptions) => {
     "aria-disabled": !isNativeButton && disabled ? true : undefined,
   };
 
-  const getButtonProps = (props: GenericButtonProps): GenericButtonProps => {
+  const getButtonProps = (props: HTMLAttributes<T>) => {
     const { onClick, ...extProps } = props;
 
     const internalProps: ComponentProps<ElementType> = {
       ...buttonProps,
-      onClick: (e: MouseEvent) => {
+      onClick: (e: MouseEvent<T>) => {
         if (!disabled) {
           onClick?.(e);
         }
       },
-      onKeyDown: (e: KeyboardEvent) => {
+      onKeyDown: (e: KeyboardEvent<T>) => {
         if (e.target === e.currentTarget && !isNativeButton && e.key === " ") {
           e.preventDefault();
         }
 
         if (e.target === e.currentTarget && !isNativeButton && !isNativeLink && e.key === "Enter" && !disabled) {
-          onClick?.(e);
+          onClick?.(e as unknown as MouseEvent<T>);
           e.preventDefault();
         }
       },
-      onKeyUp: (e: KeyboardEvent) => {
+      onKeyUp: (e: KeyboardEvent<T>) => {
         if (e.target === e.currentTarget && !isNativeButton && !disabled && e.key === " ") {
-          onClick?.(e);
+          onClick?.(e as unknown as MouseEvent<T>);
         }
       },
     };
@@ -92,14 +83,14 @@ export const useButtonProps = (options: UseButtonPropsOptions) => {
           key.charCodeAt(2) <= 90 /* Z */ &&
           typeof value === "function"
         ) {
-          acc[key] = (event: SyntheticEvent) => {
+          acc[key] = (e: SyntheticEvent<T>) => {
             const extHandler = value;
             const ourHandler = internalProps[key];
 
-            if (event != null && typeof event === "object" && "nativeEvent" in event) {
+            if (e != null && typeof e === "object" && "nativeEvent" in e) {
               let isPrevented = false;
 
-              const buttonEvent = event as ButtonEvent<typeof event>;
+              const buttonEvent = e as ButtonEvent<typeof e>;
 
               buttonEvent.preventButtonHandler = () => {
                 isPrevented = true;
@@ -114,26 +105,12 @@ export const useButtonProps = (options: UseButtonPropsOptions) => {
               return result;
             }
 
-            const result = extHandler(event);
+            const result = extHandler(e);
 
-            ourHandler?.(event);
+            ourHandler?.(e);
 
             return result;
           };
-        } else if (key === "style") {
-          if (value || internalProps.style) {
-            acc[key] = { ...internalProps.style, ...(value || {}) };
-          }
-        } else if (key === "className") {
-          if (value) {
-            if (internalProps.className) {
-              acc[key] = value + " " + internalProps.className;
-            } else {
-              acc[key] = value;
-            }
-          } else {
-            acc[key] = internalProps.className;
-          }
         } else {
           acc[key] = value;
         }

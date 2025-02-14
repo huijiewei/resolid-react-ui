@@ -90,9 +90,7 @@ export default function App() {
       <NumberInput
         parse={(value) => value.replace(/\$\s?|(,*)/g, "")}
         format={(value) =>
-          !Number.isNaN(value)
-            ? `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-            : "$ "
+          !Number.isNaN(value) ? `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "$ "
         }
       />
     </div>

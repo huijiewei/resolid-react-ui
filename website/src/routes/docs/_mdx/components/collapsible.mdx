@@ -6,11 +6,7 @@ description: 用于扩展和折叠其他内容。
 ## 导入
 
 ```js
-import {
-  Collapsible,
-  CollapsibleTrigger,
-  CollapsibleContent,
-} from "@resolid/react-ui";
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@resolid/react-ui";
 ```
 
 - `Collapsible`: 折叠面板组件的包装器。
@@ -20,32 +16,20 @@ import {
 ## 演示
 
 ```jsx demo
-import {
-  Collapsible,
-  CollapsibleTrigger,
-  CollapsibleContent,
-} from "@resolid/react-ui";
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@resolid/react-ui";
 import { SpriteIcon } from "~/components/sprite-icon";
 
 export default function App() {
   return (
     <div className={"flex flex-row justify-center"}>
-      <Collapsible
-        className={
-          "border-bd-normal bg-bg-normal mx-auto w-80 rounded-md border"
-        }
-      >
+      <Collapsible className={"border-bd-normal bg-bg-normal mx-auto w-80 rounded-md border"}>
         <CollapsibleTrigger
-          className={
-            "group flex w-full flex-row items-center justify-between p-3"
-          }
+          className={"group flex w-full flex-row items-center justify-between p-3"}
         >
           <h6 className={"font-medium"}>Resolid React UI 是什么?</h6>
 
           <SpriteIcon
-            className={
-              "duration-(--dv) transition-transform group-aria-expanded:rotate-180"
-            }
+            className={"duration-(--dv) transition-transform group-aria-expanded:rotate-180"}
             size={"1.5em"}
             name={"angle-down"}
           />
@@ -63,12 +47,7 @@ export default function App() {
 ## 举例
 
 ```jsx demo
-import {
-  Button,
-  Collapsible,
-  CollapsibleTrigger,
-  CollapsibleContent,
-} from "@resolid/react-ui";
+import { Button, Collapsible, CollapsibleTrigger, CollapsibleContent } from "@resolid/react-ui";
 import { SpriteIcon } from "~/components/sprite-icon";
 
 export default function App() {
@@ -78,41 +57,27 @@ export default function App() {
         <div className={"flex items-center justify-between"}>
           <h6 className={"font-bold"}>Resolid 项目拥有 7 个子项目</h6>
           <CollapsibleTrigger
-            as={Button}
-            size={"xs"}
-            iconOnly
-            color={"neutral"}
-            variant={"ghost"}
+            render={(props) => {
+              return <Button size={"xs"} color={"neutral"} variant={"ghost"} iconOnly {...props} />;
+            }}
             className={"group"}
           >
             <SpriteIcon
-              className={
-                "duration-(--dv) transition-transform group-aria-expanded:rotate-180"
-              }
+              className={"duration-(--dv) transition-transform group-aria-expanded:rotate-180"}
               size={"1.5em"}
               name={"angle-down"}
             />
           </CollapsibleTrigger>
         </div>
-        <div className={"border-bd-normal rounded-md border px-3 py-2"}>
-          @resolid/config
-        </div>
-        <div className={"border-bd-normal rounded-md border px-3 py-2"}>
-          @resolid/framework
-        </div>
+        <div className={"border-bd-normal rounded-md border px-3 py-2"}>@resolid/config</div>
+        <div className={"border-bd-normal rounded-md border px-3 py-2"}>@resolid/framework</div>
         <CollapsibleContent className={"flex flex-col gap-2"}>
-          <div className={"border-bd-normal rounded-md border px-3 py-2"}>
-            @resolid/react-ui
-          </div>
+          <div className={"border-bd-normal rounded-md border px-3 py-2"}>@resolid/react-ui</div>
           <div className={"border-bd-normal rounded-md border px-3 py-2"}>
             @resolid/react-router-hono
           </div>
-          <div className={"border-bd-normal rounded-md border px-3 py-2"}>
-            @resolid/flex-routes
-          </div>
-          <div className={"border-bd-normal rounded-md border px-3 py-2"}>
-            @resolid/utils
-          </div>
+          <div className={"border-bd-normal rounded-md border px-3 py-2"}>@resolid/flex-routes</div>
+          <div className={"border-bd-normal rounded-md border px-3 py-2"}>@resolid/utils</div>
         </CollapsibleContent>
       </Collapsible>
     </div>

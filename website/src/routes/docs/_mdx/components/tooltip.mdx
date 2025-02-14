@@ -6,12 +6,7 @@ description: 工具提示是用户与元素交互时出现的简短、信息丰�
 ## 导入
 
 ```js
-import {
-  Tooltip,
-  TooltipTrigger,
-  TooltipArrow,
-  TooltipContent,
-} from "@resolid/react-ui";
+import { Tooltip, TooltipTrigger, TooltipArrow, TooltipContent } from "@resolid/react-ui";
 ```
 
 - `Tooltip`: 工具提示的根容器。
@@ -23,18 +18,12 @@ import {
 
 :::UsageBlock{file=tooltip/tooltip.tsx ignores=open,defaultOpen,interactive,duration}
 
-import {
-  Button,
-  Tooltip,
-  TooltipArrow,
-  TooltipContent,
-  TooltipTrigger,
-} from "@resolid/react-ui";
+import { Button, Tooltip, TooltipArrow, TooltipContent, TooltipTrigger } from "@resolid/react-ui";
 
 export default function Usage(props) {
   return (
     <Tooltip {...props}>
-      <TooltipTrigger as={Button}>Hover me</TooltipTrigger>
+      <TooltipTrigger render={(props) => <Button {...props} />}>Hover me</TooltipTrigger>
       <TooltipContent>
         <TooltipArrow />
         Tooltip content
@@ -52,35 +41,25 @@ export default function Usage(props) {
 通过传递 `color` 属性来更改工具提示的颜色。工具提示支持 `primary`、`secondary`、`success`、`warning`、`danger` 和 `neutral` 这些颜色。
 
 ```jsx demo
-import {
-  Button,
-  Tooltip,
-  TooltipArrow,
-  TooltipContent,
-  TooltipTrigger,
-} from "@resolid/react-ui";
+import { Button, Tooltip, TooltipArrow, TooltipContent, TooltipTrigger } from "@resolid/react-ui";
 
 export default function App() {
   return (
     <div className={"flex flex-row gap-3"}>
-      {["primary", "secondary", "success", "warning", "danger", "neutral"].map(
-        (color) => (
-          <Tooltip placement={"bottom"} key={color} color={color}>
-            <TooltipTrigger
-              as={Button}
-              className={"capitalize"}
-              color={color}
-              variant={"soft"}
-            >
-              {color}
-            </TooltipTrigger>
-            <TooltipContent className={"capitalize"}>
-              <TooltipArrow />
-              {color} tooltip
-            </TooltipContent>
-          </Tooltip>
-        ),
-      )}
+      {["primary", "secondary", "success", "warning", "danger", "neutral"].map((color) => (
+        <Tooltip placement={"bottom"} key={color} color={color}>
+          <TooltipTrigger
+            render={(props) => <Button color={color} variant={"soft"} {...props} />}
+            className={"capitalize"}
+          >
+            {color}
+          </TooltipTrigger>
+          <TooltipContent className={"capitalize"}>
+            <TooltipArrow />
+            {color} tooltip
+          </TooltipContent>
+        </Tooltip>
+      ))}
     </div>
   );
 }
@@ -91,19 +70,13 @@ export default function App() {
 使用 `interactive` 属性在与其内容进行交互时保持工具提示打开。
 
 ```jsx demo
-import {
-  Button,
-  Tooltip,
-  TooltipArrow,
-  TooltipContent,
-  TooltipTrigger,
-} from "@resolid/react-ui";
+import { Button, Tooltip, TooltipArrow, TooltipContent, TooltipTrigger } from "@resolid/react-ui";
 
 export default function App() {
   return (
     <div className={"flex flex-row gap-3"}>
       <Tooltip interactive>
-        <TooltipTrigger as={Button}>Hover me</TooltipTrigger>
+        <TooltipTrigger render={(props) => <Button {...props} />}>Hover me</TooltipTrigger>
         <TooltipContent>
           <TooltipArrow />
           持续时间很长
@@ -119,13 +92,7 @@ export default function App() {
 使用 `open` 和 `onOpenChange` 属性来控制工具提示的可见性。
 
 ```jsx demo
-import {
-  Button,
-  Tooltip,
-  TooltipArrow,
-  TooltipContent,
-  TooltipTrigger,
-} from "@resolid/react-ui";
+import { Button, Tooltip, TooltipArrow, TooltipContent, TooltipTrigger } from "@resolid/react-ui";
 import { useState } from "react";
 
 export default function App() {
@@ -134,7 +101,7 @@ export default function App() {
   return (
     <div className={"flex flex-row gap-3"}>
       <Tooltip open={open} onOpenChange={setOpen}>
-        <TooltipTrigger as={Button}>
+        <TooltipTrigger render={(props) => <Button {...props} />}>
           {open ? "Hide" : "Show"} tooltip
         </TooltipTrigger>
         <TooltipContent>
@@ -152,19 +119,13 @@ export default function App() {
 使用 `openDelay` 和 `closeDelay` 属性来更改工具提示的延迟。
 
 ```jsx demo
-import {
-  Button,
-  Tooltip,
-  TooltipArrow,
-  TooltipContent,
-  TooltipTrigger,
-} from "@resolid/react-ui";
+import { Button, Tooltip, TooltipArrow, TooltipContent, TooltipTrigger } from "@resolid/react-ui";
 
 export default function App() {
   return (
     <div className={"flex flex-row gap-3"}>
       <Tooltip openDelay={1000} closeDelay={500}>
-        <TooltipTrigger as={Button}>
+        <TooltipTrigger render={(props) => <Button {...props} />}>
           Delay (open: 1000ms, close: 500ms)
         </TooltipTrigger>
         <TooltipContent>
@@ -182,19 +143,13 @@ export default function App() {
 通过传递 `duration` 属性来更改工具提示的动画持续时间。
 
 ```jsx demo
-import {
-  Button,
-  Tooltip,
-  TooltipArrow,
-  TooltipContent,
-  TooltipTrigger,
-} from "@resolid/react-ui";
+import { Button, Tooltip, TooltipArrow, TooltipContent, TooltipTrigger } from "@resolid/react-ui";
 
 export default function App() {
   return (
     <div className={"flex flex-row gap-3"}>
       <Tooltip duration={2500}>
-        <TooltipTrigger as={Button}>Hover me</TooltipTrigger>
+        <TooltipTrigger render={(props) => <Button {...props} />}>Hover me</TooltipTrigger>
         <TooltipContent>
           <TooltipArrow />
           Tooltip content
@@ -210,12 +165,7 @@ export default function App() {
 通过传递 `placement` 属性来更改工具提示的放置位置。
 
 ```jsx demo
-import {
-  Tooltip,
-  TooltipArrow,
-  TooltipContent,
-  TooltipTrigger,
-} from "@resolid/react-ui";
+import { Tooltip, TooltipArrow, TooltipContent, TooltipTrigger } from "@resolid/react-ui";
 
 export default function App() {
   return (
@@ -247,7 +197,7 @@ export default function App() {
       ].map(([placement, name]) => (
         <Tooltip key={placement} placement={placement}>
           <TooltipTrigger
-            as={"span"}
+            render={(props) => <span {...props} />}
             style={{
               gridArea: placement === "auto" ? "center" : placement,
             }}

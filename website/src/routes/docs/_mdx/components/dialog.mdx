@@ -36,33 +36,35 @@ import {
   Button,
   CloseButton,
   Dialog,
-  DialogTrigger,
-  DialogPortal,
   DialogBackdrop,
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
   DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
 } from "@resolid/react-ui";
 
 export default function App() {
   return (
     <div className={"flex flex-row gap-3"}>
       <Dialog>
-        <DialogTrigger as={Button}>打开对话框</DialogTrigger>
+        <DialogTrigger render={(props) => <Button {...props} />}>打开对话框</DialogTrigger>
         <DialogPortal>
           <DialogBackdrop />
           <DialogContent className="max-w-128 my-20">
             <DialogClose
               className={"absolute end-2 top-2 p-1"}
-              as={CloseButton}
+              render={(props) => <CloseButton {...props} />}
             />
             <DialogTitle className={"p-4"}>对话框标题</DialogTitle>
             <DialogDescription className={"p-4 pt-1"}>
               这是一个对话框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
             </DialogDescription>
             <div className={"flex justify-end gap-4 p-4 pt-1"}>
-              <DialogClose color={"neutral"} variant={"soft"} as={Button}>
+              <DialogClose
+                render={(props) => <Button color={"neutral"} variant={"soft"} {...props} />}
+              >
                 取消
               </DialogClose>
               <Button color={"neutral"}>确定</Button>
@@ -99,20 +101,22 @@ export default function App() {
   return (
     <div className={"flex flex-row gap-3"}>
       <Dialog placement={"top"}>
-        <DialogTrigger as={Button}>打开对话框(顶部)</DialogTrigger>
+        <DialogTrigger render={(props) => <Button {...props} />}>打开对话框(顶部)</DialogTrigger>
         <DialogPortal>
           <DialogBackdrop />
           <DialogContent className="max-w-128 my-20">
             <DialogClose
               className={"absolute end-2 top-2 p-1"}
-              as={CloseButton}
+              render={(props) => <CloseButton {...props} />}
             />
             <DialogTitle className={"p-4"}>对话框标题</DialogTitle>
             <DialogDescription className={"p-4 pt-1"}>
               这是一个对话框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
             </DialogDescription>
             <div className={"flex justify-end gap-4 p-4 pt-1"}>
-              <DialogClose color={"neutral"} variant={"soft"} as={Button}>
+              <DialogClose
+                render={(props) => <Button color={"neutral"} variant={"soft"} {...props} />}
+              >
                 取消
               </DialogClose>
               <Button color={"neutral"}>确定</Button>
@@ -121,20 +125,22 @@ export default function App() {
         </DialogPortal>
       </Dialog>
       <Dialog placement={"center"}>
-        <DialogTrigger as={Button}>打开对话框(中间)</DialogTrigger>
+        <DialogTrigger render={(props) => <Button {...props} />}>打开对话框(中间)</DialogTrigger>
         <DialogPortal>
           <DialogBackdrop />
           <DialogContent className="max-w-128 my-20">
             <DialogClose
               className={"absolute end-2 top-2 p-1"}
-              as={CloseButton}
+              render={(props) => <CloseButton {...props} />}
             />
             <DialogTitle className={"p-4"}>对话框标题</DialogTitle>
             <DialogDescription className={"p-4 pt-1"}>
               这是一个对话框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
             </DialogDescription>
             <div className={"flex justify-end gap-4 p-4 pt-1"}>
-              <DialogClose color={"neutral"} variant={"soft"} as={Button}>
+              <DialogClose
+                render={(props) => <Button color={"neutral"} variant={"soft"} {...props} />}
+              >
                 取消
               </DialogClose>
               <Button color={"neutral"}>确定</Button>
@@ -143,20 +149,22 @@ export default function App() {
         </DialogPortal>
       </Dialog>
       <Dialog placement={"bottom"}>
-        <DialogTrigger as={Button}>打开对话框(底部)</DialogTrigger>
+        <DialogTrigger render={(props) => <Button {...props} />}>打开对话框(底部)</DialogTrigger>
         <DialogPortal>
           <DialogBackdrop />
           <DialogContent className="max-w-128 my-20">
             <DialogClose
               className={"absolute end-2 top-2 p-1"}
-              as={CloseButton}
+              render={(props) => <CloseButton {...props} />}
             />
             <DialogTitle className={"p-4"}>对话框标题</DialogTitle>
             <DialogDescription className={"p-4 pt-1"}>
               这是一个对话框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
             </DialogDescription>
             <div className={"flex justify-end gap-4 p-4 pt-1"}>
-              <DialogClose color={"neutral"} variant={"soft"} as={Button}>
+              <DialogClose
+                render={(props) => <Button color={"neutral"} variant={"soft"} {...props} />}
+              >
                 取消
               </DialogClose>
               <Button color={"neutral"}>确定</Button>
@@ -191,24 +199,26 @@ export default function App() {
   return (
     <div className={"flex flex-row gap-3"}>
       <Dialog>
-        <DialogTrigger as={Button}>打开对话框</DialogTrigger>
+        <DialogTrigger render={(props) => <Button {...props} />}>打开对话框</DialogTrigger>
         <DialogPortal>
           <DialogBackdrop />
           <DialogContent className="max-w-128 my-25">
             <DialogClose
               className={"absolute end-2 top-2 p-1"}
-              as={CloseButton}
+              render={(props) => <CloseButton {...props} />}
             />
             <DialogTitle className={"p-4"}>对话框标题</DialogTitle>
             <DialogDescription className={"p-4 pt-1"}>
               你正在进行一项操作，这可能会影响当前的设置或数据。请确认是否继续？如果不确定，可以先查看相关文档，或者咨询管理员获取更多信息。
             </DialogDescription>
             <div className={"flex justify-end gap-4 p-4 pt-1"}>
-              <DialogClose color={"neutral"} variant={"soft"} as={Button}>
+              <DialogClose
+                render={(props) => <Button color={"neutral"} variant={"soft"} {...props} />}
+              >
                 取消
               </DialogClose>
               <Dialog>
-                <DialogTrigger color={"danger"} as={Button}>
+                <DialogTrigger render={(props) => <Button color={"danger"} {...props} />}>
                   删除
                 </DialogTrigger>
                 <DialogPortal>
@@ -216,7 +226,7 @@ export default function App() {
                   <DialogContent className="max-w-86 my-20">
                     <DialogClose
                       className={"absolute end-2 top-2 p-1"}
-                      as={CloseButton}
+                      render={(props) => <CloseButton {...props} />}
                     />
                     <DialogTitle className={"p-4"}>操作确认</DialogTitle>
                     <DialogDescription className={"p-4 pt-1"}>
@@ -224,9 +234,7 @@ export default function App() {
                     </DialogDescription>
                     <div className={"flex justify-end gap-4 p-4 pt-1"}>
                       <DialogClose
-                        color={"neutral"}
-                        variant={"soft"}
-                        as={Button}
+                        render={(props) => <Button color={"neutral"} variant={"soft"} {...props} />}
                       >
                         取消
                       </DialogClose>
@@ -277,13 +285,13 @@ export default function App() {
         </div>
       </RadioGroup>
       <Dialog scrollBehavior={scrollBehavior}>
-        <DialogTrigger as={Button}>打开对话框</DialogTrigger>
+        <DialogTrigger render={(props) => <Button {...props} />}>打开对话框</DialogTrigger>
         <DialogPortal>
           <DialogBackdrop />
           <DialogContent className="max-w-160 my-20 flex flex-col">
             <DialogClose
               className={"absolute end-2 top-2 p-1"}
-              as={CloseButton}
+              render={(props) => <CloseButton {...props} />}
             />
             <DialogTitle className={"p-4"}>对话框标题</DialogTitle>
             <div
@@ -321,33 +329,35 @@ import {
   Button,
   CloseButton,
   Dialog,
-  DialogTrigger,
-  DialogPortal,
   DialogBackdrop,
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
   DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
 } from "@resolid/react-ui";
 
 export default function App() {
   return (
     <div className={"flex flex-row gap-3"}>
       <Dialog role={"alertdialog"}>
-        <DialogTrigger as={Button}>打开对话框</DialogTrigger>
+        <DialogTrigger render={(props) => <Button {...props} />}>打开对话框</DialogTrigger>
         <DialogPortal>
           <DialogBackdrop />
           <DialogContent className="max-w-128 my-20">
             <DialogClose
               className={"absolute end-2 top-2 p-1"}
-              as={CloseButton}
+              render={(props) => <CloseButton {...props} />}
             />
             <DialogTitle className={"p-4"}>对话框标题</DialogTitle>
             <DialogDescription className={"p-4 pt-1"}>
               你正在进行一项操作，这可能会影响当前的设置或数据。请确认是否继续？如果不确定，可以先查看相关文档，或者咨询管理员获取更多信息。
             </DialogDescription>
             <div className={"flex justify-end gap-4 p-4 pt-1"}>
-              <DialogClose color={"neutral"} variant={"soft"} as={Button}>
+              <DialogClose
+                render={(props) => <Button color={"neutral"} variant={"soft"} {...props} />}
+              >
                 取消
               </DialogClose>
               <Button color={"danger"}>确认</Button>
@@ -385,7 +395,7 @@ export default function App() {
   return (
     <div className={"flex flex-row gap-3"}>
       <Dialog initialFocus={initialRef} finalFocus={finalRef}>
-        <DialogTrigger as={Button}>打开对话框</DialogTrigger>
+        <DialogTrigger render={(props) => <Button {...props} />}>打开对话框</DialogTrigger>
         <Button color={"neutral"} ref={finalRef}>
           键盘关闭对话框后获得焦点
         </Button>
@@ -404,7 +414,9 @@ export default function App() {
               </div>
             </div>
             <div className={"flex justify-end gap-4 p-4 pt-1"}>
-              <DialogClose color={"neutral"} variant={"soft"} as={Button}>
+              <DialogClose
+                render={(props) => <Button color={"neutral"} variant={"soft"} {...props} />}
+              >
                 取消
               </DialogClose>
               <Button color={"neutral"}>保存</Button>
@@ -455,7 +467,7 @@ export default function App() {
           }
         }}
       >
-        <DialogTrigger as={Button}>打开对话框</DialogTrigger>
+        <DialogTrigger render={(props) => <Button {...props} />}>打开对话框</DialogTrigger>
         <DialogPortal>
           <DialogBackdrop />
           <DialogContent className="my-25 w-96">
@@ -470,14 +482,14 @@ export default function App() {
               <textarea
                 rows={6}
                 required
-                className={
-                  "border-bd-normal w-full rounded-md border px-3 py-2"
-                }
+                className={"border-bd-normal w-full rounded-md border px-3 py-2"}
                 placeholder={"有什么新想法吗?"}
                 onChange={(e) => setTextareaValue(e.target.value)}
               />
               <div className={"flex justify-end gap-4"}>
-                <DialogClose color={"neutral"} variant={"soft"} as={Button}>
+                <DialogClose
+                  render={(props) => <Button color={"neutral"} variant={"soft"} {...props} />}
+                >
                   取消
                 </DialogClose>
                 <Button type={"submit"} color={"neutral"}>
@@ -493,11 +505,11 @@ export default function App() {
           <DialogBackdrop />
           <DialogContent className="my-30 w-96">
             <DialogTitle className={"p-4"}>丢弃推文？</DialogTitle>
-            <DialogDescription className={"p-4 pt-1"}>
-              您的推文将丢失。
-            </DialogDescription>
+            <DialogDescription className={"p-4 pt-1"}>您的推文将丢失。</DialogDescription>
             <div className={"flex justify-end gap-4 p-4 pt-1"}>
-              <DialogClose color={"neutral"} variant={"soft"} as={Button}>
+              <DialogClose
+                render={(props) => <Button color={"neutral"} variant={"soft"} {...props} />}
+              >
                 返回
               </DialogClose>
               <Button

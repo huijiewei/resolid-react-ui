@@ -1,26 +1,29 @@
-import type { ElementType } from "react";
-import type { PolymorphicProps } from "../../primitives";
+import { type EmptyObject, type HtmlProps, Polymorphic, type PolymorphicProps } from "../../primitives";
 import { ariaAttr } from "../../utils";
 import { useCollapsibleTrigger } from "./collapsible-context";
 
-export const CollapsibleTrigger = <T extends ElementType = "button">(props: PolymorphicProps<T>) => {
-  const { as: Component = "button", children, ...rest } = props;
+type CollapsibleTriggerHtmlProps = HtmlProps<"button">;
+
+export const CollapsibleTrigger = (props: PolymorphicProps<CollapsibleTriggerHtmlProps, EmptyObject, "type">) => {
+  const { render, children, ...rest } = props;
 
   const { id, open, disabled, toggle } = useCollapsibleTrigger();
 
   return (
-    <Component
+    <Polymorphic<CollapsibleTriggerHtmlProps>
+      as={"button"}
+      render={render}
       disabled={disabled}
       aria-disabled={ariaAttr(disabled)}
       aria-expanded={ariaAttr(open)}
       aria-controls={id}
-      type={Component == "button" ? "button" : undefined}
+      type={render ? undefined : "button"}
       onClick={() => {
         toggle();
       }}
       {...rest}
     >
       {children}
-    </Component>
+    </Polymorphic>
   );
 };

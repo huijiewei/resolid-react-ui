@@ -62,6 +62,8 @@ export default defineConfig(({ command, isSsrBuild }) => {
         filter: /\.[jt]sx?$/,
         babelConfig: {
           compact: false,
+          babelrc: false,
+          configFile: false,
           presets: ["@babel/preset-typescript"],
           plugins: [
             [

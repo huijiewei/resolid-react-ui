@@ -37,11 +37,7 @@ export default function App() {
   return (
     <div className={"flex flex-col items-start gap-2"}>
       <p>你输入的是: {value}</p>
-      <Input
-        value={value}
-        onChange={(value) => setValue(value)}
-        placeholder="输入框"
-      />
+      <Input value={value} onChange={(value) => setValue(value)} placeholder="输入框" />
     </div>
   );
 }
@@ -78,10 +74,7 @@ import { SpriteIcon } from "~/components/sprite-icon";
 export default function App() {
   return (
     <div className={"flex flex-col items-start gap-3"}>
-      <Input
-        placeholder={"邮箱地址"}
-        prefix={<SpriteIcon size={"1.125em"} name={"email"} />}
-      />
+      <Input placeholder={"邮箱地址"} prefix={<SpriteIcon size={"1.125em"} name={"email"} />} />
       <Input placeholder={"金额"} suffix={"RMB"} suffixWidth={50} />
       <Input
         placeholder={"搜索..."}

@@ -1,8 +1,9 @@
-import type { ElementType } from "react";
-import { PopperTrigger, type PopperTriggerProps } from "../popper/popper-trigger";
+import type { ComponentProps } from "react";
+import type { PopoverTrigger } from "../popover/popover";
+import { PopperTrigger } from "../popper/popper-trigger";
 import { useMenuHover } from "./menu-hover-context";
 
-export const MenuTrigger = <T extends ElementType = "button">(props: Omit<PopperTriggerProps<T>, "active">) => {
+export const MenuTrigger = (props: Omit<ComponentProps<typeof PopoverTrigger>, "active">) => {
   const { setHoverEnabled } = useMenuHover();
 
   return (

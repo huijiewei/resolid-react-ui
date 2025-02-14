@@ -17,7 +17,7 @@ describe("Button", () => {
 
   test("should not have attribute 'type=button' by default when it's not a 'button' tag", () => {
     const { getByTestId } = render(
-      <Button data-testid="button" as="div">
+      <Button data-testid="button" render={(props) => <div {...props} />}>
         Button
       </Button>,
     );
@@ -37,9 +37,14 @@ describe("Button", () => {
 
   test("should not have attribute 'role=button' when it's an 'a' tag with 'href'", () => {
     const { getByTestId } = render(
-      <Button data-testid="button" as="a" href="https://ui.resolid.tech">
-        Button
-      </Button>,
+      <Button
+        data-testid="button"
+        render={(props) => (
+          <a href="https://ui.resolid.tech" {...props}>
+            Button
+          </a>
+        )}
+      />,
     );
 
     const button = getByTestId("button");
@@ -49,7 +54,7 @@ describe("Button", () => {
 
   test("should have attribute 'role=button' when it's not a native button", () => {
     const { getByTestId } = render(
-      <Button data-testid="button" as="div">
+      <Button data-testid="button" render={(props) => <div {...props} />}>
         Button
       </Button>,
     );
@@ -60,11 +65,7 @@ describe("Button", () => {
   });
 
   test("should have attribute 'role=button' when it's an 'a' tag without 'href'", () => {
-    const { getByTestId } = render(
-      <Button data-testid="button" as="a">
-        Button
-      </Button>,
-    );
+    const { getByTestId } = render(<Button data-testid="button" render={(props) => <a {...props}>Button</a>} />);
 
     const button = getByTestId("button");
 
@@ -73,7 +74,7 @@ describe("Button", () => {
 
   test("should have attribute 'tabindex=0' when it's not a native button", () => {
     const { getByTestId } = render(
-      <Button data-testid="button" as="div">
+      <Button data-testid="button" render={(props) => <div {...props} />}>
         Button
       </Button>,
     );
@@ -85,9 +86,14 @@ describe("Button", () => {
 
   test("should not have attribute 'tabindex=0' when it's an 'a' tag with 'href'", () => {
     const { getByTestId } = render(
-      <Button data-testid="button" as="a" href="https://ui.resolid.tech">
-        Button
-      </Button>,
+      <Button
+        data-testid="button"
+        render={(props) => (
+          <a href="https://ui.resolid.tech" {...props}>
+            Button
+          </a>
+        )}
+      />,
     );
 
     const button = getByTestId("button");
@@ -97,7 +103,7 @@ describe("Button", () => {
 
   test("should not have attribute 'tabindex=0' when it's disabled", () => {
     const { getByTestId } = render(
-      <Button data-testid="button" disabled as="div">
+      <Button data-testid="button" disabled render={(props) => <div {...props} />}>
         Button
       </Button>,
     );
@@ -122,7 +128,7 @@ describe("Button", () => {
 
   test("should have correct 'disabled' attribute when disabled and it's not a native button nor input", () => {
     const { getByTestId } = render(
-      <Button data-testid="button" disabled as="div">
+      <Button data-testid="button" disabled render={(props) => <div {...props} />}>
         Button
       </Button>,
     );

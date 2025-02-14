@@ -1,28 +1,31 @@
-import type { ElementType } from "react";
 import { useMergeRefs } from "../../hooks";
-import type { PolymorphicProps } from "../../primitives";
+import { type HtmlProps, Polymorphic, type PolymorphicProps } from "../../primitives";
 import { dataAttr } from "../../utils";
 import { usePopperReference } from "./popper-reference-context";
 
-export type PopperTriggerProps<T extends ElementType> = PolymorphicProps<T, { active?: boolean }, "type">;
+type PopperTriggerProps = { active?: boolean };
 
-export const PopperTrigger = (props: PopperTriggerProps<"button">) => {
-  const { as: Component = "button", active, children, ref, ...rest } = props;
+type PopperTriggerHtmlProps = HtmlProps<"button", PopperTriggerProps>;
+
+export const PopperTrigger = (props: PolymorphicProps<PopperTriggerHtmlProps, PopperTriggerProps, "type">) => {
+  const { render, active, children, ref, ...rest } = props;
 
   const { open, setReference, getReferenceProps } = usePopperReference();
 
   const refs = useMergeRefs(ref, setReference);
 
   return (
-    <Component
+    <Polymorphic<PopperTriggerHtmlProps>
+      as={"button"}
+      render={render}
       ref={refs}
       data-active={dataAttr(active && open)}
-      type={Component == "button" ? "button" : undefined}
+      type={render ? undefined : "button"}
       {...getReferenceProps({
         ...rest,
       })}
     >
       {children}
-    </Component>
+    </Polymorphic>
   );
 };

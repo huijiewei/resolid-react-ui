@@ -1,5 +1,4 @@
-import type { ComponentProps, ElementType } from "react";
-import type { PolymorphicProps } from "../../primitives";
+import type { HtmlProps, PolymorphicProps } from "../../primitives";
 import { ariaAttr, tx } from "../../utils";
 import { MenuItem, type MenuItemProps } from "./menu-item";
 import { MenuItemIndicatorContext } from "./menu-item-indicator-context";
@@ -12,9 +11,9 @@ export type MenuRadioItemProps = MenuItemProps & {
   value: string | number;
 };
 
-export const MenuRadioItem = <T extends ElementType = "div">(
-  props: PolymorphicProps<T, MenuRadioItemProps, "role" | "tabIndex">,
-) => {
+type MenuRadioItemHtmlProps = HtmlProps<"div", MenuRadioItemProps, "role" | "tabIndex">;
+
+export const MenuRadioItem = (props: PolymorphicProps<MenuRadioItemHtmlProps, MenuRadioItemProps>) => {
   const { value, onSelect, children, className, ...rest } = props;
 
   const group = useMenuRadioGroup();
@@ -31,7 +30,7 @@ export const MenuRadioItem = <T extends ElementType = "div">(
         label={value as string}
         aria-checked={ariaAttr(checked)}
         className={tx("relative pl-6", className)}
-        {...(rest as ComponentProps<typeof MenuItem>)}
+        {...rest}
       >
         {children}
       </MenuItem>

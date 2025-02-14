@@ -40,10 +40,7 @@ export default function App() {
 
   return (
     <div className={"flex flex-col gap-2"}>
-      <p>
-        飞行模式:{" "}
-        {checked ? <span className="text-fg-success">已激活</span> : "未激活"}.
-      </p>
+      <p>飞行模式: {checked ? <span className="text-fg-success">已激活</span> : "未激活"}.</p>
       <Switch checked={checked} onChange={setChecked}>
         飞行模式
       </Switch>

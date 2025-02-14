@@ -1,11 +1,11 @@
-import type { ElementType } from "react";
+import type { ComponentProps } from "react";
 import { PopperArrow } from "../popper/popper-arrow";
-import { PopperTrigger, type PopperTriggerProps } from "../popper/popper-trigger";
+import { PopperTrigger } from "../popper/popper-trigger";
 import { TooltipRoot, type TooltipRootProps } from "./tooltip-root";
 
 export { TooltipContent } from "./tooltip-content";
 
-export const TooltipTrigger = <T extends ElementType = "button">(props: Omit<PopperTriggerProps<T>, "active">) => (
+export const TooltipTrigger = (props: Omit<ComponentProps<typeof PopperTrigger>, "active">) => (
   <PopperTrigger active={false} {...props} />
 );
 
