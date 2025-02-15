@@ -17,7 +17,7 @@ import {
   TooltipTrigger,
   tx,
 } from "@resolid/react-ui";
-import { startWith } from "@resolid/utils";
+import { isBoolean, isNumber, isString, startsWith } from "@resolid/utils";
 import { type ComponentProps, type ReactNode, useRef, useState } from "react";
 import { Outlet } from "react-router";
 import { ClipboardButton } from "~/components/clipboard-button";
@@ -98,7 +98,7 @@ const mdxComponents = {
     );
   },
   a: ({ children, href = "", className, ...rest }: ComponentProps<"a">) => {
-    const external = startWith(href, "http://") || startWith(href, "https://");
+    const external = startsWith(href, "http://") || startsWith(href, "https://");
 
     return (
       <a
@@ -306,7 +306,7 @@ const mdxComponents = {
 
               return (
                 <div className={"flex items-center justify-between gap-5"} key={propInputId}>
-                  {prop.control == "boolean" && (
+                  {isBoolean(prop.control) && (
                     <Switch
                       size={"sm"}
                       checked={Boolean(state[prop.name])}
@@ -317,7 +317,7 @@ const mdxComponents = {
                       {prop.description}
                     </Switch>
                   )}
-                  {prop.control == "string" && (
+                  {isString(prop.control) && (
                     <>
                       <label htmlFor={propInputId}>{prop.description}</label>
                       <Input
@@ -332,7 +332,7 @@ const mdxComponents = {
                       />
                     </>
                   )}
-                  {prop.control == "number" && (
+                  {isNumber(prop.control) && (
                     <>
                       <label htmlFor={propInputId}>{prop.description}</label>
                       <NumberInput

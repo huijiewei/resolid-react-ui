@@ -1,5 +1,5 @@
+import { isBrowser, isString, isUndefined } from "@resolid/utils";
 import { type RefObject, useEffect, useRef } from "react";
-import { isBrowser } from "../../utils";
 import { useIsomorphicEffect } from "../use-isomorphic-effect";
 
 type UseEventListenerTarget = Window | Document | HTMLElement | RefObject<HTMLElement | null>;
@@ -45,12 +45,15 @@ export const useEventListener = <
       return;
     }
 
-    if (!(typeof eventName === "string" && target !== null)) {
+    if (!(isString(eventName) && target !== null)) {
       return;
     }
 
-    const targetElement: Exclude<UseEventListenerTarget, RefObject<HTMLElement>> | null =
-      typeof target === "undefined" ? window : "current" in target ? target.current : target;
+    const targetElement: Exclude<UseEventListenerTarget, RefObject<HTMLElement>> | null = isUndefined(target)
+      ? window
+      : "current" in target
+        ? target.current
+        : target;
 
     if (!targetElement?.addEventListener) {
       return;

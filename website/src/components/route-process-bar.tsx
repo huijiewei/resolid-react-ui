@@ -2,7 +2,7 @@ import { tx } from "@resolid/react-ui";
 import { useEffect, useRef, useState } from "react";
 import { useNavigation } from "react-router";
 
-export function RouteProcessBar() {
+export const RouteProcessBar = () => {
   const transition = useNavigation();
   const active = transition.state !== "idle";
 
@@ -45,4 +45,4 @@ export function RouteProcessBar() {
       />
     </div>
   );
-}
+};

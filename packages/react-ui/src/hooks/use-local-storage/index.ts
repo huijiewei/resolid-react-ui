@@ -1,3 +1,4 @@
+import { isFunction, isUndefined, runIf } from "@resolid/utils";
 import { type SetStateAction, useSyncExternalStore } from "react";
 import { useIsomorphicEffect } from "../use-isomorphic-effect";
 
@@ -8,7 +9,7 @@ const getLocalStorageItem = (key: string) => {
 const setLocalStorageItem = (key: string, value: string | undefined) => {
   const oldValue = getLocalStorageItem(key);
 
-  if (value == undefined) {
+  if (isUndefined(value)) {
     window.localStorage.removeItem(key);
   } else {
     window.localStorage.setItem(key, value);
@@ -26,7 +27,7 @@ const localStorageSubscribe = (callback: () => void) => {
 };
 
 export const useLocalStorage = <T>(key: string, initialValue?: (() => T) | T) => {
-  const initialResolved = typeof initialValue === "function" ? (initialValue as () => T)() : initialValue;
+  const initialResolved = isFunction(initialValue) ? initialValue() : initialValue;
 
   const getSnapshot = () => getLocalStorageItem(key);
   const getServerSnapshot = () => JSON.stringify(initialResolved);
@@ -34,19 +35,16 @@ export const useLocalStorage = <T>(key: string, initialValue?: (() => T) | T) =>
   const store = useSyncExternalStore(localStorageSubscribe, getSnapshot, getServerSnapshot);
 
   const setValue = (value: SetStateAction<T>) => {
-    const nextValue =
-      typeof value === "function"
-        ? (value as (prevState?: T) => T)(store ? JSON.parse(store) : initialResolved)
-        : value;
+    const nextValue = runIf(value, store ? JSON.parse(store) : initialResolved);
 
-    setLocalStorageItem(key, nextValue !== undefined ? JSON.stringify(nextValue) : undefined);
+    setLocalStorageItem(key, !isUndefined(nextValue) ? JSON.stringify(nextValue) : undefined);
   };
 
   useIsomorphicEffect(() => {
-    if (getLocalStorageItem(key) == undefined && initialResolved != undefined) {
+    if (isUndefined(getLocalStorageItem(key)) && !isUndefined(initialResolved)) {
       setLocalStorageItem(key, JSON.stringify(initialResolved));
     }
   }, [key, initialResolved]);
 
-  return [store != undefined ? (JSON.parse(store) as T) : store, setValue] as const;
+  return [!isUndefined(store) ? (JSON.parse(store) as T) : store, setValue] as const;
 };

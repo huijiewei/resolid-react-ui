@@ -1,4 +1,4 @@
-import { clamp, isNumber } from "@resolid/utils";
+import { clamp, isNumber, isUndefined } from "@resolid/utils";
 import { type FocusEvent, type KeyboardEvent, useId, useRef, useState } from "react";
 import { useControllableState, useEventListener, useMergeRefs } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
@@ -134,9 +134,9 @@ export const NumberInput = (props: PrimitiveProps<"input", NumberInputProps, "ty
   };
 
   const increment = (incrementStep = stepValue) => {
-    if (valueState == undefined) {
+    if (isUndefined(valueState)) {
       update(min ?? 0);
-      setInputValue(min != undefined ? min.toFixed(precisionValue) : "0");
+      setInputValue(!isUndefined(min) ? min.toFixed(precisionValue) : "0");
     } else {
       const value = clamp(valueState + incrementStep, [minValue, maxValue]).toFixed(precisionValue);
 
@@ -146,9 +146,9 @@ export const NumberInput = (props: PrimitiveProps<"input", NumberInputProps, "ty
   };
 
   const decrement = (decrementStep = stepValue) => {
-    if (valueState == undefined) {
+    if (isUndefined(valueState)) {
       update(min ?? 0);
-      setInputValue(min != undefined ? min.toFixed(precisionValue) : "0");
+      setInputValue(!isUndefined(min) ? min.toFixed(precisionValue) : "0");
     } else {
       const value = clamp(valueState - decrementStep, [minValue, maxValue]).toFixed(precisionValue);
 
@@ -233,7 +233,7 @@ export const NumberInput = (props: PrimitiveProps<"input", NumberInputProps, "ty
         setInputValue(value.toFixed(precisionValue));
         update(Number.parseFloat(value.toFixed(precisionValue)));
       } else {
-        setInputValue(valueState != undefined ? valueState.toFixed(precisionValue) : "");
+        setInputValue(!isUndefined(valueState) ? valueState.toFixed(precisionValue) : "");
       }
     }
 

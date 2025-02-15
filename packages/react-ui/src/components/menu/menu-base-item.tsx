@@ -1,4 +1,5 @@
 import { useListItem } from "@floating-ui/react";
+import { isString } from "@resolid/utils";
 import { useButtonProps, useMergeRefs } from "../../hooks";
 import { type HtmlProps, Polymorphic, type PolymorphicProps } from "../../primitives";
 import { dataAttr, tx } from "../../utils";
@@ -23,7 +24,7 @@ export const MenuBaseItem = (props: PolymorphicProps<MenuBaseItemHtmlProps, Menu
   const { render, className, ref, children, label, disabled = false, ...rest } = props;
 
   const { getItemProps, activeIndex } = useMenuItem();
-  const { ref: itemRef, index } = useListItem({ label: label ?? (typeof children == "string" ? children : null) });
+  const { ref: itemRef, index } = useListItem({ label: label ?? (isString(children) ? children : null) });
 
   const active = index !== null && index === activeIndex;
 

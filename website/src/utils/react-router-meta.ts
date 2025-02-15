@@ -1,3 +1,4 @@
+import { isString } from "@resolid/utils";
 import type { MetaDescriptor } from "react-router";
 
 type MetaArgs = {
@@ -44,7 +45,7 @@ export const mergeMeta = (metaFn: (arg: any) => MetaDescriptor[], titleJoin = " 
 
     for (const meta of mergedMeta) {
       if ("title" in meta) {
-        if (typeof meta.title === "string" && meta.title.length > 0) {
+        if (isString(meta.title) && meta.title.length > 0) {
           titles.push(...meta.title.split(titleJoin));
         }
       } else {

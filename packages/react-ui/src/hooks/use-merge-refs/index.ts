@@ -1,14 +1,15 @@
+import { isFunction } from "@resolid/utils";
 import type { Ref, RefCallback } from "react";
 import { useCallback } from "react";
 
 type OptionalRef<T> = Ref<T> | undefined;
 type Cleanup = (() => void) | undefined | void;
 
-export const assignRef = <T>(ref: OptionalRef<T>, value: T): Cleanup => {
-  if (typeof ref === "function") {
+const assignRef = <T>(ref: OptionalRef<T>, value: T): Cleanup => {
+  if (isFunction(ref)) {
     const cleanup = ref(value);
 
-    if (typeof cleanup === "function") {
+    if (isFunction(cleanup)) {
       return cleanup;
     }
     return () => ref(null);

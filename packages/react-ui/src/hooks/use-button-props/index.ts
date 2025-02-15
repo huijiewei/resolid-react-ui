@@ -1,3 +1,4 @@
+import { isFunction, isObject } from "@resolid/utils";
 import {
   type AriaRole,
   type ButtonHTMLAttributes,
@@ -81,13 +82,13 @@ export const useButtonProps = <T extends HTMLElement>(options: UseButtonPropsOpt
           key[1] === "n" &&
           key.charCodeAt(2) >= 65 /* A */ &&
           key.charCodeAt(2) <= 90 /* Z */ &&
-          typeof value === "function"
+          isFunction(value)
         ) {
           acc[key] = (e: SyntheticEvent<T>) => {
             const extHandler = value;
             const ourHandler = internalProps[key];
 
-            if (e != null && typeof e === "object" && "nativeEvent" in e) {
+            if (e != null && isObject(e) && "nativeEvent" in e) {
               let isPrevented = false;
 
               const buttonEvent = e as ButtonEvent<typeof e>;
