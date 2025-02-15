@@ -56,6 +56,8 @@ export const SiteNavbar = () => {
               <Button
                 variant={"ghost"}
                 color={"neutral"}
+                size={"sm"}
+                iconOnly
                 aria-label={"Github 上的 Resolid React UI"}
                 render={(props) => (
                   <a

@@ -1,0 +1,131 @@
+---
+title: 面包屑
+description: 一种辅助导航模式，用于标识页面在层次结构中的位置，并允许根据需要进行向上导航。
+---
+
+## 导入
+
+```js
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from "@resolid/react-ui";
+```
+
+## 演示
+
+```jsx demo
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@resolid/react-ui";
+import { Link } from "react-router";
+import { SpriteIcon } from "~/components/sprite-icon";
+
+export default function App() {
+  return (
+    <Breadcrumb className={"gap-1"}>
+      <BreadcrumbItem className={"gap-1"}>
+        <BreadcrumbLink className={"gap-0.5"} render={(props) => <Link to={"/"} {...props} />}>
+          <SpriteIcon size={"1.125rem"} name={"home"} />
+          主页
+        </BreadcrumbLink>
+        <BreadcrumbSeparator />
+      </BreadcrumbItem>
+      <BreadcrumbItem className={"gap-1"}>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <SpriteIcon size={"1.125rem"} name={"ellipsis"} />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className={"text-sm"}>
+            <DropdownMenuItem>介绍</DropdownMenuItem>
+            <DropdownMenuItem>入门指南</DropdownMenuItem>
+            <DropdownMenuItem disabled>主题设置</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <BreadcrumbSeparator />
+      </BreadcrumbItem>
+      <BreadcrumbItem className={"gap-1"}>
+        <BreadcrumbLink href={"#"}>组件</BreadcrumbLink>
+        <BreadcrumbSeparator />
+      </BreadcrumbItem>
+      <BreadcrumbItem className={"gap-1"}>
+        <BreadcrumbLink current>面包屑</BreadcrumbLink>
+      </BreadcrumbItem>
+    </Breadcrumb>
+  );
+}
+```
+
+## 举例
+
+### 分隔符
+
+使用 `separator` 属性自定义分隔符
+
+```jsx demo
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@resolid/react-ui";
+import { Link } from "react-router";
+import { SpriteIcon } from "~/components/sprite-icon";
+
+export default function App() {
+  return (
+    <Breadcrumb
+      className={"gap-1"}
+      separator={
+        <span className={"inline-flex h-4 w-4 items-center justify-center text-sm"}>/</span>
+      }
+    >
+      <BreadcrumbItem className={"gap-1"}>
+        <BreadcrumbLink className={"gap-0.5"} render={(props) => <Link to={"/"} {...props} />}>
+          <SpriteIcon size={"1.125rem"} name={"home"} />
+          主页
+        </BreadcrumbLink>
+        <BreadcrumbSeparator />
+      </BreadcrumbItem>
+      <BreadcrumbItem className={"gap-1"}>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <SpriteIcon size={"1.125rem"} name={"ellipsis"} />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className={"text-sm"}>
+            <DropdownMenuItem>介绍</DropdownMenuItem>
+            <DropdownMenuItem>入门指南</DropdownMenuItem>
+            <DropdownMenuItem disabled>主题设置</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <BreadcrumbSeparator />
+      </BreadcrumbItem>
+      <BreadcrumbItem className={"gap-1"}>
+        <BreadcrumbLink href={"#"}>组件</BreadcrumbLink>
+        <BreadcrumbSeparator />
+      </BreadcrumbItem>
+      <BreadcrumbItem className={"gap-1"}>
+        <BreadcrumbLink current>面包屑</BreadcrumbLink>
+      </BreadcrumbItem>
+    </Breadcrumb>
+  );
+}
+```
+
+## 属性
+
+### Breadcrumb
+
+::PropsTable{file=breadcrumb/breadcrumb.tsx}
+
+### BreadcrumbLink
+
+::PropsTable{file=breadcrumb/breadcrumb-link.tsx}

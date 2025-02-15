@@ -60,7 +60,8 @@
       "string.prototype.repeat": "npm:@nolyfill/string.prototype.repeat@^1",
       "safer-buffer": "npm:@nolyfill/safer-buffer@^1",
       "isarray": "npm:@nolyfill/isarray@^1",
-      "safe-buffer": "npm:@nolyfill/safe-buffer@^1"
+      "safe-buffer": "npm:@nolyfill/safe-buffer@^1",
+      "es-set-tostringtag": "npm:@nolyfill/es-set-tostringtag@^1"
     },
     "onlyBuiltDependencies": [
       "esbuild",

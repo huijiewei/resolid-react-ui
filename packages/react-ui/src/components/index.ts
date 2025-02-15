@@ -5,6 +5,7 @@ export * from "./avatar/avatar-group";
 export * from "./avatar/avatar-image";
 export * from "./avatar/avatar-indicator";
 export * from "./badge/badge";
+export * from "./breadcrumb/breadcrumb";
 export * from "./button/button";
 export * from "./button/button-group";
 export * from "./checkbox/checkbox";
