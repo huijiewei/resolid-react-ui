@@ -77,8 +77,8 @@ importers:
         specifier: ^0.27.4
         version: 0.27.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@resolid/utils':
-        specifier: ^0.3.0
-        version: 0.3.0(typescript@5.7.3)
+        specifier: ^0.3.1
+        version: 0.3.1(typescript@5.7.3)
       cva:
         specifier: beta
         version: 1.0.0-beta.3(typescript@5.7.3)
@@ -141,8 +141,8 @@ importers:
         specifier: workspace:^
         version: link:../packages/react-ui
       '@resolid/utils':
-        specifier: ^0.3.0
-        version: 0.3.0(typescript@5.7.3)
+        specifier: ^0.3.1
+        version: 0.3.1(typescript@5.7.3)
       '@tailwindcss/typography':
         specifier: ^0.5.16
         version: 0.5.16(tailwindcss@4.0.6)
@@ -1034,8 +1034,8 @@ packages:
       react-router: ^7.1.5
       vite: ^6.1.0
 
-  '@resolid/utils@0.3.0':
-    resolution: {integrity: sha512-b1HdU4fHimBCry73dCXyRt1WRdXegjw4GBPzdC/MOYLFHoHTqkqNv77xvEd0kExDPC6s7or3xKGQr77uoUNoQg==}
+  '@resolid/utils@0.3.1':
+    resolution: {integrity: sha512-DV1zhGsu1bwyIHAfAz71tB7j8UMU2deIYkIAYclN/IVpnoUXFkUqzd8CSVlnhSpYn3bYtS1xlLW3lxsoFPF0Vg==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       typescript: ^5.7.3
@@ -5190,7 +5190,7 @@ snapshots:
       - rollup
       - supports-color
 
-  '@resolid/utils@0.3.0(typescript@5.7.3)':
+  '@resolid/utils@0.3.1(typescript@5.7.3)':
     optionalDependencies:
       typescript: 5.7.3
 

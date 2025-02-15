@@ -1,0 +1,139 @@
+---
+title: 分页
+description: 允许用户从一系列页面中选择特定页面。
+---
+
+## 导入
+
+```js
+import { Pagination, PaginationItem } from "@resolid/react-ui";
+```
+
+- `Pagination` 分页组件
+- `PaginationItem` 分页项目
+
+## 演示
+
+```jsx demo
+import { Pagination } from "@resolid/react-ui";
+
+export default function App() {
+  return <Pagination total={512} />;
+}
+```
+
+## 举例
+
+### 颜色
+
+通过传递 `color` 属性，可以选择使用 `primary`、`secondary`、`success`、`warning`、`danger` 和 `neutral` 这些颜色。
+
+```jsx demo
+import { Pagination } from "@resolid/react-ui";
+
+export default function App() {
+  const colors = ["primary", "secondary", "success", "warning", "danger", "neutral"];
+
+  return (
+    <div className={"flex flex-col gap-3"}>
+      {colors.map((color) => (
+        <Pagination key={color} color={color} total={512} />
+      ))}
+    </div>
+  );
+}
+```
+
+### 禁用
+
+使用 `disabled` 属性禁用分页
+
+```jsx demo
+import { Pagination } from "@resolid/react-ui";
+
+export default function App() {
+  return <Pagination disabled total={512} />;
+}
+```
+
+### 显示总数
+
+使用 `renderTotal` 属性可以渲染总数
+
+```jsx demo
+import { Pagination } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <Pagination
+      total={512}
+      renderTotal={(total) => (
+        <span className={"bg-bg-subtle inline-flex h-8 items-center rounded px-2"}>
+          总计: {total}
+        </span>
+      )}
+    />
+  );
+}
+```
+
+### 相邻和边界
+
+使用 `siblings` 和 `boundaries` 属性可以设置当前页面前后和分页开头结尾显示的页数
+
+```jsx demo
+import { Pagination } from "@resolid/react-ui";
+
+export default function App() {
+  return <Pagination siblings={1} boundaries={1} defaultPage={6} total={512} />;
+}
+```
+
+### 自定义项目
+
+使用 `renderItem` 属性配合 `PaginationItem` 组件可以渲染分页项目
+
+```jsx demo
+import { Pagination, PaginationItem } from "@resolid/react-ui";
+import { Link, useSearchParams } from "react-router";
+import { SpriteIcon } from "~/components/sprite-icon";
+
+export default function App() {
+  const [searchParams] = useSearchParams();
+
+  return (
+    <Pagination
+      total={512}
+      defaultPage={searchParams.get("page")}
+      renderItem={(itemProps) => (
+        <PaginationItem
+          {...itemProps}
+          render={(props) => (
+            <Link to={{ search: `page=${itemProps.page}`, hash: "自定义项目" }} {...props}>
+              {itemProps.pageType.includes("ellipsis") ? (
+                "..."
+              ) : itemProps.pageType === "previous" ? (
+                <SpriteIcon size={"1rem"} name={"angle-left"} />
+              ) : itemProps.pageType === "next" ? (
+                <SpriteIcon size={"1rem"} name={"angle-right"} />
+              ) : (
+                itemProps.page
+              )}
+            </Link>
+          )}
+        />
+      )}
+    />
+  );
+}
+```
+
+## 属性
+
+### Pagination
+
+::PropsTable{file=pagination/pagination.tsx}
+
+### PaginationItem
+
+::PropsTable{file=pagination/pagination-item.tsx}
