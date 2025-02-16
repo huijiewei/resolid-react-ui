@@ -17,7 +17,7 @@ import {
   TooltipTrigger,
   tx,
 } from "@resolid/react-ui";
-import { isBoolean, isNumber, isString, startsWith } from "@resolid/utils";
+import { startsWith } from "@resolid/utils";
 import { type ComponentProps, type ReactNode, useRef, useState } from "react";
 import { Outlet } from "react-router";
 import { ClipboardButton } from "~/components/clipboard-button";
@@ -306,7 +306,7 @@ const mdxComponents = {
 
               return (
                 <div className={"flex items-center justify-between gap-5"} key={propInputId}>
-                  {isBoolean(prop.control) && (
+                  {prop.control == "boolean" && (
                     <Switch
                       size={"sm"}
                       checked={Boolean(state[prop.name])}
@@ -317,7 +317,7 @@ const mdxComponents = {
                       {prop.description}
                     </Switch>
                   )}
-                  {isString(prop.control) && (
+                  {prop.control == "string" && (
                     <>
                       <label htmlFor={propInputId}>{prop.description}</label>
                       <Input
@@ -332,7 +332,7 @@ const mdxComponents = {
                       />
                     </>
                   )}
-                  {isNumber(prop.control) && (
+                  {prop.control == "number" && (
                     <>
                       <label htmlFor={propInputId}>{prop.description}</label>
                       <NumberInput
