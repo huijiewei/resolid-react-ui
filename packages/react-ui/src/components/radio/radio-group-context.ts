@@ -1,4 +1,3 @@
-import type { ChangeEvent } from "react";
 import { createSafeContext } from "../../primitives";
 import type { BinarySize, ToggleColor } from "../../shared/styles";
 
@@ -20,18 +19,6 @@ export type RadioBaseProps = {
    * @default false
    */
   disabled?: boolean;
-
-  /**
-   * 是否必选
-   * @default false
-   */
-  required?: boolean;
-
-  /**
-   * 是否只读
-   * @default false
-   */
-  readOnly?: boolean;
 };
 
 export type RadioGroupBaseProps = RadioBaseProps & {
@@ -41,13 +28,31 @@ export type RadioGroupBaseProps = RadioBaseProps & {
   name?: string;
 
   /**
+   * 是否只读
+   * @default false
+   */
+  readOnly?: boolean;
+
+  /**
+   * 是否必选
+   * @default false
+   */
+  required?: boolean;
+
+  /**
+   * 是否无效
+   * @default false
+   */
+  invalid?: boolean;
+
+  /**
    * 值
    */
   value?: string | number;
 };
 
 export type RadioGroupContextValue = RadioGroupBaseProps & {
-  onChange: (event: ChangeEvent<HTMLInputElement> | string | number) => void;
+  onChange: (value: string | number) => void;
 };
 
 export const [RadioGroupContext, useRadioGroup] = createSafeContext<RadioGroupContextValue>({

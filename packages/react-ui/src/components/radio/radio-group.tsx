@@ -1,8 +1,7 @@
-import type { ChangeEvent } from "react";
 import { useControllableState } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import type { Orientation } from "../../shared/types";
-import { isInputEvent } from "../../utils";
+import { ariaAttr } from "../../utils";
 import { type RadioGroupBaseProps, RadioGroupContext } from "./radio-group-context";
 
 export type RadioGroupProps = RadioGroupBaseProps & {
@@ -30,6 +29,7 @@ export const RadioGroup = (props: PrimitiveProps<"div", RadioGroupProps, "role">
     disabled = false,
     required = false,
     readOnly = false,
+    invalid = false,
     orientation = "horizontal",
     name,
     value,
@@ -45,10 +45,12 @@ export const RadioGroup = (props: PrimitiveProps<"div", RadioGroupProps, "role">
     onChange,
   });
 
-  const handleChange = (eventOrValue: ChangeEvent<HTMLInputElement> | string | number) => {
-    const nextValue = isInputEvent(eventOrValue) ? eventOrValue.target.value : eventOrValue;
+  const handleChange = (value: string | number) => {
+    if (disabled || readOnly) {
+      return;
+    }
 
-    setValueState(nextValue);
+    setValueState(value);
   };
 
   const groupContext = {
@@ -58,12 +60,13 @@ export const RadioGroup = (props: PrimitiveProps<"div", RadioGroupProps, "role">
     disabled,
     required,
     readOnly,
+    invalid,
     value: valueState,
     onChange: handleChange,
   };
 
   return (
-    <div role={"radiogroup"} aria-orientation={orientation} {...rest}>
+    <div role={"radiogroup"} aria-invalid={ariaAttr(invalid)} aria-orientation={orientation} {...rest}>
       <RadioGroupContext value={groupContext}>{children}</RadioGroupContext>
     </div>
   );

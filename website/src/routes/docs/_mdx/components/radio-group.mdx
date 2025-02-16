@@ -1,27 +1,34 @@
 ---
-title: 单选框
+title: 单选框组
 description: 在一组相关且互斥数据中，用户仅能选择一个选项。
 ---
 
 ## 导入
 
 ```js
-import { Radio, RadioGroup } from "@resolid/react-ui";
+import { RadioGroup, Radio } from "@resolid/react-ui";
 ```
 
-## 用法
+- `RadioGroup`: 单选框组
+- `Radio`: 单选框，必须在 `RadioGroup` 内部使用
 
-:::UsageBlock{file=radio/radio.tsx ignores=value,spacing,checked,defaultChecked}
+## 演示
 
-import { Radio } from "@resolid/react-ui";
+```jsx demo
+import { Radio, RadioGroup } from "@resolid/react-ui";
 
-export default function Usage(props) {
-  return <Radio {...props}>单选框</Radio>;
+export default function App() {
+  return (
+    <RadioGroup name={"frameworksRadioGroup"} className={"flex flex-row items-center gap-5"}>
+      <Radio value={"React"}>React</Radio>
+      <Radio value={"Angular"}>Angular</Radio>
+      <Radio value={"Vue"}>Vue</Radio>
+      <Radio value={"SolidJS"}>SolidJS</Radio>
+      <Radio value={"Svelte"}>Svelte</Radio>
+    </RadioGroup>
+  );
 }
-
-:::
-
->
+```
 
 ## 举例
 
@@ -58,7 +65,7 @@ export default function App() {
 
 ### 大小
 
-通过传递 `size` 属性来更改单选框的大小。单选框支持 `xs`、`sm`、`md`、`lg` 和 `xl` 这些大小。
+通过传递 `size` 属性来更改单选框的大小，单选框支持 `xs`、`sm`、`md`、`lg` 和 `xl` 这些大小。
 
 ```jsx demo
 import { Radio, RadioGroup } from "@resolid/react-ui";
@@ -90,7 +97,7 @@ export default function App() {
 
 ### 颜色
 
-通过传递 `color` 属性来更改单选框的颜色。单选框支持 `primary`、`secondary`、`success`、`warning`、`danger` 和 `neutral` 这些颜色。
+通过传递 `color` 属性来更改单选框的颜色，单选框支持 `primary`、`secondary`、`success`、`warning`、`danger` 和 `neutral` 这些颜色。
 
 ```jsx demo
 import { Radio, RadioGroup } from "@resolid/react-ui";
@@ -123,25 +130,6 @@ export default function App() {
     </RadioGroup>
   );
 }
-```
-
-### 注意事项
-
-我们建议把名字道具传给 `RadioGroup` 组件，而不是传给每个 `Radio` 组件。默认情况下，`RadioGroup` 的名称道具是优先的。
-
-```jsx
-// 应该这样做 ✅
-<RadioGroup name="form-name">
-  <Radio value={1}>Radio 1</Radio>
-  <Radio value={2}>Radio 2</Radio>
-</RadioGroup>
-
-
-// 不要这样做 ❌
-<RadioGroup >
-  <Radio name="form-name">Radio 1</Radio>
-  <Radio name="form-name">Radio 2</Radio>
-</RadioGroup>
 ```
 
 ## 属性

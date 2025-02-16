@@ -163,8 +163,8 @@ const menus: Menu[] = [
         path: "components/checkbox",
       },
       {
-        label: "单选框",
-        path: "components/radio",
+        label: "单选框组",
+        path: "components/radio-group",
       },
       {
         label: "开关",
