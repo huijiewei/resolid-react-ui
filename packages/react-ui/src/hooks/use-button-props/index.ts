@@ -64,8 +64,8 @@ export const useButtonProps = <T extends HTMLElement>(options: UseButtonPropsOpt
         }
 
         if (e.target === e.currentTarget && !isNativeButton && !isNativeLink && e.key === "Enter" && !disabled) {
-          onClick?.(e as unknown as MouseEvent<T>);
           e.preventDefault();
+          onClick?.(e as unknown as MouseEvent<T>);
         }
       },
       onKeyUp: (e: KeyboardEvent<T>) => {

@@ -1,6 +1,6 @@
 import type { PrimitiveProps } from "../../primitives";
 import { AngleDownIcon } from "../../shared/icons";
-import { disabledShareStyles, inputTextShareStyles } from "../../shared/styles";
+import { inputTextShareStyles } from "../../shared/styles";
 import { tx } from "../../utils";
 import { type SelectSize, selectSizeStyles } from "./select.styles";
 
@@ -40,7 +40,7 @@ export const NativeSelect = (props: PrimitiveProps<"select", NativeSelectProps>)
           "focus:border-bg-primary-emphasis focus:outline-bg-primary-emphasis/70",
           invalid ? "border-bd-invalid" : "border-bd-normal",
           !invalid && !disabled && "not-focus:hover:border-bd-hovered",
-          disabled && disabledShareStyles,
+          disabled && "opacity-60",
           sizeStyle.select,
           className,
         )}

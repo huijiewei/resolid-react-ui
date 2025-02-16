@@ -8,7 +8,7 @@ type PopperTriggerProps = { active?: boolean };
 type PopperTriggerHtmlProps = HtmlProps<"button", PopperTriggerProps>;
 
 export const PopperTrigger = (props: PolymorphicProps<PopperTriggerHtmlProps, PopperTriggerProps, "type">) => {
-  const { render, active, children, ref, ...rest } = props;
+  const { render, active, disabled, children, ref, ...rest } = props;
 
   const { open, setReference, getReferenceProps } = usePopperReference();
 
@@ -19,6 +19,7 @@ export const PopperTrigger = (props: PolymorphicProps<PopperTriggerHtmlProps, Po
       as={"button"}
       render={render}
       ref={refs}
+      disabled={disabled}
       data-active={dataAttr(active && open)}
       type={render ? undefined : "button"}
       {...getReferenceProps({

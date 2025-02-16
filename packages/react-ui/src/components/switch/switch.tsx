@@ -133,7 +133,6 @@ export const Switch = (props: PrimitiveProps<"input", SwitchProps, "role" | "typ
         className={tx(
           "inline-flex shrink-0 justify-start rounded-full border-2",
           toggleControlShareStyles,
-          !disabled && !readOnly && "cursor-pointer",
           colorStyle.focus,
           sizeStyle.track,
           checkedState ? colorStyle.checked : "bg-bg-muted",

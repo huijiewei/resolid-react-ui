@@ -1,6 +1,6 @@
+import type { MouseEvent } from "react";
 import { type HtmlProps, Polymorphic, type PolymorphicProps } from "../../primitives";
 import { AngleLeftIcon, AngleRightIcon } from "../../shared/icons";
-import { disabledShareStyles } from "../../shared/styles";
 import { ariaAttr, tx } from "../../utils";
 import { type Color, currentPageColorStyles } from "./pagination.styles";
 import type { PageType } from "./use-pagination";
@@ -23,6 +23,16 @@ export const PaginationItem = (props: PolymorphicProps<PaginationItemHtmlProps, 
   const current = pageType == "page" && page == currentPage;
   const currentStyle = currentPageColorStyles[color];
 
+  const handleClick = (e: MouseEvent) => {
+    e.stopPropagation();
+
+    if (disabled) {
+      return;
+    }
+
+    setCurrentPage(page);
+  };
+
   return (
     <Polymorphic<PaginationItemHtmlProps>
       as={"button"}
@@ -34,10 +44,10 @@ export const PaginationItem = (props: PolymorphicProps<PaginationItemHtmlProps, 
       className={tx(
         "inline-flex h-8 min-w-8 select-none appearance-none items-center justify-center rounded-md px-2",
         current ? ["text-fg-emphasized", currentStyle] : "bg-bg-subtle",
-        disabled ? disabledShareStyles : !current && "hover:bg-bg-muted cursor-pointer",
+        disabled ? "opacity-60" : !current && "hover:bg-bg-muted cursor-pointer",
         className,
       )}
-      onClick={() => setCurrentPage(page)}
+      onClick={handleClick}
       {...rest}
     >
       {children ? (

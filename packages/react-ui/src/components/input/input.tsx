@@ -1,7 +1,7 @@
 import { type ChangeEvent, type CSSProperties, type HTMLInputTypeAttribute, type ReactNode, useRef } from "react";
 import { useControllableState, useMergeRefs } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
-import { disabledShareStyles, inputTextShareStyles } from "../../shared/styles";
+import { inputTextShareStyles } from "../../shared/styles";
 import { tx } from "../../utils";
 import { InputAffix } from "./input-affix";
 import { type InputGroupContextValue, useInputGroup } from "./input-group-context";
@@ -159,7 +159,7 @@ export const Input = (props: PrimitiveProps<"input", InputProps, "children">) =>
         group && [inputGroupStyles, "focus-within:z-1"],
         invalid ? "border-bd-invalid" : "border-bd-normal",
         !disabled && !invalid && "not-focus-within:hover:border-bd-hovered",
-        disabled && disabledShareStyles,
+        disabled && "opacity-60",
         className,
       )}
       style={

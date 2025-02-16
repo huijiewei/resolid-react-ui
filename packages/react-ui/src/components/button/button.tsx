@@ -92,13 +92,12 @@ export const Button = (props: PolymorphicProps<ButtonHtmlProps, ButtonProps>) =>
       ref={refs}
       className={tx(
         buttonStyles({ variant, color, size, disabled: disabledStatus, fullWidth, iconOnly }),
-        group &&
-          tx(
-            "not-last:not-first:rounded-none focus-visible:z-1",
-            group.orientation == "horizontal"
-              ? "not-only:first:rounded-e-none not-only:last:rounded-s-none not-first:-ms-px"
-              : "not-only:first:rounded-b-none not-only:last:rounded-t-none not-first:-mt-px",
-          ),
+        group && [
+          "not-last:not-first:rounded-none focus-visible:z-1",
+          group.orientation == "horizontal"
+            ? "not-only:first:rounded-e-none not-only:last:rounded-s-none not-first:-ms-px"
+            : "not-only:first:rounded-b-none not-only:last:rounded-t-none not-first:-mt-px",
+        ],
         className,
       )}
       data-active={dataAttr(active)}

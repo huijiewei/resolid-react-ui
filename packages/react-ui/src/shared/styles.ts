@@ -1,7 +1,5 @@
 import { tv } from "../utils";
 
-export const disabledShareStyles = "opacity-60 pointer-events-none";
-
 export const inputTextShareStyles = {
   xs: "text-xs",
   sm: "text-sm",

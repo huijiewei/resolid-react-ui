@@ -84,33 +84,8 @@ const menus: Menu[] = [
         path: "components/icon",
       },
       {
-        label: "图片",
-        path: "components/image",
-      },
-      {
         label: "排版",
         path: "components/typography",
-      },
-    ],
-  },
-  {
-    label: "布局",
-    children: [
-      {
-        label: "布局",
-        path: "components/layout",
-      },
-      {
-        label: "弹性布局",
-        path: "components/flex",
-      },
-      {
-        label: "网格",
-        path: "components/grid",
-      },
-      {
-        label: "表格",
-        path: "components/table",
       },
       {
         label: "分割线",
