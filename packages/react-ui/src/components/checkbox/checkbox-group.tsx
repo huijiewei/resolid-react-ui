@@ -42,18 +42,18 @@ export const CheckboxGroup = (props: PrimitiveProps<"div", CheckboxGroupProps, "
 
     const inputEvent = isInputEvent(eventOrValue);
 
-    const isChecked = inputEvent ? eventOrValue.target.checked : !valueState.includes(eventOrValue);
+    const checked = inputEvent ? eventOrValue.target.checked : !valueState.includes(eventOrValue);
 
     const selectedValue = inputEvent ? eventOrValue.target.value : eventOrValue;
 
-    const nextValue = isChecked
+    const nextValue = checked
       ? [...valueState, selectedValue]
       : valueState.filter((v) => String(v) !== String(selectedValue));
 
     setValueState(nextValue);
   };
 
-  const group = {
+  const context = {
     name,
     size,
     color,
@@ -64,7 +64,7 @@ export const CheckboxGroup = (props: PrimitiveProps<"div", CheckboxGroupProps, "
 
   return (
     <div role={"group"} {...rest}>
-      <CheckboxGroupContext value={group}>{children}</CheckboxGroupContext>
+      <CheckboxGroupContext value={context}>{children}</CheckboxGroupContext>
     </div>
   );
 };

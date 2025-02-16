@@ -2,7 +2,6 @@ import type { ChangeEvent, CSSProperties } from "react";
 import { useControllableState } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import {
-  disabledShareStyles,
   inputTextShareStyles,
   type ToggleColor,
   toggleColorShareStyles,
@@ -85,7 +84,6 @@ export const Switch = (props: PrimitiveProps<"input", SwitchProps, "role" | "typ
     value,
     children,
     className,
-    ref,
     ...rest
   } = props;
 
@@ -95,13 +93,14 @@ export const Switch = (props: PrimitiveProps<"input", SwitchProps, "role" | "typ
     onChange,
   });
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (readOnly || disabled) {
-      event.preventDefault();
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation();
+
+    if (disabled || readOnly) {
       return;
     }
 
-    setCheckedState(event.target.checked);
+    setCheckedState(e.target.checked);
   };
 
   const sizeStyle = switchSizeStyles[size];
@@ -115,23 +114,21 @@ export const Switch = (props: PrimitiveProps<"input", SwitchProps, "role" | "typ
           "--sv": `${spacing}`,
         } as CSSProperties
       }
-      className={tx(toggleLabelShareStyles, className)}
+      className={tx(toggleLabelShareStyles, disabled && "opacity-60", className)}
     >
       <input
-        ref={ref}
         className={"peer sr-only"}
         value={value}
         type="checkbox"
+        role={"switch"}
         checked={checkedState}
         disabled={disabled}
         readOnly={readOnly}
         onChange={handleChange}
         aria-invalid={ariaAttr(invalid)}
-        role={"switch"}
         {...rest}
       />
       <span
-        aria-checked={ariaAttr(checkedState)}
         aria-hidden={true}
         className={tx(
           "inline-flex shrink-0 justify-start rounded-full border-2",
@@ -140,7 +137,6 @@ export const Switch = (props: PrimitiveProps<"input", SwitchProps, "role" | "typ
           colorStyle.focus,
           sizeStyle.track,
           checkedState ? colorStyle.checked : "bg-bg-muted",
-          disabled && disabledShareStyles,
           invalid ? "border-bg-danger-emphasis/70" : "border-transparent",
         )}
       >
@@ -151,7 +147,7 @@ export const Switch = (props: PrimitiveProps<"input", SwitchProps, "role" | "typ
           )}
         />
       </span>
-      {children && <div className={tx("select-none", labelSizeStyle, disabled && disabledShareStyles)}>{children}</div>}
+      {children && <div className={tx("select-none", labelSizeStyle)}>{children}</div>}
     </label>
   );
 };

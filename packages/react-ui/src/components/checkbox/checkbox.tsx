@@ -5,7 +5,6 @@ import { CheckedIcon, IndeterminateIcon } from "../../shared/icons";
 import {
   binaryColorShareStyles,
   binarySizeShareStyles,
-  disabledShareStyles,
   inputTextShareStyles,
   toggleControlShareStyles,
   toggleLabelShareStyles,
@@ -86,14 +85,15 @@ export const Checkbox = (props: PrimitiveProps<"input", CheckboxProps, "role" | 
     onChange,
   });
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.defaultPrevented || disabled || readOnly) {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation();
+
+    if (disabled || readOnly) {
       return;
     }
 
-    setCheckedState(indeterminate ? true : event.target.checked);
-
-    group?.onChange(event);
+    setCheckedState(indeterminate ? true : e.target.checked);
+    group?.onChange(e);
   };
 
   useIsomorphicEffect(() => {
@@ -103,14 +103,10 @@ export const Checkbox = (props: PrimitiveProps<"input", CheckboxProps, "role" | 
   }, [indeterminate]);
 
   useIsomorphicEffect(() => {
-    if (!inputRef.current) {
-      return;
-    }
-
-    const notInSync = inputRef.current.checked !== checkedState;
-
-    if (notInSync) {
-      setCheckedState(inputRef.current.checked);
+    if (inputRef.current) {
+      if (checkedState != inputRef.current.checked) {
+        setCheckedState(inputRef.current.checked);
+      }
     }
   }, [setCheckedState, checkedState]);
 
@@ -128,7 +124,7 @@ export const Checkbox = (props: PrimitiveProps<"input", CheckboxProps, "role" | 
           ...style,
         } as CSSProperties
       }
-      className={tx(toggleLabelShareStyles, className)}
+      className={tx(toggleLabelShareStyles, disabled && "opacity-60", className)}
     >
       <input
         ref={refs}
@@ -140,28 +136,25 @@ export const Checkbox = (props: PrimitiveProps<"input", CheckboxProps, "role" | 
         disabled={disabled}
         required={required}
         readOnly={readOnly}
+        aria-invalid={ariaAttr(invalid)}
         onChange={handleChange}
         {...rest}
       />
       <span
-        role={"checkbox"}
-        aria-checked={ariaAttr(checkedState)}
         aria-hidden={true}
         className={tx(
           "items-center justify-center rounded-md",
           toggleControlShareStyles,
-          !disabled && !readOnly && "cursor-pointer",
           colorStyle.focus,
           invalid ? "border-bd-invalid" : checkedState || indeterminate ? colorStyle.border : "border-bd-normal",
           checkedState || indeterminate ? ["text-fg-emphasized", colorStyle.checked] : "bg-bg-normal",
           sizeStyle,
-          disabled && disabledShareStyles,
         )}
       >
         {checkedState && !indeterminate && <CheckedIcon size={"80%"} />}
         {indeterminate && <IndeterminateIcon size={"80%"} />}
       </span>
-      {children && <div className={tx("select-none", labelSizeStyle, disabled && disabledShareStyles)}>{children}</div>}
+      {children && <div className={tx("select-none", labelSizeStyle)}>{children}</div>}
     </label>
   );
 };
