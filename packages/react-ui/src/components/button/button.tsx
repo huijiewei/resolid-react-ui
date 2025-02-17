@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import { useButtonProps, useMergeRefs } from "../../hooks";
-import { type HtmlProps, Polymorphic, type PolymorphicProps } from "../../primitives";
+import { useButtonProps } from "../../hooks";
+import { Polymorphic, type PolymorphicProps } from "../../primitives";
 import { dataAttr, tx } from "../../utils";
 import { type ButtonBaseProps, useButtonGroup } from "./button-group-context";
 import { ButtonSpinner } from "./button-spinner";
@@ -49,9 +49,7 @@ export type ButtonProps = ButtonBaseProps & {
   spinnerPlacement?: "start" | "end";
 };
 
-type ButtonHtmlProps = HtmlProps<"button", ButtonProps, "role">;
-
-export const Button = (props: PolymorphicProps<ButtonHtmlProps, ButtonProps>) => {
+export const Button = (props: PolymorphicProps<"button", ButtonProps, "role">) => {
   const group = useButtonGroup(true);
 
   const {
@@ -71,25 +69,24 @@ export const Button = (props: PolymorphicProps<ButtonHtmlProps, ButtonProps>) =>
     tabIndex,
     className,
     children,
-    ref,
     ...rest
   } = props;
 
   const disabledStatus = disabled || loading;
 
-  const { getButtonProps, buttonRef } = useButtonProps<HTMLButtonElement>({
+  const buttonProps = useButtonProps({
+    hasRender: !!render,
     type,
     tabIndex,
     disabled: disabledStatus,
   });
 
-  const refs = useMergeRefs(ref, buttonRef);
-
   return (
-    <Polymorphic<ButtonHtmlProps>
+    <Polymorphic<"button">
       as={"button"}
       render={render}
-      ref={refs}
+      {...buttonProps}
+      data-active={dataAttr(active)}
       className={tx(
         buttonStyles({ variant, color, size, disabled: disabledStatus, fullWidth, iconOnly }),
         group && [
@@ -100,8 +97,7 @@ export const Button = (props: PolymorphicProps<ButtonHtmlProps, ButtonProps>) =>
         ],
         className,
       )}
-      data-active={dataAttr(active)}
-      {...getButtonProps(rest)}
+      {...rest}
     >
       {loading ? (
         <span

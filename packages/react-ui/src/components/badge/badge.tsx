@@ -1,4 +1,4 @@
-import { type HtmlProps, Polymorphic, type PolymorphicProps } from "../../primitives";
+import { Polymorphic, type PolymorphicProps } from "../../primitives";
 import { tx } from "../../utils";
 import { type BadgeStyleProps, badgeStyles } from "./badge.styles";
 
@@ -16,13 +16,11 @@ export type BadgeProps = {
   color?: BadgeStyleProps["color"];
 };
 
-type BadgeHtmlProps = HtmlProps<"span", BadgeProps>;
-
-export const Badge = (props: PolymorphicProps<BadgeHtmlProps, BadgeProps>) => {
+export const Badge = (props: PolymorphicProps<"span", BadgeProps>) => {
   const { render, color = "primary", variant = "solid", className, children, ...rest } = props;
 
   return (
-    <Polymorphic<BadgeHtmlProps>
+    <Polymorphic<"span">
       as={"span"}
       render={render}
       className={tx(badgeStyles({ color, variant }), className)}

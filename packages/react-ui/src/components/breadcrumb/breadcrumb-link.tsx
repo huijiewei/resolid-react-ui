@@ -1,4 +1,4 @@
-import { type HtmlProps, Polymorphic, type PolymorphicProps } from "../../primitives";
+import { Polymorphic, type PolymorphicProps } from "../../primitives";
 import { tx } from "../../utils";
 
 export type BreadcrumbLinkProps = {
@@ -8,9 +8,7 @@ export type BreadcrumbLinkProps = {
   current?: boolean;
 };
 
-type BreadcrumbLinkHtmlProps = HtmlProps<"a", BreadcrumbLinkProps>;
-
-export const BreadcrumbLink = (props: PolymorphicProps<BreadcrumbLinkHtmlProps, BreadcrumbLinkProps>) => {
+export const BreadcrumbLink = (props: PolymorphicProps<"a", BreadcrumbLinkProps>) => {
   const { render, children, className, href, current, ...rest } = props;
 
   if (current) {
@@ -22,7 +20,7 @@ export const BreadcrumbLink = (props: PolymorphicProps<BreadcrumbLinkHtmlProps, 
   }
 
   return (
-    <Polymorphic<BreadcrumbLinkHtmlProps>
+    <Polymorphic<"a">
       as={"a"}
       render={render}
       href={href}

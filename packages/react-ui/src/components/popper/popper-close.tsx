@@ -1,11 +1,10 @@
 import type { MouseEvent } from "react";
-import { type EmptyObject, type HtmlProps, Polymorphic, type PolymorphicProps } from "../../primitives";
+import { useButtonProps } from "../../hooks";
+import { type EmptyObject, Polymorphic, type PolymorphicProps } from "../../primitives";
 import { usePopperDispatch } from "./popper-dispatch-context";
 
-type PopperCloseHtmlProps = HtmlProps<"button">;
-
-export const PopperClose = (props: PolymorphicProps<PopperCloseHtmlProps, EmptyObject, "type">) => {
-  const { render, children, onClick, ...rest } = props;
+export const PopperClose = (props: PolymorphicProps<"button", EmptyObject, "type">) => {
+  const { render, children, tabIndex, disabled = false, onClick, ...rest } = props;
 
   const { handleClose } = usePopperDispatch();
 
@@ -15,8 +14,14 @@ export const PopperClose = (props: PolymorphicProps<PopperCloseHtmlProps, EmptyO
     handleClose();
   };
 
+  const buttonProps = useButtonProps({
+    hasRender: !!render,
+    tabIndex,
+    disabled,
+  });
+
   return (
-    <Polymorphic<PopperCloseHtmlProps> as={"button"} render={render} type="button" onClick={handleClick} {...rest}>
+    <Polymorphic<"button"> as={"button"} render={render} {...buttonProps} onClick={handleClick} {...rest}>
       {children}
     </Polymorphic>
   );

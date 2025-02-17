@@ -1,23 +1,26 @@
-import { type EmptyObject, type HtmlProps, Polymorphic, type PolymorphicProps } from "../../primitives";
+import { useButtonProps } from "../../hooks";
+import { type EmptyObject, Polymorphic, type PolymorphicProps } from "../../primitives";
 import { ariaAttr } from "../../utils";
 import { useCollapsibleTrigger } from "./collapsible-context";
 
-type CollapsibleTriggerHtmlProps = HtmlProps<"button">;
-
-export const CollapsibleTrigger = (props: PolymorphicProps<CollapsibleTriggerHtmlProps, EmptyObject, "type">) => {
-  const { render, children, ...rest } = props;
+export const CollapsibleTrigger = (props: PolymorphicProps<"button", EmptyObject, "type" | "disabled">) => {
+  const { render, tabIndex, children, ...rest } = props;
 
   const { id, open, disabled, toggle } = useCollapsibleTrigger();
 
+  const buttonProps = useButtonProps({
+    hasRender: !!render,
+    tabIndex,
+    disabled,
+  });
+
   return (
-    <Polymorphic<CollapsibleTriggerHtmlProps>
+    <Polymorphic<"button">
       as={"button"}
       render={render}
-      disabled={disabled}
-      aria-disabled={ariaAttr(disabled)}
+      {...buttonProps}
       aria-expanded={ariaAttr(open)}
       aria-controls={id}
-      type={render ? undefined : "button"}
       onClick={() => {
         toggle();
       }}

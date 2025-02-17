@@ -35,23 +35,6 @@ describe("Button", () => {
     expect(button).not.toHaveAttribute("role", "button");
   });
 
-  test("should not have attribute 'role=button' when it's an 'a' tag with 'href'", () => {
-    const { getByTestId } = render(
-      <Button
-        data-testid="button"
-        render={(props) => (
-          <a href="https://ui.resolid.tech" {...props}>
-            Button
-          </a>
-        )}
-      />,
-    );
-
-    const button = getByTestId("button");
-
-    expect(button).not.toHaveAttribute("role", "button");
-  });
-
   test("should have attribute 'role=button' when it's not a native button", () => {
     const { getByTestId } = render(
       <Button data-testid="button" render={(props) => <div {...props} />}>
@@ -82,23 +65,6 @@ describe("Button", () => {
     const button = getByTestId("button");
 
     expect(button).toHaveAttribute("tabindex", "0");
-  });
-
-  test("should not have attribute 'tabindex=0' when it's an 'a' tag with 'href'", () => {
-    const { getByTestId } = render(
-      <Button
-        data-testid="button"
-        render={(props) => (
-          <a href="https://ui.resolid.tech" {...props}>
-            Button
-          </a>
-        )}
-      />,
-    );
-
-    const button = getByTestId("button");
-
-    expect(button).not.toHaveAttribute("tabindex", "0");
   });
 
   test("should not have attribute 'tabindex=0' when it's disabled", () => {

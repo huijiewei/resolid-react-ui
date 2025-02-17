@@ -1,7 +1,7 @@
 import { useListItem } from "@floating-ui/react";
 import { isString } from "@resolid/utils";
 import { useMergeRefs } from "../../hooks";
-import { type HtmlProps, Polymorphic, type PolymorphicProps } from "../../primitives";
+import { Polymorphic, type PolymorphicProps } from "../../primitives";
 import { ariaAttr, dataAttr, tx } from "../../utils";
 import { useMenuItem } from "./menu-item-context";
 
@@ -18,9 +18,7 @@ export type MenuBaseItemProps = {
   disabled?: boolean;
 };
 
-type MenuBaseItemHtmlProps = HtmlProps<"div", MenuBaseItemProps>;
-
-export const MenuBaseItem = (props: PolymorphicProps<MenuBaseItemHtmlProps, MenuBaseItemProps, "tabIndex">) => {
+export const MenuBaseItem = (props: PolymorphicProps<"div", MenuBaseItemProps, "tabIndex">) => {
   const { render, className, ref, children, label, role, disabled = false, ...rest } = props;
 
   const { getItemProps, activeIndex } = useMenuItem();
@@ -31,7 +29,7 @@ export const MenuBaseItem = (props: PolymorphicProps<MenuBaseItemHtmlProps, Menu
   const refs = useMergeRefs(ref, itemRef);
 
   return (
-    <Polymorphic<MenuBaseItemHtmlProps>
+    <Polymorphic<"div">
       as={"div"}
       render={render}
       ref={refs}

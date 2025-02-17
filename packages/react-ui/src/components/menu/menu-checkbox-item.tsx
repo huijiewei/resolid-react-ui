@@ -1,4 +1,4 @@
-import type { HtmlProps, PolymorphicProps } from "../../primitives";
+import type { PolymorphicProps } from "../../primitives";
 import { ariaAttr, tx } from "../../utils";
 import { MenuItem, type MenuItemProps } from "./menu-item";
 import { type CheckedState, MenuItemIndicatorContext } from "./menu-item-indicator-context";
@@ -15,9 +15,7 @@ export type MenuCheckboxItemProps = MenuItemProps & {
   onChange?: (checked: CheckedState) => void;
 };
 
-type MenuCheckboxItemHtmlProps = HtmlProps<"div", MenuCheckboxItemProps, "role" | "tabIndex">;
-
-export const MenuCheckboxItem = (props: PolymorphicProps<MenuCheckboxItemHtmlProps, MenuCheckboxItemProps>) => {
+export const MenuCheckboxItem = (props: PolymorphicProps<"div", MenuCheckboxItemProps, "role" | "tabIndex">) => {
   const { checked = false, className, onChange, onSelect, children, ...rest } = props;
 
   return (

@@ -1,6 +1,6 @@
 import type { ComponentProps } from "react";
 import { useMergeRefs } from "../../hooks";
-import type { HtmlProps, PolymorphicProps } from "../../primitives";
+import type { PolymorphicProps } from "../../primitives";
 import { AngleRightIcon } from "../../shared/icons";
 import { dataAttr, tx } from "../../utils";
 import { usePopperReference } from "../popper/popper-reference-context";
@@ -9,9 +9,7 @@ import { useMenuHover } from "./menu-hover-context";
 
 export type MenuSubTriggerProps = MenuBaseItemProps;
 
-type MenuSubTriggerHtmlProps = HtmlProps<"div", MenuSubTriggerProps, "tabIndex">;
-
-export const MenuSubTrigger = (props: PolymorphicProps<MenuSubTriggerHtmlProps, MenuSubTriggerProps, "role">) => {
+export const MenuSubTrigger = (props: PolymorphicProps<"div", MenuSubTriggerProps, "role" | "tabIndex">) => {
   const { render, children, ref, className, disabled, ...rest } = props;
 
   const { open, setReference, getReferenceProps } = usePopperReference();

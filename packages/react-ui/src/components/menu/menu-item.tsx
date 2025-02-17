@@ -1,5 +1,5 @@
 import type { KeyboardEvent, MouseEvent } from "react";
-import type { HtmlProps, PolymorphicProps } from "../../primitives";
+import type { PolymorphicProps } from "../../primitives";
 import { MenuBaseItem, type MenuBaseItemProps } from "./menu-base-item";
 import { useMenuItem } from "./menu-item-context";
 
@@ -15,9 +15,7 @@ export type MenuItemProps = MenuBaseItemProps & {
   onSelect?: () => void;
 };
 
-type MenuItemHtmlProps = HtmlProps<"div", MenuItemProps, "tabIndex">;
-
-export const MenuItem = (props: PolymorphicProps<MenuItemHtmlProps, MenuItemProps>) => {
+export const MenuItem = (props: PolymorphicProps<"div", MenuItemProps, "tabIndex">) => {
   const { menuEvents, closeOnSelect: menuCloseOnSelect, typingRef } = useMenuItem();
 
   const {

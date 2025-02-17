@@ -1,5 +1,5 @@
 import { type MouseEvent, type PointerEvent, useCallback, useEffect, useRef } from "react";
-import { type HtmlProps, Polymorphic, type PolymorphicProps } from "../../primitives";
+import { Polymorphic, type PolymorphicProps } from "../../primitives";
 import { dataAttr } from "../../utils";
 import { usePopperDispatch } from "../popper/popper-dispatch-context";
 import { usePopperReference } from "../popper/popper-reference-context";
@@ -12,9 +12,7 @@ type ContextMenuTriggerProps = {
   disabled?: boolean;
 };
 
-type ContextMenuTriggerHtmlProps = HtmlProps<"div", ContextMenuTriggerProps>;
-
-export const ContextMenuTrigger = (props: PolymorphicProps<ContextMenuTriggerHtmlProps, ContextMenuTriggerProps>) => {
+export const ContextMenuTrigger = (props: PolymorphicProps<"div", ContextMenuTriggerProps>) => {
   const {
     render,
     disabled = false,
@@ -100,7 +98,7 @@ export const ContextMenuTrigger = (props: PolymorphicProps<ContextMenuTriggerHtm
   };
 
   return (
-    <Polymorphic<ContextMenuTriggerHtmlProps>
+    <Polymorphic<"div">
       as={"div"}
       render={render}
       data-active={dataAttr(open)}

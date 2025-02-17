@@ -21,7 +21,7 @@ export default function Index() {
           variant="outline"
           size={"xl"}
           render={(props) => (
-            <a href="https://github.com/huijiewei/resolid-react-ui" target="_blank" rel="noreferrer" {...props}>
+            <a {...props} href="https://github.com/huijiewei/resolid-react-ui" target="_blank" rel="noreferrer">
               <SpriteIcon size={"1.5em"} className={"me-2"} name={"github"} />
               Github
             </a>
