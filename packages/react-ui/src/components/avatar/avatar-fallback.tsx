@@ -72,7 +72,7 @@ export const AvatarFallback = (props: PrimitiveProps<"div", AvatarFallbackProps,
       aria-label={name}
       style={{ ...style, "--cv": color ? color.color : undefined } as CSSProperties}
       className={tx(
-        "inline-flex h-full w-full items-center justify-center text-[calc(var(--sv)/3)] font-medium uppercase",
+        "inline-flex h-full w-full items-center justify-center text-[calc(var(--sv)/3)] font-medium uppercase leading-none",
         color ? ["bg-(--cv)", color.light ? "text-black" : "text-white"] : !hasChildren && "bg-bg-muted",
 
         radiusClass,

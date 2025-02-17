@@ -12,7 +12,7 @@ import {
   DropdownMenuContent,
   DropdownMenuArrow,
   DropdownMenuGroup,
-  DropdownMenuGroupLabel,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuItem,
   DropdownMenuItemIndicator,
@@ -28,7 +28,7 @@ import {
 - `DropdownMenuContent`: 打开菜单时弹出的组件。
 - `DropdownMenuArrow`: 可选的箭头元素，可与菜单内容一起渲染。
 - `DropdownMenuGroup`: 用于对多个 `DropdownMenuItem` 进行分组。
-- `DropdownMenuGroupLabel`: 用于渲染标签。使用方向键无法聚焦。
+- `DropdownMenuLabel`: 用于渲染标签。使用方向键无法聚焦。
 - `DropdownMenuSeparator`: 菜单项和组之间的可视分隔符。
 - `DropdownMenuItem`: 包含菜单项的组件。
 - `DropdownMenuRadioGroup`: 用于对多个 `DropdownMenuRadioItem` 进行分组。
@@ -174,7 +174,7 @@ import {
   DropdownMenuItem,
   DropdownMenuArrow,
   DropdownMenuGroup,
-  DropdownMenuGroupLabel,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@resolid/react-ui";
 
@@ -190,14 +190,14 @@ export default function App() {
         <DropdownMenuContent className={"text-sm"}>
           <DropdownMenuArrow />
           <DropdownMenuGroup>
-            <DropdownMenuGroupLabel>Sort</DropdownMenuGroupLabel>
+            <DropdownMenuLabel>Sort</DropdownMenuLabel>
             <DropdownMenuItem>Date</DropdownMenuItem>
             <DropdownMenuItem>Name</DropdownMenuItem>
             <DropdownMenuItem>Type</DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuGroupLabel>Workspace</DropdownMenuGroupLabel>
+            <DropdownMenuLabel>Workspace</DropdownMenuLabel>
             <DropdownMenuItem>Minimap</DropdownMenuItem>
             <DropdownMenuItem>Search</DropdownMenuItem>
             <DropdownMenuItem>Sidebar</DropdownMenuItem>
@@ -238,6 +238,14 @@ export default function App() {
             render={(props) => (
               <a target={"_blank"} rel="noreferrer" href={"https://www.github.com"} {...props}>
                 Github
+              </a>
+            )}
+          />
+          <DropdownMenuItem
+            disabled
+            render={(props) => (
+              <a target={"_blank"} rel="noreferrer" href={"https://www.github.com"} {...props}>
+                Disabled
               </a>
             )}
           />

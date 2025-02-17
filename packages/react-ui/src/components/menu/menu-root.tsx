@@ -29,6 +29,7 @@ import { PopperDispatchContext, type PopperDispatchContextValue } from "../poppe
 import { PopperFloatingContext, type PopperFloatingContextValue } from "../popper/popper-floating-context";
 import { PopperReferenceContext, type PopperReferenceContextValue } from "../popper/popper-reference-context";
 import { PopperTransitionContext, type PopperTransitionContextValue } from "../popper/popper-transtion-context";
+import { usePopperCloseComplete } from "../popper/use-popper-close-complete";
 import { MenuContext, type MenuContextValue } from "./menu-context";
 import { MenuHoverContext } from "./menu-hover-context";
 
@@ -139,6 +140,7 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
       enabled: hoverEnabled && nested,
       mouseOnly: true,
       move: false,
+      delay: 100,
       handleClose: safePolygon({ blockPointerEvents: true }),
     }),
     useClick(context, {
@@ -209,27 +211,39 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
   }, [menuEvents, handleClose]);
 
   useEffect(() => {
-    const handleMenuOpen = (event: { nodeId: string; parentId: string }) => {
-      if (event.nodeId != nodeId && event.parentId == parentId) {
-        handleClose();
+    const handleMenuOpen = (event: { open: boolean; nodeId: string; parentId: string }) => {
+      if (event.open) {
+        if (event.parentId === nodeId) {
+          setHoverEnabled(false);
+        }
+        if (event.nodeId !== nodeId && event.parentId === parentId) {
+          handleClose();
+        }
+      } else if (event.parentId === nodeId) {
+        setHoverEnabled(true);
       }
     };
 
-    menuEvents.on("menuopen", handleMenuOpen);
+    menuEvents.on("openchange", handleMenuOpen);
 
     return () => {
-      menuEvents.off("menuopen", handleMenuOpen);
+      menuEvents.off("openchange", handleMenuOpen);
     };
   }, [menuEvents, nodeId, parentId, handleClose]);
 
   useEffect(() => {
-    if (openState) {
-      menuEvents.emit("menuopen", { parentId, nodeId });
-    }
+    menuEvents.emit("openchange", { open: openState, parentId, nodeId });
   }, [menuEvents, nodeId, parentId, openState]);
 
   const { isMounted, status } = useTransitionStatus(context, {
     duration,
+  });
+
+  usePopperCloseComplete({
+    status,
+    onCloseComplete: () => {
+      setHoverEnabled(true);
+    },
   });
 
   const transitionContext: PopperTransitionContextValue = {

@@ -1,8 +1,8 @@
 import { useListItem } from "@floating-ui/react";
 import { isString } from "@resolid/utils";
-import { useButtonProps, useMergeRefs } from "../../hooks";
+import { useMergeRefs } from "../../hooks";
 import { type HtmlProps, Polymorphic, type PolymorphicProps } from "../../primitives";
-import { dataAttr, tx } from "../../utils";
+import { ariaAttr, dataAttr, tx } from "../../utils";
 import { useMenuItem } from "./menu-item-context";
 
 export type MenuBaseItemProps = {
@@ -18,36 +18,33 @@ export type MenuBaseItemProps = {
   disabled?: boolean;
 };
 
-type MenuBaseItemHtmlProps = HtmlProps<"div", MenuBaseItemProps, "tabIndex">;
+type MenuBaseItemHtmlProps = HtmlProps<"div", MenuBaseItemProps>;
 
-export const MenuBaseItem = (props: PolymorphicProps<MenuBaseItemHtmlProps, MenuBaseItemProps>) => {
-  const { render, className, ref, children, label, disabled = false, ...rest } = props;
+export const MenuBaseItem = (props: PolymorphicProps<MenuBaseItemHtmlProps, MenuBaseItemProps, "tabIndex">) => {
+  const { render, className, ref, children, label, role, disabled = false, ...rest } = props;
 
   const { getItemProps, activeIndex } = useMenuItem();
   const { ref: itemRef, index } = useListItem({ label: label ?? (isString(children) ? children : null) });
 
   const active = index !== null && index === activeIndex;
 
-  const { getButtonProps, buttonRef } = useButtonProps({
-    tabIndex: active ? 0 : -1,
-    role: "menuitem",
-    disabled,
-  });
-
-  const refs = useMergeRefs(ref, itemRef, buttonRef);
+  const refs = useMergeRefs(ref, itemRef);
 
   return (
     <Polymorphic<MenuBaseItemHtmlProps>
       as={"div"}
       render={render}
       ref={refs}
+      role={role ?? "menuitem"}
+      aria-disabled={ariaAttr(disabled)}
       data-active={dataAttr(active)}
+      tabIndex={active ? 0 : -1}
       className={tx(
-        "flex w-full select-none items-center rounded-md px-2 py-1.5 outline-none transition-colors",
+        "flex w-full select-none items-center rounded-md px-2 py-1.5 outline-none transition-colors disabled:cursor-default",
         disabled ? "text-fg-muted" : "active:bg-bg-subtle",
         className,
       )}
-      {...getItemProps(getButtonProps(rest))}
+      {...getItemProps(rest)}
     >
       {children}
     </Polymorphic>

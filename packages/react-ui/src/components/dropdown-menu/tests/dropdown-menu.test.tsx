@@ -7,8 +7,8 @@ import {
   DropdownMenuArrow,
   DropdownMenuContent,
   DropdownMenuGroup,
-  DropdownMenuGroupLabel,
   DropdownMenuItemIndicator,
+  DropdownMenuLabel,
   type DropdownMenuProps,
   DropdownMenuSeparator,
   DropdownMenuSubTrigger,
@@ -31,7 +31,7 @@ const ComponentUnderTest = (
       <DropdownMenuContent>
         <DropdownMenuArrow />
         <DropdownMenuGroup>
-          <DropdownMenuGroupLabel>Resolid UI</DropdownMenuGroupLabel>
+          <DropdownMenuLabel>Resolid UI</DropdownMenuLabel>
           <DropdownMenuItem>Button</DropdownMenuItem>
           <DropdownMenuItem disabled>Dialog</DropdownMenuItem>
         </DropdownMenuGroup>
@@ -42,7 +42,7 @@ const ComponentUnderTest = (
         </DropdownMenuCheckboxItem>
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup value="react" onChange={onValueChange}>
-          <DropdownMenuGroupLabel>JS Frameworks</DropdownMenuGroupLabel>
+          <DropdownMenuLabel>JS Frameworks</DropdownMenuLabel>
           {["react", "solid", "vue", "svelte"].map((framework) => (
             <DropdownMenuRadioItem key={framework} value={framework} disabled={framework === "svelte"}>
               <DropdownMenuItemIndicator>✅</DropdownMenuItemIndicator>

@@ -1,7 +1,7 @@
 import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
 
-export const MenuGroupLabel = (props: PrimitiveProps<"div">) => {
+export const MenuLabel = (props: PrimitiveProps<"div">) => {
   const { children, className, ...rest } = props;
 
   return (

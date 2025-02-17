@@ -1,5 +1,4 @@
-import type { KeyboardEvent } from "react";
-import type { ButtonEvent } from "../../hooks";
+import type { KeyboardEvent, MouseEvent } from "react";
 import type { HtmlProps, PolymorphicProps } from "../../primitives";
 import { MenuBaseItem, type MenuBaseItemProps } from "./menu-base-item";
 import { useMenuItem } from "./menu-item-context";
@@ -21,13 +20,23 @@ type MenuItemHtmlProps = HtmlProps<"div", MenuItemProps, "tabIndex">;
 export const MenuItem = (props: PolymorphicProps<MenuItemHtmlProps, MenuItemProps>) => {
   const { menuEvents, closeOnSelect: menuCloseOnSelect, typingRef } = useMenuItem();
 
-  const { className, children, onSelect, disabled = false, closeOnSelect = menuCloseOnSelect, ...rest } = props;
+  const {
+    className,
+    children,
+    onClick,
+    onSelect,
+    disabled = false,
+    closeOnSelect = menuCloseOnSelect,
+    ...rest
+  } = props;
 
-  const handleClick = () => {
+  const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     if (disabled) {
+      e.preventDefault();
       return;
     }
 
+    onClick?.(e);
     onSelect?.();
 
     if (closeOnSelect) {
@@ -35,14 +44,31 @@ export const MenuItem = (props: PolymorphicProps<MenuItemHtmlProps, MenuItemProp
     }
   };
 
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.target === e.currentTarget && e.key === " ") {
+      e.preventDefault();
+    }
+
+    if (e.target === e.currentTarget && e.key === "Enter") {
+      handleClick(e as unknown as MouseEvent<HTMLDivElement>);
+    }
+  };
+
   const handleKeyUp = (e: KeyboardEvent) => {
-    if (e.key === " " && typingRef.current) {
-      (e as ButtonEvent<KeyboardEvent>).preventButtonHandler();
+    if (e.target === e.currentTarget && !typingRef.current && e.key === " ") {
+      handleClick(e as unknown as MouseEvent<HTMLDivElement>);
     }
   };
 
   return (
-    <MenuBaseItem disabled={disabled} className={className} onClick={handleClick} onKeyUp={handleKeyUp} {...rest}>
+    <MenuBaseItem
+      disabled={disabled}
+      className={className}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      onKeyUp={handleKeyUp}
+      {...rest}
+    >
       {children}
     </MenuBaseItem>
   );

@@ -11,7 +11,7 @@ import {
   ContextMenuTrigger,
   ContextMenuContent,
   ContextMenuGroup,
-  ContextMenuGroupLabel,
+  ContextMenuLabel,
   ContextMenuSeparator,
   ContextMenuItem,
   ContextMenuItemIndicator,
@@ -26,7 +26,7 @@ import {
 - `ContextMenuTrigger`: 包装将打开右键菜单的控件。
 - `ContextMenuContent`: 打开菜单时弹出的组件。
 - `ContextMenuGroup`: 用于对多个 `ContextMenuItem` 进行分组。
-- `ContextMenuGroupLabel`: 用于渲染标签。使用方向键无法聚焦。
+- `ContextMenuLabel`: 用于渲染标签。使用方向键无法聚焦。
 - `ContextMenuSeparator`: 菜单项和组之间的可视分隔符。
 - `ContextMenuItem`: 包含菜单项的组件。
 - `ContextMenuRadioGroup`: 用于对多个 `ContextMenuRadioItem` 进行分组。
@@ -170,7 +170,7 @@ import {
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuGroup,
-  ContextMenuGroupLabel,
+  ContextMenuLabel,
   ContextMenuSeparator,
 } from "@resolid/react-ui";
 
@@ -187,14 +187,14 @@ export default function App() {
         </ContextMenuTrigger>
         <ContextMenuContent className={"text-sm"}>
           <ContextMenuGroup>
-            <ContextMenuGroupLabel>Sort</ContextMenuGroupLabel>
+            <ContextMenuLabel>Sort</ContextMenuLabel>
             <ContextMenuItem>Date</ContextMenuItem>
             <ContextMenuItem>Name</ContextMenuItem>
             <ContextMenuItem>Type</ContextMenuItem>
           </ContextMenuGroup>
           <ContextMenuSeparator />
           <ContextMenuGroup>
-            <ContextMenuGroupLabel>Workspace</ContextMenuGroupLabel>
+            <ContextMenuLabel>Workspace</ContextMenuLabel>
             <ContextMenuItem>Minimap</ContextMenuItem>
             <ContextMenuItem>Search</ContextMenuItem>
             <ContextMenuItem>Sidebar</ContextMenuItem>
@@ -219,7 +219,7 @@ import {
   ContextMenuItemIndicator,
   ContextMenuSubTrigger,
   ContextMenuRadioGroup,
-  ContextMenuGroupLabel,
+  ContextMenuLabel,
   ContextMenuRadioItem,
 } from "@resolid/react-ui";
 import { useState } from "react";
@@ -296,7 +296,7 @@ export default function App() {
           </ContextMenuCheckboxItem>
           <ContextMenuSeparator />
           <ContextMenuRadioGroup value={account} onChange={setAccount}>
-            <ContextMenuGroupLabel>账号</ContextMenuGroupLabel>
+            <ContextMenuLabel>账号</ContextMenuLabel>
             <ContextMenuRadioItem value={"张三"}>
               <ContextMenuItemIndicator>
                 <SpriteIcon size={"1rem"} name={"dot"} />

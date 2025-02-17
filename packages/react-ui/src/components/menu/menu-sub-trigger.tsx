@@ -9,9 +9,9 @@ import { useMenuHover } from "./menu-hover-context";
 
 export type MenuSubTriggerProps = MenuBaseItemProps;
 
-type MenuSubTriggerHtmlProps = HtmlProps<"div", MenuSubTriggerProps, "role" | "tabIndex">;
+type MenuSubTriggerHtmlProps = HtmlProps<"div", MenuSubTriggerProps, "tabIndex">;
 
-export const MenuSubTrigger = (props: PolymorphicProps<MenuSubTriggerHtmlProps, MenuSubTriggerProps>) => {
+export const MenuSubTrigger = (props: PolymorphicProps<MenuSubTriggerHtmlProps, MenuSubTriggerProps, "role">) => {
   const { render, children, ref, className, disabled, ...rest } = props;
 
   const { open, setReference, getReferenceProps } = usePopperReference();
