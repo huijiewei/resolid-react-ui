@@ -44,7 +44,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
         <Meta />
         <Links />
       </head>
-      <body className={"min-h-screen overflow-y-scroll antialiased"}>
+      <body className={"min-h-screen overflow-y-scroll"}>
         <RouteProcessBar />
         <ResolidProvider colorMode={{ disableTransitionOnChange: true }}>
           <SiteLayout>{children}</SiteLayout>

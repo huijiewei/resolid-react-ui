@@ -90,7 +90,7 @@ export const StackblitzButton = ({ name, code }: StackblitzButtonProps) => {
       >
         <SpriteIcon size={15} className={"text-fg-primary"} name={"stackblitz"} />
       </TooltipTrigger>
-      <TooltipContent>
+      <TooltipContent className={"text-sm"}>
         <TooltipArrow />在 Stackblitz 打开 {name} 组件
       </TooltipContent>
     </Tooltip>
