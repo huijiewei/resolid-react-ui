@@ -6,6 +6,15 @@ export type StackblitzButtonProps = {
   code: string;
 };
 
+const sandbox = import.meta.glob<string>(
+  ["../assets/sandbox/*.txt", "../assets/icons/sprite.svg", "./sprite-icon.tsx"],
+  {
+    eager: true,
+    query: "?raw",
+    import: "default",
+  },
+);
+
 const commitRef = import.meta.env.VITE_VERCEL_GIT_COMMIT_REF ?? "f5fefad";
 
 const createHiddenInput = (name: string, value: string) => {
@@ -27,40 +36,30 @@ const openProject = async (name: string, code: string) => {
 
   inputs.push(createHiddenInput("project[title]", `${name} - Resolid UI`));
 
-  const { default: packageJsonSource } = await import("~/assets/sandbox/package.txt?raw");
-
   inputs.push(
     createHiddenInput(
       "project[files][package.json]",
-      packageJsonSource.replaceAll("${filename}", filename).replaceAll("${commitRef}", commitRef),
+      sandbox["../assets/sandbox/package.txt"]
+        .replaceAll("${filename}", filename)
+        .replaceAll("${commitRef}", commitRef),
     ),
   );
 
-  const { default: tsconfigSource } = await import("~/assets/sandbox/tsconfig.txt?raw");
+  inputs.push(createHiddenInput("project[files][tsconfig.json]", sandbox["../assets/sandbox/tsconfig.txt"]));
 
-  inputs.push(createHiddenInput("project[files][tsconfig.json]", tsconfigSource));
+  inputs.push(createHiddenInput("project[files][vite.config.ts]", sandbox["../assets/sandbox/vite.txt"]));
 
-  const { default: viteConfigSource } = await import("~/assets/sandbox/vite.config.txt?raw");
+  inputs.push(
+    createHiddenInput("project[files][index.html]", sandbox["../assets/sandbox/index.txt"].replaceAll("${name}", name)),
+  );
 
-  inputs.push(createHiddenInput("project[files][vite.config.ts]", viteConfigSource));
-
-  const { default: indexHtmlSource } = await import("~/assets/sandbox/index.html.txt?raw");
-
-  inputs.push(createHiddenInput("project[files][index.html]", indexHtmlSource.replaceAll("${name}", name)));
-
-  const { default: rootTsxSource } = await import("~/assets/sandbox/root.tsx.txt?raw");
-
-  inputs.push(createHiddenInput("project[files][src/root.tsx]", rootTsxSource));
+  inputs.push(createHiddenInput("project[files][src/root.tsx]", sandbox["../assets/sandbox/root.txt"]));
 
   inputs.push(createHiddenInput("project[files][src/app.tsx]", code));
 
-  const { default: spriteSvgSource } = await import("~/assets/icons/sprite.svg?raw");
+  inputs.push(createHiddenInput("project[files][src/assets/icons/sprite.svg]", sandbox["../assets/icons/sprite.svg"]));
 
-  inputs.push(createHiddenInput("project[files][src/assets/icons/sprite.svg]", spriteSvgSource));
-
-  const { default: spriteIconSource } = await import("~/components/sprite-icon?raw");
-
-  inputs.push(createHiddenInput("project[files][src/components/sprite-icon.tsx]", spriteIconSource));
+  inputs.push(createHiddenInput("project[files][src/components/sprite-icon.tsx]", sandbox["./sprite-icon.tsx"]));
 
   inputs.push(createHiddenInput("project[template]", "node"));
 
