@@ -31,7 +31,7 @@ import {
 
 对话框默认的样式并不是很多，你可以通过 `DialogContent`、`DialogTitle` 和 `DialogDescription` 的 `className` 自定义对话框的样式。
 
-```jsx demo
+```jsx demo online=Dialog
 import {
   Button,
   CloseButton,
@@ -52,7 +52,7 @@ export default function App() {
         <DialogTrigger render={(props) => <Button {...props} />}>打开对话框</DialogTrigger>
         <DialogPortal>
           <DialogBackdrop />
-          <DialogContent className="max-w-128 my-20">
+          <DialogContent className="md:max-w-128 max-w-[calc(100vw-6rem) my-20">
             <DialogClose
               className={"absolute end-2 top-2 p-1"}
               render={(props) => <CloseButton {...props} />}
@@ -104,7 +104,7 @@ export default function App() {
         <DialogTrigger render={(props) => <Button {...props} />}>打开对话框(顶部)</DialogTrigger>
         <DialogPortal>
           <DialogBackdrop />
-          <DialogContent className="max-w-128 my-20">
+          <DialogContent className="md:max-w-128 max-w-[calc(100vw-6rem) my-20">
             <DialogClose
               className={"absolute end-2 top-2 p-1"}
               render={(props) => <CloseButton {...props} />}
@@ -202,7 +202,7 @@ export default function App() {
         <DialogTrigger render={(props) => <Button {...props} />}>打开对话框</DialogTrigger>
         <DialogPortal>
           <DialogBackdrop />
-          <DialogContent className="max-w-128 my-25">
+          <DialogContent className="md:max-w-128 max-w-[calc(100vw-6rem) my-25">
             <DialogClose
               className={"absolute end-2 top-2 p-1"}
               render={(props) => <CloseButton {...props} />}
@@ -223,7 +223,7 @@ export default function App() {
                 </DialogTrigger>
                 <DialogPortal>
                   <DialogBackdrop />
-                  <DialogContent className="max-w-86 my-20">
+                  <DialogContent className="md:max-w-86 max-w-[calc(100vw-6rem) my-20">
                     <DialogClose
                       className={"absolute end-2 top-2 p-1"}
                       render={(props) => <CloseButton {...props} />}
@@ -288,7 +288,7 @@ export default function App() {
         <DialogTrigger render={(props) => <Button {...props} />}>打开对话框</DialogTrigger>
         <DialogPortal>
           <DialogBackdrop />
-          <DialogContent className="max-w-160 my-20 flex flex-col">
+          <DialogContent className="md:max-w-160 max-w-[calc(100vw-6rem) my-20 flex flex-col">
             <DialogClose
               className={"absolute end-2 top-2 p-1"}
               render={(props) => <CloseButton {...props} />}
@@ -345,7 +345,7 @@ export default function App() {
         <DialogTrigger render={(props) => <Button {...props} />}>打开对话框</DialogTrigger>
         <DialogPortal>
           <DialogBackdrop />
-          <DialogContent className="max-w-128 my-20">
+          <DialogContent className="md:max-w-128 max-w-[calc(100vw-6rem) my-20">
             <DialogClose
               className={"absolute end-2 top-2 p-1"}
               render={(props) => <CloseButton {...props} />}
@@ -401,7 +401,7 @@ export default function App() {
         </Button>
         <DialogPortal>
           <DialogBackdrop />
-          <DialogContent className="max-w-128 my-20">
+          <DialogContent className="md:max-w-128 max-w-[calc(100vw-6rem) my-20">
             <DialogTitle className={"p-4"}>对话框标题</DialogTitle>
             <div className={"flex flex-col gap-4 p-4 pt-1"}>
               <div className={"flex flex-col gap-1"}>

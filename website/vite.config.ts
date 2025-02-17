@@ -39,6 +39,11 @@ export default defineConfig(({ command, isSsrBuild }) => {
                 dark: "github-dark",
               },
               defaultColor: false,
+              parseMetaString: (meta: string) => {
+                const matches = meta.match(/online=["']?([a-zA-Z]+)["']?/);
+
+                return matches ? { online: matches[1] } : undefined;
+              },
             },
           ],
         ],

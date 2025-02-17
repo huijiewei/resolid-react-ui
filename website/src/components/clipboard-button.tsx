@@ -5,7 +5,7 @@ export const ClipboardButton = ({ content }: { content: string }) => {
   const [copied, copy] = useClipboard();
 
   return (
-    <Button size={"xs"} iconOnly color={"neutral"} variant={"soft"} onClick={() => copy(content)}>
+    <Button title={"复制代码"} size={"xs"} iconOnly color={"neutral"} variant={"soft"} onClick={() => copy(content)}>
       {copied ? (
         <SpriteIcon size={16} className={"text-fg-success"} name={"clipboard-check"} />
       ) : (

@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>${name} - Resolid UI</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+      @import "tailwindcss";
+      @import "@resolid/react-ui/tailwindcss";
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <div id="root" class="p-8 min-h-[calc(100vh-5em)]"></div>
+    <div class="p-5 text-sm flex item-center border-t gap-3 border-bd-normal">
+      <span>${name} 组件</span>
+      <a class="text-link" href="https://ui.resolid.tech" rel="noreferrer" target="_blank">Resolid UI</a>
+      <a class="text-link" href="https://github.com/huijiewei/resolid-react-ui" rel="noreferrer" target="_blank">Github</a>
+    </div>
+    <script type="module" src="/src/root.tsx"></script>
+  </body>
+</html>

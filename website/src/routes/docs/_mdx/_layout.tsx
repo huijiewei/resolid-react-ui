@@ -18,10 +18,11 @@ import {
   tx,
 } from "@resolid/react-ui";
 import { startsWith } from "@resolid/utils";
-import { type ComponentProps, type ReactNode, useRef, useState } from "react";
+import { type ComponentProps, type ReactNode, useState } from "react";
 import { Outlet } from "react-router";
 import { ClipboardButton } from "~/components/clipboard-button";
 import { SpriteIcon } from "~/components/sprite-icon";
+import { StackblitzButton } from "~/components/stackblitz-button";
 import { getMdxMeta } from "~/utils/mdx-utils.server";
 import { mergeMeta } from "~/utils/react-router-meta";
 import type { Route } from "./+types/_layout";
@@ -62,19 +63,29 @@ const mdxComponents = {
   h4: ({ className, ...rest }: PrimitiveProps<"h3">) => {
     return <MdxHeading as={"h4"} className={tx("mt-6", className)} {...rest} />;
   },
-  pre: ({ children, className, ...rest }: PrimitiveProps<"pre", { "data-inline"?: boolean }>) => {
-    if (rest["data-inline"]) {
-      rest["data-inline"] = undefined;
-
+  pre: ({
+    children,
+    className,
+    "data-inline": dataInline,
+    online,
+    ...rest
+  }: PrimitiveProps<"pre", { "data-inline"?: boolean; online?: string }>) => {
+    if (dataInline) {
       return (
-        <pre className={className} {...rest}>
+        <pre translate={"no"} className={className} {...rest}>
           {children}
         </pre>
       );
     }
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const preRef = useRef<HTMLPreElement>(null);
+    const [content, setContent] = useState("");
+
+    const preRef = (node: HTMLPreElement) => {
+      if (node) {
+        setContent(node.innerText);
+      }
+    };
 
     return (
       <div className={"relative"}>
@@ -91,8 +102,9 @@ const mdxComponents = {
         >
           {children}
         </pre>
-        <div className={"z-base absolute right-1.5 top-1.5"}>
-          <ClipboardButton content={preRef.current?.innerText ?? ""} />
+        <div className={"z-base absolute right-1.5 top-1.5 flex gap-1"}>
+          {online && <StackblitzButton name={online} code={content} />}
+          <ClipboardButton content={content} />
         </div>
       </div>
     );
@@ -119,7 +131,7 @@ const mdxComponents = {
     children,
     "data-type": dataType,
     ...rest
-  }: ComponentProps<"blockquote"> & { "data-type": string }) => {
+  }: ComponentProps<"blockquote"> & { "data-type"?: string }) => {
     if (dataType) {
       const alertColors = {
         NOTE: "primary",

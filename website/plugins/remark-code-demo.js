@@ -15,7 +15,7 @@ export default function () {
 
     const demoMdx = [];
 
-    visit(tree, "code", (node) => {
+    visit(tree, "code", (node, index, parent) => {
       if ("hasVisited" in node) {
         return;
       }
@@ -61,7 +61,11 @@ export default function () {
         },
       });
 
-      Object.assign(node, {
+      if (!parent || !index) {
+        return;
+      }
+
+      parent.children[index] = {
         type: "mdxJsxFlowElement",
         name: "CodeDemo",
         children: [
@@ -74,7 +78,7 @@ export default function () {
             name: demoName,
           },
         ],
-      });
+      };
 
       if (existsSync(virtualModulePath)) {
         const content = readFileSync(virtualModulePath, "utf8");

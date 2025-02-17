@@ -37,13 +37,11 @@ import {
 - `DropdownMenuItemIndicator`: 在父级 `DropdownMenuCheckboxItem` 或 `DropdownMenuRadioItem` 被选中项目时呈现的视觉指示器。
 - `DropdownMenuSubTrigger`: 包装将打开子菜单的控件。
 
-## 举例
-
-### 普通菜单
+### 演示
 
 了解如何在项目中使用菜单组件，让我们看一个最基本的例子：
 
-```jsx demo
+```jsx demo online=DropdownMenu
 import {
   Button,
   DropdownMenu,
@@ -60,7 +58,7 @@ export default function App() {
         <DropdownMenuTrigger
           render={(props) => <Button color={"neutral"} variant={"outline"} {...props} />}
         >
-          普通菜单
+          下拉菜单
         </DropdownMenuTrigger>
         <DropdownMenuContent className={"text-sm"}>
           <DropdownMenuItem>
@@ -90,6 +88,8 @@ export default function App() {
   );
 }
 ```
+
+## 举例
 
 ### 多级菜单
 
