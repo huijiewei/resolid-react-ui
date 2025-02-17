@@ -15,7 +15,9 @@ const sandbox = import.meta.glob<string>(
   },
 );
 
-const commitRef = import.meta.env.VITE_VERCEL_GIT_COMMIT_REF ?? "f5fefad";
+const commitSha = import.meta.env.VITE_VERCEL_GIT_COMMIT_SHA
+  ? import.meta.env.VITE_VERCEL_GIT_COMMIT_SHA.slice(0, 8)
+  : "c0df27e";
 
 const createHiddenInput = (name: string, value: string) => {
   const input = document.createElement("input");
@@ -41,7 +43,7 @@ const openProject = async (name: string, code: string) => {
       "project[files][package.json]",
       sandbox["../assets/sandbox/package.txt"]
         .replaceAll("${filename}", filename)
-        .replaceAll("${commitRef}", commitRef),
+        .replaceAll("${commitSha}", commitSha),
     ),
   );
 
