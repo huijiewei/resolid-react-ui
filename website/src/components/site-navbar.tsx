@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import { ColorModeToggle } from "~/components/color-mode-toggle";
 import { HistoryNavLink } from "~/components/history-link";
 import { ResolidLogo } from "~/components/resolid-logo";
+import { ResolidUiLogo } from "~/components/resolid-ui-logo";
 import { SpriteIcon } from "~/components/sprite-icon";
 
 export const SiteNavbar = () => {
@@ -12,7 +13,7 @@ export const SiteNavbar = () => {
   return (
     <nav className={"xl:max-w-288 mx-auto flex h-16 items-center justify-between gap-3 px-4"}>
       <Link to={"/"} aria-label={"Resolid React UI"}>
-        <ResolidLogo />
+        <ResolidUiLogo />
       </Link>
       <div
         className={tx(
@@ -45,9 +46,13 @@ export const SiteNavbar = () => {
               </li>
             );
           })}
+          <li className={"inline-flex justify-center p-5 md:hidden"}>
+            <a href={"https://www.resolid.tech"} target={"_blank"} rel={"noreferrer"}>
+              <ResolidLogo height={16} />
+            </a>
+          </li>
         </ul>
       </div>
-
       <div className={"text-fg-muted inline-flex items-center gap-1"}>
         <ColorModeToggle />
         <Tooltip placement={"bottom-end"}>
@@ -88,6 +93,29 @@ export const SiteNavbar = () => {
         >
           {opened ? <SpriteIcon size={"1.5em"} name={"close"} /> : <SpriteIcon size={"1.5em"} name={"menu"} />}
         </Button>
+        <div className={"hidden md:block"}>
+          <Tooltip placement={"bottom"}>
+            <TooltipTrigger
+              render={(props) => (
+                <Button
+                  {...props}
+                  color={"neutral"}
+                  variant={"ghost"}
+                  size={"sm"}
+                  render={(props) => (
+                    <a {...props} href={"https://www.resolid.tech"} target={"_blank"} rel={"noreferrer"}>
+                      <ResolidLogo height={16} />
+                    </a>
+                  )}
+                />
+              )}
+            />
+            <TooltipContent>
+              <TooltipArrow />
+              访问 Resolid.tech
+            </TooltipContent>
+          </Tooltip>
+        </div>
       </div>
     </nav>
   );

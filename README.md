@@ -1,4 +1,4 @@
-# ![Resolid](.github/assets/resolid.svg)
+# ![Resolid](.github/assets/resolid-ui.svg)
 
 Resolid React UI 是 React 的开源设计系统。使用 React 和 Tailwind CSS 构建。它提供了一组即用型组件，用于构建具有一致外观的 Web 应用程序。
 
