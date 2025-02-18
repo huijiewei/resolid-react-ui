@@ -1,9 +1,9 @@
 import type { ComponentProps } from "react";
-import { PopperArrow, type PopperArrowProps } from "../popper/popper-arrow";
-import { PopperClose } from "../popper/popper-close";
-import { PopperDescrition } from "../popper/popper-description";
-import { PopperTitle } from "../popper/popper-title";
-import { PopperTrigger } from "../popper/popper-trigger";
+import { PopperArrow, type PopperArrowProps } from "../../primitives/popper/popper-arrow";
+import { PopperClose } from "../../primitives/popper/popper-close";
+import { PopperDescrition } from "../../primitives/popper/popper-description";
+import { PopperTitle } from "../../primitives/popper/popper-title";
+import { PopperTrigger } from "../../primitives/popper/popper-trigger";
 import { PopoverRoot, type PopoverRootProps } from "./popover-root";
 
 export type PopoverProps = PopoverRootProps;

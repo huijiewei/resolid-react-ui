@@ -1,8 +1,8 @@
 import { type MouseEvent, type PointerEvent, useCallback, useEffect, useRef } from "react";
 import { Polymorphic, type PolymorphicProps } from "../../primitives";
+import { usePopperDispatch } from "../../primitives/popper/popper-dispatch-context";
+import { usePopperReference } from "../../primitives/popper/popper-reference-context";
 import { dataAttr } from "../../utils";
-import { usePopperDispatch } from "../popper/popper-dispatch-context";
-import { usePopperReference } from "../popper/popper-reference-context";
 
 type ContextMenuTriggerProps = {
   /**

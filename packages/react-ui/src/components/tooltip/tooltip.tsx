@@ -1,6 +1,6 @@
 import type { ComponentProps } from "react";
-import { PopperArrow } from "../popper/popper-arrow";
-import { PopperTrigger } from "../popper/popper-trigger";
+import { PopperArrow } from "../../primitives/popper/popper-arrow";
+import { PopperTrigger } from "../../primitives/popper/popper-trigger";
 import { TooltipRoot, type TooltipRootProps } from "./tooltip-root";
 
 export { TooltipContent } from "./tooltip-content";

@@ -1,6 +1,6 @@
 import { useButtonProps, useMergeRefs } from "../../hooks";
-import { Polymorphic, type PolymorphicProps } from "../../primitives";
 import { dataAttr } from "../../utils";
+import { Polymorphic, type PolymorphicProps } from "../index";
 import { usePopperReference } from "./popper-reference-context";
 
 type PopperTriggerProps = { active?: boolean };

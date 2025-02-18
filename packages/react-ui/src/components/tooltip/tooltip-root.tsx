@@ -17,11 +17,20 @@ import {
 } from "@floating-ui/react";
 import { type PropsWithChildren, useState } from "react";
 import { useDisclosure } from "../../hooks";
-import { PopperArrowContext, type PopperArrowContextValue } from "../popper/popper-arrow-context";
-import type { PopperDisclosureProps } from "../popper/popper-disclosure";
-import { PopperFloatingContext, type PopperFloatingContextValue } from "../popper/popper-floating-context";
-import { PopperReferenceContext, type PopperReferenceContextValue } from "../popper/popper-reference-context";
-import { PopperTransitionContext, type PopperTransitionContextValue } from "../popper/popper-transtion-context";
+import { PopperArrowContext, type PopperArrowContextValue } from "../../primitives/popper/popper-arrow-context";
+import type { PopperDisclosureProps } from "../../primitives/popper/popper-disclosure";
+import {
+  PopperFloatingContext,
+  type PopperFloatingContextValue,
+} from "../../primitives/popper/popper-floating-context";
+import {
+  PopperReferenceContext,
+  type PopperReferenceContextValue,
+} from "../../primitives/popper/popper-reference-context";
+import {
+  PopperTransitionContext,
+  type PopperTransitionContextValue,
+} from "../../primitives/popper/popper-transtion-context";
 import { TooltipContext, type TooltipContextValue } from "./tooltip-context";
 import { tooltipArrowStyles, tooltipContentStyles, type TooltipStyleProps } from "./tooltip.styles";
 

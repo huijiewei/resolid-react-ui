@@ -1,7 +1,7 @@
 import { type CSSProperties, useId } from "react";
 import { useDisclosure, useElementTransitionStatus } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
-import type { PopperDisclosureProps } from "../popper/popper-disclosure";
+import type { PopperDisclosureProps } from "../../primitives/popper/popper-disclosure";
 import {
   CollapsibleContentContext,
   type CollapsibleContentContextValue,

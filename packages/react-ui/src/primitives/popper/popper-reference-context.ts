@@ -1,6 +1,6 @@
 import type { ReferenceType } from "@floating-ui/react";
 import type { HTMLProps } from "react";
-import { type AnyObject, createSafeContext } from "../../primitives";
+import { type AnyObject, createSafeContext } from "../index";
 
 export type PopperReferenceContextValue = {
   open: boolean;

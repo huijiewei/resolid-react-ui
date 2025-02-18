@@ -1,6 +1,6 @@
 import type { MouseEvent } from "react";
 import { useButtonProps } from "../../hooks";
-import { type EmptyObject, Polymorphic, type PolymorphicProps } from "../../primitives";
+import { type EmptyObject, Polymorphic, type PolymorphicProps } from "../index";
 import { usePopperDispatch } from "./popper-dispatch-context";
 
 export const PopperClose = (props: PolymorphicProps<"button", EmptyObject, "type">) => {

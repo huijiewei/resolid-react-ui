@@ -1,7 +1,7 @@
 import type { PrimitiveProps } from "../../primitives";
+import { PopperFloating } from "../../primitives/popper/popper-floating";
+import { usePopperTransition } from "../../primitives/popper/popper-transtion-context";
 import { tx } from "../../utils";
-import { PopperFloating } from "../popper/popper-floating";
-import { usePopperTransition } from "../popper/popper-transtion-context";
 import { PortalLite } from "../portal/portal-lite";
 import { useTooltip } from "./tooltip-context";
 

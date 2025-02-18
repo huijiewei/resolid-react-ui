@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
-import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
+import type { PrimitiveProps } from "../index";
 import { usePopperTransition } from "./popper-transtion-context";
 
 export const PopperBackdrop = (props: PrimitiveProps<"div">) => {

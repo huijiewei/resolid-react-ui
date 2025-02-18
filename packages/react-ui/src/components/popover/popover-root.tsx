@@ -15,13 +15,25 @@ import {
 } from "@floating-ui/react";
 import { type PropsWithChildren, useId, useState } from "react";
 import { useDisclosure } from "../../hooks";
-import { PopperAriaContext } from "../popper/popper-aria-context";
-import { PopperArrowContext, type PopperArrowContextValue } from "../popper/popper-arrow-context";
-import type { PopperDisclosureProps } from "../popper/popper-disclosure";
-import { PopperDispatchContext, type PopperDispatchContextValue } from "../popper/popper-dispatch-context";
-import { PopperFloatingContext, type PopperFloatingContextValue } from "../popper/popper-floating-context";
-import { PopperReferenceContext, type PopperReferenceContextValue } from "../popper/popper-reference-context";
-import { PopperTransitionContext, type PopperTransitionContextValue } from "../popper/popper-transtion-context";
+import { PopperAriaContext } from "../../primitives/popper/popper-aria-context";
+import { PopperArrowContext, type PopperArrowContextValue } from "../../primitives/popper/popper-arrow-context";
+import type { PopperDisclosureProps } from "../../primitives/popper/popper-disclosure";
+import {
+  PopperDispatchContext,
+  type PopperDispatchContextValue,
+} from "../../primitives/popper/popper-dispatch-context";
+import {
+  PopperFloatingContext,
+  type PopperFloatingContextValue,
+} from "../../primitives/popper/popper-floating-context";
+import {
+  PopperReferenceContext,
+  type PopperReferenceContextValue,
+} from "../../primitives/popper/popper-reference-context";
+import {
+  PopperTransitionContext,
+  type PopperTransitionContextValue,
+} from "../../primitives/popper/popper-transtion-context";
 import { type PopoverBaseProps, PopoverContext, type PopoverContextValue } from "./popover-context";
 
 export type PopoverRootProps = PopperDisclosureProps &

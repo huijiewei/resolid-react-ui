@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from "react";
-import { Portal } from "../portal/portal";
+import { Portal } from "../../components/portal/portal";
 import { usePopperTransition } from "./popper-transtion-context";
 
 export const PopperPortal = ({ children }: PropsWithChildren) => {

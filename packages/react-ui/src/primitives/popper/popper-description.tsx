@@ -1,4 +1,4 @@
-import type { EmptyObject, PrimitiveProps } from "../../primitives";
+import type { EmptyObject, PrimitiveProps } from "../index";
 import { usePopperAria } from "./popper-aria-context";
 
 export const PopperDescrition = (props: PrimitiveProps<"div", EmptyObject, "id">) => {

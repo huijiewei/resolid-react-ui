@@ -9,12 +9,24 @@ import {
 } from "@floating-ui/react";
 import { useId, useState, type PropsWithChildren } from "react";
 import { useDisclosure, usePreventScroll } from "../../hooks";
-import { PopperAriaContext } from "../popper/popper-aria-context";
-import type { PopperDisclosureProps } from "../popper/popper-disclosure";
-import { PopperDispatchContext, type PopperDispatchContextValue } from "../popper/popper-dispatch-context";
-import { PopperFloatingContext, type PopperFloatingContextValue } from "../popper/popper-floating-context";
-import { PopperReferenceContext, type PopperReferenceContextValue } from "../popper/popper-reference-context";
-import { PopperTransitionContext, type PopperTransitionContextValue } from "../popper/popper-transtion-context";
+import { PopperAriaContext } from "../../primitives/popper/popper-aria-context";
+import type { PopperDisclosureProps } from "../../primitives/popper/popper-disclosure";
+import {
+  PopperDispatchContext,
+  type PopperDispatchContextValue,
+} from "../../primitives/popper/popper-dispatch-context";
+import {
+  PopperFloatingContext,
+  type PopperFloatingContextValue,
+} from "../../primitives/popper/popper-floating-context";
+import {
+  PopperReferenceContext,
+  type PopperReferenceContextValue,
+} from "../../primitives/popper/popper-reference-context";
+import {
+  PopperTransitionContext,
+  type PopperTransitionContextValue,
+} from "../../primitives/popper/popper-transtion-context";
 import { DialogContext, type DialogBaseProps, type DialogContextValue } from "./dialog-context";
 
 export type DialogRootProps = PopperDisclosureProps &

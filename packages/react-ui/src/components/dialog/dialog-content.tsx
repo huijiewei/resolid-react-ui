@@ -1,9 +1,9 @@
 import { FloatingFocusManager } from "@floating-ui/react";
 import type { PrimitiveProps } from "../../primitives";
+import { usePopperAria } from "../../primitives/popper/popper-aria-context";
+import { PopperFloating } from "../../primitives/popper/popper-floating";
+import { usePopperTransition } from "../../primitives/popper/popper-transtion-context";
 import { tx } from "../../utils";
-import { usePopperAria } from "../popper/popper-aria-context";
-import { PopperFloating } from "../popper/popper-floating";
-import { usePopperTransition } from "../popper/popper-transtion-context";
 import { useDialog } from "./dialog-context";
 
 export const DialogContent = (props: PrimitiveProps<"div">) => {

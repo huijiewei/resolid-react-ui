@@ -1,10 +1,10 @@
 import type { ComponentProps } from "react";
-import { PopperBackdrop } from "../popper/popper-backdrop";
-import { PopperClose } from "../popper/popper-close";
-import { PopperDescrition } from "../popper/popper-description";
-import { PopperPortal } from "../popper/popper-portal";
-import { PopperTitle } from "../popper/popper-title";
-import { PopperTrigger } from "../popper/popper-trigger";
+import { PopperBackdrop } from "../../primitives/popper/popper-backdrop";
+import { PopperClose } from "../../primitives/popper/popper-close";
+import { PopperDescrition } from "../../primitives/popper/popper-description";
+import { PopperPortal } from "../../primitives/popper/popper-portal";
+import { PopperTitle } from "../../primitives/popper/popper-title";
+import { PopperTrigger } from "../../primitives/popper/popper-trigger";
 import { DialogRoot, type DialogRootProps } from "./dialog-root";
 
 export type DialogProps = DialogRootProps;
