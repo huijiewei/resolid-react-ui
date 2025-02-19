@@ -39,5 +39,6 @@ export * from "./select/native-select";
 export * from "./separator/separator";
 export * from "./spinner/spinner";
 export * from "./switch/switch";
+export * from "./tabs/tabs";
 export * from "./tooltip/tooltip";
 export * from "./visually-hidden/visually-hidden";

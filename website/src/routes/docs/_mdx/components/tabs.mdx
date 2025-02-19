@@ -1,0 +1,154 @@
+---
+title: 选项卡
+description: 同一页面上相关面板之间切换的组件。
+---
+
+## 导入
+
+```js
+import { Tabs, TabsList, TabsTab, TabsPanel } from "@resolid/react-ui";
+```
+
+- `Tabs`: 将选项卡和相应面板分组。
+- `TabsList`: 分组单个选项卡按钮。
+- `TabsTab`: 单个交互式选项卡按钮，可切换相应的面板。
+- `TabsPanel`: 当“对应”选项卡处于活动状态时显示的面板。
+
+## 演示
+
+选项卡默认只有必需的样式，你可以通过 `Tabs`、`TabsList`、`TabsTab` 和 `TabsPanel` 的 `className` 自定义。
+
+```jsx demo online=Tabs
+import { SpriteIcon } from "~/components/sprite-icon";
+import { Tabs, TabsList, TabsTab, TabsPanel } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex justify-center"}>
+      <Tabs className={"border-bd-normal w-auto rounded-md border"} defaultValue={"light"}>
+        <TabsList className={"border-bd-normal gap-1 border-b p-1"}>
+          <TabsTab value={"auto"} className={"active:bg-bg-subtle rounded-md px-3"}>
+            Auto
+          </TabsTab>
+          <TabsTab value={"light"} className={"active:bg-bg-subtle rounded-md px-3"}>
+            Light
+          </TabsTab>
+          <TabsTab value={"dark"} className={"active:bg-bg-subtle rounded-md px-3"}>
+            Dark
+          </TabsTab>
+        </TabsList>
+        <TabsPanel value={"auto"} className={"text-bg-muted flex items-center justify-center p-16"}>
+          <SpriteIcon name={"auto"} size={"3rem"} />
+        </TabsPanel>
+        <TabsPanel
+          value={"light"}
+          className={"text-bg-muted flex items-center justify-center p-16"}
+        >
+          <SpriteIcon name={"sun"} size={"3rem"} />
+        </TabsPanel>
+        <TabsPanel value={"dark"} className={"text-bg-muted flex items-center justify-center p-16"}>
+          <SpriteIcon name={"moon"} size={"3rem"} />
+        </TabsPanel>
+      </Tabs>
+    </div>
+  );
+}
+```
+
+## 举例
+
+### 垂直
+
+```jsx demo online=Tabs
+import { SpriteIcon } from "~/components/sprite-icon";
+import { Tabs, TabsList, TabsTab, TabsPanel } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex justify-center"}>
+      <Tabs
+        className={"border-bd-normal w-auto rounded-md border"}
+        orientation={"vertical"}
+        defaultValue={"light"}
+      >
+        <TabsList className={"border-bd-normal border-e p-1"}>
+          <TabsTab value={"auto"} className={"active:bg-bg-subtle rounded-md px-3"}>
+            Auto
+          </TabsTab>
+          <TabsTab value={"light"} className={"active:bg-bg-subtle rounded-md px-3"}>
+            Light
+          </TabsTab>
+          <TabsTab value={"dark"} className={"active:bg-bg-subtle rounded-md px-3"}>
+            Dark
+          </TabsTab>
+        </TabsList>
+        <TabsPanel value={"auto"} className={"text-bg-muted flex items-center justify-center p-16"}>
+          <SpriteIcon name={"auto"} size={"3rem"} />
+        </TabsPanel>
+        <TabsPanel
+          value={"light"}
+          className={"text-bg-muted flex items-center justify-center p-16"}
+        >
+          <SpriteIcon name={"sun"} size={"3rem"} />
+        </TabsPanel>
+        <TabsPanel value={"dark"} className={"text-bg-muted flex items-center justify-center p-16"}>
+          <SpriteIcon name={"moon"} size={"3rem"} />
+        </TabsPanel>
+      </Tabs>
+    </div>
+  );
+}
+```
+
+### 禁用
+
+```jsx demo online=Tabs
+import { SpriteIcon } from "~/components/sprite-icon";
+import { Tabs, TabsList, TabsTab, TabsPanel } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex justify-center"}>
+      <Tabs className={"border-bd-normal w-auto rounded-md border"} defaultValue={"auto"}>
+        <TabsList className={"border-bd-normal border-b p-1"}>
+          <TabsTab value={"auto"} className={"active:bg-bg-subtle rounded-md px-3"}>
+            Auto
+          </TabsTab>
+          <TabsTab value={"light"} disabled className={"active:bg-bg-subtle rounded-md px-3"}>
+            Light
+          </TabsTab>
+          <TabsTab value={"dark"} className={"active:bg-bg-subtle rounded-md px-3"}>
+            Dark
+          </TabsTab>
+        </TabsList>
+        <TabsPanel value={"auto"} className={"text-bg-muted flex items-center justify-center p-16"}>
+          <SpriteIcon name={"auto"} size={"3rem"} />
+        </TabsPanel>
+        <TabsPanel
+          value={"light"}
+          className={"text-bg-muted flex items-center justify-center p-16"}
+        >
+          <SpriteIcon name={"sun"} size={"3rem"} />
+        </TabsPanel>
+        <TabsPanel value={"dark"} className={"text-bg-muted flex items-center justify-center p-16"}>
+          <SpriteIcon name={"moon"} size={"3rem"} />
+        </TabsPanel>
+      </Tabs>
+    </div>
+  );
+}
+```
+
+## 属性
+
+### Tabs
+
+::PropsTable{file=tabs/tabs.tsx}
+
+### TabsTab
+
+::PropsTable{file=tabs/tabs-tab.tsx}
+
+### TabsPanel
+
+::PropsTable{file=tabs/tabs-panel.tsx}

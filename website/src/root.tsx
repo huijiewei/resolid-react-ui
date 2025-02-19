@@ -13,7 +13,6 @@ export const links: LinksFunction = () => {
     {
       rel: "stylesheet",
       href: styles,
-      precedence: "high",
     },
   ];
 };
