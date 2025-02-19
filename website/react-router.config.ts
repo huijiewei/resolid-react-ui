@@ -21,5 +21,6 @@ export default {
   ],
   future: {
     unstable_optimizeDeps: true,
+    unstable_splitRouteModules: true,
   },
 } satisfies Config;
