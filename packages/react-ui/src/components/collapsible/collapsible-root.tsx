@@ -1,7 +1,6 @@
 import { type CSSProperties, useId } from "react";
-import { useDisclosure, useElementTransitionStatus } from "../../hooks";
+import { useDisclosure, type UseDisclosureOptions, useElementTransitionStatus } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
-import type { PopperDisclosureProps } from "../../primitives/popper/popper-disclosure";
 import {
   CollapsibleContentContext,
   type CollapsibleContentContextValue,
@@ -9,7 +8,7 @@ import {
   type CollapsibleTriggerContextValue,
 } from "./collapsible-context";
 
-export type CollapsibleRootProps = PopperDisclosureProps & {
+export type CollapsibleRootProps = UseDisclosureOptions & {
   /**
    * 是否禁用可折叠
    * @default false

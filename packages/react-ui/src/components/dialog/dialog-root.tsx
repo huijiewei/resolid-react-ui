@@ -8,9 +8,8 @@ import {
   type FloatingContext,
 } from "@floating-ui/react";
 import { useId, useState, type PropsWithChildren } from "react";
-import { useDisclosure, usePreventScroll } from "../../hooks";
+import { useDisclosure, usePreventScroll, type UseDisclosureOptions } from "../../hooks";
 import { PopperAriaContext } from "../../primitives/popper/popper-aria-context";
-import type { PopperDisclosureProps } from "../../primitives/popper/popper-disclosure";
 import {
   PopperDispatchContext,
   type PopperDispatchContextValue,
@@ -29,7 +28,7 @@ import {
 } from "../../primitives/popper/popper-transtion-context";
 import { DialogContext, type DialogBaseProps, type DialogContextValue } from "./dialog-context";
 
-export type DialogRootProps = PopperDisclosureProps &
+export type DialogRootProps = UseDisclosureOptions &
   DialogBaseProps & {
     /**
      * 按下 Esc 键时关闭

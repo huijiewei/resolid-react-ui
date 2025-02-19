@@ -16,9 +16,8 @@ import {
   useTransitionStatus,
 } from "@floating-ui/react";
 import { type PropsWithChildren, useState } from "react";
-import { useDisclosure } from "../../hooks";
+import { useDisclosure, type UseDisclosureOptions } from "../../hooks";
 import { PopperArrowContext, type PopperArrowContextValue } from "../../primitives/popper/popper-arrow-context";
-import type { PopperDisclosureProps } from "../../primitives/popper/popper-disclosure";
 import {
   PopperFloatingContext,
   type PopperFloatingContextValue,
@@ -34,7 +33,7 @@ import {
 import { TooltipContext, type TooltipContextValue } from "./tooltip-context";
 import { tooltipArrowStyles, tooltipContentStyles, type TooltipStyleProps } from "./tooltip.styles";
 
-export type TooltipRootProps = PopperDisclosureProps & {
+export type TooltipRootProps = UseDisclosureOptions & {
   /**
    * 颜色
    * @default "neutral"

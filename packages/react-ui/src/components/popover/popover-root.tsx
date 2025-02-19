@@ -14,10 +14,9 @@ import {
   useTransitionStatus,
 } from "@floating-ui/react";
 import { type PropsWithChildren, useId, useState } from "react";
-import { useDisclosure } from "../../hooks";
+import { useDisclosure, type UseDisclosureOptions } from "../../hooks";
 import { PopperAriaContext } from "../../primitives/popper/popper-aria-context";
 import { PopperArrowContext, type PopperArrowContextValue } from "../../primitives/popper/popper-arrow-context";
-import type { PopperDisclosureProps } from "../../primitives/popper/popper-disclosure";
 import {
   PopperDispatchContext,
   type PopperDispatchContextValue,
@@ -36,7 +35,7 @@ import {
 } from "../../primitives/popper/popper-transtion-context";
 import { type PopoverBaseProps, PopoverContext, type PopoverContextValue } from "./popover-context";
 
-export type PopoverRootProps = PopperDisclosureProps &
+export type PopoverRootProps = UseDisclosureOptions &
   PopoverBaseProps & {
     /**
      * 按下 Esc 键时关闭

@@ -22,9 +22,8 @@ import {
   useTypeahead,
 } from "@floating-ui/react";
 import { type PropsWithChildren, useEffect, useRef, useState } from "react";
-import { useDisclosure, usePreventScroll } from "../../hooks";
+import { useDisclosure, type UseDisclosureOptions, usePreventScroll } from "../../hooks";
 import { PopperArrowContext, type PopperArrowContextValue } from "../../primitives/popper/popper-arrow-context";
-import type { PopperDisclosureProps } from "../../primitives/popper/popper-disclosure";
 import {
   PopperDispatchContext,
   type PopperDispatchContextValue,
@@ -45,7 +44,7 @@ import { usePopperCloseComplete } from "../../primitives/popper/use-popper-close
 import { MenuContext, type MenuContextValue } from "./menu-context";
 import { MenuHoverContext } from "./menu-hover-context";
 
-export type MenuRootProps = PopperDisclosureProps & {
+export type MenuRootProps = UseDisclosureOptions & {
   /**
    * 选择项目后, 菜单将关闭
    * @default true
