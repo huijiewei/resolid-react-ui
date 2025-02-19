@@ -1,5 +1,5 @@
-import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
+import type { PrimitiveProps } from "../index";
 
 export const MenuLabel = (props: PrimitiveProps<"div">) => {
   const { children, className, ...rest } = props;

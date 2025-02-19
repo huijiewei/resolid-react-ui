@@ -1,4 +1,4 @@
-import type { PrimitiveProps } from "../../primitives";
+import type { PrimitiveProps } from "../index";
 import { MenuGroup } from "./menu-group";
 import { MenuRadioGroupContext, type MenuRadioGroupContextValue } from "./menu-radio-group-context";
 

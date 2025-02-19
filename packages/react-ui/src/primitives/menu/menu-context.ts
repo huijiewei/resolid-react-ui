@@ -1,6 +1,6 @@
 import type { FloatingRootContext } from "@floating-ui/react";
 import type { RefObject } from "react";
-import { createSafeContext } from "../../primitives";
+import { createSafeContext } from "../index";
 import type { MenuItemContextValue } from "./menu-item-context";
 
 export type MenuContextValue = MenuItemContextValue & {

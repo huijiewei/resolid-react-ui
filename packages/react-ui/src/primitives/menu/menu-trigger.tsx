@@ -1,6 +1,6 @@
 import type { ComponentProps } from "react";
-import { PopperTrigger } from "../../primitives/popper/popper-trigger";
-import type { PopoverTrigger } from "../popover/popover";
+import type { PopoverTrigger } from "../../components/popover/popover";
+import { PopperTrigger } from "../popper/popper-trigger";
 import { useMenuHover } from "./menu-hover-context";
 
 export const MenuTrigger = (props: Omit<ComponentProps<typeof PopoverTrigger>, "active">) => {

@@ -1,5 +1,5 @@
-import type { PolymorphicProps } from "../../primitives";
 import { ariaAttr, tx } from "../../utils";
+import type { PolymorphicProps } from "../index";
 import { MenuItem, type MenuItemProps } from "./menu-item";
 import { MenuItemIndicatorContext } from "./menu-item-indicator-context";
 import { useMenuRadioGroup } from "./menu-radio-group-context";

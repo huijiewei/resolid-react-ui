@@ -1,4 +1,4 @@
-import { createSafeContext } from "../../primitives";
+import { createSafeContext } from "../index";
 
 export type CheckedState = boolean | "indeterminate";
 

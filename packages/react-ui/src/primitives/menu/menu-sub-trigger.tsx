@@ -1,9 +1,9 @@
 import type { ComponentProps } from "react";
 import { useMergeRefs } from "../../hooks";
-import type { PolymorphicProps } from "../../primitives";
-import { usePopperReference } from "../../primitives/popper/popper-reference-context";
 import { AngleRightIcon } from "../../shared/icons";
 import { dataAttr, tx } from "../../utils";
+import type { PolymorphicProps } from "../index";
+import { usePopperReference } from "../popper/popper-reference-context";
 import { MenuBaseItem, type MenuBaseItemProps } from "./menu-base-item";
 import { useMenuHover } from "./menu-hover-context";
 

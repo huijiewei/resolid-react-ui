@@ -1,8 +1,8 @@
 import { useListItem } from "@floating-ui/react";
 import { isString } from "@resolid/utils";
 import { useMergeRefs } from "../../hooks";
-import { Polymorphic, type PolymorphicProps } from "../../primitives";
 import { ariaAttr, dataAttr, tx } from "../../utils";
+import { Polymorphic, type PolymorphicProps } from "../index";
 import { useMenuItem } from "./menu-item-context";
 
 export type MenuBaseItemProps = {

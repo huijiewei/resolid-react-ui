@@ -1,5 +1,5 @@
 import type { KeyboardEvent, MouseEvent } from "react";
-import type { PolymorphicProps } from "../../primitives";
+import type { PolymorphicProps } from "../index";
 import { MenuBaseItem, type MenuBaseItemProps } from "./menu-base-item";
 import { useMenuItem } from "./menu-item-context";
 

@@ -1,5 +1,5 @@
-import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
+import type { PrimitiveProps } from "../index";
 import { useMenuItemIndicator } from "./menu-item-indicator-context";
 
 export const MenuItemIndicator = (props: PrimitiveProps<"span">) => {

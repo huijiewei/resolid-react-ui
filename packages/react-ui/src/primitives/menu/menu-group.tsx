@@ -1,4 +1,4 @@
-import type { PrimitiveProps } from "../../primitives";
+import type { PrimitiveProps } from "../index";
 
 export const MenuGroup = (props: PrimitiveProps<"div">) => {
   const { children, ...rest } = props;

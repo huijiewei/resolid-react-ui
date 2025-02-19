@@ -1,10 +1,10 @@
-import { MenuContent } from "../menu/menu-content";
-import { MenuGroup } from "../menu/menu-group";
-import { MenuItemIndicator } from "../menu/menu-item-indicator";
-import { MenuLabel } from "../menu/menu-label";
-import { MenuRoot, type MenuRootProps } from "../menu/menu-root";
-import { MenuSeparator } from "../menu/menu-separator";
-import { MenuSubTrigger } from "../menu/menu-sub-trigger";
+import { MenuContent } from "../../primitives/menu/menu-content";
+import { MenuGroup } from "../../primitives/menu/menu-group";
+import { MenuItemIndicator } from "../../primitives/menu/menu-item-indicator";
+import { MenuLabel } from "../../primitives/menu/menu-label";
+import { MenuRoot, type MenuRootProps } from "../../primitives/menu/menu-root";
+import { MenuSeparator } from "../../primitives/menu/menu-separator";
+import { MenuSubTrigger } from "../../primitives/menu/menu-sub-trigger";
 
 export type ContextMenuProps = Omit<MenuRootProps, "placement" | "preventScroll">;
 

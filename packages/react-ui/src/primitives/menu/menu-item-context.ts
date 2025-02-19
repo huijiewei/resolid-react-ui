@@ -1,6 +1,6 @@
 import type { FloatingEvents } from "@floating-ui/react";
 import type { HTMLProps, RefObject } from "react";
-import { type AnyObject, createSafeContext } from "../../primitives";
+import { type AnyObject, createSafeContext } from "../index";
 
 export type MenuItemContextValue = {
   menuEvents: FloatingEvents;

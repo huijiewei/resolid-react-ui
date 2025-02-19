@@ -23,24 +23,12 @@ import {
 } from "@floating-ui/react";
 import { type PropsWithChildren, useEffect, useRef, useState } from "react";
 import { useDisclosure, type UseDisclosureOptions, usePreventScroll } from "../../hooks";
-import { PopperArrowContext, type PopperArrowContextValue } from "../../primitives/popper/popper-arrow-context";
-import {
-  PopperDispatchContext,
-  type PopperDispatchContextValue,
-} from "../../primitives/popper/popper-dispatch-context";
-import {
-  PopperFloatingContext,
-  type PopperFloatingContextValue,
-} from "../../primitives/popper/popper-floating-context";
-import {
-  PopperReferenceContext,
-  type PopperReferenceContextValue,
-} from "../../primitives/popper/popper-reference-context";
-import {
-  PopperTransitionContext,
-  type PopperTransitionContextValue,
-} from "../../primitives/popper/popper-transtion-context";
-import { usePopperCloseComplete } from "../../primitives/popper/use-popper-close-complete";
+import { PopperArrowContext, type PopperArrowContextValue } from "../popper/popper-arrow-context";
+import { PopperDispatchContext, type PopperDispatchContextValue } from "../popper/popper-dispatch-context";
+import { PopperFloatingContext, type PopperFloatingContextValue } from "../popper/popper-floating-context";
+import { PopperReferenceContext, type PopperReferenceContextValue } from "../popper/popper-reference-context";
+import { PopperTransitionContext, type PopperTransitionContextValue } from "../popper/popper-transtion-context";
+import { usePopperCloseComplete } from "../popper/use-popper-close-complete";
 import { MenuContext, type MenuContextValue } from "./menu-context";
 import { MenuHoverContext } from "./menu-hover-context";
 
