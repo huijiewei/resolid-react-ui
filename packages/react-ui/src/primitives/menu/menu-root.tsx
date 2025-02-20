@@ -26,8 +26,9 @@ import { useDisclosure, type UseDisclosureOptions, usePreventScroll } from "../.
 import { PopperArrowContext, type PopperArrowContextValue } from "../popper/popper-arrow-context";
 import { PopperDispatchContext, type PopperDispatchContextValue } from "../popper/popper-dispatch-context";
 import { PopperFloatingContext, type PopperFloatingContextValue } from "../popper/popper-floating-context";
-import { PopperReferenceContext, type PopperReferenceContextValue } from "../popper/popper-reference-context";
+import { PopperPositionerContext, type PopperPositionerContextValue } from "../popper/popper-positioner-context";
 import { PopperTransitionContext, type PopperTransitionContextValue } from "../popper/popper-transtion-context";
+import { PopperTriggerContext, type PopperTriggerContextValue } from "../popper/popper-trigger-context";
 import { usePopperCloseComplete } from "../popper/use-popper-close-complete";
 import { MenuContext, type MenuContextValue } from "./menu-context";
 import { MenuHoverContext } from "./menu-hover-context";
@@ -169,19 +170,17 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
     }),
   ]);
 
-  const referenceContext: PopperReferenceContextValue = {
+  const referenceContext: PopperTriggerContextValue = {
     open: openState,
     setReference: refs.setReference,
-    getReferenceProps,
+    getReferenceProps: getReferenceProps,
     setPositionReference: refs.setPositionReference,
   };
 
   const { events: menuEvents } = useFloatingTree()!;
 
   const floatingContext: PopperFloatingContextValue = {
-    setFloating: refs.setFloating,
     getFloatingProps,
-    floatingStyles,
   };
 
   const menuContext: MenuContextValue = {
@@ -251,21 +250,28 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
     duration,
   };
 
+  const positionerContext: PopperPositionerContextValue = {
+    setPositioner: refs.setFloating,
+    positionerStyles: floatingStyles,
+  };
+
   return (
     <PopperArrowContext value={arrowContext}>
-      <PopperReferenceContext value={referenceContext}>
+      <PopperTriggerContext value={referenceContext}>
         <MenuContext value={menuContext}>
           <PopperDispatchContext value={dispatchContext}>
             <PopperTransitionContext value={transitionContext}>
-              <PopperFloatingContext value={floatingContext}>
-                <MenuHoverContext value={{ setHoverEnabled }}>
-                  <FloatingNode id={nodeId}>{children}</FloatingNode>
-                </MenuHoverContext>
-              </PopperFloatingContext>
+              <PopperPositionerContext value={positionerContext}>
+                <PopperFloatingContext value={floatingContext}>
+                  <MenuHoverContext value={{ setHoverEnabled }}>
+                    <FloatingNode id={nodeId}>{children}</FloatingNode>
+                  </MenuHoverContext>
+                </PopperFloatingContext>
+              </PopperPositionerContext>
             </PopperTransitionContext>
           </PopperDispatchContext>
         </MenuContext>
-      </PopperReferenceContext>
+      </PopperTriggerContext>
     </PopperArrowContext>
   );
 };

@@ -1,21 +1,26 @@
 import { FloatingFocusManager, FloatingList } from "@floating-ui/react";
 import { Portal } from "../../components/portal/portal";
+import { useMergeRefs } from "../../hooks";
 import { tx } from "../../utils";
 import type { PrimitiveProps } from "../index";
 import { PopperFloating } from "../popper/popper-floating";
+import { usePopperPositioner } from "../popper/popper-positioner-context";
 import { usePopperTransition } from "../popper/popper-transtion-context";
 import { useMenu } from "./menu-context";
 import { useMenuHover } from "./menu-hover-context";
 import { MenuItemContext, type MenuItemContextValue } from "./menu-item-context";
 
 export const MenuContent = (props: PrimitiveProps<"div">) => {
-  const { children, className, ...rest } = props;
+  const { children, className, style, ref, ...rest } = props;
 
   const { context, menuEvents, closeOnSelect, activeIndex, getItemProps, nested, elementsRef, labelsRef, typingRef } =
     useMenu();
 
   const { setHoverEnabled } = useMenuHover();
   const { status, mounted, duration } = usePopperTransition();
+  const { setPositioner, positionerStyles } = usePopperPositioner();
+
+  const refs = useMergeRefs(ref, setPositioner);
 
   if (!mounted) {
     return null;
@@ -39,6 +44,8 @@ export const MenuContent = (props: PrimitiveProps<"div">) => {
     <Portal>
       <FloatingFocusManager context={context} modal={false}>
         <PopperFloating
+          ref={refs}
+          style={{ ...style, ...positionerStyles }}
           status={status}
           duration={duration}
           onMouseEnter={handleMouseEnter}

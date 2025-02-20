@@ -1,7 +1,7 @@
 import { type MouseEvent, type PointerEvent, useCallback, useEffect, useRef } from "react";
 import { Polymorphic, type PolymorphicProps } from "../../primitives";
 import { usePopperDispatch } from "../../primitives/popper/popper-dispatch-context";
-import { usePopperReference } from "../../primitives/popper/popper-reference-context";
+import { usePopperTrigger } from "../../primitives/popper/popper-trigger-context";
 import { dataAttr } from "../../utils";
 
 type ContextMenuTriggerProps = {
@@ -25,7 +25,7 @@ export const ContextMenuTrigger = (props: PolymorphicProps<"div", ContextMenuTri
     ...rest
   } = props;
 
-  const { open, setPositionReference } = usePopperReference();
+  const { open, setPositionReference } = usePopperTrigger();
   const { handleOpen } = usePopperDispatch();
 
   const longPressTimerRef = useRef(0);

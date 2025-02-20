@@ -1,14 +1,14 @@
 import { useButtonProps, useMergeRefs } from "../../hooks";
 import { dataAttr } from "../../utils";
 import { Polymorphic, type PolymorphicProps } from "../index";
-import { usePopperReference } from "./popper-reference-context";
+import { usePopperTrigger } from "./popper-trigger-context";
 
 type PopperTriggerProps = { active?: boolean };
 
 export const PopperTrigger = (props: PolymorphicProps<"button", PopperTriggerProps, "type">) => {
   const { render, active, disabled, tabIndex, children, ref, ...rest } = props;
 
-  const { open, setReference, getReferenceProps } = usePopperReference();
+  const { open, setReference, getReferenceProps } = usePopperTrigger();
 
   const refs = useMergeRefs(ref, setReference);
 

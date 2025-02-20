@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { useMergeRefs } from "../../hooks";
 import { tx } from "../../utils";
 import type { PrimitiveProps } from "../index";
 import { usePopperFloating } from "./popper-floating-context";
@@ -9,17 +10,18 @@ export type PopperFloatingProps = {
   duration: number;
 };
 
-export const PopperFloating = (props: PrimitiveProps<"div", PopperFloatingProps, "ref">) => {
-  const { className, children, style, status, duration, ...rest } = props;
+export const PopperFloating = (props: PrimitiveProps<"div", PopperFloatingProps>) => {
+  const { className, children, style, status, duration, ref, ...rest } = props;
 
-  const { setFloating, getFloatingProps, floatingStyles } = usePopperFloating();
+  const { setFloating, getFloatingProps } = usePopperFloating();
+
+  const refs = useMergeRefs(ref, setFloating);
 
   return (
     <div
-      ref={setFloating}
+      ref={refs}
       style={
         {
-          ...floatingStyles,
           ...style,
           "--dv": `${duration}ms`,
         } as CSSProperties

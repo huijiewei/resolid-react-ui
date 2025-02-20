@@ -7,6 +7,7 @@ import {
   useTransitionStatus,
   type FloatingContext,
 } from "@floating-ui/react";
+import { noop } from "@resolid/utils";
 import { useId, useState, type PropsWithChildren } from "react";
 import { useDisclosure, usePreventScroll, type UseDisclosureOptions } from "../../hooks";
 import { PopperAriaContext } from "../../primitives/popper/popper-aria-context";
@@ -19,13 +20,10 @@ import {
   type PopperFloatingContextValue,
 } from "../../primitives/popper/popper-floating-context";
 import {
-  PopperReferenceContext,
-  type PopperReferenceContextValue,
-} from "../../primitives/popper/popper-reference-context";
-import {
   PopperTransitionContext,
   type PopperTransitionContextValue,
 } from "../../primitives/popper/popper-transtion-context";
+import { PopperTriggerContext, type PopperTriggerContextValue } from "../../primitives/popper/popper-trigger-context";
 import { DialogContext, type DialogBaseProps, type DialogContextValue } from "./dialog-context";
 
 export type DialogRootProps = UseDisclosureOptions &
@@ -118,7 +116,6 @@ export const DialogRoot = (props: PropsWithChildren<DialogRootProps>) => {
   const floatingContext: PopperFloatingContextValue = {
     setFloating,
     getFloatingProps,
-    floatingStyles: {},
   };
 
   const dialogContext: DialogContextValue = {
@@ -134,13 +131,13 @@ export const DialogRoot = (props: PropsWithChildren<DialogRootProps>) => {
     handleClose,
   };
 
-  const referenceContext: PopperReferenceContextValue = {
+  const referenceContext: PopperTriggerContextValue = {
     open: openState,
     setReference: (node) => {
       setReference(node as HTMLElement);
     },
-    getReferenceProps,
-    setPositionReference: () => {},
+    getReferenceProps: getReferenceProps,
+    setPositionReference: noop,
   };
 
   const { isMounted, status } = useTransitionStatus(context as FloatingContext, {
@@ -155,7 +152,7 @@ export const DialogRoot = (props: PropsWithChildren<DialogRootProps>) => {
 
   return (
     <PopperAriaContext value={ariaContext}>
-      <PopperReferenceContext value={referenceContext}>
+      <PopperTriggerContext value={referenceContext}>
         <DialogContext value={dialogContext}>
           <PopperDispatchContext value={dispatchContext}>
             <PopperTransitionContext value={transitionContext}>
@@ -163,7 +160,7 @@ export const DialogRoot = (props: PropsWithChildren<DialogRootProps>) => {
             </PopperTransitionContext>
           </PopperDispatchContext>
         </DialogContext>
-      </PopperReferenceContext>
+      </PopperTriggerContext>
     </PopperAriaContext>
   );
 };

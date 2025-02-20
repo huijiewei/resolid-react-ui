@@ -26,13 +26,14 @@ import {
   type PopperFloatingContextValue,
 } from "../../primitives/popper/popper-floating-context";
 import {
-  PopperReferenceContext,
-  type PopperReferenceContextValue,
-} from "../../primitives/popper/popper-reference-context";
+  PopperPositionerContext,
+  type PopperPositionerContextValue,
+} from "../../primitives/popper/popper-positioner-context";
 import {
   PopperTransitionContext,
   type PopperTransitionContextValue,
 } from "../../primitives/popper/popper-transtion-context";
+import { PopperTriggerContext, type PopperTriggerContextValue } from "../../primitives/popper/popper-trigger-context";
 import { type PopoverBaseProps, PopoverContext, type PopoverContextValue } from "./popover-context";
 
 export type PopoverRootProps = UseDisclosureOptions &
@@ -129,17 +130,15 @@ export const PopoverRoot = (props: PropsWithChildren<PopoverRootProps>) => {
     }),
   ]);
 
-  const referenceContext: PopperReferenceContextValue = {
+  const referenceContext: PopperTriggerContextValue = {
     open: openState,
     setReference: refs.setReference,
-    getReferenceProps,
+    getReferenceProps: getReferenceProps,
     setPositionReference: refs.setPositionReference,
   };
 
   const floatingContext: PopperFloatingContextValue = {
-    setFloating: refs.setFloating,
     getFloatingProps,
-    floatingStyles,
   };
 
   const popoverContext: PopoverContextValue = {
@@ -163,18 +162,25 @@ export const PopoverRoot = (props: PropsWithChildren<PopoverRootProps>) => {
     duration,
   };
 
+  const positionerContext: PopperPositionerContextValue = {
+    setPositioner: refs.setFloating,
+    positionerStyles: floatingStyles,
+  };
+
   return (
     <PopperAriaContext value={ariaContext}>
       <PopperArrowContext value={arrowContext}>
-        <PopperReferenceContext value={referenceContext}>
+        <PopperTriggerContext value={referenceContext}>
           <PopoverContext value={popoverContext}>
             <PopperDispatchContext value={dispatchContext}>
               <PopperTransitionContext value={transitionContext}>
-                <PopperFloatingContext value={floatingContext}>{children}</PopperFloatingContext>
+                <PopperPositionerContext value={positionerContext}>
+                  <PopperFloatingContext value={floatingContext}>{children}</PopperFloatingContext>
+                </PopperPositionerContext>
               </PopperTransitionContext>
             </PopperDispatchContext>
           </PopoverContext>
-        </PopperReferenceContext>
+        </PopperTriggerContext>
       </PopperArrowContext>
     </PopperAriaContext>
   );
