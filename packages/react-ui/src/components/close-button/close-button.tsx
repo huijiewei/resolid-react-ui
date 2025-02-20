@@ -1,33 +1,43 @@
 import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
+import { Button } from "../button/button";
+import type { ButtonStyleProps } from "../button/button.styles";
 
 export type CloseButtonProps = {
-  textClassName?: string;
-  statusClassName?: string;
+  /**
+   * 外观
+   * @default "ghost"
+   */
+  variant?: ButtonStyleProps["variant"];
+
+  /**
+   * 颜色
+   * @default "neutral"
+   */
+  color?: ButtonStyleProps["color"];
+
+  /**
+   * 大小
+   * @default "1.5em"
+   */
   size?: string | number;
 };
 
-export const CloseButton = (props: PrimitiveProps<"button", CloseButtonProps>) => {
-  const {
-    className,
-    disabled,
-    textClassName = "text-fg-muted",
-    statusClassName = "hover:bg-bg-subtle active:bg-bg-muted",
-    size = "1.5em",
-    children,
-    ...rest
-  } = props;
+export const CloseButton = (props: PrimitiveProps<"button", CloseButtonProps, "type">) => {
+  const { className, disabled, variant = "ghost", color = "neutral", size = "1.5em", children, ...rest } = props;
 
   return (
-    <button
+    <Button
       type={"button"}
       disabled={disabled}
-      className={tx(
-        "flex shrink-0 appearance-none items-center justify-center rounded-md outline-none transition-colors",
-        textClassName,
-        !disabled && `focus-visible:ring ${statusClassName}`,
-        className,
-      )}
+      variant={variant}
+      color={color}
+      size={"xs"}
+      iconOnly
+      hasPadding={false}
+      radius={"full"}
+      aria-label="关闭"
+      className={tx("p-1 leading-none", className)}
       {...rest}
     >
       {children || (
@@ -42,6 +52,6 @@ export const CloseButton = (props: PrimitiveProps<"button", CloseButtonProps>) =
           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
       )}
-    </button>
+    </Button>
   );
 };

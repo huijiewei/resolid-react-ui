@@ -1,5 +1,6 @@
 import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
+import { CloseButton } from "../close-button/close-button";
 import { AlertContext, type AlertContextValue, useAlert } from "./alert-context";
 import { alertStyles } from "./alert.styles";
 
@@ -38,4 +39,27 @@ export const AlertIndicator = (props: PrimitiveProps<"span">) => {
   const { className, ...rest } = props;
 
   return <span className={tx("shrink-0", className)} {...rest} />;
+};
+
+export type AlertCloseButtonProps = {
+  /**
+   * 大小
+   * @default "1.375em"
+   */
+  size?: string | number;
+};
+
+export const AlertCloseButton = (props: PrimitiveProps<"button", AlertCloseButtonProps, "type" | "color">) => {
+  const { size = "1.375em", ...rest } = props;
+
+  const { variant, color } = useAlert();
+
+  return (
+    <CloseButton
+      color={color}
+      variant={variant === "outline" ? "ghost" : variant === "subtle" ? "soft" : variant}
+      size={size}
+      {...rest}
+    />
+  );
 };

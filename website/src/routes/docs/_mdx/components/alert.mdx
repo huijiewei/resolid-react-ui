@@ -10,10 +10,10 @@ import { Alert, AlertIndicator, AlertTitle, AlertDescription } from "@resolid/re
 ```
 
 - `Alert`: 警告提示组件的包装器。
-- `AlertIndicator`: 根据状态属性变化的警告提示的视觉指示器。<sup>(可以忽略)</sup>
-- `AlertContent`: 警告的内容主体。<sup>(可以忽略)</sup>
-- `AlertTitle`: 警告的标题，可以供屏幕阅读器宣读。<sup>(可以忽略)</sup>
-- `AlertDescription`: 警告的描述，可以供屏幕阅读器宣读。<sup>(可以忽略)</sup>
+- `AlertIndicator`: 根据状态属性变化的警告提示的视觉指示器。<sup>(可选)</sup>
+- `AlertContent`: 警告的内容主体。<sup>(可选)</sup>
+- `AlertTitle`: 警告的标题，可以供屏幕阅读器宣读。<sup>(可选)</sup>
+- `AlertDescription`: 警告的描述，可以供屏幕阅读器宣读。<sup>(可选)</sup>
 
 ## 用法
 
@@ -46,7 +46,9 @@ export default function Usage(props) {
 
 :::
 
-## 外观
+## 举例
+
+### 外观
 
 警告有四种不同的外观可供使用。通过传递 `variant` 属性，可以选择使用 `solid`、`outline`、`subtle` 和 `soft` 中的任意一种。
 
@@ -59,6 +61,7 @@ import {
   AlertContent,
   AlertTitle,
   AlertDescription,
+  AlertCloseButton,
 } from "@resolid/react-ui";
 import { SpriteIcon } from "~/components/sprite-icon";
 
@@ -92,11 +95,43 @@ export default function App() {
                 <AlertTitle>警告</AlertTitle>
                 <AlertDescription>显示简短重要信息</AlertDescription>
               </AlertContent>
+              <AlertCloseButton className={"absolute end-2 top-2"} />
             </Alert>
           ))}
         </div>
       ))}
     </div>
+  );
+}
+```
+
+### 关闭按钮
+
+```jsx demo
+import {
+  Alert,
+  AlertIndicator,
+  AlertContent,
+  AlertTitle,
+  AlertDescription,
+  AlertCloseButton,
+} from "@resolid/react-ui";
+import { SpriteIcon } from "~/components/sprite-icon";
+
+export default function App() {
+  return (
+    <Alert className={"flex flex-row gap-2"}>
+      <AlertIndicator className={"pt-1.75"}>
+        <SpriteIcon name={"github-NOTE"} />
+      </AlertIndicator>
+      <AlertContent>
+        <AlertTitle>警告提示</AlertTitle>
+        <AlertDescription>
+          以吸引用户注意力的方式显示简短重要信息，而不会打断用户正在进行的任务。
+        </AlertDescription>
+      </AlertContent>
+      <AlertCloseButton className={"absolute end-3 top-3"} />
+    </Alert>
   );
 }
 ```

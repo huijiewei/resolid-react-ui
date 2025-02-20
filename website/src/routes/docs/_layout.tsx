@@ -39,7 +39,7 @@ export default function Layout() {
         )}
       >
         <nav className={"pb-28 text-sm md:pb-0"}>
-          <CloseButton onClick={() => setOpened(false)} className={"absolute end-2 top-2 p-1 md:hidden"} />
+          <CloseButton onClick={() => setOpened(false)} className={"absolute end-2 top-2 md:hidden"} />
           <AsideLayoutMenu menus={menus} onClickMenu={() => setOpened(false)} />
         </nav>
       </aside>
