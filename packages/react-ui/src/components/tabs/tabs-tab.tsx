@@ -3,7 +3,7 @@ import type { FocusEvent, MouseEvent } from "react";
 import { useButtonProps, useIsomorphicEffect, useMergeRefs } from "../../hooks";
 import { Polymorphic, type PolymorphicProps } from "../../primitives";
 import { ariaAttr, dataAttr, tx } from "../../utils";
-import { getPanelId, getTabId, useTabs } from "./tabs-context";
+import { getTabId, useTabs } from "./tabs-context";
 import { useTabsList } from "./tabs-list-context";
 
 type TabsTabProps = {
@@ -27,7 +27,6 @@ export const TabsTab = (props: PolymorphicProps<"button", TabsTabProps, "type" |
   const { activeIndex, setActiveIndex } = useTabsList();
 
   const tabId = getTabId(baseId, value);
-  const panelId = getPanelId(baseId, value);
   const selected = selectedValue === value;
 
   useIsomorphicEffect(() => {
@@ -50,7 +49,10 @@ export const TabsTab = (props: PolymorphicProps<"button", TabsTabProps, "type" |
 
   const handleFocus = (e: FocusEvent<HTMLButtonElement>) => {
     onFocus?.(e);
-    setSelectedValue(value);
+
+    if (e.target === e.currentTarget) {
+      setSelectedValue(value);
+    }
   };
 
   const buttonProps = useButtonProps({
@@ -69,7 +71,6 @@ export const TabsTab = (props: PolymorphicProps<"button", TabsTabProps, "type" |
       ref={refs}
       {...buttonProps}
       id={tabId}
-      aria-controls={panelId}
       aria-selected={ariaAttr(selected)}
       data-active={dataAttr(selected)}
       data-orientation={orientation}

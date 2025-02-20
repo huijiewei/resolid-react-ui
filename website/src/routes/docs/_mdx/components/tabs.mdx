@@ -25,7 +25,7 @@ import { Tabs, TabsList, TabsTab, TabsPanel } from "@resolid/react-ui";
 export default function App() {
   return (
     <div className={"flex justify-center"}>
-      <Tabs className={"border-bd-normal w-auto rounded-md border"} defaultValue={"light"}>
+      <Tabs defaultValue={"auto"} className={"border-bd-normal w-auto rounded-md border"}>
         <TabsList className={"border-bd-normal gap-1 border-b p-1"}>
           <TabsTab value={"auto"} className={"active:bg-bg-subtle rounded-md px-3"}>
             Auto
@@ -59,7 +59,7 @@ export default function App() {
 
 ### 垂直
 
-```jsx demo online=Tabs
+```jsx demo
 import { SpriteIcon } from "~/components/sprite-icon";
 import { Tabs, TabsList, TabsTab, TabsPanel } from "@resolid/react-ui";
 
@@ -102,7 +102,7 @@ export default function App() {
 
 ### 禁用
 
-```jsx demo online=Tabs
+```jsx demo
 import { SpriteIcon } from "~/components/sprite-icon";
 import { Tabs, TabsList, TabsTab, TabsPanel } from "@resolid/react-ui";
 
@@ -114,7 +114,11 @@ export default function App() {
           <TabsTab value={"auto"} className={"active:bg-bg-subtle rounded-md px-3"}>
             Auto
           </TabsTab>
-          <TabsTab value={"light"} disabled className={"active:bg-bg-subtle rounded-md px-3"}>
+          <TabsTab
+            value={"light"}
+            disabled
+            className={"not-disabled:active:bg-bg-subtle rounded-md px-3"}
+          >
             Light
           </TabsTab>
           <TabsTab value={"dark"} className={"active:bg-bg-subtle rounded-md px-3"}>
@@ -135,6 +139,98 @@ export default function App() {
         </TabsPanel>
       </Tabs>
     </div>
+  );
+}
+```
+
+### 动态
+
+这是如何动态添加和删除选项卡的示例。
+
+```jsx demo
+import { useState } from "react";
+import { Tabs, TabsList, TabsTab, TabsPanel, Button, CloseButton } from "@resolid/react-ui";
+
+const items = [
+  { id: "1", title: "Tab", content: "Tab Content" },
+  { id: "2", title: "Tab", content: "Tab Content" },
+  { id: "3", title: "Tab", content: "Tab Content" },
+];
+
+export default function App() {
+  const [tabs, setTabs] = useState(items);
+  const [selected, setSelected] = useState(items[0].id);
+
+  const addTab = () => {
+    const uid = Math.random().toString(36).substring(2, 15);
+
+    setTabs([
+      ...tabs,
+      {
+        id: uid,
+        title: `Tab`,
+        content: `Tab Body`,
+      },
+    ]);
+    setSelected(uid);
+  };
+
+  const removeTab = (id) => {
+    if (tabs.length > 1) {
+      const newTabs = [...tabs].filter((tab) => tab.id !== id);
+
+      setTabs(newTabs);
+      if (id === selected) {
+        setSelected(newTabs[0].id);
+      }
+    }
+  };
+
+  return (
+    <Tabs
+      value={selected}
+      onChange={setSelected}
+      className={"border-bd-normal w-auto rounded-md border"}
+    >
+      <TabsList className={"border-bd-normal border-b p-1"}>
+        {tabs.map((tab) => {
+          return (
+            <TabsTab
+              render={(props) => <span {...props} />}
+              key={tab.id}
+              value={tab.id}
+              className={"active:bg-bg-subtle select-none rounded-md pe-1 ps-3"}
+            >
+              {tab.title}
+              <CloseButton
+                size={"1em"}
+                className={"ms-2"}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  removeTab(tab.id);
+                }}
+              />
+            </TabsTab>
+          );
+        })}
+        <Button
+          variant={"ghost"}
+          hasPadding={false}
+          className={"ms-1.5 px-1.5 py-0.5"}
+          color={"neutral"}
+          onClick={addTab}
+        >
+          Add Tab
+        </Button>
+      </TabsList>
+      {tabs.map((tab) => {
+        return (
+          <TabsPanel key={tab.id} value={tab.id} className={"p-4"}>
+            {tab.content}
+          </TabsPanel>
+        );
+      })}
+    </Tabs>
   );
 }
 ```
