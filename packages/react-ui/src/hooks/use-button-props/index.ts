@@ -13,7 +13,7 @@ export const useButtonProps = (options: UseButtonPropsOptions) => {
 
   return {
     type: !hasRender ? type : undefined,
-    role: role !== "button" ? role : hasRender ? "button" : undefined,
+    role: role && role !== "button" ? role : hasRender ? "button" : undefined,
     disabled: !hasRender && disabled ? disabled : undefined,
     tabIndex: tabIndex ?? (hasRender && !disabled ? 0 : undefined),
     "aria-disabled": hasRender && disabled ? true : undefined,
