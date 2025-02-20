@@ -2,7 +2,7 @@ import type { ReactElement } from "react";
 import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
 import { PaginationItem, type PaginationItemProps } from "./pagination-item";
-import type { Color } from "./pagination.styles";
+import type { PageColor } from "./pagination.styles";
 import { usePagination, type UsePaginationOptions } from "./use-pagination";
 
 export type PaginationProps = UsePaginationOptions & {
@@ -10,7 +10,7 @@ export type PaginationProps = UsePaginationOptions & {
    * 颜色
    * @default "primary"
    */
-  color?: Color;
+  color?: PageColor;
 
   /**
    * 分页项目渲染

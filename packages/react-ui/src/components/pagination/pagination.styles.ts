@@ -7,4 +7,4 @@ export const currentPageColorStyles = {
   neutral: "bg-bg-neutral-emphasis",
 };
 
-export type Color = keyof typeof currentPageColorStyles;
+export type PageColor = keyof typeof currentPageColorStyles;

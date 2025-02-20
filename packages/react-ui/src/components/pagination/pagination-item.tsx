@@ -3,14 +3,14 @@ import { useButtonProps } from "../../hooks";
 import { Polymorphic, type PolymorphicProps } from "../../primitives";
 import { AngleLeftIcon, AngleRightIcon } from "../../shared/icons";
 import { tx } from "../../utils";
-import { type Color, currentPageColorStyles } from "./pagination.styles";
+import { type PageColor, currentPageColorStyles } from "./pagination.styles";
 import type { PageType } from "./use-pagination";
 
 export type PaginationItemProps = {
   page: number;
   pageType: PageType;
   disabled: boolean;
-  color: Color;
+  color: PageColor;
   currentPage: number;
   setCurrentPage: (page: number) => void;
 };
