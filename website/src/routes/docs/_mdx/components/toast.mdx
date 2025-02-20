@@ -1,0 +1,506 @@
+---
+title: 通知提醒
+description: 全局展示通知提醒，将信息及时有效的传达给用户。
+---
+
+## 导入
+
+```js
+import {
+  useToast,
+  Toast,
+  ToastContent,
+  ToastTitle,
+  ToastDescription,
+  ToastIndicator,
+  ToastCloseButton,
+} from "@resolid/react-ui";
+```
+
+- `useToast`: 通知提醒调用 Hook。
+- `Toast`: 通知提醒组件的包装器。
+- `ToastIndicator`: 根据状态属性变化的通知提醒的视觉指示器。<sup>(可选)</sup>
+- `ToastContent`: 通知提醒的内容主体。<sup>(可选)</sup>
+- `ToastTitle`: 通知提醒的标题，可以供屏幕阅读器宣读。<sup>(可选)</sup>
+- `ToastDescription`: 通知提醒的描述，可以供屏幕阅读器宣读。<sup>(可选)</sup>
+- `ToastCloseButton`: 关闭通知提醒的按钮。<sup>(可选)</sup>
+
+## 演示
+
+```jsx demo online=Toast
+import { SpriteIcon } from "~/components/sprite-icon";
+import {
+  useToast,
+  Button,
+  Toast,
+  ToastIndicator,
+  ToastContent,
+  ToastTitle,
+  ToastDescription,
+  ToastCloseButton,
+} from "@resolid/react-ui";
+
+export default function App() {
+  const { show } = useToast();
+
+  return (
+    <Button
+      onClick={() => {
+        show(
+          <Toast className={"flex gap-2"}>
+            <ToastIndicator className={"pt-1"}>
+              <SpriteIcon name={"info"} />
+            </ToastIndicator>
+            <ToastContent className={"flex flex-col gap-1"}>
+              <ToastTitle>通知提醒</ToastTitle>
+              <ToastDescription className={"text-sm"}>
+                全局展示通知提醒，将信息及时有效的传达给用户。
+              </ToastDescription>
+            </ToastContent>
+            <ToastCloseButton className={"absolute end-2 top-2"} />
+          </Toast>,
+        );
+      }}
+    >
+      显示通知提醒
+    </Button>
+  );
+}
+```
+
+## 举例
+
+### 更新通知
+
+```jsx demo
+import { SpriteIcon } from "~/components/sprite-icon";
+import {
+  useToast,
+  Button,
+  Toast,
+  ToastIndicator,
+  ToastContent,
+  ToastTitle,
+  ToastDescription,
+  ToastCloseButton,
+} from "@resolid/react-ui";
+import { useRef } from "react";
+
+export default function App() {
+  const { show, update } = useToast();
+  const toastId = useRef("");
+
+  return (
+    <div className={"flex gap-3"}>
+      <Button
+        onClick={() => {
+          toastId.current = show(
+            <Toast className={"flex gap-2"}>
+              <ToastIndicator className={"pt-1"}>
+                <SpriteIcon name={"info"} />
+              </ToastIndicator>
+              <ToastContent className={"flex flex-col gap-1"}>
+                <ToastTitle>通知提醒</ToastTitle>
+                <ToastDescription className={"text-sm"}>
+                  全局展示通知提醒，将信息及时有效的传达给用户。
+                </ToastDescription>
+              </ToastContent>
+              <ToastCloseButton className={"absolute end-2 top-2"} />
+            </Toast>,
+          );
+        }}
+      >
+        显示通知提醒
+      </Button>
+      <Button
+        color={"neutral"}
+        onClick={() => {
+          update(
+            toastId.current,
+            <Toast color={"success"} className={"flex gap-2"}>
+              <ToastIndicator className={"pt-1"}>
+                <SpriteIcon name={"info"} />
+              </ToastIndicator>
+              <ToastContent className={"flex flex-col gap-1"}>
+                <ToastTitle>通知提醒</ToastTitle>
+                <ToastDescription className={"text-sm"}>更新通知提醒内容。</ToastDescription>
+              </ToastContent>
+              <ToastCloseButton className={"absolute end-2 top-2"} />
+            </Toast>,
+          );
+        }}
+      >
+        更新通知提醒
+      </Button>
+    </div>
+  );
+}
+```
+
+### 持续时间
+
+```jsx demo
+import { SpriteIcon } from "~/components/sprite-icon";
+import {
+  Button,
+  Toast,
+  ToastIndicator,
+  ToastContent,
+  ToastCloseButton,
+  ToastDescription,
+  ToastTitle,
+  useToast,
+} from "@resolid/react-ui";
+
+export default function App() {
+  const { show } = useToast();
+
+  const ToastDemo = (
+    <Toast className={"flex gap-2"}>
+      <ToastIndicator className={"pt-1"}>
+        <SpriteIcon name={"info"} />
+      </ToastIndicator>
+      <ToastContent className={"flex flex-col gap-1"}>
+        <ToastTitle>通知提醒</ToastTitle>
+        <ToastDescription className={"text-sm"}>
+          全局展示通知提醒，将信息及时有效的传达给用户。
+        </ToastDescription>
+      </ToastContent>
+      <ToastCloseButton className={"absolute end-2 top-2"} />
+    </Toast>
+  );
+
+  return (
+    <div className={"flex gap-3"}>
+      <Button
+        onClick={() => {
+          show(ToastDemo, { duration: 10000 });
+        }}
+      >
+        持续10秒
+      </Button>
+      <Button
+        onClick={() => {
+          show(ToastDemo, { duration: null });
+        }}
+      >
+        不会自动关闭
+      </Button>
+    </div>
+  );
+}
+```
+
+### 关闭回调
+
+```jsx demo
+import { SpriteIcon } from "~/components/sprite-icon";
+import {
+  useToast,
+  Button,
+  Toast,
+  ToastIndicator,
+  ToastContent,
+  ToastTitle,
+  ToastDescription,
+  ToastCloseButton,
+} from "@resolid/react-ui";
+
+export default function App() {
+  const { show } = useToast();
+
+  return (
+    <Button
+      onClick={() => {
+        show(
+          <Toast onDismiss={() => alert("通知提醒关闭回调")} className={"flex gap-2"}>
+            <ToastIndicator className={"pt-1"}>
+              <SpriteIcon name={"info"} />
+            </ToastIndicator>
+            <ToastContent className={"flex flex-col gap-1"}>
+              <ToastTitle>通知提醒</ToastTitle>
+              <ToastDescription className={"text-sm"}>
+                全局展示通知提醒，将信息及时有效的传达给用户。
+              </ToastDescription>
+            </ToastContent>
+            <ToastCloseButton className={"absolute end-2 top-2"} />
+          </Toast>,
+        );
+      }}
+    >
+      显示通知提醒
+    </Button>
+  );
+}
+```
+
+### 处理承诺
+
+```jsx demo
+import { SpriteIcon } from "~/components/sprite-icon";
+import {
+  Button,
+  Toast,
+  ToastIndicator,
+  ToastContent,
+  ToastCloseButton,
+  ToastDescription,
+  ToastTitle,
+  useToast,
+  Spinner,
+} from "@resolid/react-ui";
+
+export default function App() {
+  const { showPromise } = useToast();
+
+  const promiseFn = (state) => {
+    return state === "success"
+      ? new Promise((resolve) => setTimeout(() => resolve({ message: "处理承诺成功" }), 3000))
+      : new Promise((resolve, reject) => setTimeout(reject, 30000));
+  };
+
+  const PromiseToast = ({ state, data, error }) => {
+    return (
+      <Toast
+        className={"flex gap-2"}
+        color={state === "success" ? "success" : state === "failure" ? "danger" : undefined}
+      >
+        <ToastIndicator className={"w-5 pt-1"}>
+          {state === "success" && <SpriteIcon size={"1.5em"} name={"check"} />}
+          {state === "failure" && <SpriteIcon size={"1.5em"} name={"info"} />}
+          {state === "pending" && <Spinner />}
+        </ToastIndicator>
+        <ToastContent className={"flex flex-col gap-1"}>
+          <ToastTitle>通知提醒</ToastTitle>
+          <ToastDescription className={"text-sm"}>
+            {state === "success" && data?.message}
+            {state === "failure" && "处理承诺失败"}
+            {state === "pending" && "开始处理承诺..."}
+          </ToastDescription>
+        </ToastContent>
+        {state !== "pending" && <ToastCloseButton className={"absolute end-2 top-2"} />}
+      </Toast>
+    );
+  };
+
+  const handleClick = (state) => {
+    showPromise(promiseFn(state), PromiseToast, { duration: 30000 });
+  };
+
+  return (
+    <div className={"flex gap-3"}>
+      <Button color={"success"} onClick={() => handleClick("success")}>
+        处理承诺成功
+      </Button>
+      <Button color={"danger"} onClick={() => handleClick("failure")}>
+        处理承诺失败
+      </Button>
+    </div>
+  );
+}
+```
+
+### 外观
+
+通知提醒有四种不同的外观可供使用。通过传递 `variant` 属性，可以选择使用 `solid`、`outline`、`subtle` 和 `soft` 中的任意一种。
+
+通知提醒有六种不同的颜色可供使用。通过传递 `color` 属性，可以选择使用 `primary`、`secondary`、`success`、`warning`、`danger` 或 `neutral` 中的任意一种。
+
+```jsx demo
+import { SpriteIcon } from "~/components/sprite-icon";
+import {
+  Button,
+  Toast,
+  ToastCloseButton,
+  ToastContent,
+  ToastDescription,
+  ToastIndicator,
+  ToastTitle,
+  useToast,
+} from "@resolid/react-ui";
+
+export default function App() {
+  const { show } = useToast();
+
+  const handleClick = (color, variant) => {
+    show(
+      <Toast color={color} variant={variant} className={"flex gap-2"}>
+        <ToastIndicator className={"pt-1"}>
+          <SpriteIcon size={"1.5em"} name={"info"} />
+        </ToastIndicator>
+        <ToastContent className={"flex flex-col gap-1"}>
+          <ToastTitle>通知提醒</ToastTitle>
+          <ToastDescription className={"text-sm"}>
+            全局展示通知提醒，将信息及时有效的传达给用户。
+          </ToastDescription>
+        </ToastContent>
+        <ToastCloseButton className={"absolute end-2 top-2"} />
+      </Toast>,
+    );
+  };
+
+  const colors = ["primary", "secondary", "success", "warning", "danger", "neutral"];
+  const variants = ["solid", "outline", "subtle", "soft"];
+
+  return (
+    <div className={"flex flex-col gap-3"}>
+      {colors.map((color) => {
+        return (
+          <div key={color} className={"flex gap-3"}>
+            {variants.map((variant) => {
+              return (
+                <Button
+                  key={`${color}=${variant}`}
+                  color={color}
+                  variant={variant}
+                  onClick={() => {
+                    handleClick(color, variant);
+                  }}
+                >
+                  通知提醒
+                </Button>
+              );
+            })}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+```
+
+### 位置
+
+```jsx demo
+import { SpriteIcon } from "~/components/sprite-icon";
+import {
+  Button,
+  Toast,
+  ToastCloseButton,
+  ToastContent,
+  ToastDescription,
+  ToastIndicator,
+  ToastTitle,
+  useToast,
+} from "@resolid/react-ui";
+
+export default function App() {
+  const { show, clearAll } = useToast();
+
+  return (
+    <div
+      className={"mx-auto grid w-fit gap-2"}
+      style={{
+        gridTemplateAreas:
+          '"top-start     top         top-end"' +
+          '".            center       ."' +
+          '"bottom-start  bottom      bottom-end"',
+      }}
+    >
+      {[
+        ["top-start", "上左"],
+        ["top", "上"],
+        ["top-end", "上右"],
+        ["center", "关闭全部"],
+        ["bottom-start", "下左"],
+        ["bottom", "下"],
+        ["bottom-end", "下右"],
+      ].map(([placement, name]) => {
+        return (
+          <Button
+            key={placement}
+            color={"neutral"}
+            variant={"soft"}
+            style={{ gridArea: placement }}
+            onClick={() => {
+              placement === "center"
+                ? clearAll()
+                : show(
+                    <Toast className={"flex gap-2"}>
+                      <ToastIndicator className={"pt-1"}>
+                        <SpriteIcon size={"1.5em"} name={"info"} />
+                      </ToastIndicator>
+                      <ToastContent className={"flex flex-col gap-1"}>
+                        <ToastTitle>通知提醒</ToastTitle>
+                        <ToastDescription className={"text-sm"}>
+                          全局展示通知提醒，将信息及时有效的传达给用户。
+                        </ToastDescription>
+                      </ToastContent>
+                      <ToastCloseButton className={"absolute end-2 top-2"} />
+                    </Toast>,
+                    {
+                      placement: placement,
+                    },
+                  );
+            }}
+          >
+            {name}
+          </Button>
+        );
+      })}
+    </div>
+  );
+}
+```
+
+## 全局配置
+
+您可以通过将 `toastOptions` 属性传递给 `ResolidProvider` 组件来全局配置 toast。
+
+- `duration` 自动关闭延时, 设置为 `null` 时不自动关闭, 默认值 `5000`
+- `placement` 放置位置, 默认值 `bottom-left`
+- `spacing` Toast 之间的间隔, 默认值 `0.75rem`
+
+## Hook API
+
+`useToast` 返回 5 个方法来操作 toast。
+
+```js
+const { show, update, dismiss, showPromise, clearAll } = useToast();
+```
+
+`ToastOptions` 拥有 3 个选项
+
+- `id` toast 不可重复的 id; <sup>（可选）</sup>
+- `duration` 自动关闭延时, 默认使用 `ResolidProvider` 提供的值; <sup>（可选）</sup>
+- `placement` 显示位置, 默认使用 `ResolidProvider` 提供的值; <sup>（可选）</sup>
+
+### show
+
+> (component: ToastComponent, options?: ToastOptions) => ToastId
+
+根据当前状态、区域和限制将新的 toast 添加到可见 toast 或队列，并返回创建的 toast 的 id。
+
+### update
+
+> (id: ToastId, component: ToastComponent) => void
+
+使用新渲染的 `Toast` 组件更新指定 id 的 toast。
+
+### dismiss
+
+> (id: ToastId) => void
+
+从可见 toast 和队列中删除具有指定 id 的 toast。
+
+### showPromise
+
+> (promise: Promise | (() => Promise), component: ToastPromiseComponent, options?: ToastOptions) => ToastId
+
+根据当前状态和限制，将新的基于承诺的 toast 添加到可见 toast 或队列，并返回创建的 toast 的 id。
+
+`ToastPromiseComponent` 拥有 3 个 属性
+
+- `state` promise 的状态，可以是 "pending" | "success" | "failure"
+- `data` promise 履行时返回的数据<sup>（如果有）</sup>
+- `error` promise 被拒绝时返回的错误<sup>（如果有）</sup>
+
+### clearAll
+
+> clearAll: (...args: ToastPlacement[]) => void
+
+从可见 toast 和队列中删除所有 toast。
+
+## 属性
+
+::PropsTable{file=toast/toast.tsx}

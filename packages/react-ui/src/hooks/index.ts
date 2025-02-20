@@ -13,3 +13,4 @@ export * from "./use-media-query";
 export * from "./use-merge-refs";
 export * from "./use-prevent-scroll";
 export * from "./use-previous";
+export * from "./use-timeout";
