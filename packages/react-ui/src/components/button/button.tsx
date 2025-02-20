@@ -1,4 +1,5 @@
-import type { ReactNode } from "react";
+import { isNumber } from "@resolid/utils";
+import type { CSSProperties, ReactNode } from "react";
 import { useButtonProps } from "../../hooks";
 import { Polymorphic, type PolymorphicProps } from "../../primitives";
 import { dataAttr, tx } from "../../utils";
@@ -24,6 +25,12 @@ export type ButtonProps = ButtonBaseProps & {
    * @default false
    */
   iconOnly?: boolean;
+
+  /**
+   * 是否有内边距
+   * @default true
+   */
+  hasPadding?: boolean;
 
   /**
    * 加载中
@@ -57,6 +64,7 @@ export const Button = (props: PolymorphicProps<"button", ButtonProps, "role">) =
     variant = group?.variant ?? "solid",
     color = group?.color ?? "primary",
     size = group?.size ?? "md",
+    radius = group?.radius ?? true,
     disabled = group?.disabled ?? false,
     active = false,
     loading = false,
@@ -65,9 +73,11 @@ export const Button = (props: PolymorphicProps<"button", ButtonProps, "role">) =
     spinnerPlacement = "start",
     fullWidth = false,
     iconOnly = false,
+    hasPadding = true,
     type = "button",
     tabIndex,
     className,
+    style,
     children,
     ...rest
   } = props;
@@ -80,6 +90,14 @@ export const Button = (props: PolymorphicProps<"button", ButtonProps, "role">) =
     tabIndex,
     disabled: disabledStatus,
   });
+  const radiusStyle = isNumber(radius) && radius > 0 ? `${radius}px` : undefined;
+  const radiusClass = radiusStyle
+    ? "rounded-(--rv)"
+    : radius == "full"
+      ? "rounded-full"
+      : radius == true
+        ? "rounded-md"
+        : "";
 
   return (
     <Polymorphic<"button">
@@ -87,8 +105,10 @@ export const Button = (props: PolymorphicProps<"button", ButtonProps, "role">) =
       render={render}
       {...buttonProps}
       data-active={dataAttr(active)}
+      style={{ ...style, "--rv": radiusStyle } as CSSProperties}
       className={tx(
-        buttonStyles({ variant, color, size, disabled: disabledStatus, fullWidth, iconOnly }),
+        buttonStyles({ variant, color, size, disabled: disabledStatus, fullWidth, iconOnly, hasPadding }),
+        radiusClass,
         group && [
           "not-last:not-first:rounded-none focus-visible:z-1",
           group.orientation == "horizontal"

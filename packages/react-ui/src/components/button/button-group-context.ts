@@ -22,6 +22,12 @@ export type ButtonBaseProps = {
   size?: ButtonStyleProps["size"];
 
   /**
+   * 按钮圆角
+   * @default true
+   */
+  radius?: number | boolean | "full";
+
+  /**
    * 是否禁用
    * @default false
    */

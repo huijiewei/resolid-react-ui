@@ -14,7 +14,7 @@ import { Button, ButtonGroup } from "@resolid/react-ui";
 
 ## 用法
 
-:::UsageBlock{file=button/button.tsx ignores=iconOnly}
+:::UsageBlock{file=button/button.tsx ignores=radius,iconOnly,hasPadding}
 
 import { Button } from "@resolid/react-ui";
 
@@ -80,6 +80,26 @@ export default function App() {
       <Button>Button</Button>
       <Button size={"lg"}>Button</Button>
       <Button size={"xl"}>Button</Button>
+    </div>
+  );
+}
+```
+
+### 圆角
+
+通过传递 `radius` 属性来更改按钮的圆角。
+
+```jsx demo
+import { Button } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row items-center gap-3"}>
+      <Button radius={false}>Button</Button>
+      <Button radius={2}>Button</Button>
+      <Button>Button</Button>
+      <Button radius={12}>Button</Button>
+      <Button radius={"full"}>Button</Button>
     </div>
   );
 }

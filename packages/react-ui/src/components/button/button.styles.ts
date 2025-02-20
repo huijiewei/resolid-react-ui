@@ -2,7 +2,7 @@ import { tv, type VP } from "../../utils";
 
 export const buttonStyles = tv({
   base: [
-    "inline-flex items-center justify-center rounded-md border",
+    "inline-flex items-center justify-center border",
     "select-none appearance-none whitespace-nowrap font-medium",
     "outline-2 outline-offset-2 outline-transparent transition-colors",
   ],
@@ -24,11 +24,11 @@ export const buttonStyles = tv({
       neutral: "focus-visible:outline-bg-neutral-emphasis/70",
     },
     size: {
-      xs: "h-7 text-xs",
-      sm: "h-8 text-sm",
-      md: "h-9 text-sm",
-      lg: "h-10 text-base",
-      xl: "h-11 text-base",
+      xs: "text-xs",
+      sm: "text-sm",
+      md: "text-sm",
+      lg: "text-base",
+      xl: "text-base",
     },
     disabled: {
       true: "opacity-60",
@@ -36,9 +36,15 @@ export const buttonStyles = tv({
     },
     fullWidth: {
       true: "w-full",
+      false: "",
     },
     iconOnly: {
       true: "aspect-square",
+      false: "",
+    },
+    hasPadding: {
+      true: "",
+      false: "",
     },
   },
   compoundVariants: [
@@ -284,37 +290,60 @@ export const buttonStyles = tv({
 
     {
       iconOnly: false,
+      hasPadding: true,
       size: "xs",
       className: "px-2.5",
     },
     {
       iconOnly: false,
+      hasPadding: true,
       size: "sm",
       className: "px-3",
     },
     {
       iconOnly: false,
+      hasPadding: true,
       size: "md",
       className: "px-3.5",
     },
     {
       iconOnly: false,
+      hasPadding: true,
       size: "lg",
       className: "px-4",
     },
     {
       iconOnly: false,
+      hasPadding: true,
       size: "xl",
       className: "px-5",
     },
+    {
+      size: "xs",
+      hasPadding: true,
+      className: "h-7",
+    },
+    {
+      size: "sm",
+      hasPadding: true,
+      className: "h-8",
+    },
+    {
+      size: "md",
+      hasPadding: true,
+      className: "h-9",
+    },
+    {
+      size: "lg",
+      hasPadding: true,
+      className: "h-10",
+    },
+    {
+      size: "xl",
+      hasPadding: true,
+      className: "h-11",
+    },
   ],
-  defaultVariants: {
-    variant: "solid",
-    color: "primary",
-    size: "md",
-    fullWidth: false,
-    iconOnly: false,
-  },
 });
 
 export type ButtonStyleProps = VP<typeof buttonStyles>;
