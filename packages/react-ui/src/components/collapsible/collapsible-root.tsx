@@ -1,6 +1,7 @@
 import { type CSSProperties, useId } from "react";
 import { useDisclosure, type UseDisclosureOptions, useElementTransitionStatus } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
+import { tx } from "../../utils";
 import {
   CollapsibleContentContext,
   type CollapsibleContentContextValue,
@@ -10,7 +11,7 @@ import {
 
 export type CollapsibleRootProps = UseDisclosureOptions & {
   /**
-   * 是否禁用可折叠
+   * 是否禁用
    * @default false
    */
   disabled?: boolean;
@@ -23,7 +24,17 @@ export type CollapsibleRootProps = UseDisclosureOptions & {
 };
 
 export const CollapsibleRoot = (props: PrimitiveProps<"div", CollapsibleRootProps>) => {
-  const { open, defaultOpen = false, onOpenChange, disabled = false, duration = 250, style, children, ...rest } = props;
+  const {
+    open,
+    defaultOpen = false,
+    onOpenChange,
+    disabled = false,
+    duration = 250,
+    style,
+    children,
+    className,
+    ...rest
+  } = props;
 
   const [openState, { handleToggle }] = useDisclosure({ open, defaultOpen, onOpenChange });
 
@@ -39,6 +50,7 @@ export const CollapsibleRoot = (props: PrimitiveProps<"div", CollapsibleRootProp
   };
   const contentContext: CollapsibleContentContextValue = {
     id,
+    open: openState,
     mounted: isMounted,
     status,
     duration,
@@ -46,7 +58,11 @@ export const CollapsibleRoot = (props: PrimitiveProps<"div", CollapsibleRootProp
   };
 
   return (
-    <div style={{ ...style, "--dv": `${duration}ms` } as CSSProperties} {...rest}>
+    <div
+      style={{ ...style, "--dv": `${duration}ms` } as CSSProperties}
+      className={tx(disabled && "opacity-60", className)}
+      {...rest}
+    >
       <CollapsibleTriggerContext value={triggerContext}>
         <CollapsibleContentContext value={contentContext}>{children}</CollapsibleContentContext>
       </CollapsibleTriggerContext>

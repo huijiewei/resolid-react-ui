@@ -13,6 +13,7 @@ export const [CollapsibleTriggerContext, useCollapsibleTrigger] = createSafeCont
 
 export type CollapsibleContentContextValue = {
   id: string;
+  open: boolean;
   mounted: boolean;
   status: "unmounted" | "initial" | "open" | "close";
   duration: number;

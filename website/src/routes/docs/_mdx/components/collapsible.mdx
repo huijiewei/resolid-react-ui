@@ -48,6 +48,42 @@ export default function App() {
 
 ## 举例
 
+### 默认打开
+
+```jsx demo
+import { SpriteIcon } from "~/components/sprite-icon";
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row justify-center"}>
+      <Collapsible
+        defaultOpen
+        className={"border-bd-normal bg-bg-normal mx-auto w-80 rounded-md border"}
+      >
+        <CollapsibleTrigger
+          className={"group flex w-full flex-row items-center justify-between p-3"}
+        >
+          <h6 className={"font-medium"}>Resolid React UI 是什么?</h6>
+
+          <SpriteIcon
+            className={"duration-(--dv) transition-transform group-aria-expanded:rotate-180"}
+            size={"1.5em"}
+            name={"angle-down"}
+          />
+        </CollapsibleTrigger>
+        <CollapsibleContent className={"border-bd-normal border-t p-3"}>
+          Resolid React UI 是 React 的开源设计系统。使用 React 和 Tailwind CSS
+          构建。它提供了一组即用型组件，用于构建具有一致外观的 Web 应用程序。
+        </CollapsibleContent>
+      </Collapsible>
+    </div>
+  );
+}
+```
+
+### 自定义
+
 ```jsx demo
 import { SpriteIcon } from "~/components/sprite-icon";
 import { Button, Collapsible, CollapsibleTrigger, CollapsibleContent } from "@resolid/react-ui";
@@ -80,6 +116,40 @@ export default function App() {
           </div>
           <div className={"border-bd-normal rounded-md border px-3 py-2"}>@resolid/flex-routes</div>
           <div className={"border-bd-normal rounded-md border px-3 py-2"}>@resolid/utils</div>
+        </CollapsibleContent>
+      </Collapsible>
+    </div>
+  );
+}
+```
+
+### 禁用
+
+```jsx demo
+import { SpriteIcon } from "~/components/sprite-icon";
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row justify-center"}>
+      <Collapsible
+        disabled
+        className={"border-bd-normal bg-bg-normal mx-auto w-80 rounded-md border"}
+      >
+        <CollapsibleTrigger
+          className={"group flex w-full flex-row items-center justify-between p-3"}
+        >
+          <h6 className={"font-medium"}>Resolid React UI 是什么?</h6>
+
+          <SpriteIcon
+            className={"duration-(--dv) transition-transform group-aria-expanded:rotate-180"}
+            size={"1.5em"}
+            name={"angle-down"}
+          />
+        </CollapsibleTrigger>
+        <CollapsibleContent className={"border-bd-normal border-t p-3"}>
+          Resolid React UI 是 React 的开源设计系统。使用 React 和 Tailwind CSS
+          构建。它提供了一组即用型组件，用于构建具有一致外观的 Web 应用程序。
         </CollapsibleContent>
       </Collapsible>
     </div>
