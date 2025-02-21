@@ -1,0 +1,311 @@
+---
+title: 手风琴
+description: 一组垂直堆叠的交互式标题，每个标题显示一个相关的内容部分。
+---
+
+## 导入
+
+```js
+import {
+  Accordion,
+  AccordionItem,
+  AccordionHeader,
+  AccordionTrigger,
+  AccordionContent,
+} from "@resolid/react-ui";
+```
+
+- `Accordion`: 包含手风琴的所有部分。
+- `AccordionItem`: 包含可折叠部分的所有部分。
+- `AccordionHeader`: 标记相应面板的标题。
+- `AccordionTrigger`: 切换其关联项目的折叠状态。
+- `AccordionContent`: 包含项目的可折叠内容。
+
+## 演示
+
+```jsx demo online=Accordion
+import {
+  Accordion,
+  AccordionContent,
+  AccordionHeader,
+  AccordionItem,
+  AccordionTrigger,
+} from "@resolid/react-ui";
+import { SpriteIcon } from "~/components/sprite-icon";
+
+export default function App() {
+  const accordionItems = [
+    {
+      value: "what",
+      title: "Resolid UI 是什么?",
+      content:
+        "Resolid UI 是 React 的开源设计系统。使用 React 和 Tailwind CSS 构建。它提供了一组即用型组件，用于构建具有一致外观的 Web 应用程序。",
+    },
+    {
+      value: "how",
+      title: "我如何开始？",
+      content: "请参阅文档中的 “入门指南”。如果你以前使用过 React 的 UI 库，那么您会感觉很熟悉。",
+    },
+    {
+      value: "can",
+      title: "我可以将其用于我的项目吗？",
+      content: "当然！Resolid UI 是免费且开源的。",
+    },
+  ];
+
+  return (
+    <Accordion
+      defaultValue={["what"]}
+      className={"border-bd-normal bg-bg-normal mx-auto w-80 rounded-md border"}
+    >
+      {accordionItems.map((item) => (
+        <AccordionItem
+          key={item.value}
+          value={item.value}
+          className={"not-last:border-b border-bd-normal group"}
+        >
+          <AccordionHeader
+            className={"border-bd-subtle bg-bg-subtlest/30 -mb-px border-b font-medium"}
+          >
+            <AccordionTrigger
+              className={
+                "group flex h-11 w-full items-center justify-between px-3 text-left leading-none"
+              }
+            >
+              {item.title}
+              <SpriteIcon
+                className={"duration-(--dv) transition-transform group-aria-expanded:rotate-180"}
+                size={"1.5em"}
+                name={"angle-down"}
+              />
+            </AccordionTrigger>
+          </AccordionHeader>
+          <AccordionContent className={"p-3"}>{item.content}</AccordionContent>
+        </AccordionItem>
+      ))}
+    </Accordion>
+  );
+}
+```
+
+## 举例
+
+### 单个项目
+
+设置 `multiple` 属性设置一次可以打开“单个”或“多个”项目。
+
+```jsx demo
+import {
+  Accordion,
+  AccordionContent,
+  AccordionHeader,
+  AccordionItem,
+  AccordionTrigger,
+} from "@resolid/react-ui";
+import { SpriteIcon } from "~/components/sprite-icon";
+
+export default function App() {
+  const accordionItems = [
+    {
+      value: "what",
+      title: "Resolid UI 是什么?",
+      content:
+        "Resolid UI 是 React 的开源设计系统。使用 React 和 Tailwind CSS 构建。它提供了一组即用型组件，用于构建具有一致外观的 Web 应用程序。",
+    },
+    {
+      value: "how",
+      title: "我如何开始？",
+      content: "请参阅文档中的 “入门指南”。如果你以前使用过 React 的 UI 库，那么您会感觉很熟悉。",
+    },
+    {
+      value: "can",
+      title: "我可以将其用于我的项目吗？",
+      content: "当然！Resolid UI 是免费且开源的。",
+    },
+  ];
+
+  return (
+    <Accordion
+      multiple={false}
+      defaultValue={"what"}
+      className={"border-bd-normal bg-bg-normal mx-auto w-80 rounded-md border"}
+    >
+      {accordionItems.map((item) => (
+        <AccordionItem
+          key={item.value}
+          value={item.value}
+          className={"not-last:border-b border-bd-normal group"}
+        >
+          <AccordionHeader
+            className={"border-bd-subtle bg-bg-subtlest/30 -mb-px border-b font-medium"}
+          >
+            <AccordionTrigger
+              className={
+                "group flex h-11 w-full items-center justify-between px-3 text-left leading-none"
+              }
+            >
+              {item.title}
+              <SpriteIcon
+                className={"duration-(--dv) transition-transform group-aria-expanded:rotate-180"}
+                size={"1.5em"}
+                name={"angle-down"}
+              />
+            </AccordionTrigger>
+          </AccordionHeader>
+          <AccordionContent className={"p-3"}>{item.content}</AccordionContent>
+        </AccordionItem>
+      ))}
+    </Accordion>
+  );
+}
+```
+
+### 允许折叠
+
+设置 `collapsible` 可以允许单个项目也能折叠
+
+```jsx demo
+import {
+  Accordion,
+  AccordionContent,
+  AccordionHeader,
+  AccordionItem,
+  AccordionTrigger,
+} from "@resolid/react-ui";
+import { SpriteIcon } from "~/components/sprite-icon";
+
+export default function App() {
+  const accordionItems = [
+    {
+      value: "what",
+      title: "Resolid UI 是什么?",
+      content:
+        "Resolid UI 是 React 的开源设计系统。使用 React 和 Tailwind CSS 构建。它提供了一组即用型组件，用于构建具有一致外观的 Web 应用程序。",
+    },
+    {
+      value: "how",
+      title: "我如何开始？",
+      content: "请参阅文档中的 “入门指南”。如果你以前使用过 React 的 UI 库，那么您会感觉很熟悉。",
+    },
+    {
+      value: "can",
+      title: "我可以将其用于我的项目吗？",
+      content: "当然！Resolid UI 是免费且开源的。",
+    },
+  ];
+
+  return (
+    <Accordion
+      multiple={false}
+      collapsible
+      className={"border-bd-normal bg-bg-normal mx-auto w-80 rounded-md border"}
+    >
+      {accordionItems.map((item) => (
+        <AccordionItem
+          key={item.value}
+          value={item.value}
+          className={"not-last:border-b border-bd-normal group"}
+        >
+          <AccordionHeader
+            className={"border-bd-subtle bg-bg-subtlest/30 -mb-px border-b font-medium"}
+          >
+            <AccordionTrigger
+              className={
+                "group flex h-11 w-full items-center justify-between px-3 text-left leading-none"
+              }
+            >
+              {item.title}
+              <SpriteIcon
+                className={"duration-(--dv) transition-transform group-aria-expanded:rotate-180"}
+                size={"1.5em"}
+                name={"angle-down"}
+              />
+            </AccordionTrigger>
+          </AccordionHeader>
+          <AccordionContent className={"p-3"}>{item.content}</AccordionContent>
+        </AccordionItem>
+      ))}
+    </Accordion>
+  );
+}
+```
+
+### 禁用项目
+
+设置 `collapsible` 可以允许单个项目也能折叠
+
+```jsx demo
+import {
+  Accordion,
+  AccordionContent,
+  AccordionHeader,
+  AccordionItem,
+  AccordionTrigger,
+} from "@resolid/react-ui";
+import { SpriteIcon } from "~/components/sprite-icon";
+
+export default function App() {
+  const accordionItems = [
+    {
+      value: "what",
+      disabled: false,
+      title: "Resolid UI 是什么?",
+      content:
+        "Resolid UI 是 React 的开源设计系统。使用 React 和 Tailwind CSS 构建。它提供了一组即用型组件，用于构建具有一致外观的 Web 应用程序。",
+    },
+    {
+      value: "how",
+      disabled: true,
+      title: "我如何开始？",
+      content: "请参阅文档中的 “入门指南”。如果你以前使用过 React 的 UI 库，那么您会感觉很熟悉。",
+    },
+    {
+      value: "can",
+      disabled: false,
+      title: "我可以将其用于我的项目吗？",
+      content: "当然！Resolid UI 是免费且开源的。",
+    },
+  ];
+
+  return (
+    <Accordion className={"border-bd-normal bg-bg-normal mx-auto w-80 rounded-md border"}>
+      {accordionItems.map((item) => (
+        <AccordionItem
+          key={item.value}
+          value={item.value}
+          disabled={item.disabled}
+          className={"not-last:border-b border-bd-normal group"}
+        >
+          <AccordionHeader
+            className={"border-bd-subtle bg-bg-subtlest/30 -mb-px border-b font-medium"}
+          >
+            <AccordionTrigger
+              className={
+                "group flex h-11 w-full items-center justify-between px-3 text-left leading-none"
+              }
+            >
+              {item.title}
+              <SpriteIcon
+                className={"duration-(--dv) transition-transform group-aria-expanded:rotate-180"}
+                size={"1.5em"}
+                name={"angle-down"}
+              />
+            </AccordionTrigger>
+          </AccordionHeader>
+          <AccordionContent className={"p-3"}>{item.content}</AccordionContent>
+        </AccordionItem>
+      ))}
+    </Accordion>
+  );
+}
+```
+
+## 属性
+
+### Accordion
+
+::PropsTable{file=accordion/accordion.tsx}
+
+### AccordionItem
+
+::PropsTable{file=accordion/accordion-item.tsx}

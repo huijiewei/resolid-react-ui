@@ -1,3 +1,4 @@
+export * from "./accordion/accordion";
 export * from "./alert/alert";
 export * from "./avatar/avatar";
 export * from "./avatar/avatar-fallback";

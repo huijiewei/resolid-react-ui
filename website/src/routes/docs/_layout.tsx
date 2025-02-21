@@ -112,6 +112,10 @@ const menus: Menu[] = [
         label: "选项卡",
         path: "components/tabs",
       },
+      {
+        label: "手风琴",
+        path: "components/accordion",
+      },
     ],
   },
   {
