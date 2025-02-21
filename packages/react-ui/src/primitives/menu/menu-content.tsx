@@ -46,10 +46,13 @@ export const MenuContent = (props: PrimitiveProps<"div">) => {
         <PopperFloating
           ref={refs}
           style={{ ...style, ...positionerStyles }}
-          status={status}
           duration={duration}
           onMouseEnter={handleMouseEnter}
-          className={tx("border-bd-normal bg-bg-normal min-w-25 z-30 border p-1 shadow-sm", className)}
+          className={tx(
+            "border-bd-normal bg-bg-normal min-w-25 z-30 border p-1 shadow-sm transition-opacity",
+            status == "open" ? "opacity-100" : "opacity-0",
+            className,
+          )}
           {...rest}
         >
           <MenuItemContext value={menuItemContext}>

@@ -25,10 +25,10 @@ export const TooltipContent = (props: PrimitiveProps<"div">) => {
       <PopperFloating
         ref={refs}
         style={{ ...style, ...positionerStyles }}
-        status={status}
         duration={duration}
         className={tx(
-          "z-90 text-fg-emphasized inline-block max-w-96 border px-2 py-1 text-sm shadow-sm",
+          "z-90 text-fg-emphasized inline-block max-w-96 border px-2 py-1 text-sm shadow-sm transition-opacity",
+          status == "open" ? "opacity-100" : "opacity-0",
           !interactive && "pointer-events-none",
           contentClassName,
           className,

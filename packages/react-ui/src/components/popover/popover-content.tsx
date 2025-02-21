@@ -25,10 +25,10 @@ export const PopoverContent = (props: PrimitiveProps<"div">) => {
       <PopperPositioner>
         <FloatingFocusManager context={context} initialFocus={initialFocus} returnFocus={finalFocus}>
           <PopperFloating
-            status={status}
             duration={duration}
             className={tx(
-              "border-bd-normal relative border shadow-md",
+              "border-bd-normal relative border shadow-md transition-opacity",
+              status == "open" ? "opacity-100" : "opacity-0",
               !className?.split(" ").some((cls) => cls.startsWith("bg-")) && "bg-bg-normal",
               className,
             )}

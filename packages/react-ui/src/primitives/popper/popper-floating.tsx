@@ -3,15 +3,13 @@ import { useMergeRefs } from "../../hooks";
 import { tx } from "../../utils";
 import type { PrimitiveProps } from "../index";
 import { usePopperFloating } from "./popper-floating-context";
-import type { PopperTransitionStatus } from "./popper-transtion-context";
 
 export type PopperFloatingProps = {
-  status: PopperTransitionStatus;
   duration: number;
 };
 
 export const PopperFloating = (props: PrimitiveProps<"div", PopperFloatingProps>) => {
-  const { className, children, style, status, duration, ref, ...rest } = props;
+  const { className, children, style, duration, ref, ...rest } = props;
 
   const { setFloating, getFloatingProps } = usePopperFloating();
 
@@ -26,11 +24,7 @@ export const PopperFloating = (props: PrimitiveProps<"div", PopperFloatingProps>
           "--dv": `${duration}ms`,
         } as CSSProperties
       }
-      className={tx(
-        "duration-(--dv) rounded-md outline-none transition-opacity",
-        status == "open" ? "opacity-100" : "opacity-0",
-        className,
-      )}
+      className={tx("duration-(--dv) rounded-md outline-none", className)}
       {...getFloatingProps({
         ...rest,
       })}

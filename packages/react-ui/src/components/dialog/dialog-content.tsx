@@ -29,10 +29,10 @@ export const DialogContent = (props: PrimitiveProps<"div">) => {
     >
       <FloatingFocusManager context={context} initialFocus={initialFocus} returnFocus={finalFocus}>
         <PopperFloating
-          status={status}
           duration={duration}
           className={tx(
-            "relative mx-auto shadow-md",
+            "relative mx-auto shadow-md transition-opacity",
+            status == "open" ? "opacity-100" : "opacity-0",
             scrollBehavior == "inside" && "max-h-[calc(100%-10rem)]",
             !className?.split(" ").some((cls) => cls.startsWith("bg-")) && "bg-bg-normal",
             className,
