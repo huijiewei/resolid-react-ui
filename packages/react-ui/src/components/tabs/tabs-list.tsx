@@ -1,9 +1,9 @@
 import { Composite } from "@floating-ui/react";
 import { useState } from "react";
 import type { EmptyObject, PrimitiveProps } from "../../primitives";
+import { CompositeContext, type CompositeContextValue } from "../../primitives/composite/composite-context";
 import { tx } from "../../utils";
 import { useTabs } from "./tabs-context";
-import { TabsListContext } from "./tabs-list-context";
 
 export const TabsList = (props: PrimitiveProps<"div", EmptyObject, "role">) => {
   const { children, className, ...rest } = props;
@@ -12,11 +12,15 @@ export const TabsList = (props: PrimitiveProps<"div", EmptyObject, "role">) => {
 
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const context: CompositeContextValue = {
+    activeIndex,
+    setActiveIndex,
+  };
+
   return (
     <Composite
       role={"tablist"}
       orientation={orientation}
-      data-orientation={orientation}
       activeIndex={activeIndex}
       onNavigate={setActiveIndex}
       className={tx(
@@ -26,7 +30,7 @@ export const TabsList = (props: PrimitiveProps<"div", EmptyObject, "role">) => {
       )}
       {...rest}
     >
-      <TabsListContext value={{ activeIndex, setActiveIndex }}>{children}</TabsListContext>
+      <CompositeContext value={context}>{children}</CompositeContext>
     </Composite>
   );
 };

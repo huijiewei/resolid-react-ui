@@ -2,9 +2,9 @@ import { useListItem } from "@floating-ui/react";
 import type { FocusEvent, MouseEvent } from "react";
 import { useButtonProps, useIsomorphicEffect, useMergeRefs } from "../../hooks";
 import { Polymorphic, type PolymorphicProps } from "../../primitives";
+import { useComposite } from "../../primitives/composite/composite-context";
 import { ariaAttr, dataAttr, tx } from "../../utils";
 import { getTabId, useTabs } from "./tabs-context";
-import { useTabsList } from "./tabs-list-context";
 
 type TabsTabProps = {
   /**
@@ -24,7 +24,7 @@ export const TabsTab = (props: PolymorphicProps<"button", TabsTabProps, "type" |
 
   const { baseId, selectedValue, setSelectedValue, orientation } = useTabs();
   const { ref: itemRef, index } = useListItem();
-  const { activeIndex, setActiveIndex } = useTabsList();
+  const { activeIndex, setActiveIndex } = useComposite();
 
   const tabId = getTabId(baseId, value);
   const selected = selectedValue === value;
@@ -43,7 +43,6 @@ export const TabsTab = (props: PolymorphicProps<"button", TabsTabProps, "type" |
 
     onClick?.(e);
 
-    setActiveIndex(index);
     setSelectedValue(value);
   };
 
@@ -73,7 +72,6 @@ export const TabsTab = (props: PolymorphicProps<"button", TabsTabProps, "type" |
       id={tabId}
       aria-selected={ariaAttr(selected)}
       data-active={dataAttr(selected)}
-      data-orientation={orientation}
       className={tx(orientation == "horizontal" ? "-mb-px" : "-me-px", disabled && "opacity-60", className)}
       onClick={handleClick}
       onFocus={handleFocus}

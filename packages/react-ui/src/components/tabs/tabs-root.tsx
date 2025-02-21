@@ -43,14 +43,8 @@ export const TabsRoot = (props: PrimitiveProps<"div", TabsRootProps, "id">) => {
   };
 
   return (
-    <TabsContext value={context}>
-      <div
-        data-orientation={orientation}
-        className={tx("flex", orientation == "horizontal" ? "flex-col" : "flex-row", className)}
-        {...rest}
-      >
-        {children}
-      </div>
-    </TabsContext>
+    <div className={tx("flex", orientation == "horizontal" ? "flex-col" : "flex-row", className)} {...rest}>
+      <TabsContext value={context}>{children}</TabsContext>
+    </div>
   );
 };

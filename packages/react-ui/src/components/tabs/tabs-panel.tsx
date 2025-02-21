@@ -14,7 +14,7 @@ export const TabsPanel = (
 ) => {
   const { children, className, value, ...rest } = props;
 
-  const { baseId, selectedValue, orientation } = useTabs();
+  const { baseId, selectedValue } = useTabs();
 
   const tabId = getTabId(baseId, value);
   const panelId = getPanelId(baseId, value);
@@ -28,7 +28,6 @@ export const TabsPanel = (
     <div
       id={panelId}
       role="tabpanel"
-      data-orientation={orientation}
       aria-labelledby={tabId}
       className={tx(selected ? "block" : "hidden", className)}
       {...rest}
