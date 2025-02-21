@@ -98,80 +98,44 @@ import {
 } from "@resolid/react-ui";
 
 export default function App() {
+  const placements = [
+    { value: "top", name: "顶部" },
+    { value: "bottom", name: "底部" },
+    { value: "center", name: "中间" },
+  ];
+
   return (
     <div className={"flex flex-row gap-3"}>
-      <Dialog placement={"top"}>
-        <DialogTrigger render={(props) => <Button {...props} />}>打开对话框(顶部)</DialogTrigger>
-        <DialogPortal>
-          <DialogBackdrop />
-          <DialogContent className="md:max-w-128 max-w-[calc(100vw-6rem) my-20">
-            <DialogClose
-              className={"absolute end-2 top-2 p-1"}
-              render={(props) => <CloseButton {...props} />}
-            />
-            <DialogTitle className={"p-4"}>对话框标题</DialogTitle>
-            <DialogDescription className={"p-4 pt-1"}>
-              这是一个对话框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
-            </DialogDescription>
-            <div className={"flex justify-end gap-4 p-4 pt-1"}>
-              <DialogClose
-                render={(props) => <Button color={"neutral"} variant={"soft"} {...props} />}
-              >
-                取消
-              </DialogClose>
-              <Button color={"neutral"}>确定</Button>
-            </div>
-          </DialogContent>
-        </DialogPortal>
-      </Dialog>
-      <Dialog placement={"center"}>
-        <DialogTrigger render={(props) => <Button {...props} />}>打开对话框(中间)</DialogTrigger>
-        <DialogPortal>
-          <DialogBackdrop />
-          <DialogContent className="max-w-128 my-20">
-            <DialogClose
-              className={"absolute end-2 top-2 p-1"}
-              render={(props) => <CloseButton {...props} />}
-            />
-            <DialogTitle className={"p-4"}>对话框标题</DialogTitle>
-            <DialogDescription className={"p-4 pt-1"}>
-              这是一个对话框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
-            </DialogDescription>
-            <div className={"flex justify-end gap-4 p-4 pt-1"}>
-              <DialogClose
-                render={(props) => <Button color={"neutral"} variant={"soft"} {...props} />}
-              >
-                取消
-              </DialogClose>
-              <Button color={"neutral"}>确定</Button>
-            </div>
-          </DialogContent>
-        </DialogPortal>
-      </Dialog>
-      <Dialog placement={"bottom"}>
-        <DialogTrigger render={(props) => <Button {...props} />}>打开对话框(底部)</DialogTrigger>
-        <DialogPortal>
-          <DialogBackdrop />
-          <DialogContent className="max-w-128 my-20">
-            <DialogClose
-              className={"absolute end-2 top-2 p-1"}
-              render={(props) => <CloseButton {...props} />}
-            />
-            <DialogTitle className={"p-4"}>对话框标题</DialogTitle>
-            <DialogDescription className={"p-4 pt-1"}>
-              这是一个对话框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
-            </DialogDescription>
-            <div className={"flex justify-end gap-4 p-4 pt-1"}>
-              <DialogClose
-                render={(props) => <Button color={"neutral"} variant={"soft"} {...props} />}
-              >
-                取消
-              </DialogClose>
-              <Button color={"neutral"}>确定</Button>
-            </div>
-          </DialogContent>
-        </DialogPortal>
-      </Dialog>
+      {placements.map((placement) => {
+        return (
+          <Dialog key={placement.value} placement={placement.value}>
+            <DialogTrigger render={(props) => <Button {...props} />}>
+              打开{placement.name}对话框
+            </DialogTrigger>
+            <DialogPortal>
+              <DialogBackdrop />
+              <DialogContent className="md:max-w-128 max-w-[calc(100vw-6rem) my-20">
+                <DialogClose
+                  className={"absolute end-2 top-2 p-1"}
+                  render={(props) => <CloseButton {...props} />}
+                />
+                <DialogTitle className={"p-4"}>对话框标题</DialogTitle>
+                <DialogDescription className={"p-4 pt-1"}>
+                  这是一个对话框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
+                </DialogDescription>
+                <div className={"flex justify-end gap-4 p-4 pt-1"}>
+                  <DialogClose
+                    render={(props) => <Button color={"neutral"} variant={"soft"} {...props} />}
+                  >
+                    取消
+                  </DialogClose>
+                  <Button color={"neutral"}>确定</Button>
+                </div>
+              </DialogContent>
+            </DialogPortal>
+          </Dialog>
+        );
+      })}
     </div>
   );
 }
@@ -372,7 +336,7 @@ export default function App() {
 
 ### 焦点管理
 
-对话框打开会自动将焦点设置在第一个可用的元素上(一般默认是关闭按钮)，关闭时会自动返回焦点，你可以通过设置 `initialFocus` 和 `finalFocus` 属性来自定义焦点目标
+对话框打开会自动将焦点设置在第一个可用的元素上(一般默认是关闭按钮)，关闭时会自动返回焦点，你可以通过设置 `initialFocus` 和 `finalFocus` 属性来自定义焦点目标。
 
 ```jsx demo
 import {
