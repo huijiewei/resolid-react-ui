@@ -1,5 +1,5 @@
 import { isNumber } from "@resolid/utils";
-import type { CSSProperties, ReactNode } from "react";
+import type { AriaRole, CSSProperties, ReactNode } from "react";
 import { useButtonProps } from "../../hooks";
 import { Polymorphic, type PolymorphicProps } from "../../primitives";
 import { dataAttr, tx } from "../../utils";
@@ -79,14 +79,16 @@ export const Button = (props: PolymorphicProps<"button", ButtonProps, "role">) =
     className,
     style,
     children,
+    role,
     ...rest
-  } = props;
+  } = props as typeof props & { role?: AriaRole };
 
   const disabledStatus = disabled || loading;
 
   const buttonProps = useButtonProps({
     hasRender: !!render,
     type,
+    role,
     tabIndex,
     disabled: disabledStatus,
   });
