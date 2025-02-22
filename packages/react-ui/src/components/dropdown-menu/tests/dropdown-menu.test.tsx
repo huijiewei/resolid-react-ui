@@ -5,19 +5,19 @@ import { axe } from "vitest-axe";
 import {
   DropdownMenu,
   DropdownMenuArrow,
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuGroup,
+  DropdownMenuItem,
   DropdownMenuItemIndicator,
   DropdownMenuLabel,
   type DropdownMenuProps,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "../dropdown-menu";
-import { DropdownMenuCheckboxItem } from "../dropdown-menu-checkbox-item";
-import { DropdownMenuItem } from "../dropdown-menu-item";
-import { DropdownMenuRadioGroup } from "../dropdown-menu-radio-group";
-import { DropdownMenuRadioItem } from "../dropdown-menu-radio-item";
 
 const ComponentUnderTest = (
   props: DropdownMenuProps & {

@@ -11,15 +11,17 @@ import { PopperArrow } from "../../primitives/popper/popper-arrow";
 export type DropdownMenuProps = MenuRootProps;
 
 export const DropdownMenu = MenuRoot;
-export const DropdownMenuTrigger = MenuTrigger;
 
+export { DropdownMenuCheckboxItem } from "./dropdown-menu-checkbox-item";
+export { DropdownMenuItem } from "./dropdown-menu-item";
+export { DropdownMenuRadioGroup } from "./dropdown-menu-radio-group";
+export { DropdownMenuRadioItem } from "./dropdown-menu-radio-item";
+
+export const DropdownMenuTrigger = MenuTrigger;
 export const DropdownMenuContent = MenuContent;
 export const DropdownMenuArrow = PopperArrow;
 export const DropdownMenuSeparator = MenuSeparator;
-
 export const DropdownMenuGroup = MenuGroup;
 export const DropdownMenuLabel = MenuLabel;
-
 export const DropdownMenuItemIndicator = MenuItemIndicator;
-
 export const DropdownMenuSubTrigger = MenuSubTrigger;

@@ -1,9 +1,7 @@
 import { cleanup, render } from "@testing-library/react";
 import { afterEach, describe, expect, test } from "vitest";
 import { axe } from "vitest-axe";
-import { Avatar, type AvatarProps } from "../avatar";
-import { AvatarFallback } from "../avatar-fallback";
-import { AvatarImage } from "../avatar-image";
+import { Avatar, AvatarFallback, AvatarImage, type AvatarProps } from "../avatar";
 
 const ComponentUnderTest = (props: AvatarProps) => {
   return (
