@@ -1,5 +1,5 @@
 import type { PrimitiveProps } from "../../primitives";
-import { dataAttr, tx } from "../../utils";
+import { dataAttr } from "../../utils";
 import { CollapsibleRoot } from "../collapsible/collapsible-root";
 import { useAccordion } from "./accordion-context";
 
@@ -19,7 +19,7 @@ export type AccordionItemProps = {
 export const AccordionItem = (props: PrimitiveProps<"div", AccordionItemProps>) => {
   const { disabled: accordionDisabled, duration, collapsible, openedValue, setOpenedValue } = useAccordion();
 
-  const { value, disabled = accordionDisabled, className, children, ...rest } = props;
+  const { value, disabled = accordionDisabled, children, ...rest } = props;
 
   const opened = Array.isArray(openedValue) ? openedValue.includes(value) : openedValue == value;
 
@@ -48,7 +48,6 @@ export const AccordionItem = (props: PrimitiveProps<"div", AccordionItemProps>) 
       duration={duration}
       disabled={disabled}
       data-open={dataAttr(opened)}
-      className={tx("", className)}
       {...rest}
     >
       {children}

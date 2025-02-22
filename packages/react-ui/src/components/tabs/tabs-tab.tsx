@@ -4,7 +4,7 @@ import { useButtonProps, useIsomorphicEffect, useMergeRefs } from "../../hooks";
 import { Polymorphic, type PolymorphicProps } from "../../primitives";
 import { useComposite } from "../../primitives/composite/composite-context";
 import { ariaAttr, dataAttr, tx } from "../../utils";
-import { getTabId, useTabs } from "./tabs-context";
+import { getPanelId, getTabId, useTabs } from "./tabs-context";
 
 type TabsTabProps = {
   /**
@@ -27,6 +27,7 @@ export const TabsTab = (props: PolymorphicProps<"button", TabsTabProps, "type" |
   const { activeIndex, setActiveIndex } = useComposite();
 
   const tabId = getTabId(baseId, value);
+  const panelId = getPanelId(baseId, value);
   const selected = selectedValue === value;
 
   useIsomorphicEffect(() => {
@@ -70,6 +71,7 @@ export const TabsTab = (props: PolymorphicProps<"button", TabsTabProps, "type" |
       ref={refs}
       {...buttonProps}
       id={tabId}
+      aria-controls={selected ? panelId : undefined}
       aria-selected={ariaAttr(selected)}
       data-active={dataAttr(selected)}
       className={tx(orientation == "horizontal" ? "-mb-px" : "-me-px", disabled && "opacity-60", className)}

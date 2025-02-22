@@ -1,12 +1,7 @@
 import { Polymorphic, type PolymorphicProps } from "../../primitives";
-import { tx } from "../../utils";
 
 export const AccordionHeader = (props: PolymorphicProps<"h3">) => {
-  const { render, className, children, ...rest } = props;
+  const { render, ...rest } = props;
 
-  return (
-    <Polymorphic<"h3"> as={"h3"} render={render} className={tx("", className)} {...rest}>
-      {children}
-    </Polymorphic>
-  );
+  return <Polymorphic<"h3"> as={"h3"} render={render} {...rest} />;
 };

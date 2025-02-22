@@ -16,9 +16,7 @@ export const Alert = (props: PrimitiveProps<"div", AlertProps, "role">) => {
 };
 
 export const AlertContent = (props: PrimitiveProps<"div">) => {
-  const { className, ...rest } = props;
-
-  return <div className={className} {...rest} />;
+  return <div {...props} />;
 };
 
 export const AlertTitle = (props: PrimitiveProps<"div">) => {
