@@ -7,7 +7,6 @@ import {
   useTransitionStatus,
   type FloatingContext,
 } from "@floating-ui/react";
-import { noop } from "@resolid/utils";
 import { useId, useState, type PropsWithChildren } from "react";
 import { useDisclosure, usePreventScroll, type UseDisclosureOptions } from "../../hooks";
 import { PopperAriaContext } from "../../primitives/popper/popper-aria-context";
@@ -19,6 +18,7 @@ import {
   PopperFloatingContext,
   type PopperFloatingContextValue,
 } from "../../primitives/popper/popper-floating-context";
+import { PopperStateContext, type PopperStateContextValue } from "../../primitives/popper/popper-state-context";
 import {
   PopperTransitionContext,
   type PopperTransitionContextValue,
@@ -131,13 +131,15 @@ export const DialogRoot = (props: PropsWithChildren<DialogRootProps>) => {
     handleClose,
   };
 
-  const referenceContext: PopperTriggerContextValue = {
+  const stateContext: PopperStateContextValue = {
     open: openState,
+  };
+
+  const referenceContext: PopperTriggerContextValue = {
     setReference: (node) => {
       setReference(node as HTMLElement);
     },
     getReferenceProps: getReferenceProps,
-    setPositionReference: noop,
   };
 
   const { isMounted, status } = useTransitionStatus(context as FloatingContext, {
@@ -152,15 +154,17 @@ export const DialogRoot = (props: PropsWithChildren<DialogRootProps>) => {
 
   return (
     <PopperAriaContext value={ariaContext}>
-      <PopperTriggerContext value={referenceContext}>
-        <DialogContext value={dialogContext}>
-          <PopperDispatchContext value={dispatchContext}>
-            <PopperTransitionContext value={transitionContext}>
-              <PopperFloatingContext value={floatingContext}>{children}</PopperFloatingContext>
-            </PopperTransitionContext>
-          </PopperDispatchContext>
-        </DialogContext>
-      </PopperTriggerContext>
+      <PopperStateContext value={stateContext}>
+        <PopperTriggerContext value={referenceContext}>
+          <DialogContext value={dialogContext}>
+            <PopperDispatchContext value={dispatchContext}>
+              <PopperTransitionContext value={transitionContext}>
+                <PopperFloatingContext value={floatingContext}>{children}</PopperFloatingContext>
+              </PopperTransitionContext>
+            </PopperDispatchContext>
+          </DialogContext>
+        </PopperTriggerContext>
+      </PopperStateContext>
     </PopperAriaContext>
   );
 };

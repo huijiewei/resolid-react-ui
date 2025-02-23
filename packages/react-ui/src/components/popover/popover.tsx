@@ -1,4 +1,5 @@
 import type { ComponentProps } from "react";
+import { PopperAnchor } from "../../primitives/popper/popper-anchor";
 import { PopperArrow, type PopperArrowProps } from "../../primitives/popper/popper-arrow";
 import { PopperClose } from "../../primitives/popper/popper-close";
 import { PopperDescription } from "../../primitives/popper/popper-description";
@@ -13,6 +14,8 @@ export const Popover = PopoverRoot;
 export const PopoverTrigger = (props: Omit<ComponentProps<typeof PopperTrigger>, "active">) => {
   return <PopperTrigger active={true} {...props} />;
 };
+
+export const PopoverAnchor = PopperAnchor;
 
 export { PopoverContent } from "./popover-content";
 

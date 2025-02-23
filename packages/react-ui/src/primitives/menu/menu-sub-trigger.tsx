@@ -3,6 +3,7 @@ import { useMergeRefs } from "../../hooks";
 import { AngleRightIcon } from "../../shared/icons";
 import { dataAttr, tx } from "../../utils";
 import type { PolymorphicProps } from "../index";
+import { usePopperState } from "../popper/popper-state-context";
 import { usePopperTrigger } from "../popper/popper-trigger-context";
 import { MenuBaseItem, type MenuBaseItemProps } from "./menu-base-item";
 import { useMenuHover } from "./menu-hover-context";
@@ -12,7 +13,8 @@ export type MenuSubTriggerProps = MenuBaseItemProps;
 export const MenuSubTrigger = (props: PolymorphicProps<"div", MenuSubTriggerProps, "role" | "tabIndex">) => {
   const { render, children, ref, className, disabled, ...rest } = props;
 
-  const { open, setReference, getReferenceProps } = usePopperTrigger();
+  const { open } = usePopperState();
+  const { setReference, getReferenceProps } = usePopperTrigger();
   const { setHoverEnabled } = useMenuHover();
 
   const refs = useMergeRefs(ref, setReference);

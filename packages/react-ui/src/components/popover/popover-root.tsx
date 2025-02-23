@@ -15,6 +15,7 @@ import {
 } from "@floating-ui/react";
 import { type PropsWithChildren, useId, useState } from "react";
 import { useDisclosure, type UseDisclosureOptions } from "../../hooks";
+import { PopperAnchorContext, type PopperAnchorContextValue } from "../../primitives/popper/popper-anchor-context";
 import { PopperAriaContext } from "../../primitives/popper/popper-aria-context";
 import { PopperArrowContext, type PopperArrowContextValue } from "../../primitives/popper/popper-arrow-context";
 import {
@@ -29,6 +30,7 @@ import {
   PopperPositionerContext,
   type PopperPositionerContextValue,
 } from "../../primitives/popper/popper-positioner-context";
+import { PopperStateContext, type PopperStateContextValue } from "../../primitives/popper/popper-state-context";
 import {
   PopperTransitionContext,
   type PopperTransitionContextValue,
@@ -130,10 +132,16 @@ export const PopoverRoot = (props: PropsWithChildren<PopoverRootProps>) => {
     }),
   ]);
 
-  const referenceContext: PopperTriggerContextValue = {
+  const stateContext: PopperStateContextValue = {
     open: openState,
+  };
+
+  const referenceContext: PopperTriggerContextValue = {
     setReference: refs.setReference,
     getReferenceProps: getReferenceProps,
+  };
+
+  const anchorContext: PopperAnchorContextValue = {
     setPositionReference: refs.setPositionReference,
   };
 
@@ -170,17 +178,21 @@ export const PopoverRoot = (props: PropsWithChildren<PopoverRootProps>) => {
   return (
     <PopperAriaContext value={ariaContext}>
       <PopperArrowContext value={arrowContext}>
-        <PopperTriggerContext value={referenceContext}>
-          <PopoverContext value={popoverContext}>
-            <PopperDispatchContext value={dispatchContext}>
-              <PopperTransitionContext value={transitionContext}>
-                <PopperPositionerContext value={positionerContext}>
-                  <PopperFloatingContext value={floatingContext}>{children}</PopperFloatingContext>
-                </PopperPositionerContext>
-              </PopperTransitionContext>
-            </PopperDispatchContext>
-          </PopoverContext>
-        </PopperTriggerContext>
+        <PopperStateContext value={stateContext}>
+          <PopperTriggerContext value={referenceContext}>
+            <PopperAnchorContext value={anchorContext}>
+              <PopoverContext value={popoverContext}>
+                <PopperDispatchContext value={dispatchContext}>
+                  <PopperTransitionContext value={transitionContext}>
+                    <PopperPositionerContext value={positionerContext}>
+                      <PopperFloatingContext value={floatingContext}>{children}</PopperFloatingContext>
+                    </PopperPositionerContext>
+                  </PopperTransitionContext>
+                </PopperDispatchContext>
+              </PopoverContext>
+            </PopperAnchorContext>
+          </PopperTriggerContext>
+        </PopperStateContext>
       </PopperArrowContext>
     </PopperAriaContext>
   );

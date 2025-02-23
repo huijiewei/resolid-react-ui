@@ -17,6 +17,7 @@ import {
 } from "@floating-ui/react";
 import { type PropsWithChildren, useState } from "react";
 import { useDisclosure, type UseDisclosureOptions } from "../../hooks";
+import { PopperAnchorContext, type PopperAnchorContextValue } from "../../primitives/popper/popper-anchor-context";
 import { PopperArrowContext, type PopperArrowContextValue } from "../../primitives/popper/popper-arrow-context";
 import {
   PopperFloatingContext,
@@ -26,6 +27,7 @@ import {
   PopperPositionerContext,
   type PopperPositionerContextValue,
 } from "../../primitives/popper/popper-positioner-context";
+import { PopperStateContext, type PopperStateContextValue } from "../../primitives/popper/popper-state-context";
 import {
   PopperTransitionContext,
   type PopperTransitionContextValue,
@@ -132,10 +134,16 @@ export const TooltipRoot = (props: PropsWithChildren<TooltipRootProps>) => {
     useDismiss(context, { referencePress: true }),
   ]);
 
-  const referenceContext: PopperTriggerContextValue = {
+  const stateContext: PopperStateContextValue = {
     open: openState,
+  };
+
+  const referenceContext: PopperTriggerContextValue = {
     setReference: refs.setReference,
     getReferenceProps: getReferenceProps,
+  };
+
+  const anchorContext: PopperAnchorContextValue = {
     setPositionReference: refs.setPositionReference,
   };
 
@@ -165,15 +173,19 @@ export const TooltipRoot = (props: PropsWithChildren<TooltipRootProps>) => {
 
   return (
     <PopperArrowContext value={arrowContext}>
-      <PopperTriggerContext value={referenceContext}>
-        <TooltipContext value={tooltipContext}>
-          <PopperTransitionContext value={transitionContext}>
-            <PopperPositionerContext value={positionerContext}>
-              <PopperFloatingContext value={floatingContext}>{children}</PopperFloatingContext>
-            </PopperPositionerContext>
-          </PopperTransitionContext>
-        </TooltipContext>
-      </PopperTriggerContext>
+      <PopperStateContext value={stateContext}>
+        <PopperTriggerContext value={referenceContext}>
+          <PopperAnchorContext value={anchorContext}>
+            <TooltipContext value={tooltipContext}>
+              <PopperTransitionContext value={transitionContext}>
+                <PopperPositionerContext value={positionerContext}>
+                  <PopperFloatingContext value={floatingContext}>{children}</PopperFloatingContext>
+                </PopperPositionerContext>
+              </PopperTransitionContext>
+            </TooltipContext>
+          </PopperAnchorContext>
+        </PopperTriggerContext>
+      </PopperStateContext>
     </PopperArrowContext>
   );
 };
