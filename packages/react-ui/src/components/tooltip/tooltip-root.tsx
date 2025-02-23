@@ -32,14 +32,14 @@ import {
 } from "../../primitives/popper/popper-transtion-context";
 import { PopperTriggerContext, type PopperTriggerContextValue } from "../../primitives/popper/popper-trigger-context";
 import { TooltipContext, type TooltipContextValue } from "./tooltip-context";
-import { tooltipArrowStyles, tooltipContentStyles, type TooltipStyleProps } from "./tooltip.styles";
+import { tooltipColorStyles } from "./tooltip.styles";
 
 export type TooltipRootProps = UseDisclosureOptions & {
   /**
    * 颜色
    * @default "neutral"
    */
-  color?: TooltipStyleProps["color"];
+  color?: keyof typeof tooltipColorStyles;
 
   /**
    * 放置位置
@@ -55,7 +55,7 @@ export type TooltipRootProps = UseDisclosureOptions & {
 
   /**
    * 关闭延迟
-   * @default 100
+   * @default 150
    */
   closeDelay?: number;
 
@@ -81,7 +81,7 @@ export const TooltipRoot = (props: PropsWithChildren<TooltipRootProps>) => {
     placement = "auto",
     interactive = false,
     openDelay = 300,
-    closeDelay = 100,
+    closeDelay = 150,
     duration = 250,
     children,
   } = props;
@@ -112,10 +112,12 @@ export const TooltipRoot = (props: PropsWithChildren<TooltipRootProps>) => {
     whileElementsMounted: autoUpdate,
   });
 
+  const tooltipColorStyle = tooltipColorStyles[color];
+
   const arrowContext: PopperArrowContextValue = {
     context,
     setArrow: setArrowElem,
-    arrowClassName: tooltipArrowStyles({ color }),
+    arrowClassName: tooltipColorStyle.arrow,
   };
 
   const { getFloatingProps, getReferenceProps } = useInteractions([
@@ -143,7 +145,7 @@ export const TooltipRoot = (props: PropsWithChildren<TooltipRootProps>) => {
 
   const tooltipContext: TooltipContextValue = {
     interactive,
-    contentClassName: tooltipContentStyles({ color }),
+    contentClassName: tooltipColorStyle.content,
   };
 
   const { isMounted, status } = useTransitionStatus(context, {
