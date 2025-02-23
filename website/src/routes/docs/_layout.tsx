@@ -32,7 +32,7 @@ export default function Layout() {
       </div>
       <aside
         className={tx(
-          "z-15 bg-bg-normal md:z-none border-r-bg-normal fixed w-48 border-r md:block md:border-none",
+          "z-15 bg-bg-normal border-r-bg-normal fixed w-48 border-r md:z-0 md:block md:border-none",
           "scrollbar scrollbar-base overflow-y-auto",
           "max-h-[calc(100vh-var(--spacing)*16)] md:sticky md:top-16",
           opened ? "block" : "hidden",
@@ -130,12 +130,8 @@ const menus: Menu[] = [
         path: "components/number-input",
       },
       {
-        label: "选择器",
-        path: "components/select",
-      },
-      {
-        label: "滑动输入条",
-        path: "components/slider",
+        label: "标签输入框",
+        path: "components/tags-input",
       },
       {
         label: "多选框",
@@ -146,8 +142,20 @@ const menus: Menu[] = [
         path: "components/radio-group",
       },
       {
+        label: "组合框",
+        path: "components/combobox",
+      },
+      {
+        label: "选择器",
+        path: "components/select",
+      },
+      {
         label: "开关",
         path: "components/switch",
+      },
+      {
+        label: "滑动输入条",
+        path: "components/slider",
       },
     ],
   },
@@ -185,14 +193,6 @@ const menus: Menu[] = [
       {
         label: "加载器",
         path: "components/spinner",
-      },
-      {
-        label: "覆盖层",
-        path: "components/overlay",
-      },
-      {
-        label: "加载覆盖层",
-        path: "components/spinner-overlay",
       },
     ],
   },
