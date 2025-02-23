@@ -8,6 +8,7 @@ description: 鼠标点击在某个组件时，弹出的气泡式的卡片浮层�
 ```js
 import {
   Popover,
+  PopoverAnchor,
   PopoverTrigger,
   PopoverContent,
   PopoverArrow,
@@ -19,6 +20,7 @@ import {
 
 - `Popover`: 包含弹出框的所有部分。
 - `PopoverTrigger`: 包装将打开弹出框的控件。
+- `PopoverAnchor`: 用于包装位置的可选引用元素。
 - `PopoverContent`: 包含弹出框打开时要呈现的内容。
 - `PopoverArrow`: 一个可选的箭头元素，与弹出框一起渲染。
 - `PopoverTitle`: 打开弹出框时要宣布的可访问标题。
@@ -164,6 +166,58 @@ export default function App() {
             </PopoverClose>
             <Button color={"neutral"}>保存</Button>
           </div>
+        </PopoverContent>
+      </Popover>
+    </div>
+  );
+}
+```
+
+### 自定锚点
+
+如果您不想将触发器用作锚点，请使用 `PopoverAnchor` 组件将内容锚定在另一个元素上。
+
+```jsx demo
+import {
+  Button,
+  CloseButton,
+  Popover,
+  PopoverAnchor,
+  PopoverArrow,
+  PopoverClose,
+  PopoverContent,
+  PopoverDescription,
+  PopoverTitle,
+  PopoverTrigger,
+} from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row justify-center gap-3"}>
+      <Popover placement={"bottom"}>
+        <PopoverAnchor className={"bg-bg-subtlest rounded-md p-3"}>
+          <p className={"flex items-center"}>
+            单击&nbsp;
+            <PopoverTrigger
+              render={(props) => (
+                <Button {...props} size={"xs"} color={"neutral"} variant={"subtle"} />
+              )}
+            >
+              打开弹出框
+            </PopoverTrigger>
+            &nbsp;时，弹出窗口将打开。
+          </p>
+          <p>但是它固定在整个 Div 上。</p>
+        </PopoverAnchor>
+        <PopoverContent className="max-w-96">
+          <PopoverArrow />
+          <PopoverTitle className={"p-4"}>弹出框标题</PopoverTitle>
+          <PopoverDescription className={"p-4 pt-1"}>
+            这是一个弹出框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
+          </PopoverDescription>
+          <PopoverClose
+            render={(props) => <CloseButton className={"absolute end-2 top-2"} {...props} />}
+          />
         </PopoverContent>
       </Popover>
     </div>
