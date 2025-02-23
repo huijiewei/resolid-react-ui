@@ -1,7 +1,7 @@
 import type { ComponentProps } from "react";
 import { PopperBackdrop } from "../../primitives/popper/popper-backdrop";
 import { PopperClose } from "../../primitives/popper/popper-close";
-import { PopperDescrition } from "../../primitives/popper/popper-description";
+import { PopperDescription } from "../../primitives/popper/popper-description";
 import { PopperPortal } from "../../primitives/popper/popper-portal";
 import { PopperTitle } from "../../primitives/popper/popper-title";
 import { PopperTrigger } from "../../primitives/popper/popper-trigger";
@@ -22,5 +22,5 @@ export const DrawerBackdrop = PopperBackdrop;
 export { DrawerContent } from "./drawer-content";
 
 export const DrawerTitle = PopperTitle;
-export const DrawerDescription = PopperDescrition;
+export const DrawerDescription = PopperDescription;
 export const DrawerClose = PopperClose;

@@ -1,7 +1,7 @@
 import type { ComponentProps } from "react";
 import { PopperBackdrop } from "../../primitives/popper/popper-backdrop";
 import { PopperClose } from "../../primitives/popper/popper-close";
-import { PopperDescrition } from "../../primitives/popper/popper-description";
+import { PopperDescription } from "../../primitives/popper/popper-description";
 import { PopperPortal } from "../../primitives/popper/popper-portal";
 import { PopperTitle } from "../../primitives/popper/popper-title";
 import { PopperTrigger } from "../../primitives/popper/popper-trigger";
@@ -22,6 +22,6 @@ export const DialogBackdrop = PopperBackdrop;
 export { DialogContent } from "./dialog-content";
 
 export const DialogTitle = PopperTitle;
-export const DialogDescription = PopperDescrition;
+export const DialogDescription = PopperDescription;
 
 export const DialogClose = PopperClose;
