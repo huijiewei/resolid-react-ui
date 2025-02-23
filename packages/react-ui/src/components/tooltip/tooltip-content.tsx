@@ -5,12 +5,12 @@ import { usePopperPositioner } from "../../primitives/popper/popper-positioner-c
 import { usePopperTransition } from "../../primitives/popper/popper-transtion-context";
 import { tx } from "../../utils";
 import { PortalLite } from "../portal/portal-lite";
-import { useTooltip } from "./tooltip-context";
+import { useTooltipRoot } from "./tooltip-root-context";
 
 export const TooltipContent = (props: PrimitiveProps<"div">) => {
   const { children, className, style, ref, ...rest } = props;
 
-  const { interactive, contentClassName } = useTooltip();
+  const { interactive, contentClassName } = useTooltipRoot();
   const { status, mounted, duration } = usePopperTransition();
   const { positionerStyles, setPositioner } = usePopperPositioner();
 
@@ -29,7 +29,7 @@ export const TooltipContent = (props: PrimitiveProps<"div">) => {
         className={tx(
           "z-90 text-fg-emphasized inline-block max-w-96 border px-2 py-1 text-sm shadow-sm transition-opacity",
           status == "open" ? "opacity-100" : "opacity-0",
-          !interactive && "pointer-events-none",
+          !interactive && "select-none",
           contentClassName,
           className,
         )}

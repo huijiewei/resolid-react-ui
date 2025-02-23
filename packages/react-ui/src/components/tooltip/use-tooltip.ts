@@ -3,6 +3,7 @@ import {
   autoPlacement,
   autoUpdate,
   flip,
+  inline,
   offset,
   type Placement,
   safePolygon,
@@ -15,28 +16,19 @@ import {
   useRole,
   useTransitionStatus,
 } from "@floating-ui/react";
-import { type PropsWithChildren, useState } from "react";
+import { useState } from "react";
 import { useDisclosure, type UseDisclosureOptions } from "../../hooks";
-import { PopperAnchorContext, type PopperAnchorContextValue } from "../../primitives/popper/popper-anchor-context";
-import { PopperArrowContext, type PopperArrowContextValue } from "../../primitives/popper/popper-arrow-context";
-import {
-  PopperFloatingContext,
-  type PopperFloatingContextValue,
-} from "../../primitives/popper/popper-floating-context";
-import {
-  PopperPositionerContext,
-  type PopperPositionerContextValue,
-} from "../../primitives/popper/popper-positioner-context";
-import { PopperStateContext, type PopperStateContextValue } from "../../primitives/popper/popper-state-context";
-import {
-  PopperTransitionContext,
-  type PopperTransitionContextValue,
-} from "../../primitives/popper/popper-transtion-context";
-import { PopperTriggerContext, type PopperTriggerContextValue } from "../../primitives/popper/popper-trigger-context";
-import { TooltipContext, type TooltipContextValue } from "./tooltip-context";
+import type { PopperAnchorContextValue } from "../../primitives/popper/popper-anchor-context";
+import type { PopperArrowContextValue } from "../../primitives/popper/popper-arrow-context";
+import type { PopperFloatingContextValue } from "../../primitives/popper/popper-floating-context";
+import type { PopperPositionerContextValue } from "../../primitives/popper/popper-positioner-context";
+import type { PopperStateContextValue } from "../../primitives/popper/popper-state-context";
+import type { PopperTransitionContextValue } from "../../primitives/popper/popper-transtion-context";
+import type { PopperTriggerContextValue } from "../../primitives/popper/popper-trigger-context";
+import type { TooltipRootContextValue } from "./tooltip-root-context";
 import { tooltipColorStyles } from "./tooltip.styles";
 
-export type TooltipRootProps = UseDisclosureOptions & {
+export type TooltipProps = UseDisclosureOptions & {
   /**
    * 颜色
    * @default "neutral"
@@ -74,26 +66,32 @@ export type TooltipRootProps = UseDisclosureOptions & {
   duration?: number;
 };
 
-export const TooltipRoot = (props: PropsWithChildren<TooltipRootProps>) => {
-  const {
-    open,
-    defaultOpen = false,
-    onOpenChange,
-    color = "neutral",
-    placement = "auto",
-    interactive = false,
-    openDelay = 300,
-    closeDelay = 150,
-    duration = 250,
-    children,
-  } = props;
-
+export const useTooltip = ({
+  open,
+  defaultOpen = false,
+  onOpenChange,
+  color = "neutral",
+  placement = "auto",
+  interactive = false,
+  openDelay = 300,
+  closeDelay = 150,
+  duration = 250,
+}: TooltipProps = {}) => {
   const [openState, { handleOpen, handleClose }] = useDisclosure({ open, defaultOpen, onOpenChange });
 
   const [arrowElem, setArrowElem] = useState<SVGSVGElement | null>(null);
 
+  const handleOpenChange = (open: boolean) => {
+    if (open) {
+      handleOpen();
+    } else {
+      handleClose();
+    }
+  };
+
   const { floatingStyles, refs, context } = useFloating({
     middleware: [
+      inline(),
       offset(8),
       placement == "auto" ? autoPlacement() : flip(),
       shift({ padding: 8 }),
@@ -103,13 +101,7 @@ export const TooltipRoot = (props: PropsWithChildren<TooltipRootProps>) => {
       }),
     ],
     open: openState,
-    onOpenChange: (open) => {
-      if (open) {
-        handleOpen();
-      } else {
-        handleClose();
-      }
-    },
+    onOpenChange: handleOpenChange,
     placement: placement == "auto" ? undefined : placement,
     whileElementsMounted: autoUpdate,
   });
@@ -151,7 +143,7 @@ export const TooltipRoot = (props: PropsWithChildren<TooltipRootProps>) => {
     getFloatingProps,
   };
 
-  const tooltipContext: TooltipContextValue = {
+  const tooltipRootContext: TooltipRootContextValue = {
     interactive,
     contentClassName: tooltipColorStyle.content,
   };
@@ -171,21 +163,17 @@ export const TooltipRoot = (props: PropsWithChildren<TooltipRootProps>) => {
     positionerStyles: floatingStyles,
   };
 
-  return (
-    <PopperArrowContext value={arrowContext}>
-      <PopperStateContext value={stateContext}>
-        <PopperTriggerContext value={referenceContext}>
-          <PopperAnchorContext value={anchorContext}>
-            <TooltipContext value={tooltipContext}>
-              <PopperTransitionContext value={transitionContext}>
-                <PopperPositionerContext value={positionerContext}>
-                  <PopperFloatingContext value={floatingContext}>{children}</PopperFloatingContext>
-                </PopperPositionerContext>
-              </PopperTransitionContext>
-            </TooltipContext>
-          </PopperAnchorContext>
-        </PopperTriggerContext>
-      </PopperStateContext>
-    </PopperArrowContext>
-  );
+  return {
+    setOpen: handleOpenChange,
+    setPositionReference: refs.setPositionReference,
+    floatingReference: refs.floating,
+    stateContext,
+    arrowContext,
+    anchorContext,
+    referenceContext,
+    positionerContext,
+    floatingContext,
+    transitionContext,
+    tooltipRootContext,
+  };
 };
