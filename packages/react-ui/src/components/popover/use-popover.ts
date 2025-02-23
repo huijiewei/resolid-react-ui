@@ -3,6 +3,7 @@ import {
   autoPlacement,
   autoUpdate,
   flip,
+  inline,
   offset,
   type Placement,
   shift,
@@ -13,32 +14,19 @@ import {
   useRole,
   useTransitionStatus,
 } from "@floating-ui/react";
-import { type PropsWithChildren, useId, useState } from "react";
+import { useId, useState } from "react";
 import { useDisclosure, type UseDisclosureOptions } from "../../hooks";
-import { PopperAnchorContext, type PopperAnchorContextValue } from "../../primitives/popper/popper-anchor-context";
-import { PopperAriaContext } from "../../primitives/popper/popper-aria-context";
-import { PopperArrowContext, type PopperArrowContextValue } from "../../primitives/popper/popper-arrow-context";
-import {
-  PopperDispatchContext,
-  type PopperDispatchContextValue,
-} from "../../primitives/popper/popper-dispatch-context";
-import {
-  PopperFloatingContext,
-  type PopperFloatingContextValue,
-} from "../../primitives/popper/popper-floating-context";
-import {
-  PopperPositionerContext,
-  type PopperPositionerContextValue,
-} from "../../primitives/popper/popper-positioner-context";
-import { PopperStateContext, type PopperStateContextValue } from "../../primitives/popper/popper-state-context";
-import {
-  PopperTransitionContext,
-  type PopperTransitionContextValue,
-} from "../../primitives/popper/popper-transtion-context";
-import { PopperTriggerContext, type PopperTriggerContextValue } from "../../primitives/popper/popper-trigger-context";
-import { type PopoverBaseProps, PopoverContext, type PopoverContextValue } from "./popover-context";
+import type { PopperAnchorContextValue } from "../../primitives/popper/popper-anchor-context";
+import type { PopperArrowContextValue } from "../../primitives/popper/popper-arrow-context";
+import type { PopperDispatchContextValue } from "../../primitives/popper/popper-dispatch-context";
+import type { PopperFloatingContextValue } from "../../primitives/popper/popper-floating-context";
+import type { PopperPositionerContextValue } from "../../primitives/popper/popper-positioner-context";
+import type { PopperStateContextValue } from "../../primitives/popper/popper-state-context";
+import type { PopperTransitionContextValue } from "../../primitives/popper/popper-transtion-context";
+import type { PopperTriggerContextValue } from "../../primitives/popper/popper-trigger-context";
+import type { PopoverBaseProps, PopoverRootContextValue } from "./popover-root-context";
 
-export type PopoverRootProps = UseDisclosureOptions &
+export type PopoverProps = UseDisclosureOptions &
   PopoverBaseProps & {
     /**
      * 按下 Esc 键时关闭
@@ -63,22 +51,26 @@ export type PopoverRootProps = UseDisclosureOptions &
      * @default 250
      */
     duration?: number;
+
+    /**
+     * 控制是否启用 inline 中间件
+     * @default false
+     */
+    inlineMiddleware?: boolean;
   };
 
-export const PopoverRoot = (props: PropsWithChildren<PopoverRootProps>) => {
-  const {
-    open,
-    defaultOpen,
-    onOpenChange,
-    initialFocus,
-    finalFocus,
-    closeOnEscape = true,
-    closeOnOutsideClick = true,
-    placement = "auto",
-    duration = 250,
-    children,
-  } = props;
-
+export const usePopover = ({
+  open,
+  defaultOpen,
+  onOpenChange,
+  initialFocus,
+  finalFocus,
+  closeOnEscape = true,
+  closeOnOutsideClick = true,
+  placement = "auto",
+  duration = 250,
+  inlineMiddleware = false,
+}: PopoverProps = {}) => {
   const [openState, { handleOpen, handleClose }] = useDisclosure({ open, defaultOpen, onOpenChange });
 
   const id = useId();
@@ -90,10 +82,19 @@ export const PopoverRoot = (props: PropsWithChildren<PopoverRootProps>) => {
     descriptionId,
   };
 
+  const handleOpenChange = (open: boolean) => {
+    if (open) {
+      handleOpen();
+    } else {
+      handleClose();
+    }
+  };
+
   const [arrowElem, setArrowElem] = useState<SVGSVGElement | null>(null);
 
   const { floatingStyles, refs, context } = useFloating({
     middleware: [
+      inlineMiddleware && inline(),
       offset(8),
       placement == "auto" ? autoPlacement() : flip(),
       shift({ padding: 8 }),
@@ -103,13 +104,7 @@ export const PopoverRoot = (props: PropsWithChildren<PopoverRootProps>) => {
       }),
     ],
     open: openState,
-    onOpenChange: (open) => {
-      if (open) {
-        handleOpen();
-      } else {
-        handleClose();
-      }
-    },
+    onOpenChange: handleOpenChange,
     placement: placement == "auto" ? undefined : placement,
     whileElementsMounted: autoUpdate,
   });
@@ -149,7 +144,7 @@ export const PopoverRoot = (props: PropsWithChildren<PopoverRootProps>) => {
     getFloatingProps,
   };
 
-  const popoverContext: PopoverContextValue = {
+  const popoverRootContext: PopoverRootContextValue = {
     context,
     initialFocus,
     finalFocus,
@@ -175,25 +170,19 @@ export const PopoverRoot = (props: PropsWithChildren<PopoverRootProps>) => {
     positionerStyles: floatingStyles,
   };
 
-  return (
-    <PopperAriaContext value={ariaContext}>
-      <PopperArrowContext value={arrowContext}>
-        <PopperStateContext value={stateContext}>
-          <PopperTriggerContext value={referenceContext}>
-            <PopperAnchorContext value={anchorContext}>
-              <PopoverContext value={popoverContext}>
-                <PopperDispatchContext value={dispatchContext}>
-                  <PopperTransitionContext value={transitionContext}>
-                    <PopperPositionerContext value={positionerContext}>
-                      <PopperFloatingContext value={floatingContext}>{children}</PopperFloatingContext>
-                    </PopperPositionerContext>
-                  </PopperTransitionContext>
-                </PopperDispatchContext>
-              </PopoverContext>
-            </PopperAnchorContext>
-          </PopperTriggerContext>
-        </PopperStateContext>
-      </PopperArrowContext>
-    </PopperAriaContext>
-  );
+  return {
+    setOpen: handleOpenChange,
+    setPositionReference: refs.setPositionReference,
+    floatingReference: refs.floating,
+    ariaContext,
+    arrowContext,
+    stateContext,
+    transitionContext,
+    popoverRootContext,
+    dispatchContext,
+    floatingContext,
+    referenceContext,
+    positionerContext,
+    anchorContext,
+  };
 };

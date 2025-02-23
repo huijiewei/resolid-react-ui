@@ -14,8 +14,10 @@ export type PopoverBaseProps = {
   finalFocus?: RefObject<HTMLElement>;
 };
 
-export type PopoverContextValue = PopoverBaseProps & {
+export type PopoverRootContextValue = PopoverBaseProps & {
   context: FloatingRootContext;
 };
 
-export const [PopoverContext, usePopover] = createSafeContext<PopoverContextValue>({ name: "PopoverContext" });
+export const [PopoverRootContext, usePopoverRoot] = createSafeContext<PopoverRootContextValue>({
+  name: "PopoverRootContext",
+});

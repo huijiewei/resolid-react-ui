@@ -225,6 +225,116 @@ export default function App() {
 }
 ```
 
+### 上下文
+
+`TooltipProvider` 组件为工具提示提供了上下文。接受 `useTooltip` 挂钩的值。你可以利用它来访问工具提示外部的组件状态和方法。
+
+```jsx demo
+import {
+  Button,
+  PopoverArrow,
+  PopoverContent,
+  PopoverProvider,
+  usePopover,
+} from "@resolid/react-ui";
+import { useEffect, useRef } from "react";
+
+const usePopoverSelection = () => {
+  const ref = useRef(null);
+  const { setOpen, setPositionReference, floatingReference, ...popover } = usePopover({
+    placement: "top",
+    inlineMiddleware: true,
+  });
+
+  useEffect(() => {
+    const node = ref.current;
+
+    if (!node) {
+      return;
+    }
+
+    const doc = node.ownerDocument || document;
+
+    const handleMouseUp = (e) => {
+      if (floatingReference.current?.contains(e.target)) {
+        return;
+      }
+
+      requestAnimationFrame(() => {
+        const selection = doc.getSelection();
+
+        if (!selection?.rangeCount) {
+          return null;
+        }
+
+        if (selection?.isCollapsed) {
+          setOpen(false);
+          return;
+        }
+
+        const range = selection.getRangeAt(0);
+
+        if (range && node.contains(range.commonAncestorContainer)) {
+          setPositionReference({
+            getBoundingClientRect: () => range.getBoundingClientRect(),
+            getClientRects: () => range.getClientRects(),
+          });
+
+          setOpen(true);
+        }
+      });
+    };
+
+    const handleMouseDown = (e) => {
+      if (floatingReference.current?.contains(e.target)) {
+        return;
+      }
+
+      if (doc.getSelection()?.isCollapsed) {
+        setOpen(false);
+      }
+    };
+
+    doc.addEventListener("mouseup", handleMouseUp);
+    doc.addEventListener("mousedown", handleMouseDown);
+
+    return () => {
+      doc.removeEventListener("mouseup", handleMouseUp);
+      doc.removeEventListener("mousedown", handleMouseDown);
+    };
+  }, [floatingReference]);
+
+  return { popover, ref };
+};
+
+export default function App() {
+  const { popover, ref } = usePopoverSelection();
+
+  return (
+    <div className={"flex flex-row justify-center gap-3"}>
+      <div ref={ref} className={"w-1/2"}>
+        Resolid React UI 是 React 的开源设计系统。使用 React 和 Tailwind CSS
+        构建。它提供了一组即用型组件，用于构建具有一致外观的 Web 应用程序。
+      </div>
+      <PopoverProvider value={popover}>
+        <PopoverContent className={"p-1"}>
+          <PopoverArrow />
+          <Button variant={"ghost"} size={"sm"} color={"neutral"}>
+            Save
+          </Button>
+          <Button variant={"ghost"} size={"sm"} color={"neutral"}>
+            Edit
+          </Button>
+          <Button variant={"ghost"} size={"sm"} color={"neutral"}>
+            Share
+          </Button>
+        </PopoverContent>
+      </PopoverProvider>
+    </div>
+  );
+}
+```
+
 ### 放置位置
 
 通过传递 `placement` 属性来更改弹出框的放置位置。

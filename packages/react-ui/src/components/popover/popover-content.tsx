@@ -6,12 +6,12 @@ import { PopperPositioner } from "../../primitives/popper/popper-positioner";
 import { usePopperTransition } from "../../primitives/popper/popper-transtion-context";
 import { tx } from "../../utils";
 import { Portal } from "../portal/portal";
-import { usePopover } from "./popover-context";
+import { usePopoverRoot } from "./popover-root-context";
 
 export const PopoverContent = (props: PrimitiveProps<"div">) => {
   const { children, className, ...rest } = props;
 
-  const { context, initialFocus, finalFocus } = usePopover();
+  const { context, initialFocus, finalFocus } = usePopoverRoot();
   const { status, mounted, duration } = usePopperTransition();
 
   const { labelId, descriptionId } = usePopperAria();

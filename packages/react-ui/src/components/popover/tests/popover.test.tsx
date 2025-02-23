@@ -8,10 +8,10 @@ import {
   PopoverClose,
   PopoverContent,
   PopoverDescription,
-  type PopoverProps,
   PopoverTitle,
   PopoverTrigger,
 } from "../popover";
+import type { PopoverProps } from "../use-popover";
 
 const ComponentUnderTest = (props: PopoverProps) => (
   <Popover {...props}>
