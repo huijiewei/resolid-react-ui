@@ -1,5 +1,4 @@
 import { FloatingArrow, type FloatingArrowProps } from "@floating-ui/react";
-import { tx } from "../../utils";
 import { usePopperArrow } from "./popper-arrow-context";
 
 export type PopperArrowProps = Omit<FloatingArrowProps, "context" | "stroke" | "fill">;
@@ -12,7 +11,7 @@ export const PopperArrow = (props: PopperArrowProps) => {
   return (
     <FloatingArrow
       ref={setArrow}
-      className={tx(arrowClassName, className)}
+      className={className?.includes("fill-") ? className : arrowClassName}
       strokeWidth={strokeWidth}
       width={width}
       height={height}

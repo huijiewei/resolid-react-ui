@@ -335,6 +335,48 @@ export default function App() {
 }
 ```
 
+### 背景颜色
+
+```jsx demo
+import {
+  Button,
+  Popover,
+  PopoverArrow,
+  PopoverClose,
+  PopoverContent,
+  PopoverDescription,
+  PopoverTitle,
+  PopoverTrigger,
+} from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <div className={"flex flex-row gap-3"}>
+      <Popover placement={"bottom"}>
+        <PopoverTrigger render={(props) => <Button {...props} />}>打开弹出框</PopoverTrigger>
+        <PopoverContent className="bg-bg-primary-hovered max-w-96">
+          <PopoverArrow
+            className={"fill-bg-primary-hovered [&>path:first-of-type]:stroke-bg-primary-hovered"}
+          />
+          <PopoverTitle className={"p-4"}>弹出框标题</PopoverTitle>
+          <PopoverDescription className={"p-4 pt-1"}>
+            这是一个弹出框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
+          </PopoverDescription>
+          <div className={"flex justify-end gap-4 p-4 pt-1"}>
+            <PopoverClose
+              render={(props) => <Button color={"neutral"} variant={"soft"} {...props} />}
+            >
+              取消
+            </PopoverClose>
+            <Button color={"neutral"}>确定</Button>
+          </div>
+        </PopoverContent>
+      </Popover>
+    </div>
+  );
+}
+```
+
 ### 放置位置
 
 通过传递 `placement` 属性来更改弹出框的放置位置。
