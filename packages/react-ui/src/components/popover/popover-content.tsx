@@ -4,6 +4,7 @@ import { usePopperAria } from "../../primitives/popper/popper-aria-context";
 import { PopperFloating } from "../../primitives/popper/popper-floating";
 import { PopperPositioner } from "../../primitives/popper/popper-positioner";
 import { usePopperTransition } from "../../primitives/popper/popper-transtion-context";
+import { hasBackgroundClass } from "../../shared/utils";
 import { tx } from "../../utils";
 import { Portal } from "../portal/portal";
 import { usePopoverRoot } from "./popover-root-context";
@@ -29,7 +30,7 @@ export const PopoverContent = (props: PrimitiveProps<"div">) => {
             className={tx(
               "border-bd-normal relative border shadow-md transition-opacity",
               status == "open" ? "opacity-100" : "opacity-0",
-              !className?.split(" ").some((cls) => cls.startsWith("bg-")) && "bg-bg-normal",
+              !hasBackgroundClass(className) && "bg-bg-normal",
               className,
             )}
             aria-labelledby={labelId}

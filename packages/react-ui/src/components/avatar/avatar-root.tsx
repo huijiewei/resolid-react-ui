@@ -2,6 +2,7 @@ import { isNumber } from "@resolid/utils";
 import { type CSSProperties, useState } from "react";
 import type { ImageLoadStatus } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
+import { hasBackgroundClass } from "../../shared/utils";
 import { tx } from "../../utils";
 import { AvatarContext, AvatarStatusContext } from "./avatar-context";
 import { type AvatarBaseProps, useAvatarGroup } from "./avatar-group-context";
@@ -45,7 +46,7 @@ export const AvatarRoot = (props: PrimitiveProps<"div", AvatarRootProps>) => {
         "size-(--sv) relative inline-flex shrink-0 select-none items-center justify-center",
         radiusClass,
         group && "border-bg-normal not-first:ms-(--pv) border-2",
-        !className?.split(" ").some((cls) => cls.startsWith("bg-")) && "bg-bg-subtlest",
+        !hasBackgroundClass(className) && "bg-bg-subtlest",
         className,
       )}
       {...rest}

@@ -46,7 +46,7 @@ export type RadioGroupBaseProps = RadioBaseProps & {
   invalid?: boolean;
 
   /**
-   * 值
+   * 可控值
    */
   value?: string | number;
 };

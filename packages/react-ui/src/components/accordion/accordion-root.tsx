@@ -1,10 +1,11 @@
 import { Composite } from "@floating-ui/react";
-import { useState, type KeyboardEvent } from "react";
+import { type KeyboardEvent, useState } from "react";
 import { useControllableState } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import { CompositeContext, type CompositeContextValue } from "../../primitives/composite/composite-context";
+import type { MultipleValueProps, SingleValueProps } from "../../shared/types";
 import { tx } from "../../utils";
-import { AccordionContext, type AccordionBaseProps, type AccordionContextValue } from "./accordion-context";
+import { type AccordionBaseProps, AccordionContext, type AccordionContextValue } from "./accordion-context";
 
 type AccordionSingleProps = {
   /**
@@ -13,26 +14,11 @@ type AccordionSingleProps = {
   multiple: false;
 
   /**
-   * 受控值
-   */
-  value?: string | number | null;
-
-  /**
-   * 默认值
-   */
-  defaultValue?: string | number | null;
-
-  /**
-   * onChange 回调
-   */
-  onChange?: (value: string | number | null) => void;
-
-  /**
    * 允许关闭内容, 当 `multiple` 为 `false` 时有效
    * @default false
    */
   collapsible?: boolean;
-};
+} & Omit<SingleValueProps, "multiple">;
 
 type AccordionMultipleProps = {
   /**
@@ -42,22 +28,7 @@ type AccordionMultipleProps = {
   multiple?: true;
 
   collapsible?: never;
-
-  /**
-   * 受控值
-   */
-  value?: (string | number)[];
-
-  /**
-   * 默认值
-   */
-  defaultValue?: (string | number)[];
-
-  /**
-   * onChange 回调
-   */
-  onChange?: (value: (string | number)[]) => void;
-};
+} & Omit<MultipleValueProps, "multiple">;
 
 export type AccordionRootProps = (AccordionMultipleProps | AccordionSingleProps) & AccordionBaseProps;
 

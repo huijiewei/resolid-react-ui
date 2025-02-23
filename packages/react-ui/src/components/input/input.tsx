@@ -37,16 +37,16 @@ export type InputProps = Partial<InputGroupContextValue> & {
   required?: boolean;
 
   /**
-   * 是否无效
-   * @default false
-   */
-  invalid?: boolean;
-
-  /**
    * 是否只读
    * @default false
    */
   readOnly?: boolean;
+
+  /**
+   * 是否无效
+   * @default false
+   */
+  invalid?: boolean;
 
   /**
    * 是否全宽度

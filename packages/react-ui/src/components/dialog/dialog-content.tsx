@@ -3,6 +3,7 @@ import type { PrimitiveProps } from "../../primitives";
 import { usePopperAria } from "../../primitives/popper/popper-aria-context";
 import { PopperFloating } from "../../primitives/popper/popper-floating";
 import { usePopperTransition } from "../../primitives/popper/popper-transtion-context";
+import { hasBackgroundClass } from "../../shared/utils";
 import { tx } from "../../utils";
 import { useDialog } from "./dialog-context";
 
@@ -34,7 +35,7 @@ export const DialogContent = (props: PrimitiveProps<"div">) => {
             "relative mx-auto shadow-md transition-opacity",
             status == "open" ? "opacity-100" : "opacity-0",
             scrollBehavior == "inside" && "max-h-[calc(100%-10rem)]",
-            !className?.split(" ").some((cls) => cls.startsWith("bg-")) && "bg-bg-normal",
+            !hasBackgroundClass(className) && "bg-bg-normal",
             className,
           )}
           aria-labelledby={labelId}
