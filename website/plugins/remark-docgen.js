@@ -309,18 +309,6 @@ const getComponentProps = (virtualDir, componentFile, componentName) => {
       })
     : null;
 
-  props?.sort((a, b) => {
-    if (a.required && !b.required) {
-      return -1;
-    }
-
-    if (b.required && !a.required) {
-      return 1;
-    }
-
-    return 0;
-  });
-
   writeFileSync(componentPropsFile, JSON.stringify(props, null, 2), "utf8");
 
   return props;
