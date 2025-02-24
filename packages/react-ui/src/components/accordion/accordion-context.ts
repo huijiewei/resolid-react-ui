@@ -1,14 +1,7 @@
 import type { Dispatch, SetStateAction } from "react";
 import { createSafeContext } from "../../primitives";
-import type { Orientation } from "../../shared/types";
 
 export type AccordionBaseProps = {
-  /**
-   * 方向
-   * @default "horizontal"
-   */
-  orientation?: Orientation;
-
   /**
    * 是否禁用
    * @default false

@@ -3,8 +3,9 @@ import { type KeyboardEvent, useState } from "react";
 import { useControllableState } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import { CompositeContext, type CompositeContextValue } from "../../primitives/composite/composite-context";
-import type { MultipleValueProps, SingleValueProps } from "../../shared/types";
+import type { MultipleValueProps, Orientation, SingleValueProps } from "../../shared/types";
 import { tx } from "../../utils";
+import { CollapsibleOrientationContext } from "../collapsible/collapsible-orientation-context";
 import { type AccordionBaseProps, AccordionContext, type AccordionContextValue } from "./accordion-context";
 
 type AccordionSingleProps = {
@@ -30,7 +31,13 @@ type AccordionMultipleProps = {
   collapsible?: never;
 } & Omit<MultipleValueProps, "multiple">;
 
-export type AccordionRootProps = (AccordionMultipleProps | AccordionSingleProps) & AccordionBaseProps;
+export type AccordionRootProps = (AccordionMultipleProps | AccordionSingleProps) & {
+  /**
+   * 方向
+   * @default "horizontal"
+   */
+  orientation?: Orientation;
+} & AccordionBaseProps;
 
 export const AccordionRoot = (props: PrimitiveProps<"div", AccordionRootProps>) => {
   const {
@@ -57,7 +64,6 @@ export const AccordionRoot = (props: PrimitiveProps<"div", AccordionRootProps>) 
   const [activeIndex, setActiveIndex] = useState(0);
 
   const context: AccordionContextValue = {
-    orientation,
     disabled,
     duration,
     collapsible,
@@ -99,7 +105,9 @@ export const AccordionRoot = (props: PrimitiveProps<"div", AccordionRootProps>) 
       {...rest}
     >
       <AccordionContext value={context}>
-        <CompositeContext value={compositeContext}>{children}</CompositeContext>
+        <CollapsibleOrientationContext value={orientation}>
+          <CompositeContext value={compositeContext}>{children}</CompositeContext>
+        </CollapsibleOrientationContext>
       </AccordionContext>
     </Composite>
   );
