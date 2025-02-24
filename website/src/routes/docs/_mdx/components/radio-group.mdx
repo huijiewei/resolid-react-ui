@@ -3,15 +3,6 @@ title: 单选框组
 description: 在一组相关且互斥数据中，用户仅能选择一个选项。
 ---
 
-## 导入
-
-```js
-import { RadioGroup, Radio } from "@resolid/react-ui";
-```
-
-- `RadioGroup`: 单选框组
-- `Radio`: 单选框，必须在 `RadioGroup` 内部使用
-
 ## 演示
 
 ```jsx demo online=RadioGroup
@@ -29,6 +20,23 @@ export default function App() {
   );
 }
 ```
+
+## 用法
+
+```js
+import { RadioGroup, Radio } from "@resolid/react-ui";
+```
+
+- `RadioGroup`: 单选框组
+- `Radio`: 单选框，必须在 `RadioGroup` 内部使用
+
+## 特点
+
+- 遵循 [WAI ARIA Radio Group](https://www.w3.org/WAI/ARIA/apg/patterns/radiobutton/) 设计模式。
+- 每个 `Radio` 都使用本机 HTML `<input>` 元素构建，该元素在视觉上隐藏以允许自定义样式。
+- 完整的键盘导航。
+- 支持水平/垂直方向。
+- 可以是受控的，也可以是不受控的。
 
 ## 举例
 
@@ -103,30 +111,19 @@ export default function App() {
 import { Radio, RadioGroup } from "@resolid/react-ui";
 
 export default function App() {
+  const colors = ["primary", "secondary", "success", "warning", "danger", "neutral"];
+
   return (
     <RadioGroup
       name={"colorsRadioGroup"}
       defaultValue={"secondary"}
       className={"flex flex-row items-center gap-5"}
     >
-      <Radio value={"primary"} color={"primary"}>
-        Primary
-      </Radio>
-      <Radio value={"secondary"} color={"secondary"}>
-        Secondary
-      </Radio>
-      <Radio value={"success"} color={"success"}>
-        Success
-      </Radio>
-      <Radio value={"warning"} color={"warning"}>
-        Warning
-      </Radio>
-      <Radio value={"danger"} color={"danger"}>
-        Danger
-      </Radio>
-      <Radio value={"neutral"} color={"neutral"}>
-        Neutral
-      </Radio>
+      {colors.map((color) => (
+        <Radio key={color} value={color} color={color}>
+          {color}
+        </Radio>
+      ))}
     </RadioGroup>
   );
 }

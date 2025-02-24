@@ -3,22 +3,9 @@ title: 警告提示
 description: 以吸引用户注意力的方式显示简短重要信息，而不会打断用户正在进行的任务。
 ---
 
-## 导入
+## 演示
 
-```js
-import { Alert, AlertIndicator, AlertTitle, AlertDescription } from "@resolid/react-ui";
-```
-
-- `Alert`: 警告提示组件的包装器。
-- `AlertIndicator`: 根据状态属性变化的警告提示的视觉指示器。<sup>(可选)</sup>
-- `AlertContent`: 警告的内容主体。<sup>(可选)</sup>
-- `AlertTitle`: 警告的标题，可以供屏幕阅读器宣读。<sup>(可选)</sup>
-- `AlertDescription`: 警告的描述，可以供屏幕阅读器宣读。<sup>(可选)</sup>
-
-## 用法
-
-:::UsageBlock{file=alert/alert.tsx}
-
+```jsx demo online=Alert
 import {
   Alert,
   AlertIndicator,
@@ -28,23 +15,55 @@ import {
 } from "@resolid/react-ui";
 import { SpriteIcon } from "~/components/sprite-icon";
 
-export default function Usage(props) {
+export default function App() {
   return (
-    <Alert {...props} className={"flex flex-row gap-2"}>
+    <Alert className={"flex flex-row gap-2"}>
       <AlertIndicator className={"pt-1.75"}>
         <SpriteIcon name={"github-NOTE"} />
       </AlertIndicator>
       <AlertContent>
         <AlertTitle>警告提示</AlertTitle>
-        <AlertDescription>
-          以吸引用户注意力的方式显示简短重要信息，而不会打断用户正在进行的任务。
-        </AlertDescription>
+        <AlertDescription>以吸引用户注意力的方式显示简短重要信息。</AlertDescription>
       </AlertContent>
     </Alert>
   );
 }
+```
 
-:::
+## 用法
+
+```js
+import {
+  Alert,
+  AlertIndicator,
+  AlertContent,
+  AlertTitle,
+  AlertDescription,
+  AlertCloseButton,
+} from "@resolid/react-ui";
+```
+
+- `Alert`: 警告提示组件的包装器。
+- `AlertIndicator`: 根据状态属性变化的警告提示的视觉指示器。
+- `AlertContent`: 警告的内容主体。
+- `AlertTitle`: 警告的标题，可以供屏幕阅读器宣读。
+- `AlertDescription`: 警告的描述，可以供屏幕阅读器宣读。
+- `AlertCloseButton`: 关闭警告提示的按钮。
+
+```jsx
+<Alert>
+  <AlertIndicator />
+  <AlertContent>
+    <AlertTitle />
+    <AlertDescription />
+  </AlertContent>
+  <AlertCloseButton />
+</Alert>
+```
+
+## 特点
+
+- 遵守 [WAI ARIA Alert](https://www.w3.org/WAI/ARIA/apg/patterns/alert/) 设计模式。
 
 ## 举例
 
@@ -74,16 +93,19 @@ export default function App() {
     neutral: undefined,
   };
 
+  const colors = ["primary", "secondary", "success", "warning", "danger", "neutral"];
+  const variants = ["solid", "outline", "subtle", "soft"];
+
   return (
-    <div className={"flex flex-col gap-3"}>
-      {["primary", "secondary", "success", "warning", "danger", "neutral"].map((color) => (
-        <div key={color} className={"flex flex-row items-center justify-between gap-3"}>
-          {["solid", "outline", "subtle", "soft"].map((variant) => (
+    <div className={"flex w-full flex-col gap-3"}>
+      {colors.map((color) => (
+        <div key={color} className={"flex flex-row gap-3"}>
+          {variants.map((variant) => (
             <Alert
               key={`${color}-${variant}`}
               color={color}
               variant={variant}
-              className={"flex flex-row gap-2"}
+              className={"flex grow flex-row gap-2"}
             >
               {alertIcons[color] ? (
                 <AlertIndicator className={"pt-1.75"}>
@@ -92,7 +114,7 @@ export default function App() {
               ) : null}
               <AlertContent>
                 <AlertTitle>警告</AlertTitle>
-                <AlertDescription>显示简短重要信息</AlertDescription>
+                <AlertDescription>显示重要信息</AlertDescription>
               </AlertContent>
             </Alert>
           ))}
@@ -124,11 +146,9 @@ export default function App() {
       </AlertIndicator>
       <AlertContent>
         <AlertTitle>警告提示</AlertTitle>
-        <AlertDescription>
-          以吸引用户注意力的方式显示简短重要信息，而不会打断用户正在进行的任务。
-        </AlertDescription>
+        <AlertDescription>以吸引用户注意力的方式显示简短重要信息。</AlertDescription>
       </AlertContent>
-      <AlertCloseButton className={"absolute end-3 top-3"} />
+      <AlertCloseButton className={"absolute end-2 top-2"} />
     </Alert>
   );
 }

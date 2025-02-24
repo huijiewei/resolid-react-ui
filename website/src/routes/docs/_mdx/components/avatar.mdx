@@ -3,7 +3,22 @@ title: 头像
 description: 头像组件用于表示用户，显示个人资料图片、首字母或备用内容。
 ---
 
-## 导入
+## 演示
+
+```jsx demo online=Avatar
+import { Avatar, AvatarImage, AvatarFallback } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <Avatar name={"Alex Suprun"}>
+      <AvatarImage src={"https://file.resolid.tech/images%2Fa007.png"} />
+      <AvatarFallback />
+    </Avatar>
+  );
+}
+```
+
+## 用法
 
 ```js
 import {
@@ -21,22 +36,19 @@ import {
 - `AvatarIndicator`: 一个包装器，其内容显示为头像的装饰。
 - `AvatarGroup`: 一个用于将多个头像堆叠在一起的包装器。
 
-## 演示
-
-```jsx demo online=Avatar
-import { Avatar, AvatarImage, AvatarFallback } from "@resolid/react-ui";
-
-export default function App() {
-  return (
-    <div className={"flex flex-row justify-center gap-6"}>
-      <Avatar name={"Alex Suprun"}>
-        <AvatarImage src={"https://file.resolid.tech/images%2Fa007.png"} />
-        <AvatarFallback />
-      </Avatar>
-    </div>
-  );
-}
+```jsx
+<Avatar>
+  <AvatarImage />
+  <AvatarFallback />
+  <AvatarIndicator />
+</Avatar>
 ```
+
+## 特点
+
+- 自动和手动控制图像渲染时间。
+- 后备部分接受任何子项。
+- 可以选择延迟回退渲染以避免内容闪烁。
 
 ## 举例
 
@@ -209,7 +221,7 @@ import { Avatar, AvatarImage, AvatarFallback, AvatarGroup } from "@resolid/react
 
 export default function App() {
   return (
-    <div className={"flex flex-col items-center justify-center gap-3"}>
+    <div className={"flex flex-col gap-3"}>
       <AvatarGroup size={50} spacing={"-0.75rem"}>
         <Avatar name={"Alex Suprun"}>
           <AvatarImage src={"https://file.resolid.tech/images%2Fa001.jpg"} />
@@ -290,57 +302,55 @@ import {
 
 export default function App() {
   return (
-    <div className={"flex flex-col items-center justify-center gap-3"}>
-      <AvatarGroup
-        className={"rounded-full border-4 border-blue-100 bg-blue-100"}
-        size={39}
-        spacing={"-0.75rem"}
-      >
-        <Avatar name={"Alex Suprun"}>
-          <AvatarImage src={"https://file.resolid.tech/images%2Fa001.jpg"} />
-          <AvatarFallback />
-        </Avatar>
-        <Avatar name={"Alex Suprun"}>
+    <AvatarGroup
+      className={"rounded-full border-4 border-blue-100 bg-blue-100"}
+      size={39}
+      spacing={"-0.75rem"}
+    >
+      <Avatar name={"Alex Suprun"}>
+        <AvatarImage src={"https://file.resolid.tech/images%2Fa001.jpg"} />
+        <AvatarFallback />
+      </Avatar>
+      <Avatar name={"Alex Suprun"}>
+        <AvatarImage />
+        <AvatarFallback />
+      </Avatar>
+      <Avatar className={"bg-blue-100"} name={"Alex Suprun"}>
+        <AvatarImage src={"https://file.resolid.tech/images%2Fa006.png"} />
+        <AvatarFallback />
+      </Avatar>
+      <Avatar name={"Alex Suprun"}>
+        <AvatarImage src={"https://file.resolid.tech/images%2Fa003.jpg"} />
+        <AvatarFallback />
+      </Avatar>
+      <Avatar name={"Alex Suprun"}>
+        <AvatarImage src={"https://file.resolid.tech/images%2Fa007.png"} />
+        <AvatarFallback />
+      </Avatar>
+      <DropdownMenu placement={"bottom"}>
+        <DropdownMenuTrigger render={(props) => <Avatar {...props} />}>
           <AvatarImage />
-          <AvatarFallback />
-        </Avatar>
-        <Avatar className={"bg-blue-100"} name={"Alex Suprun"}>
-          <AvatarImage src={"https://file.resolid.tech/images%2Fa006.png"} />
-          <AvatarFallback />
-        </Avatar>
-        <Avatar name={"Alex Suprun"}>
-          <AvatarImage src={"https://file.resolid.tech/images%2Fa003.jpg"} />
-          <AvatarFallback />
-        </Avatar>
-        <Avatar name={"Alex Suprun"}>
-          <AvatarImage src={"https://file.resolid.tech/images%2Fa007.png"} />
-          <AvatarFallback />
-        </Avatar>
-        <DropdownMenu placement={"bottom"}>
-          <DropdownMenuTrigger render={(props) => <Avatar {...props} />}>
-            <AvatarImage />
-            <AvatarFallback className={"bg-blue-100"}>+3</AvatarFallback>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className={"text-sm"}>
-            <DropdownMenuArrow />
-            <DropdownMenuItem className={"gap-2"}>
-              <Avatar size={32} name={"Alex Suprun"}>
-                <AvatarImage src={"https://file.resolid.tech/images%2Fa004.jpg"} />
-                <AvatarFallback />
-              </Avatar>
-              Hilda Surrey
-            </DropdownMenuItem>
-            <DropdownMenuItem className={"gap-2"}>
-              <Avatar size={32} name={"Alex Suprun"}>
-                <AvatarImage src={"https://file.resolid.tech/images%2Fa002.jpg"} />
-                <AvatarFallback />
-              </Avatar>
-              Valentina Juliana
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </AvatarGroup>
-    </div>
+          <AvatarFallback className={"bg-blue-100"}>+3</AvatarFallback>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className={"text-sm"}>
+          <DropdownMenuArrow />
+          <DropdownMenuItem className={"gap-2"}>
+            <Avatar size={32} name={"Alex Suprun"}>
+              <AvatarImage src={"https://file.resolid.tech/images%2Fa004.jpg"} />
+              <AvatarFallback />
+            </Avatar>
+            Hilda Surrey
+          </DropdownMenuItem>
+          <DropdownMenuItem className={"gap-2"}>
+            <Avatar size={32} name={"Alex Suprun"}>
+              <AvatarImage src={"https://file.resolid.tech/images%2Fa002.jpg"} />
+              <AvatarFallback />
+            </Avatar>
+            Valentina Juliana
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </AvatarGroup>
   );
 }
 ```

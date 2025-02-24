@@ -3,27 +3,28 @@ title: 开关
 description: 互斥性的操作控件，用户可打开或关闭某个功能。
 ---
 
-## 导入
+## 演示
+
+```jsx demo online=Switch
+import { Switch } from "@resolid/react-ui";
+
+export default function App() {
+  return <Switch defaultChecked>开关</Switch>;
+}
+```
+
+## 用法
 
 ```js
 import { Switch } from "@resolid/react-ui";
 ```
 
-## 用法
+## 特点
 
-:::UsageBlock{file=switch/switch.tsx ignores=value,spacing,checked,defaultChecked}
-
-import { Switch } from "@resolid/react-ui";
-
-export default function Usage(props) {
-  return (
-    <Switch defaultChecked {...props}>
-      开关
-    </Switch>
-  );
-}
-
-:::
+- 遵循 [WAI ARIA Switch](https://www.w3.org/WAI/ARIA/apg/patterns/switch/) 设计模式。
+- 由本机 HTML `<input>` 元素构建，该元素在视觉上隐藏以允许自定义样式。
+- 标记对辅助技术的支持。
+- 可以是受控的，也可以是不受控的。
 
 ## 举例
 
@@ -77,26 +78,15 @@ export default function App() {
 import { Switch } from "@resolid/react-ui";
 
 export default function App() {
+  const colors = ["primary", "secondary", "success", "warning", "danger", "neutral"];
+
   return (
     <div className={"flex flex-row items-center gap-3"}>
-      <Switch defaultChecked color={"primary"} size={"sm"}>
-        Primary
-      </Switch>
-      <Switch defaultChecked color={"secondary"} size={"sm"}>
-        Secondary
-      </Switch>
-      <Switch defaultChecked color={"success"} size={"sm"}>
-        Success
-      </Switch>
-      <Switch defaultChecked color={"warning"} size={"sm"}>
-        Warning
-      </Switch>
-      <Switch defaultChecked color={"danger"} size={"sm"}>
-        Danger
-      </Switch>
-      <Switch defaultChecked color={"neutral"} size={"sm"}>
-        Neutral
-      </Switch>
+      {colors.map((color) => (
+        <Switch key={color} defaultChecked color={color} size={"sm"}>
+          {color}
+        </Switch>
+      ))}
     </div>
   );
 }

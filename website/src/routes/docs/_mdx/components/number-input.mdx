@@ -3,23 +3,31 @@ title: 数字输入框
 description: 仅允许输入数字格式的输入框。
 ---
 
-## 导入
+## 演示
+
+```jsx demo online=NumberInput
+import { NumberInput } from "@resolid/react-ui";
+
+export default function App() {
+  return <NumberInput placeholder={"数字输入框"} />;
+}
+```
+
+## 用法
 
 ```js
 import { NumberInput } from "@resolid/react-ui";
 ```
 
-## 用法
+## 特点
 
-:::UsageBlock{file=number-input/number-input.tsx ignores=value,defaultValue,placeholder,inputMode,prefix,prefixWidth,format,parse}
-
-import { NumberInput } from "@resolid/react-ui";
-
-export default function Usage(props) {
-  return <NumberInput placeholder={"数字输入框"} {...props} />;
-}
-
-:::
+- 遵循 [WAI ARIA Spinbutton](https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/) 设计模式。
+- 使用本机 `<input>` 元素构建。
+- 视觉和 ARIA 标签支持。
+- 可以是受控的，也可以是不受控的。
+- 支持递增和递减按钮。
+- 格式化并本地化输入数字和原始输入。
+- 支持鼠标滚轮事件和所有键盘事件。
 
 ## 举例
 
@@ -31,11 +39,7 @@ export default function Usage(props) {
 import { NumberInput } from "@resolid/react-ui";
 
 export default function App() {
-  return (
-    <div className={"flex flex-row items-center gap-3"}>
-      <NumberInput defaultValue={32} />
-    </div>
-  );
+  return <NumberInput defaultValue={32} />;
 }
 ```
 
@@ -86,14 +90,12 @@ import { NumberInput } from "@resolid/react-ui";
 
 export default function App() {
   return (
-    <div className={"flex flex-row gap-3"}>
-      <NumberInput
-        parse={(value) => value.replace(/\$\s?|(,*)/g, "")}
-        format={(value) =>
-          !Number.isNaN(value) ? `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "$ "
-        }
-      />
-    </div>
+    <NumberInput
+      parse={(value) => value.replace(/\$\s?|(,*)/g, "")}
+      format={(value) =>
+        !Number.isNaN(value) ? `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "$ "
+      }
+    />
   );
 }
 ```
@@ -128,13 +130,11 @@ import { SpriteIcon } from "~/components/sprite-icon";
 
 export default function App() {
   return (
-    <div className={"flex flex-row items-center gap-3"}>
-      <NumberInput
-        min={0}
-        prefix={<SpriteIcon size={"1.125em"} name={"github"} />}
-        placeholder={"仓库数量"}
-      />
-    </div>
+    <NumberInput
+      min={0}
+      prefix={<SpriteIcon size={"1.125em"} name={"github"} />}
+      placeholder={"仓库数量"}
+    />
   );
 }
 ```
@@ -147,11 +147,7 @@ export default function App() {
 import { NumberInput } from "@resolid/react-ui";
 
 export default function App() {
-  return (
-    <div className={"flex flex-row items-center gap-3"}>
-      <NumberInput changeOnWheel />
-    </div>
-  );
+  return <NumberInput changeOnWheel />;
 }
 ```
 

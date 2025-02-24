@@ -3,7 +3,58 @@ title: 右键菜单
 description: 显示位于指针处的菜单，通过右键单击或长按触发。
 ---
 
-## 导入
+## 演示
+
+当指针是笔或触摸时，在大约 `700ms` 的长压期间，右键菜单也会打开。
+
+```jsx demo online=ContextMenu
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuSeparator,
+  ContextMenuTrigger,
+} from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <ContextMenu>
+      <ContextMenuTrigger
+        className={
+          "border-bd-normal flex h-32 select-none items-center rounded-md border border-dashed p-6"
+        }
+      >
+        右键点击显示菜单
+      </ContextMenuTrigger>
+      <ContextMenuContent className={"text-sm"}>
+        <ContextMenuItem>
+          新标签页
+          <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+T</span>
+        </ContextMenuItem>
+        <ContextMenuItem>
+          打开新窗口
+          <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+N</span>
+        </ContextMenuItem>
+        <ContextMenuItem disabled>
+          打开新的无痕式窗口
+          <span className={"ml-auto pl-5 text-xs tracking-widest"}>⇧+⌘+N</span>
+        </ContextMenuItem>
+        <ContextMenuSeparator />
+        <ContextMenuItem>
+          关闭窗口
+          <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⇧+⌘+W</span>
+        </ContextMenuItem>
+        <ContextMenuItem>
+          关闭标签页
+          <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+W</span>
+        </ContextMenuItem>
+      </ContextMenuContent>
+    </ContextMenu>
+  );
+}
+```
+
+## 用法
 
 ```js
 import {
@@ -35,58 +86,42 @@ import {
 - `ContextMenuItemIndicator`: 在父级 `ContextMenuCheckboxItem` 或 `ContextMenuRadioItem` 被选中项目时呈现的视觉指示器。
 - `ContextMenuSubTrigger`: 包装将打开子菜单的控件。
 
-## 演示
-
-当指针是笔或触摸时，在大约 `700ms` 的长压期间，右键菜单也会打开。
-
-```jsx demo online=ContextMenu
-import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuSeparator,
-  ContextMenuTrigger,
-} from "@resolid/react-ui";
-
-export default function App() {
-  return (
-    <div className={"flex flex-row justify-center gap-3"}>
-      <ContextMenu>
-        <ContextMenuTrigger
-          className={
-            "border-bd-normal flex h-32 select-none items-center rounded-md border border-dashed p-6"
-          }
-        >
-          右键点击显示菜单
-        </ContextMenuTrigger>
-        <ContextMenuContent className={"text-sm"}>
-          <ContextMenuItem>
-            新标签页
-            <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+T</span>
-          </ContextMenuItem>
-          <ContextMenuItem>
-            打开新窗口
-            <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+N</span>
-          </ContextMenuItem>
-          <ContextMenuItem disabled>
-            打开新的无痕式窗口
-            <span className={"ml-auto pl-5 text-xs tracking-widest"}>⇧+⌘+N</span>
-          </ContextMenuItem>
-          <ContextMenuSeparator />
-          <ContextMenuItem>
-            关闭窗口
-            <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⇧+⌘+W</span>
-          </ContextMenuItem>
-          <ContextMenuItem>
-            关闭标签页
-            <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+W</span>
-          </ContextMenuItem>
-        </ContextMenuContent>
-      </ContextMenu>
-    </div>
-  );
-}
+```jsx
+<ContextMenu>
+  <ContextMenuTrigger />
+  <ContextMenuContent>
+    <ContextMenuItem />
+    <ContextMenuSeparator />
+    <ContextMenuGroup>
+      <ContextMenuLabel />
+      <ContextMenuItem />
+    </ContextMenuGroup>
+    <ContextMenuCheckboxItem>
+      <ContextMenuItemIndicator />
+    </ContextMenuCheckboxItem>
+    <ContextMenuRadioGroup>
+      <ContextMenuRadioItem>
+        <ContextMenuItemIndicator />
+      </ContextMenuRadioItem>
+    </ContextMenuRadioGroup>
+    <ContextMenu>
+      <ContextMenuSubTrigger />
+      <ContextMenuContent />
+    </ContextMenu>
+  </ContextMenuContent>
+</ContextMenu>
 ```
+
+## 特点
+
+- 遵循 [WAI ARIA Menu](https://www.w3.org/WAI/ARIA/apg/patterns/menu/) 设计模式。
+- 长按触摸设备即可触发。
+- 支持项目、标签、项目组。
+- 支持具有可选不确定状态的可检查项目（单个或多个）。
+- 完整的键盘导航。
+- 支持禁用项目。
+- 打字以允许通过键入文本进行聚焦项目。
+- 焦点得到全面管理。
 
 ## 举例
 
@@ -106,55 +141,53 @@ import {
 
 export default function App() {
   return (
-    <div className={"flex flex-row justify-center gap-3"}>
-      <ContextMenu>
-        <ContextMenuTrigger
-          className={
-            "border-bd-normal flex h-32 select-none items-center rounded-md border border-dashed p-6"
-          }
-        >
-          右键点击显示菜单
-        </ContextMenuTrigger>
-        <ContextMenuContent className={"text-sm"}>
-          <ContextMenuItem label={"New Tab"}>新建标签页</ContextMenuItem>
-          <ContextMenuItem label={"New Window"}>打开新窗口</ContextMenuItem>
-          <ContextMenuItem>打开新的无痕式窗口</ContextMenuItem>
-          <ContextMenuSeparator />
-          <ContextMenu>
-            <ContextMenuSubTrigger label={"Share"}>分享</ContextMenuSubTrigger>
-            <ContextMenuContent className={"text-sm"}>
-              <ContextMenuItem label={"Email"}>邮件</ContextMenuItem>
-              <ContextMenuItem label={"SMS"}>短信</ContextMenuItem>
-              <ContextMenu>
-                <ContextMenuSubTrigger>社交媒体</ContextMenuSubTrigger>
-                <ContextMenuContent className={"text-sm"}>
-                  <ContextMenu>
-                    <ContextMenuSubTrigger>微信</ContextMenuSubTrigger>
-                    <ContextMenuContent className={"text-sm"}>
-                      <ContextMenuItem>聊天</ContextMenuItem>
-                      <ContextMenuItem>朋友圈</ContextMenuItem>
-                    </ContextMenuContent>
-                  </ContextMenu>
-                  <ContextMenuItem>微博</ContextMenuItem>
-                  <ContextMenuItem>抖音</ContextMenuItem>
-                  <ContextMenuItem>知乎</ContextMenuItem>
-                </ContextMenuContent>
-              </ContextMenu>
-            </ContextMenuContent>
-          </ContextMenu>
-          <ContextMenuSeparator />
-          <ContextMenu>
-            <ContextMenuSubTrigger label={"Tools"}>更多工具</ContextMenuSubTrigger>
-            <ContextMenuContent className={"text-sm"}>
-              <ContextMenuItem>保存页面为...</ContextMenuItem>
-              <ContextMenuItem>创建快捷方式</ContextMenuItem>
-              <ContextMenuSeparator />
-              <ContextMenuItem>开发者工具</ContextMenuItem>
-            </ContextMenuContent>
-          </ContextMenu>
-        </ContextMenuContent>
-      </ContextMenu>
-    </div>
+    <ContextMenu>
+      <ContextMenuTrigger
+        className={
+          "border-bd-normal flex h-32 select-none items-center rounded-md border border-dashed p-6"
+        }
+      >
+        右键点击显示菜单
+      </ContextMenuTrigger>
+      <ContextMenuContent className={"text-sm"}>
+        <ContextMenuItem label={"New Tab"}>新建标签页</ContextMenuItem>
+        <ContextMenuItem label={"New Window"}>打开新窗口</ContextMenuItem>
+        <ContextMenuItem>打开新的无痕式窗口</ContextMenuItem>
+        <ContextMenuSeparator />
+        <ContextMenu>
+          <ContextMenuSubTrigger label={"Share"}>分享</ContextMenuSubTrigger>
+          <ContextMenuContent className={"text-sm"}>
+            <ContextMenuItem label={"Email"}>邮件</ContextMenuItem>
+            <ContextMenuItem label={"SMS"}>短信</ContextMenuItem>
+            <ContextMenu>
+              <ContextMenuSubTrigger>社交媒体</ContextMenuSubTrigger>
+              <ContextMenuContent className={"text-sm"}>
+                <ContextMenu>
+                  <ContextMenuSubTrigger>微信</ContextMenuSubTrigger>
+                  <ContextMenuContent className={"text-sm"}>
+                    <ContextMenuItem>聊天</ContextMenuItem>
+                    <ContextMenuItem>朋友圈</ContextMenuItem>
+                  </ContextMenuContent>
+                </ContextMenu>
+                <ContextMenuItem>微博</ContextMenuItem>
+                <ContextMenuItem>抖音</ContextMenuItem>
+                <ContextMenuItem>知乎</ContextMenuItem>
+              </ContextMenuContent>
+            </ContextMenu>
+          </ContextMenuContent>
+        </ContextMenu>
+        <ContextMenuSeparator />
+        <ContextMenu>
+          <ContextMenuSubTrigger label={"Tools"}>更多工具</ContextMenuSubTrigger>
+          <ContextMenuContent className={"text-sm"}>
+            <ContextMenuItem>保存页面为...</ContextMenuItem>
+            <ContextMenuItem>创建快捷方式</ContextMenuItem>
+            <ContextMenuSeparator />
+            <ContextMenuItem>开发者工具</ContextMenuItem>
+          </ContextMenuContent>
+        </ContextMenu>
+      </ContextMenuContent>
+    </ContextMenu>
   );
 }
 ```
@@ -176,32 +209,30 @@ import {
 
 export default function App() {
   return (
-    <div className={"flex flex-row justify-center gap-3"}>
-      <ContextMenu>
-        <ContextMenuTrigger
-          className={
-            "border-bd-normal flex h-32 select-none items-center rounded-md border border-dashed p-6"
-          }
-        >
-          右键点击显示菜单
-        </ContextMenuTrigger>
-        <ContextMenuContent className={"text-sm"}>
-          <ContextMenuGroup>
-            <ContextMenuLabel>Sort</ContextMenuLabel>
-            <ContextMenuItem>Date</ContextMenuItem>
-            <ContextMenuItem>Name</ContextMenuItem>
-            <ContextMenuItem>Type</ContextMenuItem>
-          </ContextMenuGroup>
-          <ContextMenuSeparator />
-          <ContextMenuGroup>
-            <ContextMenuLabel>Workspace</ContextMenuLabel>
-            <ContextMenuItem>Minimap</ContextMenuItem>
-            <ContextMenuItem>Search</ContextMenuItem>
-            <ContextMenuItem>Sidebar</ContextMenuItem>
-          </ContextMenuGroup>
-        </ContextMenuContent>
-      </ContextMenu>
-    </div>
+    <ContextMenu>
+      <ContextMenuTrigger
+        className={
+          "border-bd-normal flex h-32 select-none items-center rounded-md border border-dashed p-6"
+        }
+      >
+        右键点击显示菜单
+      </ContextMenuTrigger>
+      <ContextMenuContent className={"text-sm"}>
+        <ContextMenuGroup>
+          <ContextMenuLabel>Sort</ContextMenuLabel>
+          <ContextMenuItem>Date</ContextMenuItem>
+          <ContextMenuItem>Name</ContextMenuItem>
+          <ContextMenuItem>Type</ContextMenuItem>
+        </ContextMenuGroup>
+        <ContextMenuSeparator />
+        <ContextMenuGroup>
+          <ContextMenuLabel>Workspace</ContextMenuLabel>
+          <ContextMenuItem>Minimap</ContextMenuItem>
+          <ContextMenuItem>Search</ContextMenuItem>
+          <ContextMenuItem>Sidebar</ContextMenuItem>
+        </ContextMenuGroup>
+      </ContextMenuContent>
+    </ContextMenu>
   );
 }
 ```
@@ -231,90 +262,88 @@ export default function App() {
   const [account, setAccount] = useState("张三");
 
   return (
-    <div className={"flex flex-row justify-center gap-3"}>
-      <ContextMenu>
-        <ContextMenuTrigger
-          className={
-            "border-bd-normal flex h-32 select-none items-center rounded-md border border-dashed p-6"
-          }
-        >
-          右键点击显示菜单
-        </ContextMenuTrigger>
-        <ContextMenuContent className={"text-sm"}>
-          <ContextMenuItem>
-            新标签页
-            <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+T</span>
-          </ContextMenuItem>
-          <ContextMenuItem>
-            打开新窗口
-            <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+N</span>
-          </ContextMenuItem>
-          <ContextMenuItem disabled>
-            打开新的无痕式窗口
-            <span className={"ml-auto pl-5 text-xs tracking-widest"}>⇧+⌘+N</span>
-          </ContextMenuItem>
-          <ContextMenuSeparator />
-          <ContextMenuItem>
-            关闭窗口
-            <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⇧+⌘+W</span>
-          </ContextMenuItem>
-          <ContextMenuItem>
-            关闭标签页
-            <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+W</span>
-          </ContextMenuItem>
-          <ContextMenuItem>
-            页面存储为...
-            <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+S</span>
-          </ContextMenuItem>
-          <ContextMenuSeparator />
-          <ContextMenu>
-            <ContextMenuSubTrigger>分享</ContextMenuSubTrigger>
-            <ContextMenuContent className={"text-sm"}>
-              <ContextMenuItem>电子邮件</ContextMenuItem>
-              <ContextMenuItem>手机短信</ContextMenuItem>
-              <ContextMenuItem>隔空投送</ContextMenuItem>
-            </ContextMenuContent>
-          </ContextMenu>
-          <ContextMenuSeparator />
-          <ContextMenuItem>
-            打印
-            <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+P</span>
-          </ContextMenuItem>
-          <ContextMenuSeparator />
-          <ContextMenuCheckboxItem checked={bookmarksChecked} onChange={setBookmarksChecked}>
+    <ContextMenu>
+      <ContextMenuTrigger
+        className={
+          "border-bd-normal flex h-32 select-none items-center rounded-md border border-dashed p-6"
+        }
+      >
+        右键点击显示菜单
+      </ContextMenuTrigger>
+      <ContextMenuContent className={"text-sm"}>
+        <ContextMenuItem>
+          新标签页
+          <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+T</span>
+        </ContextMenuItem>
+        <ContextMenuItem>
+          打开新窗口
+          <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+N</span>
+        </ContextMenuItem>
+        <ContextMenuItem disabled>
+          打开新的无痕式窗口
+          <span className={"ml-auto pl-5 text-xs tracking-widest"}>⇧+⌘+N</span>
+        </ContextMenuItem>
+        <ContextMenuSeparator />
+        <ContextMenuItem>
+          关闭窗口
+          <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⇧+⌘+W</span>
+        </ContextMenuItem>
+        <ContextMenuItem>
+          关闭标签页
+          <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+W</span>
+        </ContextMenuItem>
+        <ContextMenuItem>
+          页面存储为...
+          <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+S</span>
+        </ContextMenuItem>
+        <ContextMenuSeparator />
+        <ContextMenu>
+          <ContextMenuSubTrigger>分享</ContextMenuSubTrigger>
+          <ContextMenuContent className={"text-sm"}>
+            <ContextMenuItem>电子邮件</ContextMenuItem>
+            <ContextMenuItem>手机短信</ContextMenuItem>
+            <ContextMenuItem>隔空投送</ContextMenuItem>
+          </ContextMenuContent>
+        </ContextMenu>
+        <ContextMenuSeparator />
+        <ContextMenuItem>
+          打印
+          <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+P</span>
+        </ContextMenuItem>
+        <ContextMenuSeparator />
+        <ContextMenuCheckboxItem checked={bookmarksChecked} onChange={setBookmarksChecked}>
+          <ContextMenuItemIndicator>
+            <SpriteIcon size={"1rem"} name={"check"} />
+          </ContextMenuItemIndicator>
+          显示书签栏
+          <div className="text-fg-subtle ml-auto pl-5 text-xs tracking-widest">⌘+B</div>
+        </ContextMenuCheckboxItem>
+        <ContextMenuCheckboxItem checked={urlsChecked} onChange={setUrlsChecked}>
+          <ContextMenuItemIndicator>
+            <SpriteIcon size={"1rem"} name={"check"} />
+          </ContextMenuItemIndicator>
+          显示路径
+        </ContextMenuCheckboxItem>
+        <ContextMenuSeparator />
+        <ContextMenuRadioGroup value={account} onChange={setAccount}>
+          <ContextMenuLabel>账号</ContextMenuLabel>
+          <ContextMenuRadioItem value={"张三"}>
             <ContextMenuItemIndicator>
-              <SpriteIcon size={"1rem"} name={"check"} />
+              <SpriteIcon size={"1rem"} name={"dot"} />
             </ContextMenuItemIndicator>
-            显示书签栏
-            <div className="text-fg-subtle ml-auto pl-5 text-xs tracking-widest">⌘+B</div>
-          </ContextMenuCheckboxItem>
-          <ContextMenuCheckboxItem checked={urlsChecked} onChange={setUrlsChecked}>
+            张三
+          </ContextMenuRadioItem>
+          <ContextMenuRadioItem value={"李四"}>
             <ContextMenuItemIndicator>
-              <SpriteIcon size={"1rem"} name={"check"} />
+              <SpriteIcon size={"1rem"} name={"dot"} />
             </ContextMenuItemIndicator>
-            显示路径
-          </ContextMenuCheckboxItem>
-          <ContextMenuSeparator />
-          <ContextMenuRadioGroup value={account} onChange={setAccount}>
-            <ContextMenuLabel>账号</ContextMenuLabel>
-            <ContextMenuRadioItem value={"张三"}>
-              <ContextMenuItemIndicator>
-                <SpriteIcon size={"1rem"} name={"dot"} />
-              </ContextMenuItemIndicator>
-              张三
-            </ContextMenuRadioItem>
-            <ContextMenuRadioItem value={"李四"}>
-              <ContextMenuItemIndicator>
-                <SpriteIcon size={"1rem"} name={"dot"} />
-              </ContextMenuItemIndicator>
-              李四
-            </ContextMenuRadioItem>
-          </ContextMenuRadioGroup>
-          <ContextMenuSeparator />
-          <ContextMenuItem>其他操作</ContextMenuItem>
-        </ContextMenuContent>
-      </ContextMenu>
-    </div>
+            李四
+          </ContextMenuRadioItem>
+        </ContextMenuRadioGroup>
+        <ContextMenuSeparator />
+        <ContextMenuItem>其他操作</ContextMenuItem>
+      </ContextMenuContent>
+    </ContextMenu>
   );
 }
 ```

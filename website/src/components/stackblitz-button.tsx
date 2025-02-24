@@ -17,7 +17,7 @@ const sandbox = import.meta.glob<string>(
 
 const commitSha = import.meta.env.VITE_VERCEL_GIT_COMMIT_SHA
   ? import.meta.env.VITE_VERCEL_GIT_COMMIT_SHA.slice(0, 8)
-  : "c0df27e";
+  : import.meta.env.VITE_GIT_COMMIT_SHA.slice(0, 8);
 
 const createHiddenInput = (name: string, value: string) => {
   const input = document.createElement("input");

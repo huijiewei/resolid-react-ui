@@ -3,25 +3,28 @@ title: 多选框
 description: 在一组数据中，用户可通过多选框选择一个或多个数据。
 ---
 
-## 导入
+## 演示
+
+```jsx demo online=Checkbox
+import { Checkbox } from "@resolid/react-ui";
+
+export default function App() {
+  return <Checkbox>多选框</Checkbox>;
+}
+```
+
+## 用法
 
 ```js
 import { Checkbox, CheckboxGroup } from "@resolid/react-ui";
 ```
 
-## 用法
+## 特点
 
-:::UsageBlock{file=checkbox/checkbox.tsx ignores=value,spacing,checked,defaultChecked}
-
-import { Checkbox } from "@resolid/react-ui";
-
-export default function Usage(props) {
-  return <Checkbox {...props}>多选框</Checkbox>;
-}
-
-:::
-
->
+- 由本机 HTML `<input>` 元素构建，该元素在视觉上隐藏以允许自定义样式。
+- 支持不确定状态。
+- 完整的键盘导航。
+- 可以是受控的，也可以是不受控的。
 
 ## 举例
 
@@ -75,26 +78,15 @@ export default function App() {
 import { Checkbox } from "@resolid/react-ui";
 
 export default function App() {
+  const colors = ["primary", "secondary", "success", "warning", "danger", "neutral"];
+
   return (
     <div className={"flex flex-row gap-5"}>
-      <Checkbox defaultChecked color={"primary"}>
-        Primary
-      </Checkbox>
-      <Checkbox defaultChecked color={"secondary"}>
-        Secondary
-      </Checkbox>
-      <Checkbox defaultChecked color={"success"}>
-        Success
-      </Checkbox>
-      <Checkbox defaultChecked color={"warning"}>
-        Warning
-      </Checkbox>
-      <Checkbox defaultChecked color={"danger"}>
-        Danger
-      </Checkbox>
-      <Checkbox defaultChecked color={"neutral"}>
-        Neutral
-      </Checkbox>
+      {colors.map((color) => (
+        <Checkbox key={color} defaultChecked color={color}>
+          {color}
+        </Checkbox>
+      ))}
     </div>
   );
 }

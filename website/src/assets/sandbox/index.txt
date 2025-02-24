@@ -11,7 +11,7 @@
     </style>
   </head>
   <body class="min-h-screen">
-    <div id="root" class="p-8 min-h-[calc(100vh-5em)]"></div>
+    <div id="root" class="p-8 flex flex-col items-center gap-3 min-h-[calc(100vh-5em)]"></div>
     <div class="p-5 text-sm flex item-center border-t gap-3 border-bd-normal">
       <span>${name} 组件</span>
       <a class="text-link" href="https://ui.resolid.tech" rel="noreferrer" target="_blank">Resolid UI</a>

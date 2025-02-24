@@ -3,28 +3,6 @@ title: 通知提醒
 description: 全局展示通知提醒，将信息及时有效的传达给用户。
 ---
 
-## 导入
-
-```js
-import {
-  useToast,
-  Toast,
-  ToastContent,
-  ToastTitle,
-  ToastDescription,
-  ToastIndicator,
-  ToastCloseButton,
-} from "@resolid/react-ui";
-```
-
-- `useToast`: 通知提醒调用 Hook。
-- `Toast`: 通知提醒组件的包装器。
-- `ToastIndicator`: 根据状态属性变化的通知提醒的视觉指示器。<sup>(可选)</sup>
-- `ToastContent`: 通知提醒的内容主体。<sup>(可选)</sup>
-- `ToastTitle`: 通知提醒的标题，可以供屏幕阅读器宣读。<sup>(可选)</sup>
-- `ToastDescription`: 通知提醒的描述，可以供屏幕阅读器宣读。<sup>(可选)</sup>
-- `ToastCloseButton`: 关闭通知提醒的按钮。<sup>(可选)</sup>
-
 ## 演示
 
 ```jsx demo online=Toast
@@ -67,6 +45,48 @@ export default function App() {
   );
 }
 ```
+
+## 导入
+
+```js
+import {
+  useToast,
+  Toast,
+  ToastContent,
+  ToastTitle,
+  ToastDescription,
+  ToastIndicator,
+  ToastCloseButton,
+} from "@resolid/react-ui";
+```
+
+- `useToast`: 通知提醒调用 Hook。
+- `Toast`: 通知提醒组件的包装器。
+- `ToastIndicator`: 根据状态属性变化的通知提醒的视觉指示器。<sup>(可选)</sup>
+- `ToastContent`: 通知提醒的内容主体。<sup>(可选)</sup>
+- `ToastTitle`: 通知提醒的标题，可以供屏幕阅读器宣读。<sup>(可选)</sup>
+- `ToastDescription`: 通知提醒的描述，可以供屏幕阅读器宣读。<sup>(可选)</sup>
+- `ToastCloseButton`: 关闭通知提醒的按钮。<sup>(可选)</sup>
+
+```jsx
+<Toast>
+  <ToastIndicator />
+  <ToastContent>
+    <ToastTitle />
+    <ToastDescription />
+  </ToastContent>
+  <ToastCloseButton />
+</Toast>
+```
+
+## 特点
+
+- 自动关闭。
+- 悬停、焦点和窗口模糊时暂停关闭。
+- 限制可见通知提醒的数量。
+- 管理通知提醒内的承诺。
+- 可以通过编程方式删除或更新通知提醒。
+- 多个通知提醒区域。
 
 ## 举例
 

@@ -3,7 +3,53 @@ title: 抽屉
 description: 用于渲染从屏幕侧面滑入的内容。
 ---
 
-## 导入
+## 演示
+
+```jsx demo online=Drawer
+import {
+  Button,
+  CloseButton,
+  Drawer,
+  DrawerBackdrop,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerPortal,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <Drawer>
+      <DrawerTrigger render={(props) => <Button {...props} />}>打开抽屉</DrawerTrigger>
+      <DrawerPortal>
+        <DrawerBackdrop />
+        <DrawerContent className="w-11/12 md:w-3/5 lg:w-1/3">
+          <DrawerClose
+            className={"absolute end-2 top-2 p-1"}
+            render={(props) => <CloseButton {...props} />}
+          />
+          <DrawerTitle className={"p-4"}>抽屉标题</DrawerTitle>
+          <DrawerDescription className={"grow p-4 pt-1"}>
+            这是一个抽屉示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
+          </DrawerDescription>
+          <div className={"flex justify-end gap-4 p-4 pt-1"}>
+            <DrawerClose
+              render={(props) => <Button color={"neutral"} variant={"soft"} {...props} />}
+            >
+              取消
+            </DrawerClose>
+            <Button color={"neutral"}>确定</Button>
+          </div>
+        </DrawerContent>
+      </DrawerPortal>
+    </Drawer>
+  );
+}
+```
+
+## 用法
 
 ```js
 import {
@@ -27,55 +73,28 @@ import {
 - `DrawerDescription`: 打开抽屉时要宣布的可选描述。
 - `DrawerClose`: 关闭抽屉的控件。
 
-## 演示
-
 抽屉默认只有必需的样式，你可以通过 `DrawerContent`、`DrawerTitle` 和 `DrawerDescription` 的 `className` 自定义。
 
-```jsx demo online=Drawer
-import {
-  Button,
-  CloseButton,
-  Drawer,
-  DrawerBackdrop,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerPortal,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@resolid/react-ui";
-
-export default function App() {
-  return (
-    <div className={"flex flex-row gap-3"}>
-      <Drawer>
-        <DrawerTrigger render={(props) => <Button {...props} />}>打开抽屉</DrawerTrigger>
-        <DrawerPortal>
-          <DrawerBackdrop />
-          <DrawerContent className="w-11/12 md:w-3/5 lg:w-1/3">
-            <DrawerClose
-              className={"absolute end-2 top-2 p-1"}
-              render={(props) => <CloseButton {...props} />}
-            />
-            <DrawerTitle className={"p-4"}>抽屉标题</DrawerTitle>
-            <DrawerDescription className={"grow p-4 pt-1"}>
-              这是一个抽屉示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
-            </DrawerDescription>
-            <div className={"flex justify-end gap-4 p-4 pt-1"}>
-              <DrawerClose
-                render={(props) => <Button color={"neutral"} variant={"soft"} {...props} />}
-              >
-                取消
-              </DrawerClose>
-              <Button color={"neutral"}>确定</Button>
-            </div>
-          </DrawerContent>
-        </DrawerPortal>
-      </Drawer>
-    </div>
-  );
-}
+```jsx
+<Drawer>
+  <DrawerTrigger />
+  <DrawerPortal>
+    <DrawerBackdrop />
+    <DrawerContent>
+      <DrawerClose />
+      <DrawerTitle />
+      <DrawerDescription />
+    </DrawerContent>
+  </DrawerPortal>
+</Drawer>
 ```
+
+## 特点
+
+- 管理带有 `Title` 和 `Description` 组件的屏幕阅读器公告。
+- 当它打开时，焦点被捕获并且滚动被阻止。
+- 按下 <Kbd>Esc</Kbd> 关闭抽屉。
+- 可以是受控的，也可以是不受控的。
 
 ## 举例
 
@@ -168,33 +187,31 @@ import {
 
 export default function App() {
   return (
-    <div className={"flex flex-row items-center gap-5"}>
-      <Drawer>
-        <DrawerTrigger render={(props) => <Button {...props} />}>打开抽屉</DrawerTrigger>
-        <DrawerPortal>
-          <DrawerBackdrop />
-          <DrawerContent className="w-11/12 md:w-3/5 lg:w-1/3">
-            <DrawerClose
-              className={"absolute end-2 top-2 p-1"}
-              render={(props) => <CloseButton {...props} />}
-            />
-            <DrawerTitle className={"p-4"}>抽屉标题</DrawerTitle>
-            <div className={"scrollbar scrollbar-thin flex-1 overflow-y-auto overscroll-contain"}>
-              <DrawerDescription className={"p-4 pt-1"}>
-                这是一个抽屉示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
-              </DrawerDescription>
-              <article className={"p-4 py-1"}>
-                {Array.from({ length: 16 }, (x, i) => i + 1).map((i) => (
-                  <p key={i} className={"mb-4"}>
-                    这是一个演示文本，用于填充内容，以便展示排版效果。你可以根据需要替换为实际内容。
-                  </p>
-                ))}
-              </article>
-            </div>
-          </DrawerContent>
-        </DrawerPortal>
-      </Drawer>
-    </div>
+    <Drawer>
+      <DrawerTrigger render={(props) => <Button {...props} />}>打开抽屉</DrawerTrigger>
+      <DrawerPortal>
+        <DrawerBackdrop />
+        <DrawerContent className="w-11/12 md:w-3/5 lg:w-1/3">
+          <DrawerClose
+            className={"absolute end-2 top-2 p-1"}
+            render={(props) => <CloseButton {...props} />}
+          />
+          <DrawerTitle className={"p-4"}>抽屉标题</DrawerTitle>
+          <div className={"scrollbar scrollbar-thin flex-1 overflow-y-auto overscroll-contain"}>
+            <DrawerDescription className={"p-4 pt-1"}>
+              这是一个抽屉示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
+            </DrawerDescription>
+            <article className={"p-4 py-1"}>
+              {Array.from({ length: 16 }, (x, i) => i + 1).map((i) => (
+                <p key={i} className={"mb-4"}>
+                  这是一个演示文本，用于填充内容，以便展示排版效果。你可以根据需要替换为实际内容。
+                </p>
+              ))}
+            </article>
+          </div>
+        </DrawerContent>
+      </DrawerPortal>
+    </Drawer>
   );
 }
 ```
@@ -225,9 +242,6 @@ export default function App() {
     <div className={"flex flex-row gap-3"}>
       <Drawer initialFocus={initialRef} finalFocus={finalRef}>
         <DrawerTrigger render={(props) => <Button {...props} />}>打开抽屉</DrawerTrigger>
-        <Button color={"neutral"} ref={finalRef}>
-          键盘关闭抽屉后获得焦点
-        </Button>
         <DrawerPortal>
           <DrawerBackdrop />
           <DrawerContent className="w-11/12 md:w-3/5 lg:w-1/3">
@@ -253,6 +267,9 @@ export default function App() {
           </DrawerContent>
         </DrawerPortal>
       </Drawer>
+      <Button color={"neutral"} ref={finalRef}>
+        键盘关闭抽屉后获得焦点
+      </Button>
     </div>
   );
 }

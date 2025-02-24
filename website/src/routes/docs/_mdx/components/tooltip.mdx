@@ -3,7 +3,25 @@ title: 工具提示
 description: 工具提示是用户与元素交互时出现的简短、信息丰富的消息。工具提示通常以两种方式之一启动：通过鼠标悬停手势或通过键盘悬停手势。
 ---
 
-## 导入
+## 演示
+
+```jsx demo online=Tooltip
+import { Tooltip, TooltipArrow, TooltipContent, TooltipTrigger, Button } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <Tooltip>
+      <TooltipTrigger render={(props) => <Button {...props} />}>Hover me</TooltipTrigger>
+      <TooltipContent>
+        <TooltipArrow />
+        Tooltip content
+      </TooltipContent>
+    </Tooltip>
+  );
+}
+```
+
+## 用法
 
 ```js
 import { Tooltip, TooltipTrigger, TooltipArrow, TooltipContent } from "@resolid/react-ui";
@@ -14,25 +32,23 @@ import { Tooltip, TooltipTrigger, TooltipArrow, TooltipContent } from "@resolid/
 - `TooltipContent`: 包含工具提示打开时要呈现的内容。
 - `TooltipArrow`: 一个可选的箭头元素，与工具提示一起渲染。
 
-## 用法
+```jsx
+<Tooltip>
+  <TooltipTrigger />
+  <TooltipContent>
+    <TooltipArrow />
+  </TooltipContent>
+</Tooltip>
+```
 
-:::UsageBlock{file=tooltip/tooltip.tsx ignores=open,defaultOpen,interactive,duration}
+## 特点
 
-import { Button, Tooltip, TooltipArrow, TooltipContent, TooltipTrigger } from "@resolid/react-ui";
-
-export default function Usage(props) {
-  return (
-    <Tooltip {...props}>
-      <TooltipTrigger render={(props) => <Button {...props} />}>Hover me</TooltipTrigger>
-      <TooltipContent>
-        <TooltipArrow />
-        Tooltip content
-      </TooltipContent>
-    </Tooltip>
-  );
-}
-
-:::
+- 通过 ARIA 作为辅助技术的工具提示公开。
+- 当触发器聚焦或悬停时打开。
+- 当触发器被激活或按下退出键时关闭。
+- 一次仅显示一个工具提示。
+- 通过 `aria-describedby` 为屏幕阅读器提供标签支持。
+- 自定义显示和隐藏延迟支持。
 
 ## 举例
 
@@ -44,9 +60,11 @@ export default function Usage(props) {
 import { Button, Tooltip, TooltipArrow, TooltipContent, TooltipTrigger } from "@resolid/react-ui";
 
 export default function App() {
+  const colors = ["primary", "secondary", "success", "warning", "danger", "neutral"];
+
   return (
-    <div className={"flex flex-row gap-3"}>
-      {["primary", "secondary", "success", "warning", "danger", "neutral"].map((color) => (
+    <div className={"flex flex-row justify-center gap-3"}>
+      {colors.map((color) => (
         <Tooltip placement={"bottom"} key={color} color={color}>
           <TooltipTrigger
             render={(props) => <Button color={color} variant={"soft"} {...props} />}
@@ -74,15 +92,13 @@ import { Button, Tooltip, TooltipArrow, TooltipContent, TooltipTrigger } from "@
 
 export default function App() {
   return (
-    <div className={"flex flex-row gap-3"}>
-      <Tooltip interactive>
-        <TooltipTrigger render={(props) => <Button {...props} />}>Hover me</TooltipTrigger>
-        <TooltipContent>
-          <TooltipArrow />
-          持续时间很长
-        </TooltipContent>
-      </Tooltip>
-    </div>
+    <Tooltip interactive>
+      <TooltipTrigger render={(props) => <Button {...props} />}>Hover me</TooltipTrigger>
+      <TooltipContent>
+        <TooltipArrow />
+        工具提示内容可交互
+      </TooltipContent>
+    </Tooltip>
   );
 }
 ```
@@ -99,17 +115,15 @@ export default function App() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className={"flex flex-row gap-3"}>
-      <Tooltip open={open} onOpenChange={setOpen}>
-        <TooltipTrigger render={(props) => <Button {...props} />}>
-          {open ? "Hide" : "Show"} tooltip
-        </TooltipTrigger>
-        <TooltipContent>
-          <TooltipArrow />
-          Tooltip content
-        </TooltipContent>
-      </Tooltip>
-    </div>
+    <Tooltip open={open} onOpenChange={setOpen}>
+      <TooltipTrigger render={(props) => <Button {...props} />}>
+        {open ? "Hide" : "Show"} tooltip
+      </TooltipTrigger>
+      <TooltipContent>
+        <TooltipArrow />
+        Tooltip content
+      </TooltipContent>
+    </Tooltip>
   );
 }
 ```
@@ -123,17 +137,15 @@ import { Button, Tooltip, TooltipArrow, TooltipContent, TooltipTrigger } from "@
 
 export default function App() {
   return (
-    <div className={"flex flex-row gap-3"}>
-      <Tooltip openDelay={1000} closeDelay={500}>
-        <TooltipTrigger render={(props) => <Button {...props} />}>
-          Delay (open: 1000ms, close: 500ms)
-        </TooltipTrigger>
-        <TooltipContent>
-          <TooltipArrow />
-          Tooltip content
-        </TooltipContent>
-      </Tooltip>
-    </div>
+    <Tooltip openDelay={1000} closeDelay={500}>
+      <TooltipTrigger render={(props) => <Button {...props} />}>
+        Delay (open: 1000ms, close: 500ms)
+      </TooltipTrigger>
+      <TooltipContent>
+        <TooltipArrow />
+        Tooltip content
+      </TooltipContent>
+    </Tooltip>
   );
 }
 ```
@@ -147,15 +159,13 @@ import { Button, Tooltip, TooltipArrow, TooltipContent, TooltipTrigger } from "@
 
 export default function App() {
   return (
-    <div className={"flex flex-row gap-3"}>
-      <Tooltip duration={2500}>
-        <TooltipTrigger render={(props) => <Button {...props} />}>Hover me</TooltipTrigger>
-        <TooltipContent>
-          <TooltipArrow />
-          Tooltip content
-        </TooltipContent>
-      </Tooltip>
-    </div>
+    <Tooltip duration={2500}>
+      <TooltipTrigger render={(props) => <Button {...props} />}>Hover me</TooltipTrigger>
+      <TooltipContent>
+        <TooltipArrow />
+        Tooltip content
+      </TooltipContent>
+    </Tooltip>
   );
 }
 ```
@@ -239,8 +249,8 @@ export default function App() {
   const { tooltip, ref } = useTooltipSelection();
 
   return (
-    <div className={"flex flex-row justify-center gap-3"}>
-      <div ref={ref} className={"w-1/2"}>
+    <>
+      <div ref={ref} className={"w-80"}>
         Resolid React UI 是 React 的开源设计系统。使用 React 和 Tailwind CSS
         构建。它提供了一组即用型组件，用于构建具有一致外观的 Web 应用程序。
       </div>
@@ -250,7 +260,7 @@ export default function App() {
           Tooltip content
         </TooltipContent>
       </TooltipProvider>
-    </div>
+    </>
   );
 }
 ```

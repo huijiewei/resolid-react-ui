@@ -3,27 +3,6 @@ title: 按钮
 description: 使用户能够触发操作或事件，例如提交表单、打开对话框、取消操作或执行删除操作。
 ---
 
-## 导入
-
-```js
-import { Button, ButtonGroup } from "@resolid/react-ui";
-```
-
-- `Button`: 具有自定义图标、加载指示器等功能的按钮组件。
-- `ButtonGroup`: 用于将相关动作的按钮分组在一起的组件，可以选择将它们一起对齐。
-
-## 用法
-
-:::UsageBlock{file=button/button.tsx ignores=radius,iconOnly}
-
-import { Button } from "@resolid/react-ui";
-
-export default function Usage(props) {
-  return <Button {...props}>Button</Button>;
-}
-
-:::
-
 ## 演示
 
 ```jsx demo online=Button
@@ -33,6 +12,21 @@ export default function App() {
   return <Button>Button</Button>;
 }
 ```
+
+## 用法
+
+```js
+import { Button, ButtonGroup } from "@resolid/react-ui";
+```
+
+- `Button`: 具有自定义图标、加载指示器等功能的按钮组件。
+- `ButtonGroup`: 用于将相关动作的按钮分组在一起的组件，可以选择将它们一起对齐。
+
+## 特点
+
+- 本机 HTML `<button>` 元素支持。
+- 通过 [WAI ARIA Button](https://www.w3.org/WAI/ARIA/apg/patterns/button/) 设计模式支持 `<a>` 和自定义元素类型。
+- 键盘事件支持 <Kbd>Space</Kbd> 和 <Kbd>Enter</Kbd> 键。
 
 ## 举例
 
@@ -52,7 +46,7 @@ export default function App() {
   return (
     <div className={"flex flex-col gap-3"}>
       {colors.map((color) => (
-        <div key={color} className={"flex flex-row items-center gap-3"}>
+        <div key={color} className={"flex gap-3"}>
           {variants.map((variant) => (
             <Button key={`${color}-${variant}`} variant={variant} color={color}>
               Button
@@ -94,7 +88,7 @@ import { Button } from "@resolid/react-ui";
 
 export default function App() {
   return (
-    <div className={"flex flex-row items-center gap-3"}>
+    <div className={"flex flex-row gap-3"}>
       <Button radius={false}>Button</Button>
       <Button radius={2}>Button</Button>
       <Button>Button</Button>
@@ -115,7 +109,7 @@ import { SpriteIcon } from "~/components/sprite-icon";
 
 export default function App() {
   return (
-    <div className={"flex flex-row items-center gap-3"}>
+    <div className={"flex flex-row gap-3"}>
       <Button>
         <SpriteIcon size={"1.25em"} className={"me-1.5"} name={"sun"} />
         Light Mode
@@ -144,7 +138,7 @@ import { Button } from "@resolid/react-ui";
 
 export default function App() {
   return (
-    <div className={"flex flex-row items-center gap-3"}>
+    <div className={"flex flex-row gap-3"}>
       <Button disabled>Disabled</Button>
       <Button variant={"outline"} disabled>
         Disabled
@@ -175,7 +169,7 @@ import { Button } from "@resolid/react-ui";
 
 export default function App() {
   return (
-    <div className={"flex flex-row items-center gap-3"}>
+    <div className={"flex flex-row gap-3"}>
       <Button active>Active</Button>
       <Button variant={"outline"} active>
         Active
@@ -206,7 +200,7 @@ import { Button } from "@resolid/react-ui";
 
 export default function App() {
   return (
-    <div className={"flex flex-row items-center gap-3"}>
+    <div className={"flex flex-row gap-3"}>
       <Button loading>Loading</Button>
       <Button color={"neutral"} loading>
         Loading
@@ -233,11 +227,7 @@ export default function App() {
 import { Button } from "@resolid/react-ui";
 
 export default function App() {
-  return (
-    <div className={"flex flex-row items-center gap-3"}>
-      <Button fullWidth>Full width button</Button>
-    </div>
-  );
+  return <Button fullWidth>Full width button</Button>;
 }
 ```
 
@@ -251,7 +241,7 @@ import { SpriteIcon } from "~/components/sprite-icon";
 
 export default function App() {
   return (
-    <div className={"flex flex-col gap-3"}>
+    <div className={"flex flex-col items-center gap-3"}>
       <div className={"flex flex-row gap-3"}>
         <ButtonGroup>
           <Button>Button</Button>

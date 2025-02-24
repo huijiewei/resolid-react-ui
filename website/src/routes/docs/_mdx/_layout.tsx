@@ -4,13 +4,8 @@ import {
   AlertIndicator,
   type AlertProps,
   AlertTitle,
-  type Dict,
-  Input,
-  NativeSelect,
-  NumberInput,
   Polymorphic,
   type PrimitiveProps,
-  Switch,
   Tooltip,
   TooltipArrow,
   TooltipContent,
@@ -52,6 +47,53 @@ const MdxHeading = (props: ComponentProps<"h2" | "h3" | "h4"> & { as: string }) 
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
+const MdxCode = ({
+  children,
+  className,
+  "data-inline": dataInline,
+  online,
+  ...rest
+}: PrimitiveProps<"pre", { "data-inline"?: boolean; online?: string }>) => {
+  const [content, setContent] = useState("");
+
+  if (dataInline) {
+    return (
+      <pre translate={"no"} className={className} {...rest}>
+        {children}
+      </pre>
+    );
+  }
+
+  const preRef = (node: HTMLPreElement) => {
+    if (node) {
+      setContent(node.innerText);
+    }
+  };
+
+  return (
+    <div role={"figure"} className={"relative"}>
+      <pre
+        ref={preRef}
+        translate={"no"}
+        className={tx(
+          "scrollbar scrollbar-thin border-bd-normal rounded-md border p-3",
+          "group-[.is-demo]:mt-0 group-[.is-demo]:rounded-t-none group-[.is-demo]:border-t-0",
+          className,
+        )}
+        {...rest}
+        tabIndex={-1}
+      >
+        {children}
+      </pre>
+      <div className={"z-base absolute right-1.5 top-1.5 flex gap-1"}>
+        {online && <StackblitzButton name={online} code={content} />}
+        <ClipboardButton content={content} />
+      </div>
+    </div>
+  );
+};
+
 // noinspection JSUnusedGlobalSymbols
 const mdxComponents = {
   h2: ({ className, ...rest }: PrimitiveProps<"h2">) => {
@@ -63,52 +105,7 @@ const mdxComponents = {
   h4: ({ className, ...rest }: PrimitiveProps<"h3">) => {
     return <MdxHeading as={"h4"} className={tx("mt-6", className)} {...rest} />;
   },
-  pre: ({
-    children,
-    className,
-    "data-inline": dataInline,
-    online,
-    ...rest
-  }: PrimitiveProps<"pre", { "data-inline"?: boolean; online?: string }>) => {
-    if (dataInline) {
-      return (
-        <pre translate={"no"} className={className} {...rest}>
-          {children}
-        </pre>
-      );
-    }
-
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [content, setContent] = useState("");
-
-    const preRef = (node: HTMLPreElement) => {
-      if (node) {
-        setContent(node.innerText);
-      }
-    };
-
-    return (
-      <div className={"relative"}>
-        <pre
-          ref={preRef}
-          translate={"no"}
-          className={tx(
-            "scrollbar scrollbar-thin border-bd-normal rounded-md border p-3",
-            "group-[.is-demo]:mt-0 group-[.is-demo]:rounded-t-none group-[.is-demo]:border-t-0",
-            className,
-          )}
-          tabIndex={-1}
-          {...rest}
-        >
-          {children}
-        </pre>
-        <div className={"z-base absolute right-1.5 top-1.5 flex gap-1"}>
-          {online && <StackblitzButton name={online} code={content} />}
-          <ClipboardButton content={content} />
-        </div>
-      </div>
-    );
-  },
+  pre: MdxCode,
   a: ({ children, href = "", className, ...rest }: ComponentProps<"a">) => {
     const external = startsWith(href, "http://") || startsWith(href, "https://");
 
@@ -156,11 +153,22 @@ const mdxComponents = {
 
     return <blockquote {...rest}>{children}</blockquote>;
   },
+  Kbd: ({ className, ...rest }: PrimitiveProps<"kbd">) => {
+    return (
+      <kbd
+        className={tx(
+          "border-bd-normal bg-bg-subtlest border-b-bg-muted inline-block rounded-md border font-mono text-xs font-bold shadow-sm",
+          className,
+        )}
+        {...rest}
+      />
+    );
+  },
   CodeDemo: ({ children }: { children: ReactNode[] }) => {
     return (
       <div className={"is-demo group"}>
         <div className={"not-prose scrollbar scrollbar-thin border-bd-normal overflow-x-auto rounded-t-md border p-3"}>
-          {children?.[1]}
+          <div className={"flex min-w-max justify-center"}>{children?.[1]}</div>
         </div>
         {children?.[0]}
       </div>
@@ -269,161 +277,6 @@ const mdxComponents = {
           ))}
         </tbody>
       </table>
-    );
-  },
-  UsageBlock: ({
-    children,
-    props,
-    ignores,
-  }: {
-    children: (props: Dict<string | number | boolean | undefined>) => ReactNode;
-    props: PropItem[];
-    ignores?: string[];
-  }) => {
-    const validProps = props.filter((prop) => {
-      return (
-        prop.type != "Element" &&
-        prop.type != "ReactNode" &&
-        !/^on[A-Z]/.test(prop.name) &&
-        !ignores?.includes(prop.name)
-      );
-    });
-
-    const [state, setState] = useState<Dict<string | boolean | number | undefined>>(
-      Object.fromEntries(
-        validProps.map(({ name, defaultValue }) => {
-          const value =
-            defaultValue && /^[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$/.test(defaultValue)
-              ? defaultValue
-              : defaultValue == "Number.MIN_SAFE_INTEGER" || defaultValue == "Number.MAX_SAFE_INTEGER"
-                ? undefined
-                : defaultValue == "true" || defaultValue == "false"
-                  ? defaultValue == "true"
-                  : defaultValue
-                    ? defaultValue.slice(1, -1)
-                    : undefined;
-
-          return [name, value];
-        }),
-      ),
-    );
-
-    return (
-      <div className={"not-prose border-bd-normal flex min-h-28 w-full flex-col rounded-md border lg:flex-row"}>
-        <div className={"flex flex-1 items-center justify-center p-5"}>{children(state)}</div>
-        <div className={"border-bd-normal min-w-[15em] flex-shrink-0 border-t p-3 lg:border-s lg:border-t-0"}>
-          <div className={"flex flex-col gap-3 text-sm"}>
-            {validProps.map((prop) => {
-              const propInputId = `prop-${prop.name}`;
-
-              return (
-                <div className={"flex items-center justify-between gap-5"} key={propInputId}>
-                  {prop.control == "boolean" && (
-                    <Switch
-                      size={"sm"}
-                      checked={Boolean(state[prop.name])}
-                      onChange={(value) => {
-                        setState((prev) => ({ ...prev, [prop.name]: value }));
-                      }}
-                    >
-                      {prop.description}
-                    </Switch>
-                  )}
-                  {prop.control == "string" && (
-                    <>
-                      <label htmlFor={propInputId}>{prop.description}</label>
-                      <Input
-                        id={propInputId}
-                        size={"xs"}
-                        className={"w-1/2"}
-                        autoComplete={"off"}
-                        value={state[prop.name] as string}
-                        onChange={(value) => {
-                          setState((prev) => ({ ...prev, [prop.name]: value }));
-                        }}
-                      />
-                    </>
-                  )}
-                  {prop.control == "number" && (
-                    <>
-                      <label htmlFor={propInputId}>{prop.description}</label>
-                      <NumberInput
-                        id={propInputId}
-                        size={"xs"}
-                        className={"w-1/2"}
-                        value={state[prop.name] ? Number(state[prop.name]) : undefined}
-                        onChange={(value) => {
-                          setState((prev) => ({ ...prev, [prop.name]: value }));
-                        }}
-                      />
-                    </>
-                  )}
-                  {prop.control == "select" &&
-                    (prop.name == "color" ? (
-                      <>
-                        <span>{prop.description}</span>
-                        <div className={"inline-flex w-auto justify-between gap-1"}>
-                          {prop.typeValues?.map((option) => {
-                            const color = option.toString().slice(1, -1);
-
-                            return (
-                              <button
-                                className={tx(
-                                  "text-fg-emphasized inline-flex h-6 w-6 items-center justify-center rounded-md",
-                                  color == "primary" && "bg-bg-primary-emphasis",
-                                  color == "secondary" && "bg-bg-secondary-emphasis",
-                                  color == "success" && "bg-bg-success-emphasis",
-                                  color == "warning" && "bg-bg-warning-emphasis",
-                                  color == "danger" && "bg-bg-danger-emphasis",
-                                  color == "neutral" && "bg-bg-neutral-emphasis",
-                                )}
-                                key={`${prop.name}-${color}`}
-                                title={color}
-                                onClick={() => {
-                                  setState((prev) => ({ ...prev, [prop.name]: color }));
-                                }}
-                              >
-                                {state[prop.name] == color && <SpriteIcon size={"1.25em"} name={"check"} />}
-                              </button>
-                            );
-                          })}
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <label htmlFor={propInputId}>{prop.description}</label>
-                        <NativeSelect
-                          id={propInputId}
-                          size={"xs"}
-                          value={String(state[prop.name])}
-                          onChange={(e) => {
-                            setState((prev) => ({
-                              ...prev,
-                              [prop.name]:
-                                e.target.value == "true" || e.target.value == "false"
-                                  ? e.target.value == "true"
-                                  : e.target.value,
-                            }));
-                          }}
-                        >
-                          {prop.typeValues?.map((item) => {
-                            const option = item != "true" && item != "false" ? item.trim().slice(1, -1) : item;
-
-                            return (
-                              <option key={option} value={option}>
-                                {option}
-                              </option>
-                            );
-                          })}
-                        </NativeSelect>
-                      </>
-                    ))}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
     );
   },
 };

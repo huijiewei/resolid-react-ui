@@ -3,23 +3,21 @@ title: 加载器
 description: 用于页面和区块的加载中状态 - 页面局部处于等待异步数据或正在渲染过程时，合适的加载动效会有效缓解用户的焦虑。
 ---
 
-## 导入
+## 演示
 
-```js
+```jsx demo online=Spinner
 import { Spinner } from "@resolid/react-ui";
+
+export default function App() {
+  return <Spinner />;
+}
 ```
 
 ## 用法
 
-:::UsageBlock{file=spinner/spinner.tsx ignores=label}
-
+```js
 import { Spinner } from "@resolid/react-ui";
-
-export default function Usage(props) {
-  return <Spinner {...props} />;
-}
-
-:::
+```
 
 ## 举例
 
@@ -31,14 +29,13 @@ export default function Usage(props) {
 import { Spinner } from "@resolid/react-ui";
 
 export default function App() {
+  const colors = ["primary", "secondary", "success", "warning", "danger", "neutral"];
+
   return (
-    <div className={"flex flex-row items-center gap-3"}>
-      <Spinner color={"primary"} />
-      <Spinner color={"secondary"} />
-      <Spinner color={"success"} />
-      <Spinner color={"warning"} />
-      <Spinner color={"danger"} />
-      <Spinner color={"neutral"} />
+    <div className={"flex flex-row gap-3"}>
+      {colors.map((color) => (
+        <Spinner key={color} color={color} />
+      ))}
     </div>
   );
 }

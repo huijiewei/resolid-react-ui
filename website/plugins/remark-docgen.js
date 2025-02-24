@@ -17,210 +17,54 @@ export default function ({ sourceRoot }) {
 
   mkdirSync(virtualDir, { recursive: true });
 
-  const usageVirtualDir = join(cwd(), ".resolid", "code-demos");
+  return (tree) => {
+    visit(tree, { type: "leafDirective", name: "PropsTable" }, (node, index, parent) => {
+      if (parent === undefined || index === undefined) {
+        return;
+      }
 
-  mkdirSync(usageVirtualDir, { recursive: true });
+      const componentFile = node.attributes["file"];
 
-  return (tree, vfile) => {
-    const pageName = vfile.basename.replace(vfile.extname, "");
+      if (!componentFile) {
+        throw new Error(`Invalid componentFile prop for ${node.name}.`);
+      }
 
-    let usageIndex = 1;
+      const componentName = (parse(componentFile).name.match(kebabCaseRegex) || [])
+        .map((w) => `${w.charAt(0).toUpperCase()}${w.slice(1)}`)
+        .join("");
 
-    const usageMdx = [];
+      if (!propsTables[componentName]) {
+        const componentProps = getComponentProps(virtualDir, join(sourceRoot, componentFile), componentName);
 
-    visit(
-      tree,
-      [
-        { type: "leafDirective", name: "PropsTable" },
-        { type: "containerDirective", name: "UsageBlock" },
-      ],
-      (node, index, parent) => {
-        const componentFile = node.attributes["file"];
-
-        if (!componentFile) {
-          throw new Error(`Invalid componentFile prop for ${node.name}.`);
+        if (componentProps) {
+          propsTables[componentName] = componentProps;
         }
+      }
 
-        const componentName = (parse(componentFile).name.match(kebabCaseRegex) || [])
-          .map((w) => `${w.charAt(0).toUpperCase()}${w.slice(1)}`)
-          .join("");
+      if (propsTables[componentName]) {
+        const propsJSON = JSON.stringify(propsTables[componentName]);
 
-        if (!propsTables[componentName]) {
-          const componentProps = getComponentProps(virtualDir, join(sourceRoot, componentFile), componentName);
-
-          if (componentProps) {
-            propsTables[componentName] = componentProps;
-          }
-        }
-
-        if (propsTables[componentName]) {
-          const propsJSON = JSON.stringify(propsTables[componentName]);
-
-          if (parent === undefined || index === undefined) {
-            return;
-          }
-
-          if (node.name === "UsageBlock") {
-            const usageId = `_${pageName}_u_${usageIndex++}`;
-            const usageName = `U_${usageId.replace("-", "_")}`;
-            const virtualModulePath = join(usageVirtualDir, `${usageId}.tsx`);
-
-            usageMdx.push({
-              type: "mdxjsEsm",
-              value: `import ${usageName} from ${JSON.stringify(virtualModulePath)}`,
-              data: {
-                estree: {
-                  type: "Program",
-                  sourceType: "module",
-                  body: [
-                    {
-                      type: "ImportDeclaration",
-                      specifiers: [
-                        {
-                          type: "ImportDefaultSpecifier",
-                          local: { type: "Identifier", name: usageName },
-                        },
-                      ],
-                      source: {
-                        type: "Literal",
-                        value: virtualModulePath,
-                        raw: `${JSON.stringify(virtualModulePath)}`,
-                      },
-                    },
-                  ],
+        parent.children[index] = {
+          type: "mdxJsxFlowElement",
+          name: "PropsTable",
+          attributes: [
+            {
+              type: "mdxJsxAttribute",
+              name: "props",
+              value: {
+                type: "mdxJsxAttributeValueExpression",
+                value: `(${propsJSON})`,
+                data: {
+                  estree: fromJs(`(${propsJSON})`, {
+                    module: true,
+                  }),
                 },
               },
-            });
-
-            const ignoresJson = JSON.stringify(node.attributes["ignores"]?.split(",") ?? []);
-            const code = node.children.map((child) => child.value).join("\n");
-
-            parent.children[index] = {
-              type: "mdxJsxFlowElement",
-              name: "UsageBlock",
-              attributes: [
-                {
-                  type: "mdxJsxAttribute",
-                  name: "props",
-                  value: {
-                    type: "mdxJsxAttributeValueExpression",
-                    value: `(${propsJSON})`,
-                    data: {
-                      estree: fromJs(`(${propsJSON})`, {
-                        module: true,
-                      }),
-                    },
-                  },
-                },
-                {
-                  type: "mdxJsxAttribute",
-                  name: "ignores",
-                  value: {
-                    type: "mdxJsxAttributeValueExpression",
-                    value: `(${ignoresJson})`,
-                    data: {
-                      estree: fromJs(`(${ignoresJson})`, {
-                        module: true,
-                      }),
-                    },
-                  },
-                },
-              ],
-              children: [
-                {
-                  type: "mdxFlowExpression",
-                  value: `(props) => <${usageName} {...props} />`,
-                  data: {
-                    estree: {
-                      type: "Program",
-                      body: [
-                        {
-                          type: "ExpressionStatement",
-                          expression: {
-                            type: "ArrowFunctionExpression",
-                            id: null,
-                            expression: true,
-                            generator: false,
-                            async: false,
-                            params: [
-                              {
-                                type: "Identifier",
-                                name: "props",
-                              },
-                            ],
-                            body: {
-                              type: "JSXElement",
-                              openingElement: {
-                                type: "JSXOpeningElement",
-                                attributes: [
-                                  {
-                                    type: "JSXSpreadAttribute",
-                                    argument: {
-                                      type: "Identifier",
-                                      name: "props",
-                                    },
-                                  },
-                                ],
-                                name: {
-                                  type: "JSXIdentifier",
-                                  name: usageName,
-                                },
-                                selfClosing: true,
-                              },
-                              closingElement: null,
-                              children: [],
-                              data: {
-                                _mdxExplicitJsx: true,
-                              },
-                            },
-                          },
-                        },
-                      ],
-                      sourceType: "module",
-                      comments: [],
-                    },
-                  },
-                },
-              ],
-            };
-
-            if (existsSync(virtualModulePath)) {
-              const content = readFileSync(virtualModulePath, "utf8");
-
-              if (content === code) {
-                return;
-              }
-            }
-
-            writeFileSync(virtualModulePath, code, "utf8");
-          }
-
-          if (node.name === "PropsTable") {
-            parent.children[index] = {
-              type: "mdxJsxFlowElement",
-              name: "PropsTable",
-              attributes: [
-                {
-                  type: "mdxJsxAttribute",
-                  name: "props",
-                  value: {
-                    type: "mdxJsxAttributeValueExpression",
-                    value: `(${propsJSON})`,
-                    data: {
-                      estree: fromJs(`(${propsJSON})`, {
-                        module: true,
-                      }),
-                    },
-                  },
-                },
-              ],
-            };
-          }
-        }
-      },
-    );
-
-    tree.children.unshift(...usageMdx);
+            },
+          ],
+        };
+      }
+    });
   };
 }
 

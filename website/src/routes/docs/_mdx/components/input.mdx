@@ -3,23 +3,36 @@ title: 输入框
 description: 基本表单组件，并在原生控件基础上进行了功能扩展，可以组合使用。
 ---
 
-## 导入
+## 演示
+
+```jsx demo online=Input
+import { Input } from "@resolid/react-ui";
+
+export default function App() {
+  return <Input placeholder={"输入框"} />;
+}
+```
+
+## 用法
 
 ```js
 import { Input, InputAddon, InputGroup } from "@resolid/react-ui";
 ```
 
-## 用法
+### 输入框组结构
 
-:::UsageBlock{file=input/input.tsx ignores=type,value,defaultValue,placeholder,prefix,prefixWidth,suffix,suffixWidth}
+```jsx
+<InputGroup>
+  <InputAddon />
+  <Input />
+</InputGroup>
+```
 
-import { Input } from "@resolid/react-ui";
+## 特点
 
-export default function Usage(props) {
-  return <Input placeholder={"输入框"} {...props} />;
-}
-
-:::
+- 由本机 `<input>` 元素构建。
+- 视觉和 ARIA 标签支持。
+- 可以是受控的，也可以是不受控的。
 
 ## 举例
 
@@ -35,7 +48,7 @@ export default function App() {
   const [value, setValue] = useState("");
 
   return (
-    <div className={"flex flex-col items-start gap-2"}>
+    <div className={"flex flex-col gap-2"}>
       <p>你输入的是: {value}</p>
       <Input value={value} onChange={(value) => setValue(value)} placeholder="输入框" />
     </div>
@@ -73,7 +86,7 @@ import { SpriteIcon } from "~/components/sprite-icon";
 
 export default function App() {
   return (
-    <div className={"flex flex-col items-start gap-3"}>
+    <div className={"flex flex-col gap-3"}>
       <Input placeholder={"邮箱地址"} prefix={<SpriteIcon size={"1.125em"} name={"email"} />} />
       <Input placeholder={"金额"} suffix={"RMB"} suffixWidth={50} />
       <Input

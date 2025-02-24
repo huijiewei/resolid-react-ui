@@ -3,7 +3,45 @@ title: 弹出框
 description: 鼠标点击在某个组件时，弹出的气泡式的卡片浮层。可以对卡片上的元素进行操作。
 ---
 
-## 导入
+## 演示
+
+```jsx demo online=Popover
+import {
+  Button,
+  Popover,
+  PopoverArrow,
+  PopoverClose,
+  PopoverContent,
+  PopoverDescription,
+  PopoverTitle,
+  PopoverTrigger,
+} from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <Popover>
+      <PopoverTrigger render={(props) => <Button {...props} />}>打开弹出框</PopoverTrigger>
+      <PopoverContent className="max-w-90">
+        <PopoverArrow />
+        <PopoverTitle className={"p-4"}>弹出框标题</PopoverTitle>
+        <PopoverDescription className={"p-4 pt-1"}>
+          这是一个弹出框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
+        </PopoverDescription>
+        <div className={"flex justify-end gap-4 p-4 pt-1"}>
+          <PopoverClose
+            render={(props) => <Button color={"neutral"} variant={"soft"} {...props} />}
+          >
+            取消
+          </PopoverClose>
+          <Button color={"neutral"}>确定</Button>
+        </div>
+      </PopoverContent>
+    </Popover>
+  );
+}
+```
+
+## 用法
 
 ```js
 import {
@@ -27,47 +65,26 @@ import {
 - `PopoverDescription`: 打开弹出框时要宣布的可选描述。
 - `PopoverClose`: 关闭弹出框的控件。
 
-## 演示
+弹出框只有必需的样式，你可以通过 `PopoverContent`、`PopoverTitle` 和 `PopoverDescription` 的 `className` 自定义弹出框的样式。
 
-弹出框默认的样式并不是很多，你可以通过 `PopoverContent`、`PopoverTitle` 和 `PopoverDescription` 的 `className` 自定义弹出框的样式。
-
-```jsx demo online=Popover
-import {
-  Button,
-  Popover,
-  PopoverArrow,
-  PopoverClose,
-  PopoverContent,
-  PopoverDescription,
-  PopoverTitle,
-  PopoverTrigger,
-} from "@resolid/react-ui";
-
-export default function App() {
-  return (
-    <div className={"flex flex-row gap-3"}>
-      <Popover>
-        <PopoverTrigger render={(props) => <Button {...props} />}>打开弹出框</PopoverTrigger>
-        <PopoverContent className="max-w-96">
-          <PopoverArrow />
-          <PopoverTitle className={"p-4"}>弹出框标题</PopoverTitle>
-          <PopoverDescription className={"p-4 pt-1"}>
-            这是一个弹出框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
-          </PopoverDescription>
-          <div className={"flex justify-end gap-4 p-4 pt-1"}>
-            <PopoverClose
-              render={(props) => <Button color={"neutral"} variant={"soft"} {...props} />}
-            >
-              取消
-            </PopoverClose>
-            <Button color={"neutral"}>确定</Button>
-          </div>
-        </PopoverContent>
-      </Popover>
-    </div>
-  );
-}
+```jsx
+<Popover>
+  <PopoverTrigger />
+  <PopoverContent>
+    <PopoverArrow />
+    <PopoverTitle />
+    <PopoverDescription />
+  </PopoverContent>
+</Popover>
 ```
+
+## 特点
+
+- 遵循 [WAI ARIA Popover](https://www.w3.org/WAI/ARIA/apg/patterns/popovermodal/) 设计模式。
+- 通过呈现的标题和说明提供屏幕阅读器公告。
+- 焦点是完全管理和可定制的。
+- 可以选择渲染一个指向箭头。
+- 解除和分层行为是高度可定制的。
 
 ## 举例
 
@@ -88,31 +105,29 @@ import {
 
 export default function App() {
   return (
-    <div className={"flex flex-row gap-3"}>
-      <Popover>
-        <PopoverTrigger render={(props) => <Button {...props} />}>打开弹出框</PopoverTrigger>
-        <PopoverContent className="max-w-96">
-          <PopoverArrow />
-          <PopoverTitle className={"p-4"}>弹出框标题</PopoverTitle>
-          <PopoverDescription className={"p-4 pt-1"}>
-            你正在进行一项操作，这可能会影响当前的设置或数据。请确认是否继续？如果不确定，可以先查看相关文档，或者咨询管理员获取更多信息。
-          </PopoverDescription>
-          <div className={"flex p-4 pt-1"}>
-            <Popover>
-              <PopoverTrigger
-                render={(props) => <Button color={"neutral"} variant={"soft"} {...props} />}
-              >
-                打开嵌套弹出框
-              </PopoverTrigger>
-              <PopoverContent className="max-w-86">
-                <PopoverArrow />
-                <PopoverDescription className={"p-4"}>一些嵌套的弹出内容</PopoverDescription>
-              </PopoverContent>
-            </Popover>
-          </div>
-        </PopoverContent>
-      </Popover>
-    </div>
+    <Popover>
+      <PopoverTrigger render={(props) => <Button {...props} />}>打开弹出框</PopoverTrigger>
+      <PopoverContent className="max-w-90">
+        <PopoverArrow />
+        <PopoverTitle className={"p-4"}>弹出框标题</PopoverTitle>
+        <PopoverDescription className={"p-4 pt-1"}>
+          你正在进行一项操作，这可能会影响当前的设置或数据。请确认是否继续？如果不确定，可以先查看相关文档，或者咨询管理员获取更多信息。
+        </PopoverDescription>
+        <div className={"flex p-4 pt-1"}>
+          <Popover>
+            <PopoverTrigger
+              render={(props) => <Button color={"neutral"} variant={"soft"} {...props} />}
+            >
+              打开嵌套弹出框
+            </PopoverTrigger>
+            <PopoverContent className="max-w-90">
+              <PopoverArrow />
+              <PopoverDescription className={"p-4"}>一些嵌套的弹出内容</PopoverDescription>
+            </PopoverContent>
+          </Popover>
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 }
 ```
@@ -142,10 +157,7 @@ export default function App() {
     <div className={"flex flex-row gap-3"}>
       <Popover initialFocus={initialRef} finalFocus={finalRef}>
         <PopoverTrigger render={(props) => <Button {...props} />}>打开弹出框</PopoverTrigger>
-        <Button color={"neutral"} ref={finalRef}>
-          键盘关闭对话框后获得焦点
-        </Button>
-        <PopoverContent className="max-w-128">
+        <PopoverContent className="max-w-90">
           <PopoverArrow />
           <PopoverTitle className={"p-4"}>弹出框标题</PopoverTitle>
           <div className={"flex flex-col gap-4 p-4 pt-1"}>
@@ -168,6 +180,9 @@ export default function App() {
           </div>
         </PopoverContent>
       </Popover>
+      <Button color={"neutral"} ref={finalRef}>
+        键盘关闭对话框后获得焦点
+      </Button>
     </div>
   );
 }
@@ -193,34 +208,32 @@ import {
 
 export default function App() {
   return (
-    <div className={"flex flex-row justify-center gap-3"}>
-      <Popover placement={"bottom"}>
-        <PopoverAnchor className={"bg-bg-subtlest rounded-md p-3"}>
-          <p className={"flex items-center"}>
-            单击&nbsp;
-            <PopoverTrigger
-              render={(props) => (
-                <Button {...props} size={"xs"} color={"neutral"} variant={"subtle"} />
-              )}
-            >
-              打开弹出框
-            </PopoverTrigger>
-            &nbsp;时，弹出窗口将打开。
-          </p>
-          <p>但是它固定在整个 Div 上。</p>
-        </PopoverAnchor>
-        <PopoverContent className="max-w-96">
-          <PopoverArrow />
-          <PopoverTitle className={"p-4"}>弹出框标题</PopoverTitle>
-          <PopoverDescription className={"p-4 pt-1"}>
-            这是一个弹出框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
-          </PopoverDescription>
-          <PopoverClose
-            render={(props) => <CloseButton className={"absolute end-2 top-2"} {...props} />}
-          />
-        </PopoverContent>
-      </Popover>
-    </div>
+    <Popover placement={"bottom"}>
+      <PopoverAnchor className={"bg-bg-subtlest rounded-md p-3"}>
+        <p className={"flex items-center"}>
+          单击&nbsp;
+          <PopoverTrigger
+            render={(props) => (
+              <Button {...props} size={"xs"} color={"neutral"} variant={"subtle"} />
+            )}
+          >
+            打开弹出框
+          </PopoverTrigger>
+          &nbsp;时，弹出窗口将打开。
+        </p>
+        <p>但是它固定在整个 Div 上。</p>
+      </PopoverAnchor>
+      <PopoverContent className="max-w-90">
+        <PopoverArrow />
+        <PopoverTitle className={"p-4"}>弹出框标题</PopoverTitle>
+        <PopoverDescription className={"p-4 pt-1"}>
+          这是一个弹出框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
+        </PopoverDescription>
+        <PopoverClose
+          render={(props) => <CloseButton className={"absolute end-2 top-2"} {...props} />}
+        />
+      </PopoverContent>
+    </Popover>
   );
 }
 ```
@@ -311,8 +324,8 @@ export default function App() {
   const { popover, ref } = usePopoverSelection();
 
   return (
-    <div className={"flex flex-row justify-center gap-3"}>
-      <div ref={ref} className={"w-1/2"}>
+    <>
+      <div ref={ref} className={"w-80"}>
         Resolid React UI 是 React 的开源设计系统。使用 React 和 Tailwind CSS
         构建。它提供了一组即用型组件，用于构建具有一致外观的 Web 应用程序。
       </div>
@@ -330,7 +343,7 @@ export default function App() {
           </Button>
         </PopoverContent>
       </PopoverProvider>
-    </div>
+    </>
   );
 }
 ```
@@ -351,28 +364,26 @@ import {
 
 export default function App() {
   return (
-    <div className={"flex flex-row gap-3"}>
-      <Popover placement={"bottom"}>
-        <PopoverTrigger render={(props) => <Button {...props} />}>打开弹出框</PopoverTrigger>
-        <PopoverContent className="bg-bg-primary-hovered max-w-96">
-          <PopoverArrow
-            className={"fill-bg-primary-hovered [&>path:first-of-type]:stroke-bg-primary-hovered"}
-          />
-          <PopoverTitle className={"p-4"}>弹出框标题</PopoverTitle>
-          <PopoverDescription className={"p-4 pt-1"}>
-            这是一个弹出框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
-          </PopoverDescription>
-          <div className={"flex justify-end gap-4 p-4 pt-1"}>
-            <PopoverClose
-              render={(props) => <Button color={"neutral"} variant={"soft"} {...props} />}
-            >
-              取消
-            </PopoverClose>
-            <Button color={"neutral"}>确定</Button>
-          </div>
-        </PopoverContent>
-      </Popover>
-    </div>
+    <Popover placement={"bottom"}>
+      <PopoverTrigger render={(props) => <Button {...props} />}>打开弹出框</PopoverTrigger>
+      <PopoverContent className="bg-bg-primary-hovered max-w-90">
+        <PopoverArrow
+          className={"fill-bg-primary-hovered [&>path:first-of-type]:stroke-bg-primary-hovered"}
+        />
+        <PopoverTitle className={"p-4"}>弹出框标题</PopoverTitle>
+        <PopoverDescription className={"p-4 pt-1"}>
+          这是一个弹出框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
+        </PopoverDescription>
+        <div className={"flex justify-end gap-4 p-4 pt-1"}>
+          <PopoverClose
+            render={(props) => <Button color={"neutral"} variant={"soft"} {...props} />}
+          >
+            取消
+          </PopoverClose>
+          <Button color={"neutral"}>确定</Button>
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 }
 ```
@@ -429,11 +440,11 @@ export default function App() {
           >
             {name}
           </PopoverTrigger>
-          <PopoverContent className="max-w-96">
+          <PopoverContent className="max-w-90">
             <PopoverArrow />
             <PopoverTitle className={"p-4"}>弹出框标题</PopoverTitle>
             <PopoverDescription className={"p-4 pt-0"}>
-              这是一个弹出框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。内容可以根据需求进行修改，以适应不同的业务场景。
+              这是一个弹出框示例，你可以在这里放置相关的提示信息、确认内容或者操作说明。
             </PopoverDescription>
           </PopoverContent>
         </Popover>

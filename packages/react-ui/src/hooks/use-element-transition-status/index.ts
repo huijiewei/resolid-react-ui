@@ -1,5 +1,5 @@
 import { type FloatingContext, useTransitionStatus, type UseTransitionStatusProps } from "@floating-ui/react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 export const useElementTransitionStatus = <E extends HTMLElement = HTMLElement>(
   open: boolean,
@@ -7,9 +7,9 @@ export const useElementTransitionStatus = <E extends HTMLElement = HTMLElement>(
 ) => {
   const [elementState, setElementState] = useState<E | null>(null);
 
-  const setElement = (node: E | null) => {
+  const setElement = useCallback((node: E | null) => {
     setElementState(node);
-  };
+  }, []);
 
   const { isMounted, status } = useTransitionStatus(
     {

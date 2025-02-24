@@ -3,23 +3,21 @@ title: 徽标
 description: 一般出现在图标或文字的右上角。提供及时、重要的信息提示。
 ---
 
-## 导入
+## 演示
 
-```js
+```jsx demo online=Badge
 import { Badge } from "@resolid/react-ui";
+
+export default function App() {
+  return <Badge>徽标</Badge>;
+}
 ```
 
 ## 用法
 
-:::UsageBlock{file=badge/badge.tsx}
-
+```js
 import { Badge } from "@resolid/react-ui";
-
-export default function Usage(props) {
-  return <Badge {...props}>徽标</Badge>;
-}
-
-:::
+```
 
 ## 外观
 
@@ -31,11 +29,14 @@ export default function Usage(props) {
 import { Badge } from "@resolid/react-ui";
 
 export default function App() {
+  const colors = ["primary", "secondary", "success", "warning", "danger", "neutral"];
+  const variants = ["solid", "outline", "subtle", "soft"];
+
   return (
     <div className={"flex flex-col gap-3"}>
-      {["primary", "secondary", "success", "warning", "danger", "neutral"].map((color) => (
+      {colors.map((color) => (
         <div key={color} className={"flex flex-row items-center gap-3"}>
-          {["solid", "outline", "subtle", "soft"].map((variant) => (
+          {variants.map((variant) => (
             <Badge key={`${color}-${variant}`} color={color} variant={variant}>
               徽标
             </Badge>
