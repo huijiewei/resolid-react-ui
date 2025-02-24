@@ -42,7 +42,7 @@ export const buttonStyles = tv({
       true: "aspect-square",
       false: "",
     },
-    hasPadding: {
+    noPadding: {
       true: "",
       false: "",
     },
@@ -290,57 +290,57 @@ export const buttonStyles = tv({
 
     {
       iconOnly: false,
-      hasPadding: true,
+      noPadding: false,
       size: "xs",
       className: "px-2.5",
     },
     {
       iconOnly: false,
-      hasPadding: true,
+      noPadding: false,
       size: "sm",
       className: "px-3",
     },
     {
       iconOnly: false,
-      hasPadding: true,
+      noPadding: false,
       size: "md",
       className: "px-3.5",
     },
     {
       iconOnly: false,
-      hasPadding: true,
+      noPadding: false,
       size: "lg",
       className: "px-4",
     },
     {
       iconOnly: false,
-      hasPadding: true,
+      noPadding: false,
       size: "xl",
       className: "px-5",
     },
     {
       size: "xs",
-      hasPadding: true,
+      noPadding: false,
       className: "h-7",
     },
     {
       size: "sm",
-      hasPadding: true,
+      noPadding: false,
       className: "h-8",
     },
     {
       size: "md",
-      hasPadding: true,
+      noPadding: false,
       className: "h-9",
     },
     {
       size: "lg",
-      hasPadding: true,
+      noPadding: false,
       className: "h-10",
     },
     {
       size: "xl",
-      hasPadding: true,
+      noPadding: false,
       className: "h-11",
     },
   ],

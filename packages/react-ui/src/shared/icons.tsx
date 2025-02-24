@@ -5,6 +5,25 @@ type IconProps = Omit<
   "viewBox" | "stroke" | "strokeWidth" | "strokeLinejoin" | "strokeLinecap" | "fill" | "style"
 > & { size?: string };
 
+export const CloseIcon = (props: IconProps) => {
+  const { size = "1em", ...rest } = props;
+
+  return (
+    <svg
+      style={{ width: size }}
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...rest}
+    >
+      <path d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  );
+};
+
 export const AngleLeftIcon = (props: IconProps) => {
   const { size = "1em", ...rest } = props;
 

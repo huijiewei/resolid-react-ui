@@ -1,4 +1,5 @@
 import type { PrimitiveProps } from "../../primitives";
+import { CloseIcon } from "../../shared/icons";
 import { tx } from "../../utils";
 import { Button } from "../button/button";
 import type { ButtonStyleProps } from "../button/button.styles";
@@ -20,11 +21,26 @@ export type CloseButtonProps = {
    * 大小
    * @default "1.5em"
    */
-  size?: string | number;
+  size?: string;
+
+  /**
+   * 无内边距
+   * @default false
+   */
+  noPadding?: boolean;
 };
 
 export const CloseButton = (props: PrimitiveProps<"button", CloseButtonProps, "type">) => {
-  const { className, disabled, variant = "ghost", color = "neutral", size = "1.5em", children, ...rest } = props;
+  const {
+    className,
+    disabled,
+    noPadding = false,
+    variant = "ghost",
+    color = "neutral",
+    size = "1.5em",
+    children,
+    ...rest
+  } = props;
 
   return (
     <Button
@@ -32,26 +48,14 @@ export const CloseButton = (props: PrimitiveProps<"button", CloseButtonProps, "t
       disabled={disabled}
       variant={variant}
       color={color}
-      size={"xs"}
       iconOnly
-      hasPadding={false}
+      noPadding
       radius={"full"}
       aria-label="关闭"
-      className={tx("p-1 leading-none", className)}
+      className={tx("leading-none", !noPadding && "p-1", className)}
       {...rest}
     >
-      {children || (
-        <svg
-          style={{ width: size }}
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      )}
+      {children || <CloseIcon size={size} />}
     </Button>
   );
 };

@@ -44,7 +44,7 @@ export type AlertCloseButtonProps = {
    * 大小
    * @default "1.375em"
    */
-  size?: string | number;
+  size?: string;
 };
 
 export const AlertCloseButton = (props: PrimitiveProps<"button", AlertCloseButtonProps, "type" | "color">) => {

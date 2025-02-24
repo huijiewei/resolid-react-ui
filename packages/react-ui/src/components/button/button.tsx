@@ -15,6 +15,12 @@ export type ButtonProps = ButtonBaseProps & {
   active?: boolean;
 
   /**
+   * 无内边距
+   * @default false
+   */
+  noPadding?: boolean;
+
+  /**
    * 全宽度
    * @default false
    */
@@ -25,12 +31,6 @@ export type ButtonProps = ButtonBaseProps & {
    * @default false
    */
   iconOnly?: boolean;
-
-  /**
-   * 是否有内边距
-   * @default true
-   */
-  hasPadding?: boolean;
 
   /**
    * 加载中
@@ -73,7 +73,7 @@ export const Button = (props: PolymorphicProps<"button", ButtonProps, "role">) =
     spinnerPlacement = "start",
     fullWidth = false,
     iconOnly = false,
-    hasPadding = true,
+    noPadding: noPadding = false,
     type = "button",
     tabIndex,
     className,
@@ -109,7 +109,7 @@ export const Button = (props: PolymorphicProps<"button", ButtonProps, "role">) =
       data-active={dataAttr(active)}
       style={{ ...style, "--rv": radiusStyle } as CSSProperties}
       className={tx(
-        buttonStyles({ variant, color, size, disabled: disabledStatus, fullWidth, iconOnly, hasPadding }),
+        buttonStyles({ variant, color, size, disabled: disabledStatus, fullWidth, iconOnly, noPadding }),
         radiusClass,
         group && [
           "not-last:not-first:rounded-none focus-visible:z-1",
