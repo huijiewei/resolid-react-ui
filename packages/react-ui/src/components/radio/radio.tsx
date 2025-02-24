@@ -86,7 +86,6 @@ export const Radio = (
         className={tx(
           "items-center justify-center rounded-full",
           toggleControlShareStyles,
-          !disabled && !readOnly && "cursor-pointer",
           colorStyle.focus,
           invalid ? "border-bd-invalid" : checked ? colorStyle.border : "border-bd-normal",
           checked ? ["text-fg-emphasized", colorStyle.checked] : "bg-bg-normal",
