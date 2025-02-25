@@ -23,7 +23,7 @@ export const AvatarGroup = (props: PrimitiveProps<"div", AvatarGroupProps>) => {
     <div
       role={"group"}
       style={{ ...style, "--pv": spacing } as CSSProperties}
-      className={tx("isolate flex flex-row items-center justify-start", className)}
+      className={tx("isolate flex w-fit items-center", className)}
       {...rest}
     >
       <AvatarGroupContext value={context}>{children}</AvatarGroupContext>
