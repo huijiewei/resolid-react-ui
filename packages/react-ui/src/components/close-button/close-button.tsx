@@ -45,6 +45,7 @@ export const CloseButton = (props: PrimitiveProps<"button", CloseButtonProps, "t
     color = "neutral",
     size = "1.5em",
     radius = "full",
+    "aria-label": ariaLabel = "关闭",
     children,
     ...rest
   } = props;
@@ -58,7 +59,7 @@ export const CloseButton = (props: PrimitiveProps<"button", CloseButtonProps, "t
       iconOnly
       noPadding
       radius={radius}
-      aria-label="关闭"
+      aria-label={ariaLabel}
       className={tx(!noPadding && "p-1", className)}
       {...rest}
     >
