@@ -24,19 +24,15 @@ export const buttonStyles = tv({
       neutral: "focus-visible:outline-bg-neutral-emphasis/70",
     },
     size: {
-      xs: "text-xs",
-      sm: "text-sm",
-      md: "text-sm",
-      lg: "text-base",
-      xl: "text-base",
+      xs: "",
+      sm: "",
+      md: "",
+      lg: "",
+      xl: "",
     },
     disabled: {
       true: "opacity-60",
       false: "cursor-pointer",
-    },
-    fullWidth: {
-      true: "w-full",
-      false: "",
     },
     iconOnly: {
       true: "aspect-square",
@@ -287,7 +283,6 @@ export const buttonStyles = tv({
       disabled: false,
       className: "hover:text-fg-neutral-hovered active:text-fg-neutral-pressed",
     },
-
     {
       iconOnly: false,
       noPadding: false,
@@ -342,6 +337,31 @@ export const buttonStyles = tv({
       size: "xl",
       noPadding: false,
       className: "h-11",
+    },
+    {
+      size: "xs",
+      iconOnly: false,
+      className: "text-xs",
+    },
+    {
+      size: "sm",
+      iconOnly: false,
+      className: "text-sm",
+    },
+    {
+      size: "md",
+      iconOnly: false,
+      className: "text-sm",
+    },
+    {
+      size: "lg",
+      iconOnly: false,
+      className: "text-base",
+    },
+    {
+      size: "xl",
+      iconOnly: false,
+      className: "text-base",
     },
   ],
 });

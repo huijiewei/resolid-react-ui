@@ -89,3 +89,22 @@ export type FormFieldProps = {
    */
   readOnly?: boolean;
 };
+
+export type FormInputFieldProps = FormFieldProps & {
+  /**
+   * 是否无效
+   * @default false
+   */
+  invalid?: boolean;
+
+  /**
+   * 占位符文本
+   */
+  placeholder?: string;
+
+  /**
+   * 是否全宽度
+   * @default false
+   */
+  fullWidth?: boolean;
+};

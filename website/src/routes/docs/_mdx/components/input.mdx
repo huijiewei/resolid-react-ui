@@ -65,12 +65,12 @@ import { Input } from "@resolid/react-ui";
 
 export default function App() {
   return (
-    <div className={"flex flex-row items-center gap-3"}>
-      <Input size={"xs"} defaultValue={"XS 超小"} placeholder={"XS 超小"} />
-      <Input size={"sm"} defaultValue={"SM 小型"} />
-      <Input defaultValue={"普通输入框"} />
-      <Input size={"lg"} defaultValue={"LG 大型"} />
-      <Input size={"xl"} defaultValue={"XL 超大"} />
+    <div className={"flex flex-col gap-3"}>
+      <Input size={"xs"} placeholder={"XS 超小"} />
+      <Input size={"sm"} placeholder={"SM 小型"} />
+      <Input placeholder={"默认大小"} />
+      <Input size={"lg"} placeholder={"LG 大型"} />
+      <Input size={"xl"} placeholder={"XL 超大"} />
     </div>
   );
 }
@@ -99,7 +99,7 @@ export default function App() {
             size={"xs"}
             iconOnly
           >
-            <SpriteIcon size={"1.375em"} name={"search"} />
+            <SpriteIcon size={"1.125em"} name={"search"} />
           </Button>
         }
       />

@@ -24,6 +24,12 @@ export type CloseButtonProps = {
   size?: string;
 
   /**
+   * 按钮圆角
+   * @default true
+   */
+  radius?: number | boolean | "full";
+
+  /**
    * 无内边距
    * @default false
    */
@@ -38,6 +44,7 @@ export const CloseButton = (props: PrimitiveProps<"button", CloseButtonProps, "t
     variant = "ghost",
     color = "neutral",
     size = "1.5em",
+    radius = "full",
     children,
     ...rest
   } = props;
@@ -50,12 +57,12 @@ export const CloseButton = (props: PrimitiveProps<"button", CloseButtonProps, "t
       color={color}
       iconOnly
       noPadding
-      radius={"full"}
+      radius={radius}
       aria-label="关闭"
-      className={tx("leading-none", !noPadding && "p-1", className)}
+      className={tx(!noPadding && "p-1", className)}
       {...rest}
     >
-      {children || <CloseIcon size={size} />}
+      {children || <CloseIcon className={"-mb-[.1em]"} size={size} />}
     </Button>
   );
 };

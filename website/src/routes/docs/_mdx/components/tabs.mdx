@@ -197,10 +197,12 @@ export default function App() {
         {tabs.map((tab) => {
           return (
             <TabsTab
-              render={(props) => <span {...props} />}
+              render={(props) => <div {...props} />}
               key={tab.id}
               value={tab.id}
-              className={"active:bg-bg-subtle select-none rounded-md pe-1 ps-3"}
+              className={
+                "active:bg-bg-subtle inline-flex select-none items-center rounded-md pe-1 ps-3"
+              }
             >
               {tab.title}
               <CloseButton

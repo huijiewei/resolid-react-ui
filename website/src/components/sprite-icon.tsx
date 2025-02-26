@@ -12,7 +12,7 @@ export const SpriteIcon = (props: SpriteIconProps) => {
   const { name, size = "1em", color, className } = props;
 
   return (
-    <svg style={{ width: size }} className={tx("mb-[-.1em] aspect-square", className)}>
+    <svg style={{ width: size }} className={tx("aspect-square", className)}>
       <use color={color} href={`${spriteIcons}#${name}`} />
     </svg>
   );

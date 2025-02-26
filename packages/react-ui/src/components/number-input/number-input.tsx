@@ -23,6 +23,7 @@ export type NumberInputProps = Omit<
    * onChange 回调
    */
   onChange?: (value: number | undefined) => void;
+
   /**
    * 最小值
    * @default Number.MIN_SAFE_INTEGER

@@ -71,7 +71,7 @@ export const SiteNavbar = () => {
                     rel={"noreferrer"}
                     {...props}
                   >
-                    <SpriteIcon size={"1.5em"} name={"github"} />
+                    <SpriteIcon size={"1.325em"} name={"github"} />
                   </a>
                 )}
                 {...props}

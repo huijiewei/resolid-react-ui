@@ -109,7 +109,8 @@ export const Button = (props: PolymorphicProps<"button", ButtonProps, "role">) =
       data-active={dataAttr(active)}
       style={{ ...style, "--rv": radiusStyle } as CSSProperties}
       className={tx(
-        buttonStyles({ variant, color, size, disabled: disabledStatus, fullWidth, iconOnly, noPadding }),
+        buttonStyles({ variant, color, size, disabled: disabledStatus, iconOnly, noPadding }),
+        fullWidth && "w-full",
         radiusClass,
         group && [
           "not-last:not-first:rounded-none focus-visible:z-1",

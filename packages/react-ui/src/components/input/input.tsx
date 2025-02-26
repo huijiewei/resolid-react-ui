@@ -2,14 +2,20 @@ import { type ChangeEvent, type CSSProperties, type ReactNode, useRef } from "re
 import { useControllableState, useMergeRefs } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import { inputTextShareStyles } from "../../shared/styles";
-import type { FormFieldProps } from "../../shared/types";
+import type { FormInputFieldProps } from "../../shared/types";
 import { tx } from "../../utils";
 import { InputAffix } from "./input-affix";
 import { type InputGroupContextValue, useInputGroup } from "./input-group-context";
-import { inputAffixDefaultSizes, inputGroupStyles, inputSizeStyles } from "./input.styles";
+import {
+  inputAffixDefaultSizes,
+  inputGroupStyles,
+  inputHeightStyles,
+  inputSizeStyles,
+  inputStyles,
+} from "./input.styles";
 
 export type InputProps = Partial<InputGroupContextValue> &
-  FormFieldProps & {
+  FormInputFieldProps & {
     /**
      * 可控值
      */
@@ -25,23 +31,6 @@ export type InputProps = Partial<InputGroupContextValue> &
      * onChange 回调
      */
     onChange?: (value: string | number) => void;
-
-    /**
-     * 是否无效
-     * @default false
-     */
-    invalid?: boolean;
-
-    /**
-     * 占位符文本
-     */
-    placeholder?: string;
-
-    /**
-     * 是否全宽度
-     * @default false
-     */
-    fullWidth?: boolean;
 
     /**
      * 前置元素
@@ -118,14 +107,8 @@ export const Input = (props: PrimitiveProps<"input", InputProps, "children">) =>
   return (
     <div
       className={tx(
-        "relative inline-flex h-fit items-center rounded-md border",
-        "outline-1 outline-transparent transition-colors",
-        "focus-within:border-bg-primary-emphasis focus-within:outline-bg-primary-emphasis/70",
-        fullWidth && "w-full",
+        inputStyles({ disabled, invalid, fullWidth }),
         group && [inputGroupStyles, "focus-within:z-1"],
-        invalid ? "border-bd-invalid" : "border-bd-normal",
-        !disabled && !invalid && "not-focus-within:hover:border-bd-hovered",
-        disabled && "opacity-60",
         className,
       )}
       style={
@@ -143,6 +126,7 @@ export const Input = (props: PrimitiveProps<"input", InputProps, "children">) =>
           "bg-bg-normal rounded-md transition-colors",
           disabled && "bg-bg-subtlest/60",
           inputSizeStyles[size],
+          inputHeightStyles[size],
           inputTextShareStyles[size],
           prefix && "ps-(--pw)",
           suffix && "pe-(--sw)",
