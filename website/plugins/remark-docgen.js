@@ -92,6 +92,22 @@ const tsParser = withCustomConfig("tsconfig.json", {
   },
 });
 
+const propsSortRule = [
+  "value",
+  "defaultValue",
+  "checked",
+  "defaultChecked",
+  "onChange",
+  "name",
+  "open",
+  "defaultOpen",
+  "onOpenChange",
+  "disabled",
+  "required",
+  "readOnly",
+  "invalid",
+];
+
 const getComponentProps = (virtualDir, componentFile, componentName) => {
   const componentPropsFile = join(virtualDir, `${componentName}.json`);
 
@@ -102,55 +118,59 @@ const getComponentProps = (virtualDir, componentFile, componentName) => {
   const componentDoc = tsParser.parse(componentFile).find((c) => c.displayName === componentName);
 
   const props = componentDoc
-    ? Object.entries(componentDoc.props).map(([key, value]) => {
-        const type = {
-          type: value.type.name,
-          control: value.type.name,
-          typeValues: null,
-        };
+    ? Object.entries(componentDoc.props)
+        .map(([key, value]) => {
+          const type = {
+            type: value.type.name,
+            control: value.type.name,
+            typeValues: null,
+          };
 
-        if (value.type.name === "enum") {
-          if (!value.type.raw) {
-            type.type = value.type.name;
-          } else if (
-            value.type.raw.includes(" | ") ||
-            ["string", "number", "boolean", "ReactNode"].includes(value.type.raw)
-          ) {
-            type.type = value.type.raw;
-            type.control = value.type.raw;
+          if (value.type.name === "enum") {
+            if (!value.type.raw) {
+              type.type = value.type.name;
+            } else if (
+              value.type.raw.includes(" | ") ||
+              ["string", "number", "boolean", "ReactNode"].includes(value.type.raw)
+            ) {
+              type.type = value.type.raw;
+              type.control = value.type.raw;
 
-            if (value.type.raw.includes(" | ")) {
+              if (value.type.raw.includes(" | ")) {
+                type.control = "select";
+                type.typeValues = value.type.value
+                  .map((item) => item.value)
+                  .filter((v) => v !== "number" && v !== "string");
+              }
+            } else {
+              const typeValues = value.type.value.map((item) => item.value);
+              type.type = typeValues.join(" | ");
               type.control = "select";
-              type.typeValues = value.type.value
-                .map((item) => item.value)
-                .filter((v) => v !== "number" && v !== "string");
+              type.typeValues = typeValues.filter((v) => v !== "number" && v !== "string");
             }
-          } else {
-            const typeValues = value.type.value.map((item) => item.value);
-            type.type = typeValues.join(" | ");
-            type.control = "select";
-            type.typeValues = typeValues.filter((v) => v !== "number" && v !== "string");
           }
-        }
 
-        if (!value.required) {
-          type.type = type.type.replace(" | undefined", "");
-        }
+          if (!value.required) {
+            type.type = type.type.replace(" | undefined", "");
+          }
 
-        if (type.type.startsWith("NonNullable<")) {
-          type.type = type.type.slice(12, -1).replace(" | null", "").replace(" | undefined", "");
-        }
+          if (type.type.startsWith("NonNullable<")) {
+            type.type = type.type.slice(12, -1).replace(" | null", "").replace(" | undefined", "");
+          }
 
-        type.type = type.type.replace("React.", "").replace(/ReactElement<.*>/g, "ReactElement");
+          type.type = type.type.replace("React.", "").replace(/ReactElement<.*>/g, "ReactElement");
 
-        return {
-          name: key,
-          ...type,
-          required: value.required,
-          description: value.description,
-          defaultValue: value.defaultValue?.value ?? "",
-        };
-      })
+          return {
+            name: key,
+            ...type,
+            required: value.required,
+            description: value.description,
+            defaultValue: value.defaultValue?.value ?? "",
+          };
+        })
+        .sort((a, b) => {
+          return propsSortRule.indexOf(a.name) - propsSortRule.indexOf(b.name);
+        })
     : null;
 
   writeFileSync(componentPropsFile, JSON.stringify(props, null, 2), "utf8");

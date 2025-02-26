@@ -4,7 +4,7 @@ import type { PrimitiveProps } from "../../primitives";
 import { isInputEvent } from "../../utils";
 import { type CheckboxGroupBaseProps, CheckboxGroupContext } from "./checkbox-group-context";
 
-export type CheckboxGroupProps = CheckboxGroupBaseProps & {
+export type CheckboxGroupProps = {
   /**
    * 默认值
    */
@@ -14,7 +14,7 @@ export type CheckboxGroupProps = CheckboxGroupBaseProps & {
    * onChange 回调
    */
   onChange?: (value: (string | number)[]) => void;
-};
+} & CheckboxGroupBaseProps;
 
 export const CheckboxGroup = (props: PrimitiveProps<"div", CheckboxGroupProps, "role">) => {
   const {

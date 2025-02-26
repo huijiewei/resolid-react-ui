@@ -1,108 +1,74 @@
-import { type ChangeEvent, type CSSProperties, type HTMLInputTypeAttribute, type ReactNode, useRef } from "react";
+import { type ChangeEvent, type CSSProperties, type ReactNode, useRef } from "react";
 import { useControllableState, useMergeRefs } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import { inputTextShareStyles } from "../../shared/styles";
+import type { FormFieldProps } from "../../shared/types";
 import { tx } from "../../utils";
 import { InputAffix } from "./input-affix";
 import { type InputGroupContextValue, useInputGroup } from "./input-group-context";
 import { inputAffixDefaultSizes, inputGroupStyles, inputSizeStyles } from "./input.styles";
 
-export type InputProps = Partial<InputGroupContextValue> & {
-  /**
-   * 可控值
-   */
-  value?: string | number;
+export type InputProps = Partial<InputGroupContextValue> &
+  FormFieldProps & {
+    /**
+     * 可控值
+     */
+    value?: string | number;
 
-  /**
-   * 默认值
-   * @default ""
-   */
-  defaultValue?: string | number;
+    /**
+     * 默认值
+     * @default ""
+     */
+    defaultValue?: string | number;
 
-  /**
-   * onChange 回调
-   */
-  onChange?: (value: string | number) => void;
+    /**
+     * onChange 回调
+     */
+    onChange?: (value: string | number) => void;
 
-  /**
-   * 是否禁用
-   * @default false
-   */
-  disabled?: boolean;
+    /**
+     * 是否无效
+     * @default false
+     */
+    invalid?: boolean;
 
-  /**
-   * 是否必须
-   * @default false
-   */
-  required?: boolean;
+    /**
+     * 占位符文本
+     */
+    placeholder?: string;
 
-  /**
-   * 是否只读
-   * @default false
-   */
-  readOnly?: boolean;
+    /**
+     * 是否全宽度
+     * @default false
+     */
+    fullWidth?: boolean;
 
-  /**
-   * 是否无效
-   * @default false
-   */
-  invalid?: boolean;
+    /**
+     * 前置元素
+     */
+    prefix?: ReactNode;
 
-  /**
-   * 是否全宽度
-   * @default false
-   */
-  fullWidth?: boolean;
+    /**
+     * 前置元素宽度
+     */
+    prefixWidth?: number;
 
-  /**
-   * 占位符文本
-   */
-  placeholder?: string;
+    /**
+     * 后置元素
+     */
+    suffix?: ReactNode;
 
-  /**
-   * 前置元素
-   */
-  prefix?: ReactNode;
+    /**
+     * 后置元素宽度
+     */
+    suffixWidth?: number;
 
-  /**
-   * 前置元素宽度
-   */
-  prefixWidth?: number;
-
-  /**
-   * 后置元素
-   */
-  suffix?: ReactNode;
-
-  /**
-   * 后置元素宽度
-   */
-  suffixWidth?: number;
-
-  /**
-   * 输入框类型
-   * @ignore
-   * @default "text"
-   */
-  type?: Omit<
-    HTMLInputTypeAttribute,
-    | "button"
-    | "submit"
-    | "reset"
-    | "checkbox"
-    | "radio"
-    | "range"
-    | "color"
-    | "date"
-    | "datetime-local"
-    | "month"
-    | "time"
-    | "week"
-    | "hidden"
-    | "file"
-    | "image"
-  >;
-};
+    /**
+     * 输入框类型
+     * @default "text"
+     */
+    type?: "text" | "email" | "number" | "password" | "search" | "tel" | "url";
+  };
 
 export const Input = (props: PrimitiveProps<"input", InputProps, "children">) => {
   const group = useInputGroup(true);
@@ -185,7 +151,7 @@ export const Input = (props: PrimitiveProps<"input", InputProps, "children">) =>
         required={required}
         disabled={disabled}
         readOnly={readOnly}
-        type={type as HTMLInputTypeAttribute}
+        type={type}
         inputMode={inputMode}
         value={valueState}
         onChange={handleChange}

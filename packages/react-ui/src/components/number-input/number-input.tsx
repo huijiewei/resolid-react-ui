@@ -5,7 +5,10 @@ import type { PrimitiveProps } from "../../primitives";
 import { Input, type InputProps } from "../input/input";
 import { NumberInputControl } from "./number-input-control";
 
-export type NumberInputProps = Omit<InputProps, "suffix" | "suffixWidth" | "onChange"> & {
+export type NumberInputProps = Omit<
+  InputProps,
+  "type" | "suffix" | "suffixWidth" | "value" | "defaultValue" | "onChange"
+> & {
   /**
    * 可控值
    */
@@ -20,7 +23,6 @@ export type NumberInputProps = Omit<InputProps, "suffix" | "suffixWidth" | "onCh
    * onChange 回调
    */
   onChange?: (value: number | undefined) => void;
-
   /**
    * 最小值
    * @default Number.MIN_SAFE_INTEGER

@@ -46,3 +46,46 @@ export type MultipleValueProps = {
    */
   onChange?: (value: (string | number)[]) => void;
 };
+
+export type CheckedValueProps = {
+  /**
+   * 可控值
+   */
+  checked?: boolean;
+
+  /**
+   * 默认值
+   * @default false
+   */
+  defaultChecked?: boolean;
+
+  /**
+   * onChange 回调
+   */
+  onChange?: (checked: boolean) => void;
+};
+
+export type FormFieldProps = {
+  /**
+   * 字段的名称, 提交表单时使用
+   */
+  name?: string;
+
+  /**
+   * 是否禁用
+   * @default false
+   */
+  disabled?: boolean;
+
+  /**
+   * 是否必需
+   * @default false
+   */
+  required?: boolean;
+
+  /**
+   * 是否只读
+   * @default false
+   */
+  readOnly?: boolean;
+};

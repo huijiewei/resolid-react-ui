@@ -8,67 +8,41 @@ import {
   toggleControlShareStyles,
   toggleLabelShareStyles,
 } from "../../shared/styles";
+import type { CheckedValueProps, FormFieldProps } from "../../shared/types";
 import { ariaAttr, tx } from "../../utils";
 import { type SwitchSize, switchSizeStyles } from "./switch.styles";
 
-export type SwitchProps = {
-  /**
-   * 颜色
-   * @default 'primary'
-   */
-  color?: ToggleColor;
+export type SwitchProps = CheckedValueProps &
+  FormFieldProps & {
+    /**
+     * 是否无效
+     * @default false
+     */
+    invalid?: boolean;
 
-  /**
-   * 大小
-   * @default 'md'
-   */
-  size?: SwitchSize;
+    /**
+     * 值
+     */
+    value?: string | number;
 
-  /**
-   * 可控值
-   */
-  checked?: boolean;
+    /**
+     * 颜色
+     * @default 'primary'
+     */
+    color?: ToggleColor;
 
-  /**
-   * 默认值
-   * @default false
-   */
-  defaultChecked?: boolean;
+    /**
+     * 大小
+     * @default 'md'
+     */
+    size?: SwitchSize;
 
-  /**
-   * onChange 回调
-   */
-  onChange?: (checked: boolean) => void;
-
-  /**
-   * 值
-   */
-  value?: string | number;
-
-  /**
-   * 是否禁用
-   * @default false
-   */
-  disabled?: boolean;
-
-  /**
-   * 是否无效
-   * @default false
-   */
-  invalid?: boolean;
-
-  /**
-   * 是否只读
-   * @default false
-   */
-  readOnly?: boolean;
-
-  /**
-   * 间距
-   * @default '0.5em'
-   */
-  spacing?: string | number;
-};
+    /**
+     * 间距
+     * @default '0.5em'
+     */
+    spacing?: string | number;
+  };
 
 export const Switch = (props: PrimitiveProps<"input", SwitchProps, "role" | "type">) => {
   const {

@@ -23,7 +23,7 @@ export type RadioBaseProps = {
 
 export type RadioGroupBaseProps = RadioBaseProps & {
   /**
-   * 单选中输入字段的名称
+   * 字段的名称
    */
   name?: string;
 

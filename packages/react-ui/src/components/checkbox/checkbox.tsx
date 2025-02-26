@@ -9,55 +9,41 @@ import {
   toggleControlShareStyles,
   toggleLabelShareStyles,
 } from "../../shared/styles";
+import type { CheckedValueProps } from "../../shared/types";
 import { ariaAttr, tx } from "../../utils";
 import { type CheckboxBaseProps, useCheckboxGroup } from "./checkbox-group-context";
 
-export type CheckboxProps = CheckboxBaseProps & {
-  /**
-   * 可控值
-   */
-  checked?: boolean;
+export type CheckboxProps = CheckedValueProps &
+  CheckboxBaseProps & {
+    /**
+     * 是否无效
+     * @default false
+     */
+    invalid?: boolean;
 
-  /**
-   * 默认值
-   * @default false
-   */
-  defaultChecked?: boolean;
+    /**
+     * 值
+     */
+    value?: string | number;
 
-  /**
-   * onChange 回调
-   */
-  onChange?: (checked: boolean) => void;
+    /**
+     * 部分选中
+     * @default false
+     */
+    indeterminate?: boolean;
 
-  /**
-   * 值
-   */
-  value?: string | number;
-
-  /**
-   * 部分选中
-   * @default false
-   */
-  indeterminate?: boolean;
-
-  /**
-   * 是否无效
-   * @default false
-   */
-  invalid?: boolean;
-
-  /**
-   * 间距
-   * @default "0.5em"
-   */
-  spacing?: string | number;
-};
+    /**
+     * 间距
+     * @default "0.5em"
+     */
+    spacing?: string | number;
+  };
 
 export const Checkbox = (props: PrimitiveProps<"input", CheckboxProps, "role" | "type">) => {
   const group = useCheckboxGroup(true);
 
   const {
-    name = group?.name,
+    name,
     size = group?.size || "md",
     color = group?.color || "primary",
     disabled = group?.disabled || false,
@@ -116,6 +102,8 @@ export const Checkbox = (props: PrimitiveProps<"input", CheckboxProps, "role" | 
   const colorStyle = binaryColorShareStyles[color];
   const labelSizeStyle = inputTextShareStyles[size];
 
+  const htmlName = group?.name ? `${group.name}[]` : name;
+
   return (
     <label
       style={
@@ -128,7 +116,7 @@ export const Checkbox = (props: PrimitiveProps<"input", CheckboxProps, "role" | 
     >
       <input
         ref={refs}
-        name={name}
+        name={htmlName}
         className={"peer sr-only"}
         value={value}
         type="checkbox"

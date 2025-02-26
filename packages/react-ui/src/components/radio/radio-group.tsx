@@ -66,7 +66,15 @@ export const RadioGroup = (props: PrimitiveProps<"div", RadioGroupProps, "role">
   };
 
   return (
-    <div role={"radiogroup"} aria-invalid={ariaAttr(invalid)} aria-orientation={orientation} {...rest}>
+    <div
+      role={"radiogroup"}
+      aria-disabled={ariaAttr(disabled)}
+      aria-required={ariaAttr(required)}
+      aria-readonly={ariaAttr(readOnly)}
+      aria-invalid={ariaAttr(invalid)}
+      aria-orientation={orientation}
+      {...rest}
+    >
       <RadioGroupContext value={groupContext}>{children}</RadioGroupContext>
     </div>
   );

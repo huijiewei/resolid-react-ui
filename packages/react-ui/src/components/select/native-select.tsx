@@ -1,27 +1,22 @@
 import type { PrimitiveProps } from "../../primitives";
 import { AngleDownIcon } from "../../shared/icons";
 import { inputTextShareStyles } from "../../shared/styles";
+import type { FormFieldProps } from "../../shared/types";
 import { tx } from "../../utils";
 import { type SelectSize, selectSizeStyles } from "./select.styles";
 
-export type NativeSelectProps = {
-  /**
-   * 大小
-   * @default 'md'
-   */
-  size?: SelectSize;
-
-  /**
-   * 是否禁用
-   * @default false
-   */
-  disabled?: boolean;
-
+export type NativeSelectProps = FormFieldProps & {
   /**
    * 是否无效
    * @default false
    */
   invalid?: boolean;
+
+  /**
+   * 大小
+   * @default 'md'
+   */
+  size?: SelectSize;
 };
 
 export const NativeSelect = (props: PrimitiveProps<"select", NativeSelectProps>) => {
