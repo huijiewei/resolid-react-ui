@@ -61,7 +61,7 @@ export const AccordionRoot = (props: PrimitiveProps<"div", AccordionRootProps>) 
     onChange: onChange as (value: (string | number)[] | string | number | null) => void,
   });
 
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState<number | undefined>(0);
 
   const context: AccordionContextValue = {
     disabled,

@@ -10,7 +10,7 @@ export const TabsList = (props: PrimitiveProps<"div", EmptyObject, "role">) => {
 
   const { orientation } = useTabs();
 
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState<number | undefined>(0);
 
   const context: CompositeContextValue = {
     activeIndex,
