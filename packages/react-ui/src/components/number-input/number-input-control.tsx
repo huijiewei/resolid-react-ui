@@ -22,7 +22,7 @@ export const NumberInputControl = (
       aria-controls={inputId}
       className={tx(
         "bg-bg-subtle pointer-events-auto flex h-full select-none appearance-none items-center justify-center transition-colors",
-        disabled ? "opacity-60" : "hover:bg-bg-muted active:bg-bg-muted",
+        disabled ? "opacity-60" : "hover:bg-bg-muted",
         stepper == "increment" && "rounded-tr-md",
         stepper == "decrement" && "rounded-br-md",
         inputTextShareStyles[size],

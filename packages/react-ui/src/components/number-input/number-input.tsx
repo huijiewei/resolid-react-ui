@@ -277,6 +277,7 @@ export const NumberInput = (props: PrimitiveProps<"input", NumberInputProps, "ty
             onClick={(event) => {
               event.stopPropagation();
               increment();
+              inputRef.current?.focus();
             }}
             disabled={disabled || readOnly || (valueState ?? 0) >= maxValue}
           />
@@ -287,6 +288,7 @@ export const NumberInput = (props: PrimitiveProps<"input", NumberInputProps, "ty
             onClick={(event) => {
               event.stopPropagation();
               decrement();
+              inputRef.current?.focus();
             }}
             disabled={disabled || readOnly || (valueState ?? 0) <= minValue}
           />
