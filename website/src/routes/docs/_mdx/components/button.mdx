@@ -5,7 +5,7 @@ description: 使用户能够触发操作或事件，例如提交表单、打开�
 
 ## 演示
 
-```jsx demo online=Button
+```jsx demo online=Button componentProps=button/button.tsx|variant,color,size,active,disabled,fullWidth
 import { Button } from "@resolid/react-ui";
 
 export default function App() {
@@ -129,68 +129,6 @@ export default function App() {
 }
 ```
 
-### 禁用
-
-可以通过传递 `disabled` 属性显示按钮的禁用样式。
-
-```jsx demo
-import { Button } from "@resolid/react-ui";
-
-export default function App() {
-  return (
-    <div className={"flex flex-row gap-3"}>
-      <Button disabled>Disabled</Button>
-      <Button variant={"outline"} disabled>
-        Disabled
-      </Button>
-      <Button variant={"subtle"} disabled>
-        Disabled
-      </Button>
-      <Button variant={"soft"} disabled>
-        Disabled
-      </Button>
-      <Button variant={"ghost"} disabled>
-        Disabled
-      </Button>
-      <Button variant={"link"} disabled>
-        Disabled
-      </Button>
-    </div>
-  );
-}
-```
-
-### 激活
-
-可以通过传递 `active` 属性显示按钮的激活样式。
-
-```jsx demo
-import { Button } from "@resolid/react-ui";
-
-export default function App() {
-  return (
-    <div className={"flex flex-row gap-3"}>
-      <Button active>Active</Button>
-      <Button variant={"outline"} active>
-        Active
-      </Button>
-      <Button variant={"subtle"} active>
-        Active
-      </Button>
-      <Button variant={"soft"} active>
-        Active
-      </Button>
-      <Button variant={"ghost"} active>
-        Active
-      </Button>
-      <Button variant={"link"} active>
-        Active
-      </Button>
-    </div>
-  );
-}
-```
-
 ### 加载中
 
 可以通过传递 `loading` 属性显示按钮的加载中样式。
@@ -216,18 +154,6 @@ export default function App() {
       </Button>
     </div>
   );
-}
-```
-
-### 全宽度
-
-可以通过传递 `fullWidth` 属性显示按钮的禁用样式。
-
-```jsx demo
-import { Button } from "@resolid/react-ui";
-
-export default function App() {
-  return <Button fullWidth>Full width button</Button>;
 }
 ```
 

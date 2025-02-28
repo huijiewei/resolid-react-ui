@@ -1,48 +1,246 @@
-import { fromJs } from "esast-util-from-js";
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { join, parse } from "node:path";
 import { cwd } from "node:process";
 import { withCustomConfig } from "react-docgen-typescript";
 import { visit } from "unist-util-visit";
 
-const propsTables = {};
-const kebabCaseRegex = /[a-zA-Z0-9]+/g;
-
 export default function ({ sourceRoot }) {
   if (!sourceRoot) {
     throw new Error("Please set sourceRoot.");
   }
 
-  const virtualDir = join(cwd(), ".resolid", "component-props");
+  const currentDir = join(cwd(), ".resolid");
+  const componentPropsDir = join(currentDir, "component-props");
+  const componentDemosDir = join(currentDir, "component-demos");
 
-  mkdirSync(virtualDir, { recursive: true });
+  mkdirSync(componentPropsDir, { recursive: true });
+  mkdirSync(componentDemosDir, { recursive: true });
 
-  return (tree) => {
-    visit(tree, { type: "leafDirective", name: "PropsTable" }, (node, index, parent) => {
-      if (parent === undefined || index === undefined) {
+  return (tree, vfile) => {
+    const pageName = vfile.basename.replace(vfile.extname, "");
+    const propsData = new Map();
+
+    let demoIndex = 1;
+    const demoMdx = [];
+
+    const getComponentPropsInfo = (componentFile) => {
+      const cache = propsData.get(componentFile);
+
+      if (cache) {
+        return { componentName: cache.componentName, componentPropsVar: cache.componentPropsVar };
+      }
+
+      const data = getComponentPropsData(componentFile, sourceRoot, componentPropsDir);
+
+      propsData.set(componentFile, data);
+
+      return { componentName: data.componentName, componentPropsVar: data.componentPropsVar };
+    };
+
+    visit(tree, [{ type: "leafDirective", name: "PropsTable" }, "code"], (node, index, parent) => {
+      if (!parent || !index) {
         return;
       }
 
-      const componentFile = node.attributes["file"];
-
-      if (!componentFile) {
-        throw new Error(`Invalid componentFile prop for ${node.name}.`);
-      }
-
-      const componentName = (parse(componentFile).name.match(kebabCaseRegex) || [])
-        .map((w) => `${w.charAt(0).toUpperCase()}${w.slice(1)}`)
-        .join("");
-
-      if (!propsTables[componentName]) {
-        const componentProps = getComponentProps(virtualDir, join(sourceRoot, componentFile), componentName);
-
-        if (componentProps) {
-          propsTables[componentName] = componentProps;
+      if (node.type === "code") {
+        if ("hasVisited" in node) {
+          return;
         }
+
+        if (!node.meta?.includes("demo")) {
+          return;
+        }
+
+        if (!node.value) {
+          return;
+        }
+
+        let code = node.value;
+
+        const demoId = `_${pageName}_${demoIndex++}`;
+        const demoName = `D_${demoId.replace("-", "_")}`;
+        const virtualModulePath = join(componentDemosDir, `${demoId}.tsx`);
+
+        demoMdx.push({
+          type: "mdxjsEsm",
+          value: `import ${demoName} from ${JSON.stringify(virtualModulePath)}`,
+          data: {
+            estree: {
+              type: "Program",
+              sourceType: "module",
+              body: [
+                {
+                  type: "ImportDeclaration",
+                  specifiers: [
+                    {
+                      type: "ImportDefaultSpecifier",
+                      local: { type: "Identifier", name: demoName },
+                    },
+                  ],
+                  source: {
+                    type: "Literal",
+                    value: virtualModulePath,
+                    raw: `${JSON.stringify(virtualModulePath)}`,
+                  },
+                },
+              ],
+            },
+          },
+        });
+
+        const propsMeta = getComponentDemoPropsMeta(node.meta);
+
+        const codeDemoAttrs = [];
+
+        if (propsMeta) {
+          const { componentName, componentPropsVar } = getComponentPropsInfo(propsMeta.componentFile);
+
+          code = code.replace("App()", "App(props)").replace(`<${componentName}`, `<${componentName} {...props}`);
+
+          codeDemoAttrs.push({
+            type: "mdxJsxAttribute",
+            name: "componentProps",
+            value: {
+              type: "mdxJsxAttributeValueExpression",
+              value: componentPropsVar,
+              data: {
+                estree: {
+                  type: "Program",
+                  body: [
+                    {
+                      type: "ExpressionStatement",
+                      expression: {
+                        type: "Identifier",
+                        name: componentPropsVar,
+                      },
+                    },
+                  ],
+                  sourceType: "module",
+                  comments: [],
+                },
+              },
+            },
+          });
+          codeDemoAttrs.push({
+            type: "mdxJsxAttribute",
+            name: "settingProps",
+            value: {
+              type: "mdxJsxAttributeValueExpression",
+              value: JSON.stringify(propsMeta.settingProps),
+              data: {
+                estree: {
+                  type: "Program",
+                  body: [
+                    {
+                      type: "ExpressionStatement",
+                      expression: {
+                        type: "ArrayExpression",
+                        elements: propsMeta.settingProps.map((prop) => ({
+                          type: "Literal",
+                          value: prop,
+                          raw: JSON.stringify(prop),
+                        })),
+                      },
+                    },
+                  ],
+                  sourceType: "module",
+                  comments: [],
+                },
+              },
+            },
+          });
+        }
+
+        parent.children[index] = {
+          type: "mdxJsxFlowElement",
+          name: "CodeDemo",
+          attributes: codeDemoAttrs,
+          children: [
+            {
+              ...node,
+              hasVisited: true,
+            },
+            codeDemoAttrs.length === 0
+              ? {
+                  type: "mdxJsxFlowElement",
+                  name: demoName,
+                }
+              : {
+                  type: "mdxFlowExpression",
+                  value: `(props) => <${demoName} {...props} />`,
+                  data: {
+                    estree: {
+                      type: "Program",
+                      body: [
+                        {
+                          type: "ExpressionStatement",
+                          expression: {
+                            type: "ArrowFunctionExpression",
+                            id: null,
+                            expression: true,
+                            generator: false,
+                            async: false,
+                            params: [
+                              {
+                                type: "Identifier",
+                                name: "props",
+                              },
+                            ],
+                            body: {
+                              type: "JSXElement",
+                              openingElement: {
+                                type: "JSXOpeningElement",
+                                attributes: [
+                                  {
+                                    type: "JSXSpreadAttribute",
+                                    argument: {
+                                      type: "Identifier",
+                                      name: "props",
+                                    },
+                                  },
+                                ],
+                                name: {
+                                  type: "JSXIdentifier",
+                                  name: demoName,
+                                },
+                                selfClosing: true,
+                              },
+                              closingElement: null,
+                              children: [],
+                              data: {
+                                _mdxExplicitJsx: true,
+                              },
+                            },
+                          },
+                        },
+                      ],
+                      sourceType: "module",
+                      comments: [],
+                    },
+                  },
+                },
+          ],
+        };
+
+        if (existsSync(virtualModulePath)) {
+          const content = readFileSync(virtualModulePath, "utf8");
+
+          if (content === code) {
+            return;
+          }
+        }
+
+        writeFileSync(virtualModulePath, code, "utf8");
       }
 
-      if (propsTables[componentName]) {
-        const propsJSON = JSON.stringify(propsTables[componentName]);
+      if (node.type === "leafDirective") {
+        const componentFile = node.attributes["file"];
+
+        if (!componentFile) {
+          return;
+        }
+
+        const { componentPropsVar } = getComponentPropsInfo(componentFile);
 
         parent.children[index] = {
           type: "mdxJsxFlowElement",
@@ -50,14 +248,25 @@ export default function ({ sourceRoot }) {
           attributes: [
             {
               type: "mdxJsxAttribute",
-              name: "props",
+              name: "componentProps",
               value: {
                 type: "mdxJsxAttributeValueExpression",
-                value: `(${propsJSON})`,
+                value: componentPropsVar,
                 data: {
-                  estree: fromJs(`(${propsJSON})`, {
-                    module: true,
-                  }),
+                  estree: {
+                    type: "Program",
+                    body: [
+                      {
+                        type: "ExpressionStatement",
+                        expression: {
+                          type: "Identifier",
+                          name: componentPropsVar,
+                        },
+                      },
+                    ],
+                    sourceType: "module",
+                    comments: [],
+                  },
                 },
               },
             },
@@ -65,10 +274,12 @@ export default function ({ sourceRoot }) {
         };
       }
     });
+
+    tree.children.unshift(...Array.from(propsData.values(), (item) => item.componentPropsModule));
+    tree.children.unshift(...demoMdx);
   };
 }
 
-// noinspection JSUnusedGlobalSymbols
 const tsParser = withCustomConfig("tsconfig.json", {
   savePropValueAsString: false,
   skipChildrenPropWithoutDoc: false,
@@ -92,7 +303,7 @@ const tsParser = withCustomConfig("tsconfig.json", {
   },
 });
 
-const propsSortRule = [
+const componentPropsSorts = [
   "value",
   "defaultValue",
   "checked",
@@ -108,72 +319,125 @@ const propsSortRule = [
   "invalid",
 ];
 
-const getComponentProps = (virtualDir, componentFile, componentName) => {
+const getComponentPropsData = (componentFile, sourceRoot, virtualDir) => {
+  const sourceFile = join(sourceRoot, componentFile);
+  const componentName = (parse(componentFile).name.match(/[a-zA-Z0-9]+/g) || [])
+    .map((w) => `${w.charAt(0).toUpperCase()}${w.slice(1)}`)
+    .join("");
+
   const componentPropsFile = join(virtualDir, `${componentName}.json`);
 
-  if (existsSync(componentPropsFile) && statSync(componentPropsFile).mtimeMs > statSync(componentFile).mtimeMs) {
-    return JSON.parse(readFileSync(componentPropsFile, "utf8"));
+  if (!existsSync(componentPropsFile) || statSync(componentPropsFile).mtimeMs < statSync(sourceFile).mtimeMs) {
+    const componentDoc = tsParser.parse(sourceFile).find((c) => c.displayName === componentName);
+
+    const props = componentDoc
+      ? Object.entries(componentDoc.props)
+          .map(([key, value]) => {
+            const type = {
+              type: value.type.name,
+              control: value.type.name,
+              typeValues: null,
+            };
+
+            if (value.type.name === "enum") {
+              if (!value.type.raw) {
+                type.type = value.type.name;
+              } else if (
+                value.type.raw.includes(" | ") ||
+                ["string", "number", "boolean", "ReactNode"].includes(value.type.raw)
+              ) {
+                type.type = value.type.raw;
+                type.control = value.type.raw;
+
+                if (value.type.raw.includes(" | ")) {
+                  type.control = "select";
+                  type.typeValues = value.type.value
+                    .map((item) => item.value)
+                    .filter((v) => v !== "number" && v !== "string");
+                }
+              } else {
+                const typeValues = value.type.value.map((item) => item.value);
+                type.type = typeValues.join(" | ");
+                type.control = "select";
+                type.typeValues = typeValues.filter((v) => v !== "number" && v !== "string");
+              }
+            }
+
+            if (!value.required) {
+              type.type = type.type.replace(" | undefined", "");
+            }
+
+            if (type.type.startsWith("NonNullable<")) {
+              type.type = type.type.slice(12, -1).replace(" | null", "").replace(" | undefined", "");
+            }
+
+            type.type = type.type.replace("React.", "").replace(/ReactElement<.*>/g, "ReactElement");
+
+            return {
+              name: key,
+              ...type,
+              required: value.required,
+              description: value.description,
+              defaultValue: value.defaultValue?.value ?? "",
+            };
+          })
+          .sort((a, b) => {
+            return componentPropsSorts.indexOf(a.name) - componentPropsSorts.indexOf(b.name);
+          })
+      : null;
+
+    writeFileSync(componentPropsFile, JSON.stringify(props, null, 2), "utf8");
   }
 
-  const componentDoc = tsParser.parse(componentFile).find((c) => c.displayName === componentName);
+  const componentPropsVar = `ComponentProps_${componentName}`;
 
-  const props = componentDoc
-    ? Object.entries(componentDoc.props)
-        .map(([key, value]) => {
-          const type = {
-            type: value.type.name,
-            control: value.type.name,
-            typeValues: null,
-          };
+  return {
+    componentName,
+    componentPropsVar,
+    componentPropsModule: {
+      type: "mdxjsEsm",
+      value: `import ${componentPropsVar} from ${JSON.stringify(componentPropsFile)}`,
+      data: {
+        estree: {
+          type: "Program",
+          sourceType: "module",
+          body: [
+            {
+              type: "ImportDeclaration",
+              specifiers: [
+                {
+                  type: "ImportDefaultSpecifier",
+                  local: { type: "Identifier", name: componentPropsVar },
+                },
+              ],
+              source: {
+                type: "Literal",
+                value: componentPropsFile,
+                raw: `${JSON.stringify(componentPropsFile)}`,
+              },
+            },
+          ],
+        },
+      },
+    },
+  };
+};
 
-          if (value.type.name === "enum") {
-            if (!value.type.raw) {
-              type.type = value.type.name;
-            } else if (
-              value.type.raw.includes(" | ") ||
-              ["string", "number", "boolean", "ReactNode"].includes(value.type.raw)
-            ) {
-              type.type = value.type.raw;
-              type.control = value.type.raw;
+const getComponentDemoPropsMeta = (meta) => {
+  const matches = meta.match(/componentProps=(["']?)([^"'\s]+)\1/);
 
-              if (value.type.raw.includes(" | ")) {
-                type.control = "select";
-                type.typeValues = value.type.value
-                  .map((item) => item.value)
-                  .filter((v) => v !== "number" && v !== "string");
-              }
-            } else {
-              const typeValues = value.type.value.map((item) => item.value);
-              type.type = typeValues.join(" | ");
-              type.control = "select";
-              type.typeValues = typeValues.filter((v) => v !== "number" && v !== "string");
-            }
-          }
+  if (!matches) {
+    return null;
+  }
 
-          if (!value.required) {
-            type.type = type.type.replace(" | undefined", "");
-          }
+  const metas = matches[2].split("|");
 
-          if (type.type.startsWith("NonNullable<")) {
-            type.type = type.type.slice(12, -1).replace(" | null", "").replace(" | undefined", "");
-          }
+  if (metas.length !== 2) {
+    return null;
+  }
 
-          type.type = type.type.replace("React.", "").replace(/ReactElement<.*>/g, "ReactElement");
-
-          return {
-            name: key,
-            ...type,
-            required: value.required,
-            description: value.description,
-            defaultValue: value.defaultValue?.value ?? "",
-          };
-        })
-        .sort((a, b) => {
-          return propsSortRule.indexOf(a.name) - propsSortRule.indexOf(b.name);
-        })
-    : null;
-
-  writeFileSync(componentPropsFile, JSON.stringify(props, null, 2), "utf8");
-
-  return props;
+  return {
+    componentFile: metas[0],
+    settingProps: metas[1].split(","),
+  };
 };

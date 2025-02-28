@@ -43,7 +43,7 @@ export const CloseButton = (props: PrimitiveProps<"button", CloseButtonProps, "t
     noPadding = false,
     variant = "ghost",
     color = "neutral",
-    size = "1.5em",
+    size = "1.125em",
     radius = "full",
     "aria-label": ariaLabel = "关闭",
     children,

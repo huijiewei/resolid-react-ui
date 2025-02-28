@@ -42,13 +42,13 @@ export const AlertIndicator = (props: PrimitiveProps<"span">) => {
 export type AlertCloseButtonProps = {
   /**
    * 大小
-   * @default "1.375em"
+   * @default "1.125em"
    */
   size?: string;
 };
 
 export const AlertCloseButton = (props: PrimitiveProps<"button", AlertCloseButtonProps, "type" | "color">) => {
-  const { size = "1.375em", ...rest } = props;
+  const { size, ...rest } = props;
 
   const { variant, color } = useAlert();
 

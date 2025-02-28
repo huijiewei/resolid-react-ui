@@ -4,7 +4,7 @@
 @plugin "@tailwindcss/typography";
 
 @source "../src";
-@source "../.resolid/component-demo";
+@source "../.resolid/component-demos";
 
 /*noinspection CssUnresolvedCustomProperty*/
 .shiki,

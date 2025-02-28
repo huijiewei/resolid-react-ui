@@ -103,7 +103,7 @@ export type FormInputFieldProps = FormFieldProps & {
   placeholder?: string;
 
   /**
-   * 是否全宽度
+   * 全宽度
    * @default false
    */
   fullWidth?: boolean;
