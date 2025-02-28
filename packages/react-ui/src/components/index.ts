@@ -33,6 +33,7 @@ export * from "./separator/separator";
 export * from "./spinner/spinner";
 export * from "./switch/switch";
 export * from "./tabs/tabs";
+export * from "./tags-input/tags-input";
 export * from "./toast/toast";
 export * from "./toast/use-toast";
 export * from "./tooltip/tooltip";

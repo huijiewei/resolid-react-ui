@@ -1,0 +1,163 @@
+---
+title: 标签输入
+description: 允许用户向输入字段添加标签的组件。
+---
+
+## 演示
+
+```jsx demo online=TagsInput componentProps=tags-input/tags-input.tsx|size,disabled,readOnly,invalid
+import { TagsInput } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <TagsInput className={"max-w-80"} defaultValue={["React", "Vue"]} placeholder={"请输入标签"} />
+  );
+}
+```
+
+## 用法
+
+```jsx
+import { TagsInput } from "@resolid/react-ui";
+```
+
+## 特点
+
+- 可以是受控的，也可以是不受控的。
+- 完整的键盘导航。
+- 限制标签的数量。
+- 接受剪贴板中的值。
+
+## 举例
+
+### 可控值
+
+使用 `value` 和 `onChange` 属性来控制输入的值。
+
+```jsx demo
+import { TagsInput } from "@resolid/react-ui";
+import { useState } from "react";
+
+export default function App() {
+  const [value, setValue] = useState(["React", "Vue"]);
+
+  return (
+    <div className={"flex flex-col gap-2"}>
+      <p>你输入了标签: {value.join(", ")}</p>
+      <TagsInput
+        className={"max-w-80"}
+        value={value}
+        onChange={setValue}
+        placeholder={"请输入标签"}
+      />
+    </div>
+  );
+}
+```
+
+### 限制数量
+
+使用 `max` 属性可以限制标签输入的数量
+
+```jsx demo
+import { TagsInput } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <TagsInput
+      max={3}
+      className={"max-w-80"}
+      defaultValue={["React", "Vue"]}
+      placeholder={"请输入标签"}
+    />
+  );
+}
+```
+
+### 限制长度
+
+使用 `maxLength` 属性可以限制标签输入的长度
+
+```jsx demo
+import { TagsInput } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <TagsInput
+      maxLength={6}
+      className={"max-w-80"}
+      defaultValue={["React", "Vue"]}
+      placeholder={"请输入标签"}
+    />
+  );
+}
+```
+
+### 失去焦点增加
+
+使用 `addOnBlur` 属性可以允许输入框失去焦点时添加标签
+
+```jsx demo
+import { TagsInput } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <TagsInput
+      addOnBlur
+      className={"max-w-80"}
+      defaultValue={["React", "Vue"]}
+      placeholder={"请输入标签"}
+    />
+  );
+}
+```
+
+### 允许粘贴
+
+使用 `addOnPaste` 属性可以允许接受剪贴板中的值
+
+```jsx demo
+import { TagsInput } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <TagsInput
+      addOnPaste
+      className={"max-w-80"}
+      defaultValue={["React", "Vue"]}
+      placeholder={"请输入标签"}
+    />
+  );
+}
+```
+
+### 输入框值
+
+使用 `inputValue` 和 `onInputChange` 属性可以控制输入框的值
+
+```jsx demo
+import { TagsInput } from "@resolid/react-ui";
+import { useState } from "react";
+
+export default function App() {
+  const [inputValue, setInputValue] = useState();
+
+  return (
+    <div className={"flex flex-col gap-2"}>
+      <p>输入框的值: {inputValue}</p>
+      <TagsInput
+        delimiter={null}
+        inputValue={inputValue}
+        onInputChange={setInputValue}
+        className={"max-w-80"}
+        defaultValue={["React", "Vue"]}
+        placeholder={"请输入标签"}
+      />
+    </div>
+  );
+}
+```
+
+## 属性
+
+::PropsTable{file=tags-input/tags-input.tsx}
