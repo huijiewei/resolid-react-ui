@@ -9,7 +9,7 @@ description: 互斥性的操作控件，用户可打开或关闭某个功能。
 import { Switch } from "@resolid/react-ui";
 
 export default function App() {
-  return <Switch defaultChecked>开关</Switch>;
+  return <Switch>开关</Switch>;
 }
 ```
 
@@ -28,9 +28,21 @@ import { Switch } from "@resolid/react-ui";
 
 ## 举例
 
-### 可控
+### 默认值
 
-`value` 属性可用于可控值。当用户输入并接收新值时， `onChange` 事件将被触发。
+使用 `defaultChecked` 属性来设置开关的默认状态。
+
+```jsx demo
+import { Switch } from "@resolid/react-ui";
+
+export default function App() {
+  return <Switch defaultChecked>开关</Switch>;
+}
+```
+
+### 可控值
+
+使用 `checked` 和 `onChange` 属性来控制开关的状态。
 
 ```jsx demo
 import { Switch } from "@resolid/react-ui";
@@ -45,48 +57,6 @@ export default function App() {
       <Switch checked={checked} onChange={setChecked}>
         飞行模式
       </Switch>
-    </div>
-  );
-}
-```
-
-### 大小
-
-通过传递 `size` 属性来更改开关的大小。开关支持 `xs`、`sm`、`md`、`lg` 和 `xl` 这些大小。
-
-```jsx demo
-import { Switch } from "@resolid/react-ui";
-
-export default function App() {
-  return (
-    <div className={"flex flex-row items-center gap-3"}>
-      <Switch size={"xs"}>XS</Switch>
-      <Switch size={"sm"}>SM</Switch>
-      <Switch>MD</Switch>
-      <Switch size={"lg"}>LG</Switch>
-      <Switch size={"xl"}>XL</Switch>
-    </div>
-  );
-}
-```
-
-### 颜色
-
-通过传递 `color` 属性来更改开关的颜色。开关支持 `primary`、`secondary`、`success`、`warning`、`danger` 和 `neutral` 这些颜色。
-
-```jsx demo
-import { Switch } from "@resolid/react-ui";
-
-export default function App() {
-  const colors = ["primary", "secondary", "success", "warning", "danger", "neutral"];
-
-  return (
-    <div className={"flex flex-row items-center gap-3"}>
-      {colors.map((color) => (
-        <Switch key={color} defaultChecked color={color} size={"sm"}>
-          {color}
-        </Switch>
-      ))}
     </div>
   );
 }

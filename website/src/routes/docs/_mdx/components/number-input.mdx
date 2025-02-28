@@ -33,7 +33,7 @@ import { NumberInput } from "@resolid/react-ui";
 
 ### 默认值
 
-可以使用 `defaultValue` 属性提供初始的、不受控制的值。
+使用 `defaultValue` 属性提供初始的、不受控制的值。
 
 ```jsx demo
 import { NumberInput } from "@resolid/react-ui";
@@ -96,26 +96,6 @@ export default function App() {
         !Number.isNaN(value) ? `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "$ "
       }
     />
-  );
-}
-```
-
-### 大小
-
-通过传递 `size` 属性来更改数字输入框的大小。数字输入框支持 `xs`、`sm`、`md`、`lg` 和 `xl` 这些大小。
-
-```jsx demo
-import { NumberInput } from "@resolid/react-ui";
-
-export default function App() {
-  return (
-    <div className={"flex flex-col gap-3"}>
-      <NumberInput size={"xs"} placeholder={"XS 超小"} />
-      <NumberInput size={"sm"} placeholder={"SM 小型"} />
-      <NumberInput placeholder={"默认大小"} />
-      <NumberInput size={"lg"} placeholder={"LG 大型"} />
-      <NumberInput size={"xl"} placeholder={"XL 超大"} />
-    </div>
   );
 }
 ```

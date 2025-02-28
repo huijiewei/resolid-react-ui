@@ -28,9 +28,21 @@ import { Checkbox, CheckboxGroup } from "@resolid/react-ui";
 
 ## 举例
 
-### 可控
+### 默认值
 
-使用 `checked` 和 `onChange` 属性来控制复选框的状态。
+使用 `defaultChecked` 属性来设置多选框的默认状态。
+
+```jsx demo
+import { Checkbox } from "@resolid/react-ui";
+
+export default function App() {
+  return <Checkbox defaultChecked>多选框</Checkbox>;
+}
+```
+
+### 可控值
+
+使用 `checked` 和 `onChange` 属性来控制多选框的状态。
 
 ```jsx demo
 import { Checkbox } from "@resolid/react-ui";
@@ -42,51 +54,9 @@ export default function App() {
   return (
     <div className={"flex flex-col gap-2"}>
       <p>{checked ? <span className={"text-fg-success"}>你已成功订阅</span> : "你取消了订阅"}</p>
-      <Checkbox value={"React"} checked={checked} onChange={setChecked}>
+      <Checkbox value={"on"} checked={checked} onChange={setChecked}>
         订阅更新
       </Checkbox>
-    </div>
-  );
-}
-```
-
-### 大小
-
-通过传递 `size` 属性来更改多选框的大小。多选框支持 `xs`、`sm`、`md`、`lg` 和 `xl` 这些大小。
-
-```jsx demo
-import { Checkbox } from "@resolid/react-ui";
-
-export default function App() {
-  return (
-    <div className={"flex flex-row gap-5"}>
-      <Checkbox size={"xs"}>XS</Checkbox>
-      <Checkbox size={"sm"}>SM</Checkbox>
-      <Checkbox>MD</Checkbox>
-      <Checkbox size={"lg"}>LG</Checkbox>
-      <Checkbox size={"xl"}>XL</Checkbox>
-    </div>
-  );
-}
-```
-
-### 颜色
-
-通过传递 `color` 属性来更改多选框的颜色。多选框支持 `primary`、`secondary`、`success`、`warning`、`danger` 和 `neutral` 这些颜色。
-
-```jsx demo
-import { Checkbox } from "@resolid/react-ui";
-
-export default function App() {
-  const colors = ["primary", "secondary", "success", "warning", "danger", "neutral"];
-
-  return (
-    <div className={"flex flex-row gap-5"}>
-      {colors.map((color) => (
-        <Checkbox key={color} defaultChecked color={color}>
-          {color}
-        </Checkbox>
-      ))}
     </div>
   );
 }

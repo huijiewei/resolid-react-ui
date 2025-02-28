@@ -36,9 +36,21 @@ import { Input, InputAddon, InputGroup } from "@resolid/react-ui";
 
 ## 举例
 
-### 可控
+### 默认值
 
-`value` 属性可用于可控值。当用户输入并接收新值时， `onChange` 事件将被触发。
+使用 `defaultValue` 属性提供初始的、不受控制的值。
+
+```jsx demo
+import { Input } from "@resolid/react-ui";
+
+export default function App() {
+  return <Input defaultValue={"Resolid UI"} placeholder="输入框" />;
+}
+```
+
+### 可控值
+
+使用 `value` 和 `onChange` 属性来控制输入的值。
 
 ```jsx demo
 import { Input } from "@resolid/react-ui";
@@ -51,26 +63,6 @@ export default function App() {
     <div className={"flex flex-col gap-2"}>
       <p>你输入的是: {value}</p>
       <Input value={value} onChange={(value) => setValue(value)} placeholder="输入框" />
-    </div>
-  );
-}
-```
-
-### 大小
-
-通过传递 `size` 属性来更改输入框的大小。输入框支持 `xs`、`sm`、`md`、`lg` 和 `xl` 这些大小。
-
-```jsx demo
-import { Input } from "@resolid/react-ui";
-
-export default function App() {
-  return (
-    <div className={"flex flex-col gap-3"}>
-      <Input size={"xs"} placeholder={"XS 超小"} />
-      <Input size={"sm"} placeholder={"SM 小型"} />
-      <Input placeholder={"默认大小"} />
-      <Input size={"lg"} placeholder={"LG 大型"} />
-      <Input size={"xl"} placeholder={"XL 超大"} />
     </div>
   );
 }

@@ -40,9 +40,33 @@ import { RadioGroup, Radio } from "@resolid/react-ui";
 
 ## 举例
 
-### 可控
+### 默认值
 
-使用 `RadioGroup` 组件的 `value` 和 `onChange` 属性来控制选定的单选项目
+使用 `defaultValue` 属性来控制默认选定的单选项目
+
+```jsx demo
+import { Radio, RadioGroup } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <RadioGroup
+      name={"frameworksRadioGroup"}
+      defaultValue={"React"}
+      className={"flex flex-row items-center gap-5"}
+    >
+      <Radio value={"React"}>React</Radio>
+      <Radio value={"Angular"}>Angular</Radio>
+      <Radio value={"Vue"}>Vue</Radio>
+      <Radio value={"SolidJS"}>SolidJS</Radio>
+      <Radio value={"Svelte"}>Svelte</Radio>
+    </RadioGroup>
+  );
+}
+```
+
+### 可控值
+
+使用 `value` 和 `onChange` 属性来控制选定的单选项目
 
 ```jsx demo
 import { Radio, RadioGroup } from "@resolid/react-ui";
@@ -67,64 +91,6 @@ export default function App() {
         <Radio value={"Svelte"}>Svelte</Radio>
       </RadioGroup>
     </div>
-  );
-}
-```
-
-### 大小
-
-通过传递 `size` 属性来更改单选框的大小，单选框支持 `xs`、`sm`、`md`、`lg` 和 `xl` 这些大小。
-
-```jsx demo
-import { Radio, RadioGroup } from "@resolid/react-ui";
-
-export default function App() {
-  return (
-    <RadioGroup
-      name={"sizesRadioGroup"}
-      defaultValue={"md"}
-      className={"flex flex-row items-center gap-5"}
-    >
-      <Radio value={"xs"} size={"xs"}>
-        XS
-      </Radio>
-      <Radio value={"sm"} size={"sm"}>
-        SM
-      </Radio>
-      <Radio value={"md"}>MD</Radio>
-      <Radio value={"lg"} size={"lg"}>
-        LG
-      </Radio>
-      <Radio value={"xl"} size={"xl"}>
-        XL
-      </Radio>
-    </RadioGroup>
-  );
-}
-```
-
-### 颜色
-
-通过传递 `color` 属性来更改单选框的颜色，单选框支持 `primary`、`secondary`、`success`、`warning`、`danger` 和 `neutral` 这些颜色。
-
-```jsx demo
-import { Radio, RadioGroup } from "@resolid/react-ui";
-
-export default function App() {
-  const colors = ["primary", "secondary", "success", "warning", "danger", "neutral"];
-
-  return (
-    <RadioGroup
-      name={"colorsRadioGroup"}
-      defaultValue={"secondary"}
-      className={"flex flex-row items-center gap-5"}
-    >
-      {colors.map((color) => (
-        <Radio key={color} value={color} color={color}>
-          {color}
-        </Radio>
-      ))}
-    </RadioGroup>
   );
 }
 ```
