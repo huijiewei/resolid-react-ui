@@ -57,7 +57,7 @@ export default defineConfig(({ command, isSsrBuild }) => {
       }),
       reactRouterHonoServer({
         entryFile: "server.node.ts",
-        exclude: ["/.resolid/component-demos/*"],
+        exclude: ["/.resolid/**/*"],
       }),
       tailwindcss(),
       reactRouter(),

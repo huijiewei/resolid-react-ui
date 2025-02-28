@@ -1,4 +1,4 @@
-import { isUndefined, runIf } from "@resolid/utils";
+import { runIf } from "@resolid/utils";
 import { type SetStateAction, useState } from "react";
 
 export type UseControllableStateOptions<T> = {
@@ -13,7 +13,7 @@ export const useControllableState = <T>(options: UseControllableStateOptions<T>)
 
   const [uncontrolledState, setUncontrolledState] = useState(defaultValue as T);
 
-  const controlled = !isUndefined(value);
+  const controlled = value !== undefined;
   const currentValue = controlled ? value : uncontrolledState;
 
   const setValue = (value: SetStateAction<T>) => {

@@ -1,4 +1,4 @@
-import { isFunction, isUndefined, runIf } from "@resolid/utils";
+import { isFunction, runIf } from "@resolid/utils";
 import { type SetStateAction, useSyncExternalStore } from "react";
 import { useIsomorphicEffect } from "../use-isomorphic-effect";
 
@@ -9,7 +9,7 @@ const getLocalStorageItem = (key: string) => {
 const setLocalStorageItem = (key: string, value: string | undefined) => {
   const oldValue = getLocalStorageItem(key);
 
-  if (isUndefined(value)) {
+  if (value === undefined) {
     window.localStorage.removeItem(key);
   } else {
     window.localStorage.setItem(key, value);
@@ -37,14 +37,14 @@ export const useLocalStorage = <T>(key: string, initialValue?: (() => T) | T) =>
   const setValue = (value: SetStateAction<T>) => {
     const nextValue = runIf(value, store ? JSON.parse(store) : initialResolved);
 
-    setLocalStorageItem(key, !isUndefined(nextValue) ? JSON.stringify(nextValue) : undefined);
+    setLocalStorageItem(key, nextValue !== undefined ? JSON.stringify(nextValue) : undefined);
   };
 
   useIsomorphicEffect(() => {
-    if (isUndefined(getLocalStorageItem(key)) && !isUndefined(initialResolved)) {
+    if (getLocalStorageItem(key) === undefined && initialResolved !== undefined) {
       setLocalStorageItem(key, JSON.stringify(initialResolved));
     }
   }, [key, initialResolved]);
 
-  return [!isUndefined(store) ? (JSON.parse(store) as T) : store, setValue] as const;
+  return [store !== undefined ? (JSON.parse(store) as T) : store, setValue] as const;
 };

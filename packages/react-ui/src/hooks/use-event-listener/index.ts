@@ -1,4 +1,4 @@
-import { isBrowser, isString, isUndefined } from "@resolid/utils";
+import { isBrowser, isString } from "@resolid/utils";
 import { type RefObject, useEffect, useRef } from "react";
 import { useIsomorphicEffect } from "../use-isomorphic-effect";
 
@@ -49,11 +49,8 @@ export const useEventListener = <
       return;
     }
 
-    const targetElement: Exclude<UseEventListenerTarget, RefObject<HTMLElement>> | null = isUndefined(target)
-      ? window
-      : "current" in target
-        ? target.current
-        : target;
+    const targetElement: Exclude<UseEventListenerTarget, RefObject<HTMLElement>> | null =
+      target === undefined ? window : "current" in target ? target.current : target;
 
     if (!targetElement?.addEventListener) {
       return;
