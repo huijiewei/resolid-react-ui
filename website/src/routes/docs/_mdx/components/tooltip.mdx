@@ -182,6 +182,7 @@ const useTooltipSelection = () => {
   const ref = useRef(null);
   const { setOpen, setPositionReference, floatingReference, ...tooltip } = useTooltip({
     placement: "top",
+    inlineMiddleware: true,
   });
 
   useEffect(() => {

@@ -64,6 +64,12 @@ export type TooltipProps = UseDisclosureOptions & {
    * @default 250
    */
   duration?: number;
+
+  /**
+   * 控制是否启用 inline 中间件
+   * @default false
+   */
+  inlineMiddleware?: boolean;
 };
 
 export const useTooltip = ({
@@ -76,6 +82,7 @@ export const useTooltip = ({
   openDelay = 300,
   closeDelay = 150,
   duration = 250,
+  inlineMiddleware = false,
 }: TooltipProps = {}) => {
   const [openState, { handleOpen, handleClose }] = useDisclosure({ open, defaultOpen, onOpenChange });
 
@@ -91,7 +98,7 @@ export const useTooltip = ({
 
   const { floatingStyles, refs, context } = useFloating({
     middleware: [
-      inline(),
+      inlineMiddleware && inline(),
       offset(8),
       placement == "auto" ? autoPlacement() : flip(),
       shift({ padding: 8 }),
