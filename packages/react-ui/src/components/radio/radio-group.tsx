@@ -1,7 +1,7 @@
 import { useControllableState } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import type { Orientation } from "../../shared/types";
-import { ariaAttr } from "../../utils";
+import { ariaAttr, tx } from "../../utils";
 import { type RadioGroupBaseProps, RadioGroupContext } from "./radio-group-context";
 
 export type RadioGroupProps = RadioGroupBaseProps & {
@@ -35,6 +35,7 @@ export const RadioGroup = (props: PrimitiveProps<"div", RadioGroupProps, "role">
     value,
     defaultValue = "",
     onChange,
+    className,
     children,
     ...rest
   } = props;
@@ -73,6 +74,7 @@ export const RadioGroup = (props: PrimitiveProps<"div", RadioGroupProps, "role">
       aria-readonly={ariaAttr(readOnly)}
       aria-invalid={ariaAttr(invalid)}
       aria-orientation={orientation}
+      className={tx("inline-flex", orientation == "horizontal" ? "flex-row" : "flex-col", className)}
       {...rest}
     >
       <RadioGroupContext value={groupContext}>{children}</RadioGroupContext>

@@ -10,7 +10,7 @@ import { Radio, RadioGroup } from "@resolid/react-ui";
 
 export default function App() {
   return (
-    <RadioGroup name={"frameworksRadioGroup"} className={"flex flex-row items-center gap-5"}>
+    <RadioGroup name={"frameworksRadioGroup"} className={"gap-5"}>
       <Radio value={"React"}>React</Radio>
       <Radio value={"Angular"}>Angular</Radio>
       <Radio value={"Vue"}>Vue</Radio>
@@ -49,11 +49,7 @@ import { Radio, RadioGroup } from "@resolid/react-ui";
 
 export default function App() {
   return (
-    <RadioGroup
-      name={"frameworksRadioGroup"}
-      defaultValue={"React"}
-      className={"flex flex-row items-center gap-5"}
-    >
+    <RadioGroup name={"frameworksRadioGroup"} defaultValue={"React"} className={"gap-5"}>
       <Radio value={"React"}>React</Radio>
       <Radio value={"Angular"}>Angular</Radio>
       <Radio value={"Vue"}>Vue</Radio>
@@ -82,7 +78,7 @@ export default function App() {
         name={"frameworksRadioGroup"}
         value={value}
         onChange={setValue}
-        className={"flex flex-row items-center gap-5"}
+        className={"gap-5"}
       >
         <Radio value={"React"}>React</Radio>
         <Radio value={"Angular"}>Angular</Radio>
@@ -91,6 +87,26 @@ export default function App() {
         <Radio value={"Svelte"}>Svelte</Radio>
       </RadioGroup>
     </div>
+  );
+}
+```
+
+### 垂直方向
+
+使用 `defaultValue` 属性来控制默认选定的单选项目
+
+```jsx demo
+import { Radio, RadioGroup } from "@resolid/react-ui";
+
+export default function App() {
+  return (
+    <RadioGroup name={"frameworksRadioGroup"} orientation={"vertical"} className={"gap-3"}>
+      <Radio value={"React"}>React</Radio>
+      <Radio value={"Angular"}>Angular</Radio>
+      <Radio value={"Vue"}>Vue</Radio>
+      <Radio value={"SolidJS"}>SolidJS</Radio>
+      <Radio value={"Svelte"}>Svelte</Radio>
+    </RadioGroup>
   );
 }
 ```

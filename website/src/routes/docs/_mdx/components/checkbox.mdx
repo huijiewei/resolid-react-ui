@@ -76,7 +76,7 @@ export default function App() {
   return (
     <div className={"flex flex-col gap-2"}>
       <p>你选择了框架: {value.join(", ")}</p>
-      <CheckboxGroup value={value} onChange={setValue} className={"flex flex-row gap-5"}>
+      <CheckboxGroup value={value} onChange={setValue} className={"gap-5"}>
         <Checkbox value={"React"}>React</Checkbox>
         <Checkbox value={"Angular"}>Angular</Checkbox>
         <Checkbox value={"Vue"}>Vue</Checkbox>
@@ -111,7 +111,7 @@ export default function App() {
       >
         工作日
       </Checkbox>
-      <div className={"flex flex-row gap-5"}>
+      <div className={"inline-flex flex-row gap-5"}>
         {["周一", "周二", "周三", "周四", "周五"].map((day, index) => (
           <Checkbox
             key={day}

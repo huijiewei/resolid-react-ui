@@ -1,7 +1,8 @@
 import type { ChangeEvent } from "react";
 import { useControllableState } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
-import { isInputEvent } from "../../utils";
+import type { Orientation } from "../../shared/types";
+import { isInputEvent, tx } from "../../utils";
 import { type CheckboxGroupBaseProps, CheckboxGroupContext } from "./checkbox-group-context";
 
 export type CheckboxGroupProps = {
@@ -14,6 +15,12 @@ export type CheckboxGroupProps = {
    * onChange 回调
    */
   onChange?: (value: (string | number)[]) => void;
+
+  /**
+   * 方向
+   * @default 'horizontal'
+   */
+  orientation?: Orientation;
 } & CheckboxGroupBaseProps;
 
 export const CheckboxGroup = (props: PrimitiveProps<"div", CheckboxGroupProps, "role">) => {
@@ -25,6 +32,8 @@ export const CheckboxGroup = (props: PrimitiveProps<"div", CheckboxGroupProps, "
     value,
     defaultValue = [],
     onChange,
+    orientation = "horizontal",
+    className,
     children,
     ...rest
   } = props;
@@ -63,7 +72,11 @@ export const CheckboxGroup = (props: PrimitiveProps<"div", CheckboxGroupProps, "
   };
 
   return (
-    <div role={"group"} {...rest}>
+    <div
+      role={"group"}
+      className={tx("inline-flex", orientation == "horizontal" ? "flex-row" : "flex-col", className)}
+      {...rest}
+    >
       <CheckboxGroupContext value={context}>{children}</CheckboxGroupContext>
     </div>
   );
