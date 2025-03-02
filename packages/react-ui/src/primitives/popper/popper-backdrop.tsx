@@ -19,7 +19,7 @@ export const PopperBackdrop = (props: PrimitiveProps<"div">) => {
       className={tx(
         "fixed inset-0 z-50 overflow-auto",
         "duration-(--dv) transition-opacity",
-        status == "open" ? "opacity-30" : "opacity-0",
+        status == "open" ? "opacity-50" : "opacity-0",
         !hasBackgroundClass(className) && "bg-black",
         className,
       )}
