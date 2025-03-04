@@ -27,7 +27,7 @@ export default function App() {
         show(
           <Toast className={"flex gap-2"}>
             <ToastIndicator className={"pt-1"}>
-              <SpriteIcon name={"info"} />
+              <SpriteIcon name={"github-NOTE"} />
             </ToastIndicator>
             <ToastContent className={"flex flex-col gap-1"}>
               <ToastTitle>通知提醒</ToastTitle>
@@ -117,7 +117,7 @@ export default function App() {
           toastId.current = show(
             <Toast className={"flex gap-2"}>
               <ToastIndicator className={"pt-1"}>
-                <SpriteIcon name={"info"} />
+                <SpriteIcon name={"github-NOTE"} />
               </ToastIndicator>
               <ToastContent className={"flex flex-col gap-1"}>
                 <ToastTitle>通知提醒</ToastTitle>
@@ -139,7 +139,7 @@ export default function App() {
             toastId.current,
             <Toast color={"success"} className={"flex gap-2"}>
               <ToastIndicator className={"pt-1"}>
-                <SpriteIcon name={"info"} />
+                <SpriteIcon name={"github-NOTE"} />
               </ToastIndicator>
               <ToastContent className={"flex flex-col gap-1"}>
                 <ToastTitle>通知提醒</ToastTitle>
@@ -178,7 +178,7 @@ export default function App() {
   const ToastDemo = (
     <Toast className={"flex gap-2"}>
       <ToastIndicator className={"pt-1"}>
-        <SpriteIcon name={"info"} />
+        <SpriteIcon name={"github-NOTE"} />
       </ToastIndicator>
       <ToastContent className={"flex flex-col gap-1"}>
         <ToastTitle>通知提醒</ToastTitle>
@@ -235,7 +235,7 @@ export default function App() {
         show(
           <Toast onDismiss={() => alert("通知提醒关闭回调")} className={"flex gap-2"}>
             <ToastIndicator className={"pt-1"}>
-              <SpriteIcon name={"info"} />
+              <SpriteIcon name={"github-NOTE"} />
             </ToastIndicator>
             <ToastContent className={"flex flex-col gap-1"}>
               <ToastTitle>通知提醒</ToastTitle>
@@ -276,7 +276,7 @@ export default function App() {
   const promiseFn = (state) => {
     return state === "success"
       ? new Promise((resolve) => setTimeout(() => resolve({ message: "处理承诺成功" }), 3000))
-      : new Promise((resolve, reject) => setTimeout(reject, 30000));
+      : new Promise((resolve, reject) => setTimeout(() => reject("处理承诺失败"), 3000));
   };
 
   const PromiseToast = ({ state, data, error }) => {
@@ -286,15 +286,15 @@ export default function App() {
         color={state === "success" ? "success" : state === "failure" ? "danger" : undefined}
       >
         <ToastIndicator className={"w-5 pt-1"}>
-          {state === "success" && <SpriteIcon size={"1.5em"} name={"check"} />}
-          {state === "failure" && <SpriteIcon size={"1.5em"} name={"info"} />}
+          {state === "success" && <SpriteIcon size={"1.375em"} name={"check"} />}
+          {state === "failure" && <SpriteIcon size={"1.375em"} name={"info"} />}
           {state === "pending" && <Spinner />}
         </ToastIndicator>
         <ToastContent className={"flex flex-col gap-1"}>
           <ToastTitle>通知提醒</ToastTitle>
           <ToastDescription className={"text-sm"}>
             {state === "success" && data?.message}
-            {state === "failure" && "处理承诺失败"}
+            {state === "failure" && error}
             {state === "pending" && "开始处理承诺..."}
           </ToastDescription>
         </ToastContent>
@@ -304,7 +304,7 @@ export default function App() {
   };
 
   const handleClick = (state) => {
-    showPromise(promiseFn(state), PromiseToast, { duration: 30000 });
+    showPromise(promiseFn(state), PromiseToast);
   };
 
   return (

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useEffectEvent, useElementTransitionStatus, usePrevious, useTimeout } from "../../hooks";
+import { useEffectEvent, useElementTransitionStatus, useEventListener, usePrevious, useTimeout } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import { PopperAriaContext } from "../../primitives/popper/popper-aria-context";
 import { PopperDispatchContext } from "../../primitives/popper/popper-dispatch-context";
@@ -28,19 +28,21 @@ export const ToastRoot = (props: PrimitiveProps<"div", ToastRootProps, "role" | 
   const [openState, setOpenState] = useState(true);
   const [transitionEnable, setTransitionEnable] = useState(!update);
 
-  const { isMounted, status, setElement } = useElementTransitionStatus(openState, { duration: 250 });
+  const { isMounted, status, setElement } = useElementTransitionStatus(openState, { duration: 300 });
 
-  const handleDismiss = useEffectEvent(() => {
+  const handleDismiss = () => {
     setTransitionEnable(true);
     setOpenState(false);
     onDismiss?.();
-  });
+  };
+
+  const handleDismissRef = useEffectEvent(handleDismiss);
 
   useEffect(() => {
     if (dismiss) {
-      handleDismiss();
+      handleDismissRef();
     }
-  }, [dismiss, handleDismiss]);
+  }, [dismiss]);
 
   const prevStatus = usePrevious(status);
 
@@ -51,6 +53,11 @@ export const ToastRoot = (props: PrimitiveProps<"div", ToastRootProps, "role" | 
   }, [prevStatus, remove, status]);
 
   const { reset, clear } = useTimeout(handleDismiss, duration);
+
+  useEventListener("blur", clear);
+  useEventListener("focus", reset);
+
+  const translateStyle = placementTranslateStyles[placement?.split("-")[0] as keyof typeof placementTranslateStyles];
 
   if (!isMounted) {
     return null;
@@ -64,8 +71,6 @@ export const ToastRoot = (props: PrimitiveProps<"div", ToastRootProps, "role" | 
     descriptionId,
   };
 
-  const translateStyle = placementTranslateStyles[placement?.split("-")[0] as keyof typeof placementTranslateStyles];
-
   return (
     <div
       role="status"
@@ -74,7 +79,7 @@ export const ToastRoot = (props: PrimitiveProps<"div", ToastRootProps, "role" | 
       ref={setElement}
       className={tx(
         "flex flex-col items-center",
-        "transition-[opacity,translate] duration-[350ms] will-change-[opacity,translate]",
+        "transition-[opacity,translate] duration-300",
         transitionEnable && status == "open" && ["opacity-100", translateStyle.open],
         transitionEnable && status == "close" && ["opacity-0", translateStyle.close],
         transitionEnable && status == "initial" && ["opacity-0", translateStyle.close],

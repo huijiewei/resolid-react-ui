@@ -6,26 +6,28 @@ export const useTimeout = (callback: () => void, delay: number | null) => {
   const ref = useLatestRef(callback);
   const timer = useRef<ReturnType<typeof setTimeout>>(null);
 
-  const clear = useEffectEvent(() => {
+  const clear = () => {
     if (timer.current) {
       clearTimeout(timer.current);
       timer.current = null;
     }
-  });
+  };
 
-  const reset = useEffectEvent(() => {
+  const reset = () => {
     clear();
 
     if (delay !== null) {
       timer.current = setTimeout(() => ref.current(), delay);
     }
-  });
+  };
+
+  const resetRef = useEffectEvent(reset);
 
   useEffect(() => {
-    reset();
+    resetRef();
 
     return clear;
-  }, [clear, reset]);
+  }, []);
 
   return { clear, reset };
 };
