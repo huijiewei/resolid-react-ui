@@ -1,6 +1,7 @@
 import { useId } from "react";
 import { useControllableState } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
+import { OrientationContext } from "../../primitives/composite/orientation-context";
 import type { Orientation } from "../../shared/types";
 import { tx } from "../../utils";
 import { TabsContext, type TabsContextValue } from "./tabs-context";
@@ -39,12 +40,13 @@ export const TabsRoot = (props: PrimitiveProps<"div", TabsRootProps, "id">) => {
     baseId,
     selectedValue: valueState,
     setSelectedValue: setValueState,
-    orientation,
   };
 
   return (
     <div className={tx("flex", orientation == "horizontal" ? "flex-col" : "flex-row", className)} {...rest}>
-      <TabsContext value={context}>{children}</TabsContext>
+      <OrientationContext value={orientation}>
+        <TabsContext value={context}>{children}</TabsContext>
+      </OrientationContext>
     </div>
   );
 };

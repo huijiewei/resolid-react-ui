@@ -1,14 +1,9 @@
 import type { EmptyObject, PrimitiveProps } from "../../primitives";
-import { tx } from "../../utils";
+import { useOrientation } from "../../primitives/composite/orientation-context";
+import { Indicator } from "../../primitives/indicator/indicator";
 
-export const TabsIndicator = (props: PrimitiveProps<"div", EmptyObject, "role" | "children">) => {
-  const { className, ...rest } = props;
+export const TabsIndicator = (props: PrimitiveProps<"span", EmptyObject, "role" | "children">) => {
+  const orientation = useOrientation();
 
-  return (
-    <div
-      role={"presentation"}
-      className={tx("absolute transition-all duration-200 ease-in-out", className)}
-      {...rest}
-    />
-  );
+  return <Indicator orientation={orientation} {...props} />;
 };

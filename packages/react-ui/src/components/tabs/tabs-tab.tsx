@@ -3,6 +3,7 @@ import type { FocusEvent, MouseEvent } from "react";
 import { useButtonProps, useIsomorphicEffect, useMergeRefs } from "../../hooks";
 import { Polymorphic, type PolymorphicProps } from "../../primitives";
 import { useComposite } from "../../primitives/composite/composite-context";
+import { useOrientation } from "../../primitives/composite/orientation-context";
 import { ariaAttr, dataAttr, tx } from "../../utils";
 import { getPanelId, getTabId, useTabs } from "./tabs-context";
 
@@ -22,7 +23,8 @@ type TabsTabProps = {
 export const TabsTab = (props: PolymorphicProps<"button", TabsTabProps, "type" | "role" | "id" | "tabIndex">) => {
   const { render, value, disabled = false, children, className, onClick, onFocus, ref, ...rest } = props;
 
-  const { baseId, selectedValue, setSelectedValue, orientation } = useTabs();
+  const orientation = useOrientation();
+  const { baseId, selectedValue, setSelectedValue } = useTabs();
   const { ref: itemRef, index } = useListItem();
   const { activeIndex, setActiveIndex } = useComposite();
 
@@ -31,10 +33,10 @@ export const TabsTab = (props: PolymorphicProps<"button", TabsTabProps, "type" |
   const selected = selectedValue === value;
 
   useIsomorphicEffect(() => {
-    if (selected && activeIndex !== index) {
+    if (selected && index > -1 && index != activeIndex) {
       setActiveIndex(index);
     }
-  }, [activeIndex, index, selected, setActiveIndex]);
+  }, [index, selected, activeIndex, setActiveIndex]);
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     if (disabled) {
@@ -43,7 +45,6 @@ export const TabsTab = (props: PolymorphicProps<"button", TabsTabProps, "type" |
     }
 
     onClick?.(e);
-
     setSelectedValue(value);
   };
 

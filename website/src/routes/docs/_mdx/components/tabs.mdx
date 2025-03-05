@@ -7,19 +7,20 @@ description: 同一页面上相关面板之间切换的组件。
 
 ```jsx demo online=Tabs
 import { SpriteIcon } from "~/components/sprite-icon";
-import { Tabs, TabsList, TabsTab, TabsPanel } from "@resolid/react-ui";
+import { Tabs, TabsList, TabsTab, TabsIndicator, TabsPanel } from "@resolid/react-ui";
 
 export default function App() {
   return (
     <Tabs defaultValue={"auto"} className={"border-bd-normal w-auto rounded-md border"}>
       <TabsList className={"border-bd-normal gap-1 border-b p-1"}>
-        <TabsTab value={"auto"} className={"active:bg-bg-subtle rounded-md px-3"}>
+        <TabsIndicator className={"bg-bg-primary-emphasis w-(--wv) -bottom-px h-0.5"} />
+        <TabsTab value={"auto"} className={"rounded-md px-3"}>
           Auto
         </TabsTab>
-        <TabsTab value={"light"} className={"active:bg-bg-subtle rounded-md px-3"}>
+        <TabsTab value={"light"} className={"rounded-md px-3"}>
           Light
         </TabsTab>
-        <TabsTab value={"dark"} className={"active:bg-bg-subtle rounded-md px-3"}>
+        <TabsTab value={"dark"} className={"rounded-md px-3"}>
           Dark
         </TabsTab>
       </TabsList>
@@ -40,12 +41,13 @@ export default function App() {
 ## 使用
 
 ```js
-import { Tabs, TabsList, TabsTab, TabsPanel } from "@resolid/react-ui";
+import { Tabs, TabsList, TabsTab, TabsIndicator, TabsPanel } from "@resolid/react-ui";
 ```
 
 - `Tabs`: 将选项卡和相应面板分组。
 - `TabsList`: 分组单个选项卡按钮。
 - `TabsTab`: 单个交互式选项卡按钮，可切换相应的面板。
+- `TabsIndicator`: 突出显示当前活动选项卡的指示器。
 - `TabsPanel`: 当“对应”选项卡处于活动状态时显示的面板。
 
 选项卡默认只有必需的样式，你可以通过 `Tabs`、`TabsList`、`TabsTab` 和 `TabsPanel` 的 `className` 自定义。
@@ -72,7 +74,7 @@ import { Tabs, TabsList, TabsTab, TabsPanel } from "@resolid/react-ui";
 
 ```jsx demo
 import { SpriteIcon } from "~/components/sprite-icon";
-import { Tabs, TabsList, TabsTab, TabsPanel } from "@resolid/react-ui";
+import { Tabs, TabsList, TabsIndicator, TabsTab, TabsPanel } from "@resolid/react-ui";
 
 export default function App() {
   return (
@@ -82,13 +84,14 @@ export default function App() {
       defaultValue={"light"}
     >
       <TabsList className={"border-bd-normal border-e p-1"}>
-        <TabsTab value={"auto"} className={"active:bg-bg-subtle rounded-md px-3"}>
+        <TabsIndicator className={"bg-bg-subtle -z-1 w-(--wv) h-(--hv) rounded-md"} />
+        <TabsTab value={"auto"} className={"rounded-md px-3"}>
           Auto
         </TabsTab>
-        <TabsTab value={"light"} className={"active:bg-bg-subtle rounded-md px-3"}>
+        <TabsTab value={"light"} className={"rounded-md px-3"}>
           Light
         </TabsTab>
-        <TabsTab value={"dark"} className={"active:bg-bg-subtle rounded-md px-3"}>
+        <TabsTab value={"dark"} className={"rounded-md px-3"}>
           Dark
         </TabsTab>
       </TabsList>
@@ -110,23 +113,20 @@ export default function App() {
 
 ```jsx demo
 import { SpriteIcon } from "~/components/sprite-icon";
-import { Tabs, TabsList, TabsTab, TabsPanel } from "@resolid/react-ui";
+import { Tabs, TabsList, TabsTab, TabsIndicator, TabsPanel } from "@resolid/react-ui";
 
 export default function App() {
   return (
     <Tabs className={"border-bd-normal w-auto rounded-md border"} defaultValue={"auto"}>
       <TabsList className={"border-bd-normal border-b p-1"}>
-        <TabsTab value={"auto"} className={"active:bg-bg-subtle rounded-md px-3"}>
+        <TabsIndicator className={"bg-bg-primary-emphasis w-(--wv) -bottom-px h-0.5"} />
+        <TabsTab value={"auto"} className={"rounded-md px-3"}>
           Auto
         </TabsTab>
-        <TabsTab
-          value={"light"}
-          disabled
-          className={"not-disabled:active:bg-bg-subtle rounded-md px-3"}
-        >
+        <TabsTab value={"light"} disabled className={"rounded-md px-3"}>
           Light
         </TabsTab>
-        <TabsTab value={"dark"} className={"active:bg-bg-subtle rounded-md px-3"}>
+        <TabsTab value={"dark"} className={"rounded-md px-3"}>
           Dark
         </TabsTab>
       </TabsList>
@@ -150,12 +150,20 @@ export default function App() {
 
 ```jsx demo
 import { useState } from "react";
-import { Tabs, TabsList, TabsTab, TabsPanel, Button, CloseButton } from "@resolid/react-ui";
+import {
+  Tabs,
+  TabsList,
+  TabsTab,
+  TabsIndicator,
+  TabsPanel,
+  Button,
+  CloseButton,
+} from "@resolid/react-ui";
 
 const items = [
-  { id: "1", title: "Tab", content: "Tab Content" },
-  { id: "2", title: "Tab", content: "Tab Content" },
-  { id: "3", title: "Tab", content: "Tab Content" },
+  { id: "1", title: "Tab", content: "Tab-1" },
+  { id: "2", title: "Tab", content: "Tab-2" },
+  { id: "3", title: "Tab", content: "Tab-3" },
 ];
 
 export default function App() {
@@ -170,19 +178,22 @@ export default function App() {
       {
         id: uid,
         title: `Tab`,
-        content: `Tab Body`,
+        content: `Tab-${uid}`,
       },
     ]);
+
     setSelected(uid);
   };
 
   const removeTab = (id) => {
     if (tabs.length > 1) {
-      const newTabs = [...tabs].filter((tab) => tab.id !== id);
+      const tabIndex = tabs.findIndex((tab) => tab.id === id);
+      const newTabs = [...tabs.slice(0, tabIndex), ...tabs.slice(tabIndex + 1)];
 
       setTabs(newTabs);
+
       if (id === selected) {
-        setSelected(newTabs[0].id);
+        setSelected(newTabs[Math.max(tabIndex - 1, 0)].id);
       }
     }
   };
@@ -191,18 +202,17 @@ export default function App() {
     <Tabs
       value={selected}
       onChange={setSelected}
-      className={"border-bd-normal w-auto rounded-md border"}
+      className={"border-bd-normal min-w-90 w-auto rounded-md border"}
     >
       <TabsList className={"border-bd-normal border-b p-1"}>
+        <TabsIndicator className={"bg-bg-primary-emphasis w-(--wv) -bottom-px h-0.5"} />
         {tabs.map((tab) => {
           return (
             <TabsTab
               render={(props) => <div {...props} />}
               key={tab.id}
               value={tab.id}
-              className={
-                "active:bg-bg-subtle inline-flex select-none items-center rounded-md pe-1 ps-3"
-              }
+              className={"inline-flex select-none items-center rounded-md pe-1 ps-3"}
             >
               {tab.title}
               <CloseButton

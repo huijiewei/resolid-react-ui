@@ -1,24 +1,25 @@
 import { Composite } from "@floating-ui/react";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useMergeRefs } from "../../hooks";
 import type { EmptyObject, PrimitiveProps } from "../../primitives";
-import { CompositeContext, type CompositeContextValue } from "../../primitives/composite/composite-context";
+import { CompositeContext } from "../../primitives/composite/composite-context";
+import { useOrientation } from "../../primitives/composite/orientation-context";
+import { IndicatorContext } from "../../primitives/indicator/indicator-context";
 import { tx } from "../../utils";
-import { useTabs } from "./tabs-context";
 
 export const TabsList = (props: PrimitiveProps<"div", EmptyObject, "role">) => {
-  const { children, className, ...rest } = props;
+  const { children, className, ref, ...rest } = props;
 
-  const { orientation } = useTabs();
+  const orientation = useOrientation();
 
+  const listRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState<number | undefined>(0);
 
-  const context: CompositeContextValue = {
-    activeIndex,
-    setActiveIndex,
-  };
+  const refs = useMergeRefs(ref, listRef);
 
   return (
     <Composite
+      ref={refs}
       role={"tablist"}
       orientation={orientation}
       activeIndex={activeIndex}
@@ -30,7 +31,9 @@ export const TabsList = (props: PrimitiveProps<"div", EmptyObject, "role">) => {
       )}
       {...rest}
     >
-      <CompositeContext value={context}>{children}</CompositeContext>
+      <IndicatorContext value={{ listRef, activeIndex }}>
+        <CompositeContext value={{ activeIndex, setActiveIndex }}>{children}</CompositeContext>
+      </IndicatorContext>
     </Composite>
   );
 };

@@ -1,11 +1,9 @@
 import { createSafeContext } from "../../primitives";
-import type { Orientation } from "../../shared/types";
 
 export type TabsContextValue = {
   baseId: string;
   selectedValue?: string;
   setSelectedValue: (value: string) => void;
-  orientation: Orientation;
 };
 
 export const [TabsContext, useTabs] = createSafeContext<TabsContextValue>({
