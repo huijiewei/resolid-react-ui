@@ -1,16 +1,16 @@
 import { type CSSProperties, useEffect, useRef, useState } from "react";
 import { useIsomorphicEffect, useMergeRefs } from "../../hooks";
 import type { EmptyObject, PrimitiveProps } from "../../primitives";
+import { useOrientation } from "../../primitives/composite/orientation-context";
 import { tx } from "../../utils";
 import { useCollapsibleContent } from "./collapsible-context";
-import { useCollapsibleOrientation } from "./collapsible-orientation-context";
 
 export const CollapsibleContent = (props: PrimitiveProps<"div", EmptyObject, "id">) => {
   const { children, ref, ...rest } = props;
 
   const { id, open, mounted, status, setElement } = useCollapsibleContent();
 
-  const orientation = useCollapsibleOrientation(true);
+  const orientation = useOrientation(true);
 
   const elemRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState<{ width?: number; height?: number }>();

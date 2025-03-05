@@ -3,9 +3,9 @@ import { type KeyboardEvent, useState } from "react";
 import { useControllableState } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import { CompositeContext, type CompositeContextValue } from "../../primitives/composite/composite-context";
+import { OrientationContext } from "../../primitives/composite/orientation-context";
 import type { MultipleValueProps, Orientation, SingleValueProps } from "../../shared/types";
 import { tx } from "../../utils";
-import { CollapsibleOrientationContext } from "../collapsible/collapsible-orientation-context";
 import { type AccordionBaseProps, AccordionContext, type AccordionContextValue } from "./accordion-context";
 
 type AccordionSingleProps = {
@@ -105,9 +105,9 @@ export const AccordionRoot = (props: PrimitiveProps<"div", AccordionRootProps>) 
       {...rest}
     >
       <AccordionContext value={context}>
-        <CollapsibleOrientationContext value={orientation}>
+        <OrientationContext value={orientation}>
           <CompositeContext value={compositeContext}>{children}</CompositeContext>
-        </CollapsibleOrientationContext>
+        </OrientationContext>
       </AccordionContext>
     </Composite>
   );
