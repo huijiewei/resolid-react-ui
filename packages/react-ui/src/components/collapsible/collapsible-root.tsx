@@ -1,6 +1,7 @@
 import { type CSSProperties, useId } from "react";
-import { useDisclosure, type UseDisclosureOptions, useElementTransitionStatus } from "../../hooks";
+import { useDisclosure, useElementTransitionStatus } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
+import type { DisclosureProps } from "../../shared/types";
 import { tx } from "../../utils";
 import {
   CollapsibleContentContext,
@@ -9,18 +10,12 @@ import {
   type CollapsibleTriggerContextValue,
 } from "./collapsible-context";
 
-export type CollapsibleRootProps = UseDisclosureOptions & {
+export type CollapsibleRootProps = DisclosureProps & {
   /**
    * 是否禁用
    * @default false
    */
   disabled?: boolean;
-
-  /**
-   * 动画持续时间
-   * @default 250
-   */
-  duration?: number;
 };
 
 export const CollapsibleRoot = (props: PrimitiveProps<"div", CollapsibleRootProps>) => {

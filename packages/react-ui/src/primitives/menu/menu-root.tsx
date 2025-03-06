@@ -22,7 +22,8 @@ import {
   useTypeahead,
 } from "@floating-ui/react";
 import { type PropsWithChildren, useEffect, useRef, useState } from "react";
-import { useDisclosure, type UseDisclosureOptions, usePreventScroll } from "../../hooks";
+import { useDisclosure, usePreventScroll } from "../../hooks";
+import type { DisclosureProps } from "../../shared/types";
 import { PopperAnchorContext, type PopperAnchorContextValue } from "../popper/popper-anchor-context";
 import { PopperArrowContext, type PopperArrowContextValue } from "../popper/popper-arrow-context";
 import { PopperDispatchContext, type PopperDispatchContextValue } from "../popper/popper-dispatch-context";
@@ -35,7 +36,7 @@ import { usePopperCloseComplete } from "../popper/use-popper-close-complete";
 import { MenuContext, type MenuContextValue } from "./menu-context";
 import { MenuHoverContext } from "./menu-hover-context";
 
-export type MenuRootProps = UseDisclosureOptions & {
+export type MenuRootProps = DisclosureProps & {
   /**
    * 选择项目后, 菜单将关闭
    * @default true
@@ -53,12 +54,6 @@ export type MenuRootProps = UseDisclosureOptions & {
    * @default "bottom-start"
    */
   placement?: Placement;
-
-  /**
-   * 动画持续时间
-   * @default 250
-   */
-  duration?: number;
 };
 
 export const MenuRoot = (props: PropsWithChildren<MenuRootProps>) => {

@@ -17,7 +17,7 @@ import {
   useTransitionStatus,
 } from "@floating-ui/react";
 import { useState } from "react";
-import { useDisclosure, type UseDisclosureOptions } from "../../hooks";
+import { useDisclosure } from "../../hooks";
 import type { PopperAnchorContextValue } from "../../primitives/popper/popper-anchor-context";
 import type { PopperArrowContextValue } from "../../primitives/popper/popper-arrow-context";
 import type { PopperFloatingContextValue } from "../../primitives/popper/popper-floating-context";
@@ -25,10 +25,11 @@ import type { PopperPositionerContextValue } from "../../primitives/popper/poppe
 import type { PopperStateContextValue } from "../../primitives/popper/popper-state-context";
 import type { PopperTransitionContextValue } from "../../primitives/popper/popper-transtion-context";
 import type { PopperTriggerContextValue } from "../../primitives/popper/popper-trigger-context";
+import type { DisclosureProps } from "../../shared/types";
 import type { TooltipRootContextValue } from "./tooltip-root-context";
 import { tooltipColorStyles } from "./tooltip.styles";
 
-export type TooltipProps = UseDisclosureOptions & {
+export type TooltipProps = DisclosureProps & {
   /**
    * 颜色
    * @default "neutral"
@@ -58,12 +59,6 @@ export type TooltipProps = UseDisclosureOptions & {
    * @default false
    */
   interactive?: boolean;
-
-  /**
-   * 动画持续时间
-   * @default 250
-   */
-  duration?: number;
 
   /**
    * 控制是否启用 inline 中间件

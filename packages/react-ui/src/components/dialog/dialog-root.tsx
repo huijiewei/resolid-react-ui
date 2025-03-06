@@ -8,7 +8,7 @@ import {
   type FloatingContext,
 } from "@floating-ui/react";
 import { useId, useState, type PropsWithChildren } from "react";
-import { useDisclosure, usePreventScroll, type UseDisclosureOptions } from "../../hooks";
+import { useDisclosure, usePreventScroll } from "../../hooks";
 import { PopperAriaContext } from "../../primitives/popper/popper-aria-context";
 import {
   PopperDispatchContext,
@@ -24,9 +24,10 @@ import {
   type PopperTransitionContextValue,
 } from "../../primitives/popper/popper-transtion-context";
 import { PopperTriggerContext, type PopperTriggerContextValue } from "../../primitives/popper/popper-trigger-context";
+import type { DisclosureProps } from "../../shared/types";
 import { DialogContext, type DialogBaseProps, type DialogContextValue } from "./dialog-context";
 
-export type DialogRootProps = UseDisclosureOptions &
+export type DialogRootProps = DisclosureProps &
   DialogBaseProps & {
     /**
      * 按下 Esc 键时关闭
@@ -45,12 +46,6 @@ export type DialogRootProps = UseDisclosureOptions &
      * @default false
      */
     preventScroll?: boolean;
-
-    /**
-     * 动画持续时间
-     * @default 250
-     */
-    duration?: number;
 
     /**
      * 对话框角色

@@ -15,7 +15,7 @@ import {
   useTransitionStatus,
 } from "@floating-ui/react";
 import { useId, useState } from "react";
-import { useDisclosure, type UseDisclosureOptions } from "../../hooks";
+import { useDisclosure } from "../../hooks";
 import type { PopperAnchorContextValue } from "../../primitives/popper/popper-anchor-context";
 import type { PopperArrowContextValue } from "../../primitives/popper/popper-arrow-context";
 import type { PopperDispatchContextValue } from "../../primitives/popper/popper-dispatch-context";
@@ -24,9 +24,10 @@ import type { PopperPositionerContextValue } from "../../primitives/popper/poppe
 import type { PopperStateContextValue } from "../../primitives/popper/popper-state-context";
 import type { PopperTransitionContextValue } from "../../primitives/popper/popper-transtion-context";
 import type { PopperTriggerContextValue } from "../../primitives/popper/popper-trigger-context";
+import type { DisclosureProps } from "../../shared/types";
 import type { PopoverBaseProps, PopoverRootContextValue } from "./popover-root-context";
 
-export type PopoverProps = UseDisclosureOptions &
+export type PopoverProps = DisclosureProps &
   PopoverBaseProps & {
     /**
      * 按下 Esc 键时关闭
@@ -45,12 +46,6 @@ export type PopoverProps = UseDisclosureOptions &
      * @default "auto"
      */
     placement?: "auto" | Placement;
-
-    /**
-     * 动画持续时间
-     * @default 250
-     */
-    duration?: number;
 
     /**
      * 控制是否启用 inline 中间件

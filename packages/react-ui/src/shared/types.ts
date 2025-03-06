@@ -1,4 +1,14 @@
+import type { UseDisclosureOptions } from "../hooks";
+
 export type Orientation = "horizontal" | "vertical";
+
+export type DisclosureProps = UseDisclosureOptions & {
+  /**
+   * 动画持续时间
+   * @default 250
+   */
+  duration?: number;
+};
 
 export type SingleValueProps = {
   /**
