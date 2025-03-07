@@ -10,14 +10,24 @@ import { cwd } from "node:process";
 export default function (options) {
   const root = cwd();
 
-  let config;
   let copied = false;
+  let rootDir;
+  let outputDir;
 
   return {
     name: "vite-plugin-copy",
     apply: "build",
-    configResolved(_config) {
-      config = _config;
+    configResolved(config) {
+      rootDir = config.root;
+    },
+    applyToEnvironment(environment) {
+      if (environment.name !== "ssr") {
+        return false;
+      }
+
+      outputDir = environment.config.build.outDir;
+
+      return true;
     },
     async writeBundle() {
       if (copied) {
@@ -33,8 +43,8 @@ export default function (options) {
         for (const matchedPath of matchedPaths) {
           const relativeMatchedPath = isAbsolute(matchedPath) ? relative(root, matchedPath) : matchedPath;
 
-          const resolvedSrc = resolve(config.root, relativeMatchedPath);
-          const resolvedDest = resolve(config.root, config.build.outDir, relativeMatchedPath);
+          const resolvedSrc = resolve(rootDir, relativeMatchedPath);
+          const resolvedDest = resolve(rootDir, outputDir, relativeMatchedPath);
 
           await cp(resolvedSrc, resolvedDest, { recursive: true });
         }

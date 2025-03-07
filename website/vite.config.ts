@@ -16,9 +16,9 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import remarkDocgen from "./plugins/remark-docgen";
 import remarkGithubAlert from "./plugins/remark-github-alert";
 import remarkRemove from "./plugins/remark-remove";
-import viteCopy from "./plugins/vite-copy";
+import viteSsrCopy from "./plugins/vite-ssr-copy";
 
-export default defineConfig(({ command, isSsrBuild }) => {
+export default defineConfig(({ command }) => {
   const isBuild = command == "build";
 
   const __dirname = fileURLToPath(new URL(".", import.meta.url));
@@ -83,44 +83,50 @@ export default defineConfig(({ command, isSsrBuild }) => {
       }),
       !isBuild && tsconfigPaths(),
       !isBuild && viteInspect(),
-      isBuild &&
-        isSsrBuild &&
-        viteCopy({
-          targets: ["src/routes/docs/_mdx/**/*.mdx"],
-        }),
+      viteSsrCopy({
+        targets: ["src/routes/docs/_mdx/**/*.mdx"],
+      }),
     ].filter(Boolean),
+    environments: {
+      ssr: {
+        build: {
+          target: "node22",
+          rollupOptions: {
+            output: {
+              hoistTransitiveImports: false,
+              manualChunks: undefined,
+            },
+          },
+        },
+      },
+    },
     build: {
-      target: isSsrBuild ? "node22" : "modules",
-      cssTarget: ["edge88", "firefox78", "chrome87", "safari14"],
       rollupOptions: {
         output: {
-          hoistTransitiveImports: false,
-          manualChunks: isSsrBuild
-            ? undefined
-            : (id) => {
-                if (
-                  id.includes("/node_modules/react/") ||
-                  id.includes("/node_modules/react-dom/") ||
-                  id.includes("/node_modules/react-is/") ||
-                  id.includes("/node_modules/scheduler/")
-                ) {
-                  return "react";
-                }
+          manualChunks: (id) => {
+            if (
+              id.includes("/node_modules/react/") ||
+              id.includes("/node_modules/react-dom/") ||
+              id.includes("/node_modules/react-is/") ||
+              id.includes("/node_modules/scheduler/")
+            ) {
+              return "react";
+            }
 
-                if (
-                  id.includes("/node_modules/@react-router/") ||
-                  id.includes("/node_modules/react-router/") ||
-                  id.includes("/node_modules/turbo-stream/") ||
-                  id.includes("react-router/with-props") ||
-                  id.includes("react-router-meta")
-                ) {
-                  return "react-router";
-                }
+            if (
+              id.includes("/node_modules/@react-router/") ||
+              id.includes("/node_modules/react-router/") ||
+              id.includes("/node_modules/turbo-stream/") ||
+              id.includes("react-router/with-props") ||
+              id.includes("react-router-meta")
+            ) {
+              return "react-router";
+            }
 
-                if (id.includes("src/components/history-link.tsx") || id.includes("src/components/sprite-icon.tsx")) {
-                  return "components";
-                }
-              },
+            if (id.includes("src/components/history-link.tsx") || id.includes("src/components/sprite-icon.tsx")) {
+              return "components";
+            }
+          },
         },
       },
     },

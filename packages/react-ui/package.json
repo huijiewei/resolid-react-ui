@@ -50,13 +50,13 @@
     "babel-plugin-react-compiler": "beta",
     "jsdom": "^26.0.0",
     "tsup": "^8.4.0",
-    "vitest": "^3.0.7",
+    "vitest": "^3.0.8",
     "vitest-axe": "pre"
   },
   "peerDependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "tailwindcss": "^4.0.10"
+    "tailwindcss": "^4.0.11"
   },
   "homepage": "https://ui.resolid.tech",
   "repository": {
