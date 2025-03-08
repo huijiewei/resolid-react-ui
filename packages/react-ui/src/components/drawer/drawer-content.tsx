@@ -3,6 +3,7 @@ import type { PrimitiveProps } from "../../primitives";
 import { usePopperAria } from "../../primitives/popper/popper-aria-context";
 import { PopperFloating } from "../../primitives/popper/popper-floating";
 import { usePopperTransition } from "../../primitives/popper/popper-transtion-context";
+import { getPopperAnimationProps } from "../../primitives/popper/utils";
 import { hasBackgroundClass } from "../../shared/utils";
 import { tx } from "../../utils";
 import { useDialog } from "../dialog/dialog-context";
@@ -32,7 +33,7 @@ const placementStyles = {
 };
 
 export const DrawerContent = (props: PrimitiveProps<"div">) => {
-  const { children, className, ...rest } = props;
+  const { children, className, style, ...rest } = props;
 
   const { placement } = useDrawer();
   const { labelId, descriptionId } = usePopperAria();
@@ -44,17 +45,24 @@ export const DrawerContent = (props: PrimitiveProps<"div">) => {
   }
 
   const drawerStyle = placementStyles[placement];
+  const animationProps = getPopperAnimationProps({
+    status,
+    duration,
+    transitionClassName: "transition-[opacity,translate]",
+    openClassName: ["opacity-100", drawerStyle.open],
+    defaultClassName: ["opacity-0", drawerStyle.close],
+  });
 
   return (
     <div className={"z-55 fixed left-0 top-0 flex h-screen w-screen justify-center"}>
       <FloatingFocusManager context={context} initialFocus={initialFocus} returnFocus={finalFocus}>
         <PopperFloating
-          duration={duration}
+          style={{ ...animationProps.styles, ...style }}
           className={tx(
             "fixed flex flex-col shadow-md transition-[opacity,translate]",
             drawerStyle.base,
+            animationProps.className,
             !hasBackgroundClass(className) && "bg-bg-normal",
-            status == "open" ? ["opacity-100", drawerStyle.open] : ["opacity-0", drawerStyle.close],
             className,
           )}
           aria-labelledby={labelId}

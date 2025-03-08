@@ -4,13 +4,14 @@ import { usePopperAria } from "../../primitives/popper/popper-aria-context";
 import { PopperFloating } from "../../primitives/popper/popper-floating";
 import { PopperPositioner } from "../../primitives/popper/popper-positioner";
 import { usePopperTransition } from "../../primitives/popper/popper-transtion-context";
+import { getPopperAnimationProps } from "../../primitives/popper/utils";
 import { hasBackgroundClass } from "../../shared/utils";
 import { tx } from "../../utils";
 import { Portal } from "../portal/portal";
 import { usePopoverRoot } from "./popover-root-context";
 
 export const PopoverContent = (props: PrimitiveProps<"div">) => {
-  const { children, className, ...rest } = props;
+  const { children, style, className, ...rest } = props;
 
   const { context, initialFocus, finalFocus } = usePopoverRoot();
   const { status, mounted, duration } = usePopperTransition();
@@ -21,15 +22,15 @@ export const PopoverContent = (props: PrimitiveProps<"div">) => {
     return null;
   }
 
+  const animationProps = getPopperAnimationProps({ status, duration });
+
   return (
     <Portal>
-      <PopperPositioner>
+      <PopperPositioner style={{ ...style, ...animationProps.styles }} className={animationProps.className}>
         <FloatingFocusManager context={context} initialFocus={initialFocus} returnFocus={finalFocus}>
           <PopperFloating
-            duration={duration}
             className={tx(
-              "relative border shadow-md transition-opacity",
-              status == "open" ? "opacity-100" : "opacity-0",
+              "relative border shadow-md",
               hasBackgroundClass(className) ? "border-transparent" : "bg-bg-normal border-bd-normal",
               className,
             )}

@@ -99,7 +99,7 @@ export const DialogRoot = (props: PropsWithChildren<DialogRootProps>) => {
 
   usePreventScroll({
     enabled: preventScroll && openState,
-    contentElement: context.elements.reference as HTMLElement,
+    contentElement: reference,
   });
 
   const { getReferenceProps, getFloatingProps } = useInteractions([
@@ -134,7 +134,7 @@ export const DialogRoot = (props: PropsWithChildren<DialogRootProps>) => {
     setReference: (node) => {
       setReference(node as HTMLElement);
     },
-    getReferenceProps: getReferenceProps,
+    getReferenceProps,
   };
 
   const { isMounted, status } = useTransitionStatus(context as FloatingContext, {

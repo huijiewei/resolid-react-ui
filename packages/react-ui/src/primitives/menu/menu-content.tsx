@@ -6,6 +6,7 @@ import type { PrimitiveProps } from "../index";
 import { PopperFloating } from "../popper/popper-floating";
 import { usePopperPositioner } from "../popper/popper-positioner-context";
 import { usePopperTransition } from "../popper/popper-transtion-context";
+import { getPopperAnimationProps } from "../popper/utils";
 import { useMenu } from "./menu-context";
 import { useMenuHover } from "./menu-hover-context";
 import { MenuItemContext, type MenuItemContextValue } from "./menu-item-context";
@@ -40,17 +41,18 @@ export const MenuContent = (props: PrimitiveProps<"div">) => {
     }
   };
 
+  const animationProps = getPopperAnimationProps({ status, duration });
+
   return (
     <Portal>
       <FloatingFocusManager context={context} modal={false}>
         <PopperFloating
           ref={refs}
-          style={{ ...style, ...positionerStyles }}
-          duration={duration}
+          style={{ ...style, ...positionerStyles, ...animationProps.styles }}
           onMouseEnter={handleMouseEnter}
           className={tx(
-            "border-bd-normal bg-bg-normal min-w-25 z-30 border p-1 shadow-sm transition-opacity",
-            status == "open" ? "opacity-100" : "opacity-0",
+            "border-bd-normal bg-bg-normal min-w-25 z-30 border p-1 shadow-sm",
+            animationProps.className,
             className,
           )}
           {...rest}

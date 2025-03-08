@@ -1,8 +1,8 @@
-import type { CSSProperties } from "react";
 import { hasBackgroundClass } from "../../shared/utils";
 import { tx } from "../../utils";
 import type { PrimitiveProps } from "../index";
 import { usePopperTransition } from "./popper-transtion-context";
+import { getPopperAnimationProps } from "./utils";
 
 export const PopperBackdrop = (props: PrimitiveProps<"div">) => {
   const { className, children, style, ...rest } = props;
@@ -13,13 +13,14 @@ export const PopperBackdrop = (props: PrimitiveProps<"div">) => {
     return null;
   }
 
+  const animationProps = getPopperAnimationProps({ status, duration, openClassName: "opacity-50" });
+
   return (
     <div
-      style={{ ...style, "--dv": `${duration}ms` } as CSSProperties}
+      style={{ ...animationProps.styles, ...style }}
       className={tx(
         "fixed inset-0 z-50 overflow-auto",
-        "duration-(--dv) transition-opacity",
-        status == "open" ? "opacity-50" : "opacity-0",
+        animationProps.className,
         !hasBackgroundClass(className) && "bg-black",
         className,
       )}

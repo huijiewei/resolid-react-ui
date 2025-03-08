@@ -27,9 +27,7 @@ export const PopperTrigger = (props: PolymorphicProps<"button", PopperTriggerPro
       {...buttonProps}
       ref={refs}
       data-active={dataAttr(active && open)}
-      {...getReferenceProps({
-        ...rest,
-      })}
+      {...getReferenceProps(rest)}
     >
       {children}
     </Polymorphic>

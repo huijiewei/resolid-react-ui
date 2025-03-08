@@ -3,6 +3,7 @@ import type { PrimitiveProps } from "../../primitives";
 import { PopperFloating } from "../../primitives/popper/popper-floating";
 import { usePopperPositioner } from "../../primitives/popper/popper-positioner-context";
 import { usePopperTransition } from "../../primitives/popper/popper-transtion-context";
+import { getPopperAnimationProps } from "../../primitives/popper/utils";
 import { tx } from "../../utils";
 import { PortalLite } from "../portal/portal-lite";
 import { useTooltipRoot } from "./tooltip-root-context";
@@ -20,15 +21,16 @@ export const TooltipContent = (props: PrimitiveProps<"div">) => {
     return null;
   }
 
+  const animationProps = getPopperAnimationProps({ status, duration });
+
   return (
     <PortalLite>
       <PopperFloating
         ref={refs}
-        style={{ ...style, ...positionerStyles }}
-        duration={duration}
+        style={{ ...style, ...positionerStyles, ...animationProps.styles }}
         className={tx(
-          "z-90 text-fg-emphasized inline-block max-w-96 border px-2 py-1 text-sm shadow-sm transition-opacity",
-          status == "open" ? "opacity-100" : "opacity-0",
+          "z-90 text-fg-emphasized inline-block max-w-96 border px-2 py-1 text-sm shadow-sm",
+          animationProps.className,
           !interactive && "select-none",
           contentClassName,
           className,
