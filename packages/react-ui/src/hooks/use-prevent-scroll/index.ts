@@ -135,7 +135,10 @@ export const usePreventScroll = (options: UsePreventScrollOptions) => {
     const cleanups = [setScrollbarWidth(), preventScrollStandard(), preventScrollMobileSafari?.()];
 
     return () => {
-      cleanups.forEach((fn) => fn?.());
+      for (const fn of cleanups) {
+        fn?.();
+      }
+
       body.removeAttribute(LOCK_ATTRIBUTE);
     };
   }, [contentElement, enabled]);

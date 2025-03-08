@@ -163,7 +163,7 @@ export const TagsInput = (
       loop={false}
       className={tx(
         inputStyles({ disabled, invalid, fullWidth }),
-        "bg-bg-normal flex-wrap gap-1 rounded-md",
+        "bg-bg-normal flex-wrap gap-1",
         tagsInputSizeStyle.root,
         inputHeightStyles[size],
         inputTextShareStyles[size],

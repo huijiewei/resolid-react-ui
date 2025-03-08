@@ -24,7 +24,7 @@ export type SingleValueProps = {
 
   /**
    * 默认值
-   * @default null
+   * @default null | []
    */
   defaultValue?: string | number | null;
 
@@ -45,10 +45,6 @@ export type MultipleValueProps = {
    */
   value?: (string | number)[];
 
-  /**
-   * 默认值
-   * default []
-   */
   defaultValue?: (string | number)[];
 
   /**

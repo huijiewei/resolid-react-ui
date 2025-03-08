@@ -128,7 +128,7 @@ export const usePopover = ({
 
   const referenceContext: PopperTriggerContextValue = {
     setReference: refs.setReference,
-    getReferenceProps: getReferenceProps,
+    getReferenceProps,
   };
 
   const anchorContext: PopperAnchorContextValue = {

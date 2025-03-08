@@ -3,6 +3,7 @@ import { AngleDownIcon } from "../../shared/icons";
 import { inputTextShareStyles } from "../../shared/styles";
 import type { FormInputFieldProps } from "../../shared/types";
 import { tx } from "../../utils";
+import { inputHeightStyles } from "../input/input.styles";
 import { type SelectSize, selectSizeStyles } from "./select.styles";
 
 export type NativeSelectProps = FormInputFieldProps & {
@@ -14,22 +15,23 @@ export type NativeSelectProps = FormInputFieldProps & {
 };
 
 export const NativeSelect = (props: PrimitiveProps<"select", NativeSelectProps>) => {
-  const { size = "md", disabled = false, invalid = false, children, className, ...rest } = props;
+  const { size = "md", disabled = false, invalid = false, fullWidth = false, children, className, ...rest } = props;
 
   const sizeStyle = selectSizeStyles[size];
-  const textStyle = inputTextShareStyles[size];
 
   return (
-    <div className={tx("relative", textStyle)}>
+    <div className={tx("relative", inputTextShareStyles[size])}>
       <select
         disabled={disabled}
         className={tx(
-          "bg-bg-normal w-full appearance-none rounded-md border",
+          "bg-bg-normal appearance-none rounded-md border",
           "outline-1 outline-transparent transition-colors",
           "focus:border-bg-primary-emphasis focus:outline-bg-primary-emphasis/70",
           invalid ? "border-bd-invalid" : "border-bd-normal",
           !invalid && !disabled && "not-focus:hover:border-bd-hovered",
           disabled && "opacity-60",
+          fullWidth && "w-full",
+          inputHeightStyles[size],
           sizeStyle.select,
           className,
         )}
