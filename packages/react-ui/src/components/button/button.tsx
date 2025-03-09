@@ -21,12 +21,6 @@ export type ButtonProps = ButtonBaseProps & {
   noPadding?: boolean;
 
   /**
-   * 全宽度
-   * @default false
-   */
-  fullWidth?: boolean;
-
-  /**
    * 仅图标
    * @default false
    */
@@ -71,7 +65,6 @@ export const Button = (props: PolymorphicProps<"button", ButtonProps, "role">) =
     loadingText,
     spinner,
     spinnerPlacement = "start",
-    fullWidth = false,
     iconOnly = false,
     noPadding: noPadding = false,
     type = "button",
@@ -110,7 +103,6 @@ export const Button = (props: PolymorphicProps<"button", ButtonProps, "role">) =
       style={{ ...style, "--rv": radiusStyle } as CSSProperties}
       className={tx(
         buttonStyles({ variant, color, size, disabled: disabledStatus, iconOnly, noPadding }),
-        fullWidth && "w-full",
         radiusClass,
         group && [
           "not-last:not-first:rounded-none focus-visible:z-1",

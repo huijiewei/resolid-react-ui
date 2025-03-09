@@ -68,7 +68,6 @@ export const Input = (props: PrimitiveProps<"input", InputProps, "children">) =>
     disabled = false,
     required = false,
     readOnly = false,
-    fullWidth = false,
     className,
     value,
     defaultValue = "",
@@ -106,11 +105,7 @@ export const Input = (props: PrimitiveProps<"input", InputProps, "children">) =>
 
   return (
     <div
-      className={tx(
-        inputStyles({ disabled, invalid, fullWidth }),
-        group && [inputGroupStyles, "focus-within:z-1"],
-        className,
-      )}
+      className={tx(inputStyles({ disabled, invalid }), group && [inputGroupStyles, "focus-within:z-1"], className)}
       style={
         {
           "--pw": prefix ? (prefixWidth ? `${prefixWidth}px` : affixSize) : undefined,

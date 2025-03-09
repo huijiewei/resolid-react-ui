@@ -30,9 +30,6 @@ export const inputStyles = tv({
       true: "border-bd-invalid",
       false: "border-bd-normal",
     },
-    fullWidth: {
-      true: "w-full",
-    },
   },
   compoundVariants: [
     {

@@ -15,7 +15,7 @@ export type NativeSelectProps = FormInputFieldProps & {
 };
 
 export const NativeSelect = (props: PrimitiveProps<"select", NativeSelectProps>) => {
-  const { size = "md", disabled = false, invalid = false, fullWidth = false, children, className, ...rest } = props;
+  const { size = "md", disabled = false, invalid = false, children, className, ...rest } = props;
 
   const sizeStyle = selectSizeStyles[size];
 
@@ -30,7 +30,6 @@ export const NativeSelect = (props: PrimitiveProps<"select", NativeSelectProps>)
           invalid ? "border-bd-invalid" : "border-bd-normal",
           !invalid && !disabled && "not-focus:hover:border-bd-hovered",
           disabled && "opacity-60",
-          fullWidth && "w-full",
           inputHeightStyles[size],
           sizeStyle.select,
           className,

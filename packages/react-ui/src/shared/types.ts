@@ -1,5 +1,7 @@
 import type { UseDisclosureOptions } from "../hooks";
 
+export type Direction = "rtl" | "ltr";
+
 export type Orientation = "horizontal" | "vertical";
 
 export type DisclosureProps = UseDisclosureOptions & {
@@ -107,10 +109,4 @@ export type FormInputFieldProps = FormFieldProps & {
    * 占位符文本
    */
   placeholder?: string;
-
-  /**
-   * 全宽度
-   * @default false
-   */
-  fullWidth?: boolean;
 };

@@ -94,7 +94,6 @@ export const TagsInput = (
     addOnBlur = false,
     addOnPaste = false,
     size = "md",
-    fullWidth = false,
     max = Infinity,
     maxLength,
     inputValue,
@@ -162,7 +161,7 @@ export const TagsInput = (
       onNavigate={setActiveIndex}
       loop={false}
       className={tx(
-        inputStyles({ disabled, invalid, fullWidth }),
+        inputStyles({ disabled, invalid }),
         "bg-bg-normal flex-wrap gap-1",
         tagsInputSizeStyle.root,
         inputHeightStyles[size],
