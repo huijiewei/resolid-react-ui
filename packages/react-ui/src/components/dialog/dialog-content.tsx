@@ -33,7 +33,7 @@ export const DialogContent = (props: PrimitiveProps<"div">) => {
     >
       <FloatingFocusManager context={context} initialFocus={initialFocus} returnFocus={finalFocus}>
         <PopperFloating
-          style={{ ...style, ...animationProps.styles }}
+          style={{ ...style, ...animationProps.style }}
           className={tx(
             "relative mx-auto shadow-md",
             animationProps.className,

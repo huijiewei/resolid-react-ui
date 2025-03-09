@@ -17,7 +17,7 @@ export const PopperBackdrop = (props: PrimitiveProps<"div">) => {
 
   return (
     <div
-      style={{ ...animationProps.styles, ...style }}
+      style={{ ...animationProps.style, ...style }}
       className={tx(
         "fixed inset-0 z-50 overflow-auto",
         animationProps.className,

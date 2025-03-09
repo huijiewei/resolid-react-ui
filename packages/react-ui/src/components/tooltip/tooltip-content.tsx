@@ -27,7 +27,7 @@ export const TooltipContent = (props: PrimitiveProps<"div">) => {
     <PortalLite>
       <PopperFloating
         ref={refs}
-        style={{ ...style, ...positionerStyles, ...animationProps.styles }}
+        style={{ ...style, ...positionerStyles, ...animationProps.style }}
         className={tx(
           "z-90 text-fg-emphasized inline-block max-w-96 border px-2 py-1 text-sm shadow-sm",
           animationProps.className,

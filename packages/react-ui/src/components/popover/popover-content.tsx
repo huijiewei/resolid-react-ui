@@ -26,7 +26,7 @@ export const PopoverContent = (props: PrimitiveProps<"div">) => {
 
   return (
     <Portal>
-      <PopperPositioner style={{ ...style, ...animationProps.styles }} className={animationProps.className}>
+      <PopperPositioner style={{ ...style, ...animationProps.style }} className={animationProps.className}>
         <FloatingFocusManager context={context} initialFocus={initialFocus} returnFocus={finalFocus}>
           <PopperFloating
             className={tx(

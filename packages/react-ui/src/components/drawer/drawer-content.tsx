@@ -57,7 +57,7 @@ export const DrawerContent = (props: PrimitiveProps<"div">) => {
     <div className={"z-55 fixed left-0 top-0 flex h-screen w-screen justify-center"}>
       <FloatingFocusManager context={context} initialFocus={initialFocus} returnFocus={finalFocus}>
         <PopperFloating
-          style={{ ...animationProps.styles, ...style }}
+          style={{ ...animationProps.style, ...style }}
           className={tx(
             "fixed flex flex-col shadow-md transition-[opacity,translate]",
             drawerStyle.base,

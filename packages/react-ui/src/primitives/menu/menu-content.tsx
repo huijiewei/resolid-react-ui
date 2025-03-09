@@ -48,7 +48,7 @@ export const MenuContent = (props: PrimitiveProps<"div">) => {
       <FloatingFocusManager context={context} modal={false}>
         <PopperFloating
           ref={refs}
-          style={{ ...style, ...positionerStyles, ...animationProps.styles }}
+          style={{ ...style, ...positionerStyles, ...animationProps.style }}
           onMouseEnter={handleMouseEnter}
           className={tx(
             "border-bd-normal bg-bg-normal min-w-25 z-30 border p-1 shadow-sm",

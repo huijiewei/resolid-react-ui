@@ -20,7 +20,7 @@ export const getPopperAnimationProps = (props: PopperAnimationProps) => {
   } = props;
 
   return {
-    styles: {
+    style: {
       "--dv": `${duration}ms`,
     } as CSSProperties,
     className: tx("duration-(--dv)", transitionClassName, status == "open" ? openClassName : defaultClassName),
