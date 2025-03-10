@@ -142,6 +142,10 @@ const menus: Menu[] = [
         path: "components/radio-group",
       },
       {
+        label: "列表框",
+        path: "components/listbox",
+      },
+      {
         label: "组合框",
         path: "components/combobox",
       },

@@ -1,14 +1,10 @@
 import { type CSSProperties, useId } from "react";
-import { useDisclosure, useElementTransitionStatus } from "../../hooks";
+import { useDisclosure } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import type { DisclosureProps } from "../../shared/types";
 import { tx } from "../../utils";
-import {
-  CollapsibleContentContext,
-  type CollapsibleContentContextValue,
-  CollapsibleTriggerContext,
-  type CollapsibleTriggerContextValue,
-} from "./collapsible-context";
+import { CollapsibleContentContext, type CollapsibleContentContextValue } from "./collapsible-content-context";
+import { CollapsibleTriggerContext, type CollapsibleTriggerContextValue } from "./collapsible-trigger-context";
 
 export type CollapsibleRootProps = DisclosureProps & {
   /**
@@ -35,21 +31,17 @@ export const CollapsibleRoot = (props: PrimitiveProps<"div", CollapsibleRootProp
 
   const id = useId();
 
-  const { isMounted, status, setElement } = useElementTransitionStatus(openState, { duration });
-
   const triggerContext: CollapsibleTriggerContextValue = {
     id,
+    disabled,
     open: openState,
     toggle: handleToggle,
-    disabled,
   };
+
   const contentContext: CollapsibleContentContextValue = {
     id,
     open: openState,
-    mounted: isMounted,
-    status,
     duration,
-    setElement,
   };
 
   return (

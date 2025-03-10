@@ -1,21 +1,22 @@
-import { type CSSProperties, useEffect, useRef, useState } from "react";
-import { useIsomorphicEffect, useMergeRefs } from "../../hooks";
+import { type CSSProperties, useEffect, useState } from "react";
+import { useElementTransitionStatus, useIsomorphicEffect, useMergeRefs } from "../../hooks";
 import type { EmptyObject, PrimitiveProps } from "../../primitives";
 import { useOrientation } from "../../primitives/composite/orientation-context";
 import { tx } from "../../utils";
-import { useCollapsibleContent } from "./collapsible-context";
+import { useCollapsibleContent } from "./collapsible-content-context";
 
 export const CollapsibleContent = (props: PrimitiveProps<"div", EmptyObject, "id">) => {
   const { children, ref, ...rest } = props;
 
-  const { id, open, mounted, status, setElement } = useCollapsibleContent();
-
   const orientation = useOrientation(true);
 
-  const elemRef = useRef<HTMLDivElement>(null);
+  const { id, open, duration } = useCollapsibleContent();
+
+  const { isMounted, status, element, setElement } = useElementTransitionStatus(open, { duration });
+
   const [size, setSize] = useState<{ width?: number; height?: number }>();
 
-  const [skipAnimation, setSkipAnimation] = useState(open || mounted);
+  const [skipAnimation, setSkipAnimation] = useState(open || isMounted);
 
   useEffect(() => {
     const raf = requestAnimationFrame(() => {
@@ -28,19 +29,19 @@ export const CollapsibleContent = (props: PrimitiveProps<"div", EmptyObject, "id
   }, []);
 
   useIsomorphicEffect(() => {
-    if (mounted && elemRef.current) {
-      const rect = elemRef.current.getBoundingClientRect();
+    if (isMounted && element) {
+      const rect = element.getBoundingClientRect();
 
       setSize({
         width: rect.width,
         height: rect.height,
       });
     }
-  }, [mounted]);
+  }, [element, isMounted]);
 
-  const refs = useMergeRefs(ref, elemRef, setElement);
+  const refs = useMergeRefs(ref, setElement);
 
-  if (!mounted) {
+  if (!isMounted) {
     return null;
   }
 
