@@ -1,4 +1,4 @@
-import type { KeyboardEvent, MouseEvent } from "react";
+import { getInteractiveHandlers } from "../../shared/utils";
 import type { PolymorphicProps } from "../index";
 import { MenuBaseItem, type MenuBaseItemProps } from "./menu-base-item";
 import { useMenuItem } from "./menu-item-context";
@@ -28,35 +28,18 @@ export const MenuItem = (props: PolymorphicProps<"div", MenuItemProps, "tabIndex
     ...rest
   } = props;
 
-  const handleClick = (e: MouseEvent<HTMLDivElement>) => {
-    if (disabled) {
-      e.preventDefault();
-      return;
-    }
+  const { handleClick, handleKeyUp, handleKeyDown } = getInteractiveHandlers({
+    disabled,
+    typing: typingRef.current,
+    onClick: (e) => {
+      onClick?.(e);
+      onSelect?.();
 
-    onClick?.(e);
-    onSelect?.();
-
-    if (closeOnSelect) {
-      menuEvents.emit("close");
-    }
-  };
-
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.target === e.currentTarget && e.key === " ") {
-      e.preventDefault();
-    }
-
-    if (e.target === e.currentTarget && e.key === "Enter") {
-      handleClick(e as unknown as MouseEvent<HTMLDivElement>);
-    }
-  };
-
-  const handleKeyUp = (e: KeyboardEvent) => {
-    if (e.target === e.currentTarget && !typingRef.current && e.key === " ") {
-      handleClick(e as unknown as MouseEvent<HTMLDivElement>);
-    }
-  };
+      if (closeOnSelect) {
+        menuEvents.emit("close");
+      }
+    },
+  });
 
   return (
     <MenuBaseItem
