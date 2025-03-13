@@ -3,6 +3,7 @@ import { useEffectEvent, useElementTransitionStatus, useEventListener, usePrevio
 import type { PrimitiveProps } from "../../primitives";
 import { PopperAriaContext } from "../../primitives/popper/popper-aria-context";
 import { PopperDispatchContext } from "../../primitives/popper/popper-dispatch-context";
+import { getPopperAnimationProps } from "../../primitives/popper/utils";
 import { tx } from "../../utils";
 import { Alert, type AlertProps } from "../alert/alert";
 import { useToastComponent } from "./toast-context";
@@ -21,7 +22,16 @@ export type ToastRootProps = AlertProps & {
 };
 
 export const ToastRoot = (props: PrimitiveProps<"div", ToastRootProps, "role" | "id">) => {
-  const { priority = "high", onDismiss, color = "primary", variant = "soft", children, className, ...rest } = props;
+  const {
+    priority = "high",
+    onDismiss,
+    color = "primary",
+    variant = "soft",
+    children,
+    className,
+    style,
+    ...rest
+  } = props;
 
   const { id, duration, placement, dismiss, update, remove } = useToastComponent();
 
@@ -57,8 +67,6 @@ export const ToastRoot = (props: PrimitiveProps<"div", ToastRootProps, "role" | 
   useEventListener("blur", clear);
   useEventListener("focus", reset);
 
-  const translateStyle = placementTranslateStyles[placement?.split("-")[0] as keyof typeof placementTranslateStyles];
-
   if (!isMounted) {
     return null;
   }
@@ -71,19 +79,24 @@ export const ToastRoot = (props: PrimitiveProps<"div", ToastRootProps, "role" | 
     descriptionId,
   };
 
+  const translateStyle = placementTranslateStyles[placement?.split("-")[0] as keyof typeof placementTranslateStyles];
+
+  const animationProps = getPopperAnimationProps({
+    status,
+    duration: 300,
+    transitionClassName: "transition-[opacity,translate]",
+    defaultClassName: ["opacity-0", translateStyle.close],
+    openClassName: ["opacity-100", translateStyle.open],
+  });
+
   return (
     <div
       role="status"
       aria-live={priority == "high" ? "assertive" : "polite"}
       aria-atomic="true"
       ref={setElement}
-      className={tx(
-        "flex flex-col items-center",
-        "transition-[opacity,translate] duration-300",
-        transitionEnable && status == "open" && ["opacity-100", translateStyle.open],
-        transitionEnable && status == "close" && ["opacity-0", translateStyle.close],
-        transitionEnable && status == "initial" && ["opacity-0", translateStyle.close],
-      )}
+      style={{ ...style, ...animationProps.style }}
+      className={tx("flex flex-col items-center", transitionEnable && animationProps.className)}
       onFocus={clear}
       onBlur={reset}
       onMouseOver={clear}
