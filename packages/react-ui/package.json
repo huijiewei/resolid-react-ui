@@ -37,7 +37,7 @@
   "dependencies": {
     "@floating-ui/react": "^0.27.5",
     "@resolid/utils": "^0.3.3",
-    "@tanstack/react-virtual": "^3.13.2",
+    "@tanstack/react-virtual": "^3.13.4",
     "cva": "beta"
   },
   "devDependencies": {
@@ -57,7 +57,7 @@
   "peerDependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "tailwindcss": "^4.0.13"
+    "tailwindcss": "^4.0.14"
   },
   "homepage": "https://ui.resolid.tech",
   "repository": {
