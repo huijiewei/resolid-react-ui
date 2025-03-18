@@ -1,0 +1,237 @@
+---
+title: 列表框
+description: 列表框显示选项列表并允许用户选择其中一个或多个。
+---
+
+## 演示
+
+```jsx demo online=Listbox componentProps=listbox/listbox.tsx|size,disabled,readOnly
+import { Listbox, ListboxContent, ListboxList } from "@resolid/react-ui";
+
+export default function App() {
+  const collection = [
+    {
+      label: "Fruits",
+      children: [
+        { value: "apple", label: "Apple" },
+        { value: "banana", label: "Banana" },
+        { value: "blueberry", label: "Blueberry" },
+        { value: "grapes", label: "Grapes" },
+        { value: "pineapple", label: "Pineapple" },
+      ],
+    },
+    {
+      label: "Vegetables",
+      children: [
+        { value: "aubergine", label: "Aubergine" },
+        { value: "broccoli", label: "Broccoli" },
+        { value: "carrot", label: "Carrot" },
+        { value: "courgette", label: "Courgette", disabled: true },
+        { value: "leek", label: "Leek" },
+      ],
+    },
+  ];
+
+  return (
+    <Listbox
+      name={"listbox"}
+      className={"border-bd-normal min-w-60 rounded-md border"}
+      collection={collection}
+    >
+      <ListboxContent className={"max-h-60 p-1"}>
+        <ListboxList />
+      </ListboxContent>
+    </Listbox>
+  );
+}
+```
+
+## 用法
+
+```js
+import {
+  Listbox,
+  ListboxFilter,
+  ListboxContent,
+  ListboxVirtualizer,
+  ListboxList,
+} from "@resolid/react-ui";
+```
+
+- `Listbox`: 列表框的根容器。
+- `ListboxFilter`: 列表框的筛选框
+- `ListboxContent`: 列表框要渲染的内容。
+- `ListboxVirtualizer`: 实现列表虚拟化。
+- `ListboxList`: 列表框的项目列表。
+
+```jsx
+<Listbox>
+  <ListboxFilter />
+  <ListboxContent>
+    <ListboxVirtualizer>
+      <ListboxList />
+    </ListboxVirtualizer>
+  </ListboxContent>
+</Listbox>
+```
+
+## 特点
+
+## 举例
+
+### 多选
+
+```jsx demo
+import { Listbox, ListboxContent, ListboxList } from "@resolid/react-ui";
+
+export default function App() {
+  const collection = [
+    {
+      label: "Fruits",
+      children: [
+        { value: "apple", label: "Apple" },
+        { value: "banana", label: "Banana" },
+        { value: "blueberry", label: "Blueberry" },
+        { value: "grapes", label: "Grapes" },
+        { value: "pineapple", label: "Pineapple" },
+      ],
+    },
+    {
+      label: "Vegetables",
+      children: [
+        { value: "aubergine", label: "Aubergine" },
+        { value: "broccoli", label: "Broccoli" },
+        { value: "carrot", label: "Carrot" },
+        { value: "courgette", label: "Courgette", disabled: true },
+        { value: "leek", label: "Leek" },
+      ],
+    },
+  ];
+
+  return (
+    <Listbox
+      multiple
+      defaultValue={["broccoli", "carrot"]}
+      name={"listbox"}
+      className={"border-bd-normal min-w-60 rounded-md border"}
+      collection={collection}
+    >
+      <ListboxContent className={"max-h-60 p-1"}>
+        <ListboxList />
+      </ListboxContent>
+    </Listbox>
+  );
+}
+```
+
+### 筛选
+
+```jsx demo
+import {
+  Listbox,
+  ListboxFilter,
+  ListboxContent,
+  ListboxVirtualizer,
+  ListboxList,
+} from "@resolid/react-ui";
+
+export default function App() {
+  const collection = [
+    {
+      label: "Fruits",
+      children: [
+        { value: "apple", label: "Apple" },
+        { value: "banana", label: "Banana" },
+        { value: "blueberry", label: "Blueberry" },
+        { value: "grapes", label: "Grapes" },
+        { value: "pineapple", label: "Pineapple" },
+      ],
+    },
+    {
+      label: "Vegetables",
+      children: [
+        { value: "aubergine", label: "Aubergine" },
+        { value: "broccoli", label: "Broccoli" },
+        { value: "carrot", label: "Carrot" },
+        { value: "courgette", label: "Courgette", disabled: true },
+        { value: "leek", label: "Leek" },
+      ],
+    },
+  ];
+
+  const virtualCollection = Array.from({ length: 1000 }, (_, i) => ({
+    value: i + 1,
+    label: `Item ${i + 1}`,
+  }));
+
+  return (
+    <div className={"flex flex-row gap-5"}>
+      <Listbox className={"min-w-60"} collection={collection}>
+        <ListboxFilter size={"sm"} />
+        <ListboxContent className={"max-h-60 p-1"}>
+          <ListboxList />
+        </ListboxContent>
+      </Listbox>
+      <Listbox className={"min-w-60"} collection={virtualCollection}>
+        <ListboxFilter size={"sm"} />
+        <ListboxContent className={"max-h-60 px-1"}>
+          <ListboxVirtualizer>
+            <ListboxList />
+          </ListboxVirtualizer>
+        </ListboxContent>
+      </Listbox>
+    </div>
+  );
+}
+```
+
+### 虚拟滚动
+
+```jsx demo
+import { Listbox, ListboxContent, ListboxVirtualizer, ListboxList } from "@resolid/react-ui";
+
+export default function App() {
+  const collection = Array.from({ length: 1000 }, (_, i) => ({
+    value: i + 1,
+    label: `Item ${i + 1}`,
+  }));
+
+  const groupCollection = Array.from({ length: Math.ceil(collection.length / 20) }, (_, i) => ({
+    label: `Group ${i + 1}`,
+    children: collection.slice(i * 20, (i + 1) * 20),
+  }));
+
+  return (
+    <div className={"flex flex-row gap-5"}>
+      <Listbox defaultValue={201} className={"min-w-60"} collection={collection}>
+        <ListboxContent className={"max-h-60 px-1"}>
+          <ListboxVirtualizer>
+            <ListboxList />
+          </ListboxVirtualizer>
+        </ListboxContent>
+      </Listbox>
+      <Listbox defaultValue={201} className={"min-w-60"} collection={groupCollection}>
+        <ListboxContent className={"max-h-60 px-1"}>
+          <ListboxVirtualizer>
+            <ListboxList />
+          </ListboxVirtualizer>
+        </ListboxContent>
+      </Listbox>
+    </div>
+  );
+}
+```
+
+## 属性
+
+### Listbox
+
+::PropsTable{file=listbox/listbox.tsx}
+
+### ListboxFilter
+
+::PropsTable{file=listbox/listbox-filter.tsx}
+
+### ListboxVirtualizer
+
+::PropsTable{file=listbox/listbox-virtualizer.tsx}

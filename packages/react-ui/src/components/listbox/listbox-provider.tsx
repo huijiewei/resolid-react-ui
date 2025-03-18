@@ -1,0 +1,177 @@
+import { type HTMLProps, type PropsWithChildren, useRef } from "react";
+import { useIsomorphicEffect, usePrevious } from "../../hooks";
+import type { AnyObject } from "../../primitives";
+import {
+  PopperFloatingContext,
+  type PopperFloatingContextValue,
+} from "../../primitives/popper/popper-floating-context";
+import type { InputSize } from "../input/input.styles";
+import { ListboxCollectionContext } from "./listbox-collection-context";
+import { ListboxFieldsContext } from "./listbox-field-context";
+import { ListboxFilterContext } from "./listbox-filter-context";
+import { ListboxGroupContext, type ListboxGroupContextValue } from "./listbox-group-context";
+import { ListboxItemContext, type ListboxItemContextValue } from "./listbox-item-context";
+import { ListboxScrollContext, type VirtualScrollTo } from "./listbox-scroll-context";
+import { ListboxStateContext } from "./listbox-state-context";
+import type { useListbox } from "./use-listbox";
+import type { defaultFieldNames, ListboxFieldNames, ListboxRenderItem } from "./utils";
+
+export type ListboxProviderProps<F extends ListboxFieldNames> = {
+  value: Omit<
+    ReturnType<typeof useListbox>,
+    | "navigationInteraction"
+    | "typeaheadInteraction"
+    | "interactiveHandlers"
+    | "handleEnterKeydown"
+    | "indexedItems"
+    | "selectedItems"
+  > &
+    Required<PopperFloatingContextValue> &
+    Partial<ListboxGroupContextValue<F>> & {
+      renderItem?: ListboxRenderItem<F>;
+      getItemProps: (userProps?: HTMLProps<HTMLElement> | undefined) => AnyObject;
+      getNavigationProps: (userProps?: HTMLProps<HTMLElement> | undefined) => AnyObject;
+      size: InputSize;
+      open: boolean;
+      disabled: boolean;
+      multiple: boolean;
+    };
+};
+
+export const ListboxProvider = <F extends ListboxFieldNames = typeof defaultFieldNames>(
+  props: PropsWithChildren<ListboxProviderProps<F>>,
+) => {
+  const {
+    value: {
+      mergedFieldNames,
+      nodeItems,
+      activeIndex,
+      selectedIndex,
+      selectedIndices,
+      elementsRef,
+      typingRef,
+      handleSelect,
+      pointer,
+      floating,
+      setFloating,
+      getFloatingProps,
+      renderGroupLabel = (item) => item[mergedFieldNames.label],
+      renderItem = (item) => item[mergedFieldNames.label],
+      getItemProps,
+      getNavigationProps,
+      filterRef,
+      setFilterKeyword,
+      size,
+      open,
+      disabled,
+      multiple,
+    },
+    children,
+  } = props;
+
+  const itemContext: ListboxItemContextValue<F> = {
+    activeIndex,
+    selectedIndices,
+    handleSelect,
+    getItemProps,
+    renderItem,
+    elementsRef,
+    typingRef,
+    filterRef,
+  };
+
+  const scrollToRef = useRef<VirtualScrollTo | null>(null);
+
+  const prevActiveIndex = usePrevious<number | null>(activeIndex);
+
+  useIsomorphicEffect(() => {
+    if (!open || pointer) {
+      return;
+    }
+
+    if (prevActiveIndex == null) {
+      return;
+    }
+
+    if (scrollToRef.current) {
+      const scrollIndex = activeIndex ?? selectedIndex;
+
+      if (scrollIndex) {
+        scrollToRef.current(scrollIndex > prevActiveIndex ? scrollIndex + 1 : scrollIndex - 1, {
+          align: "auto",
+        });
+      }
+
+      return;
+    }
+
+    if (floating && floating.offsetHeight < floating.scrollHeight) {
+      const item =
+        activeIndex != null
+          ? elementsRef.current[activeIndex]
+          : selectedIndex != null
+            ? elementsRef.current[selectedIndex]
+            : null;
+
+      if (item) {
+        const offsetHeight = elementsRef.current[prevActiveIndex]?.offsetHeight || 0;
+
+        const scrollHeight = floating.offsetHeight;
+        const top = item.offsetTop - offsetHeight;
+        const bottom = top + offsetHeight * 3;
+
+        if (top < floating.scrollTop) {
+          floating.scrollTop -= floating.scrollTop - top + 6;
+        } else if (bottom > scrollHeight + floating.scrollTop) {
+          floating.scrollTop += bottom - scrollHeight - floating.scrollTop + 6;
+        }
+      }
+    }
+  }, [activeIndex, elementsRef, floating, open, pointer, prevActiveIndex, scrollToRef, selectedIndex]);
+
+  useIsomorphicEffect(() => {
+    if (!open) {
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      if (scrollToRef.current) {
+        if (selectedIndex !== null) {
+          scrollToRef.current(selectedIndex, { align: "center" });
+        }
+
+        return;
+      }
+
+      if (floating && floating.offsetHeight < floating.scrollHeight) {
+        const item = selectedIndex !== null ? elementsRef.current[selectedIndex] : null;
+
+        if (item) {
+          floating.scrollTo({
+            top: item.offsetTop - floating.offsetHeight / 2 + item.offsetHeight / 2,
+          });
+        }
+      }
+    });
+    // eslint-disable-next-line react-compiler/react-compiler
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [elementsRef, floating, open]);
+
+  return (
+    <ListboxStateContext value={{ size, disabled, multiple }}>
+      <ListboxFilterContext value={{ getNavigationProps, filterRef, setFilterKeyword }}>
+        <ListboxScrollContext value={{ scrollToRef }}>
+          <PopperFloatingContext value={{ floating, setFloating, getFloatingProps }}>
+            <ListboxFieldsContext value={{ fieldNames: mergedFieldNames }}>
+              <ListboxCollectionContext value={{ collection: nodeItems }}>
+                <ListboxGroupContext value={{ renderGroupLabel }}>
+                  <ListboxItemContext value={itemContext}>{children}</ListboxItemContext>
+                </ListboxGroupContext>
+              </ListboxCollectionContext>
+            </ListboxFieldsContext>
+          </PopperFloatingContext>
+        </ListboxScrollContext>
+      </ListboxFilterContext>
+    </ListboxStateContext>
+  );
+};

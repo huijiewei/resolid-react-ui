@@ -17,6 +17,7 @@ export * from "./dropdown-menu/dropdown-menu";
 export * from "./input/input";
 export * from "./input/input-addon";
 export * from "./input/input-group";
+export * from "./listbox/listbox";
 export * from "./number-input/number-input";
 export * from "./pagination/pagination";
 export * from "./pagination/pagination-item";
