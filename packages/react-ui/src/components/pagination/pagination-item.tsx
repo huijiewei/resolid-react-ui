@@ -57,6 +57,7 @@ export const PaginationItem = (props: PolymorphicProps<"button", PaginationItemP
       {...buttonProps}
       title={title}
       aria-label={title}
+      aria-current={current ? "page" : undefined}
       className={tx(
         "inline-flex h-8 min-w-8 select-none appearance-none items-center justify-center rounded-md px-2",
         current ? ["text-fg-emphasized", currentStyle] : "bg-bg-subtle",

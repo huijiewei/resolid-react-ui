@@ -1,4 +1,4 @@
-import { clamp, isNumber, isString, range } from "@resolid/utils";
+import { isNumber, isString, range } from "@resolid/utils";
 import { useMemo } from "react";
 import { useControllableState } from "../../hooks";
 
@@ -64,18 +64,22 @@ export const usePagination = (options: UsePaginationOptions) => {
 
   // ['previous', 1, 'ellipsis', 4, 5, 6, 'ellipsis', 10, 'next']
   const pageItems = useMemo(() => {
-    const siblingsStart = clamp(currentPage - siblings, [boundaries + 2, totalPages - boundaries - siblings * 2 - 1]);
-
+    const startPages = range(1, Math.min(boundaries, totalPages));
     const endPages = range(Math.max(totalPages - boundaries + 1, boundaries + 1), totalPages);
 
-    const siblingsEnd = clamp(currentPage + siblings, [
-      boundaries + siblings * 2 + 2,
+    const siblingsStart = Math.max(
+      Math.min(currentPage - siblings, totalPages - boundaries - siblings * 2 - 1),
+      boundaries + 2,
+    );
+
+    const siblingsEnd = Math.min(
+      Math.max(currentPage + siblings, boundaries + siblings * 2 + 2),
       endPages.length > 0 ? endPages[0] - 2 : totalPages - 1,
-    ]);
+    );
 
     return [
       ...[["previous", Math.max(1, currentPage - 1)]],
-      ...range(1, Math.min(boundaries, totalPages)),
+      ...startPages,
       ...(siblingsStart > boundaries + 2
         ? [["start-ellipsis", Math.max(1, siblingsStart - 1)]]
         : boundaries + 1 < totalPages - boundaries

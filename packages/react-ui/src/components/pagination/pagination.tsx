@@ -60,18 +60,16 @@ export const Pagination = (props: PrimitiveProps<"nav", PaginationProps, "role">
     >
       {renderTotal?.(total, totalPages)}
       <ul className={"flex flex-nowrap gap-1"}>
-        {pageItems.map((item) => {
-          return (
-            <li key={`${item.pageType}-${item.page}`}>
-              {renderItem({
-                ...item,
-                color,
-                currentPage,
-                setCurrentPage,
-              })}
-            </li>
-          );
-        })}
+        {pageItems.map((item) => (
+          <li key={`${item.pageType}-${item.page}`}>
+            {renderItem({
+              ...item,
+              color,
+              currentPage,
+              setCurrentPage,
+            })}
+          </li>
+        ))}
       </ul>
     </nav>
   );
