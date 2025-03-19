@@ -4,6 +4,7 @@ import { Links, type LinksFunction, Meta, Outlet, Scripts, ScrollRestoration } f
 import { RouteProcessBar } from "~/components/route-process-bar";
 import { VercelAnalytics } from "~/components/vercel-analytics";
 
+import { ErrorComponent } from "~/components/error-component";
 import { SiteLayout } from "~/components/site-layout";
 import styles from "~/root.css?url";
 
@@ -60,3 +61,5 @@ export const Layout = ({ children }: PropsWithChildren) => {
 export default function Root() {
   return <Outlet />;
 }
+
+export const ErrorBoundary = ErrorComponent;

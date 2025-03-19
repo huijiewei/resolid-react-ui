@@ -77,22 +77,25 @@ export const ListboxVirtualizer = ({
   children,
 }: PropsWithChildren<ListboxVirtualizerProps>) => {
   const { size } = useListboxState();
-  const { floating, getFloatingProps } = usePopperFloating();
+  const { getFloatingProps } = usePopperFloating();
   const { collection } = useListboxCollection();
   const { getItemChildren, childrenKey } = useListboxFields();
-  const { scrollToRef } = useListboxScroll();
+  const { scrollToRef, scrollRef } = useListboxScroll();
 
-  const { flatItems, groupLabelIndices } = useMemo(() => {
+  const { flatItems, groupLabelIndices, groupIndices } = useMemo(() => {
     const flatItems: ListboxFlatItem[] = [];
     const groupLabelIndices: number[] = [];
+    const groupIndices: number[] = [];
 
     let itemIndex = 0;
+    let groupIndex = 0;
 
     for (const item of collection) {
       const children = getItemChildren<ListboxNodeItem>(item);
 
       if (Array.isArray(children)) {
         groupLabelIndices.push(itemIndex);
+        groupIndices.push(groupIndex);
 
         flatItems.push({ ...(omit(item, [childrenKey]) as ListboxNodeItem), __group: true });
         itemIndex++;
@@ -100,20 +103,22 @@ export const ListboxVirtualizer = ({
         for (const child of children) {
           flatItems.push(child);
           itemIndex++;
+          groupIndex++;
         }
       } else {
         flatItems.push(item);
         itemIndex++;
+        groupIndex++;
       }
     }
 
-    return { flatItems, groupLabelIndices };
+    return { flatItems, groupLabelIndices, groupIndices };
   }, [childrenKey, collection, getItemChildren]);
 
   // noinspection JSUnusedGlobalSymbols
   const virtual = useVirtualizer({
     count: flatItems.length,
-    getScrollElement: () => floating!,
+    getScrollElement: () => scrollRef.current,
     estimateSize: (index) => {
       return groupLabelIndices.includes(index)
         ? (groupLabelHeight ?? listboxGroupLabelHeights[size])
@@ -131,11 +136,11 @@ export const ListboxVirtualizer = ({
   useIsomorphicEffect(() => {
     // eslint-disable-next-line react-compiler/react-compiler
     scrollToRef.current = (index, options) => {
-      const groupCount = groupLabelIndices.reduce((acc, num) => acc + (num <= index ? 1 : 0), 0);
+      const groupCount = groupIndices.reduce((acc, num) => acc + (num <= index ? 1 : 0), 0);
 
-      virtual.scrollToIndex(index + groupCount, options);
+      virtual.scrollToIndex(index > 0 ? index + groupCount : 0, options);
     };
-  }, [groupLabelIndices, scrollToRef, virtual]);
+  }, [groupIndices, scrollToRef, virtual]);
 
   return (
     <div

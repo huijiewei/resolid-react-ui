@@ -34,7 +34,7 @@ export const ErrorComponent = ({ error }: ErrorComponentProps) => {
         <h1 className={"text-center"}>发生了错误</h1>
         <p>{error.message}</p>
         <p>堆栈跟踪:</p>
-        <pre className={"scrollbar scrollbar-base"}>{error.stack}</pre>
+        <pre className={"scrollbar scrollbar-base max-h-60"}>{error.stack}</pre>
         <div className={"not-prose mt-12 text-center"}>
           <HistoryBack />
         </div>

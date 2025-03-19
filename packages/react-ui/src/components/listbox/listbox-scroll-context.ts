@@ -5,6 +5,7 @@ import { createSafeContext } from "../../primitives";
 export type VirtualScrollTo = (index: number, options?: ScrollToOptions) => void;
 
 export type ListboxScrollContextValue = {
+  scrollRef: RefObject<HTMLElement | null>;
   scrollToRef: RefObject<VirtualScrollTo | null>;
 };
 

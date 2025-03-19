@@ -283,6 +283,7 @@ export const useListbox = <T extends ListboxItem>(options: UseListboxOptions<T>)
     getItemChildren,
     childrenKey,
     activeIndex,
+    setActiveIndex,
     selectedIndex,
     nodeItems,
     selectedItems,

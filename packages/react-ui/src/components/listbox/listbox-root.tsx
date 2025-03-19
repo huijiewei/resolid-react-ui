@@ -84,7 +84,6 @@ export const ListboxRoot = <T extends ListboxItem>(props: PrimitiveProps<"div", 
       <ListboxProvider
         value={{
           ...providerValue,
-          floating,
           setFloating,
           getFloatingProps: (props) =>
             getFloatingProps(

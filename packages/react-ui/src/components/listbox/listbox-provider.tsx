@@ -24,8 +24,9 @@ export type ListboxProviderProps<T extends ListboxItem> = {
     | "handleEnterKeydown"
     | "indexedItems"
     | "selectedItems"
+    | "setActiveIndex"
   > &
-    Required<PopperFloatingContextValue> & {
+    PopperFloatingContextValue & {
       renderItem?: ListboxBaseProps<T>["renderItem"];
       renderGroupLabel?: ListboxBaseProps<T>["renderGroupLabel"];
       getItemProps: (userProps?: HTMLProps<HTMLElement> | undefined) => AnyObject;
@@ -54,7 +55,6 @@ export const ListboxProvider = <T extends ListboxItem>(props: PropsWithChildren<
       typingRef,
       handleSelect,
       pointer,
-      floating,
       setFloating,
       getFloatingProps,
       renderGroupLabel = (item) => getItemLabel(item) as ReactNode,
@@ -95,6 +95,7 @@ export const ListboxProvider = <T extends ListboxItem>(props: PropsWithChildren<
     renderGroupLabel,
   } as ListboxGroupContextValue;
 
+  const scrollRef = useRef<HTMLElement | null>(null);
   const scrollToRef = useRef<VirtualScrollTo | null>(null);
 
   const prevActiveIndex = usePrevious<number | null>(activeIndex);
@@ -120,6 +121,8 @@ export const ListboxProvider = <T extends ListboxItem>(props: PropsWithChildren<
       return;
     }
 
+    const floating = scrollRef.current;
+
     if (floating && floating.offsetHeight < floating.scrollHeight) {
       const item =
         activeIndex != null
@@ -142,7 +145,7 @@ export const ListboxProvider = <T extends ListboxItem>(props: PropsWithChildren<
         }
       }
     }
-  }, [activeIndex, elementsRef, floating, open, pointer, prevActiveIndex, scrollToRef, selectedIndex]);
+  }, [activeIndex, elementsRef, open, pointer, prevActiveIndex, selectedIndex]);
 
   useIsomorphicEffect(() => {
     if (!open) {
@@ -158,6 +161,8 @@ export const ListboxProvider = <T extends ListboxItem>(props: PropsWithChildren<
         return;
       }
 
+      const floating = scrollRef.current;
+
       if (floating && floating.offsetHeight < floating.scrollHeight) {
         const item = selectedIndex !== null ? elementsRef.current[selectedIndex] : null;
 
@@ -170,13 +175,13 @@ export const ListboxProvider = <T extends ListboxItem>(props: PropsWithChildren<
     });
     // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [elementsRef, floating, open]);
+  }, [elementsRef, open]);
 
   return (
     <ListboxStateContext value={{ size, multiple, disabled, readOnly }}>
       <ListboxFilterContext value={{ getNavigationProps, filterRef, setFilterKeyword }}>
-        <ListboxScrollContext value={{ scrollToRef }}>
-          <PopperFloatingContext value={{ floating, setFloating, getFloatingProps }}>
+        <ListboxScrollContext value={{ scrollToRef, scrollRef }}>
+          <PopperFloatingContext value={{ setFloating, getFloatingProps }}>
             <ListboxFieldsContext value={fieldContext}>
               <ListboxCollectionContext value={{ collection: nodeItems }}>
                 <ListboxGroupContext value={groupContext}>
