@@ -1,16 +1,12 @@
 import type { VirtualItem } from "@tanstack/react-virtual";
 import { createSafeContext } from "../../primitives";
-import type { ListboxFieldNames, ListboxNodeItem } from "./utils";
+import type { ListboxFlatItem } from "./use-listbox";
 
-export type ListboxGroupItem<F extends ListboxFieldNames> = ListboxNodeItem<F> & { __group?: boolean };
-
-export type ListboxVirtualizerContextValue<F extends ListboxFieldNames> = {
+export type ListboxVirtualizerContextValue = {
   virtualItems: VirtualItem[];
-  flatItems: ListboxGroupItem<F>[];
+  flatItems: ListboxFlatItem[];
 };
 
-export const [ListboxVirtualizerContext, useListboxVirtualizer] = createSafeContext<
-  ListboxVirtualizerContextValue<ListboxFieldNames>
->({
+export const [ListboxVirtualizerContext, useListboxVirtualizer] = createSafeContext<ListboxVirtualizerContextValue>({
   name: "ListboxVirtualizerContext",
 });

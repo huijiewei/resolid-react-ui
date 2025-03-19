@@ -5,7 +5,7 @@ description: 列表框显示选项列表并允许用户选择其中一个或多�
 
 ## 演示
 
-```jsx demo online=Listbox componentProps=listbox/listbox.tsx|size,disabled,readOnly
+```jsx demo online=Listbox componentProps=listbox/listbox.tsx|size,disabled,readOnly,invalid
 import { Listbox, ListboxContent, ListboxList } from "@resolid/react-ui";
 
 export default function App() {
@@ -33,11 +33,7 @@ export default function App() {
   ];
 
   return (
-    <Listbox
-      name={"listbox"}
-      className={"border-bd-normal min-w-60 rounded-md border"}
-      collection={collection}
-    >
+    <Listbox name={"listbox"} className={"min-w-60"} collection={collection}>
       <ListboxContent className={"max-h-60 p-1"}>
         <ListboxList />
       </ListboxContent>
@@ -77,6 +73,12 @@ import {
 
 ## 特点
 
+- 可以是受控的，也可以是不受控的。
+- 支持项目、标签、项目组。
+- 焦点得到全面管理。
+- 完整的键盘导航。
+- 支持虚拟化
+
 ## 举例
 
 ### 多选
@@ -113,7 +115,7 @@ export default function App() {
       multiple
       defaultValue={["broccoli", "carrot"]}
       name={"listbox"}
-      className={"border-bd-normal min-w-60 rounded-md border"}
+      className={"min-w-60"}
       collection={collection}
     >
       <ListboxContent className={"max-h-60 p-1"}>

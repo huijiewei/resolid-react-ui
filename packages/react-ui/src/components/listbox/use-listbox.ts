@@ -1,52 +1,59 @@
 import { type FloatingRootContext, useListNavigation, useTypeahead } from "@floating-ui/react";
-import { type KeyboardEvent, useMemo, useRef, useState } from "react";
+import { type KeyboardEvent, type ReactNode, useCallback, useMemo, useRef, useState } from "react";
 import { useControllableState } from "../../hooks";
-import type { MultipleValueProps, SingleValueProps } from "../../shared/types";
+import type { AnyObject } from "../../primitives";
+import type { MultipleValueProps } from "../../shared/types";
 import type { InputSize } from "../input/input.styles";
-import {
-  checkSelected,
-  defaultFieldNames,
-  type ListboxFieldNames,
-  type ListboxFlatItem,
-  type ListboxListItem,
-  type ListboxNodeItem,
-  type ListboxRenderGroupLabel,
-  type ListboxRenderItem,
-  type ListboxValue,
-} from "./utils";
 
-export type ListboxBaseProps<F extends ListboxFieldNames> = (SingleValueProps | MultipleValueProps) & {
+export type ListboxValue = (string | number)[] | string | number | null;
+export type ListboxItem = AnyObject;
+export type ListboxNodeItem = ListboxItem & { __index: number };
+export type ListboxFlatItem = ListboxNodeItem & { __group?: boolean };
+
+export type ListboxBaseProps<T extends ListboxItem> = MultipleValueProps & {
   /**
    * 项目的集合
    */
-  collection: ListboxListItem<F>[];
+  collection: T[];
 
   /**
-   * 自定义字段映射, 当 `collection` 数据的字段名称与默认值不匹配时使用
-   *
-   * - `value`    值字段（默认 "value"）
-   * - `label`    显示文本字段（默认 "label"）
-   * - `disabled` 是否禁用的字段（默认 "disabled"）
-   * - `children` 子级数据字段（默认 "children"）
+   * 自定义 `value` 字段名
+   * @default "value"
    */
-  fieldNames?: F;
+  valueKey?: string;
+
+  /**
+   * 自定义 `label` 字段名
+   * @default "label"
+   */
+  labelKey?: string;
+
+  /**
+   * 自定义 `disabled` 字段名
+   * @default "disabled"
+   */
+  disabledKey?: string;
+
+  /**
+   * 自定义 `children` 字段名
+   * @default "children"
+   */
+  childrenKey?: string;
 
   /**
    * 自定义过滤函数
    */
-  searchFilter?: (keyword: string, item: ListboxListItem<F>) => boolean;
+  searchFilter?: (keyword: string, item: T) => boolean;
 
   /**
    * 自定义项目渲染
-   *
-   * 参数为 item, status
    */
-  renderItem?: ListboxRenderItem<F>;
+  renderItem?: (item: T, status: { active: boolean; selected: boolean }) => ReactNode;
 
   /**
    * 自定义组标签渲染
    */
-  renderGroupLabel?: ListboxRenderGroupLabel<F>;
+  renderGroupLabel?: (group: T) => ReactNode;
 
   /**
    * 大小
@@ -55,41 +62,64 @@ export type ListboxBaseProps<F extends ListboxFieldNames> = (SingleValueProps | 
   size?: InputSize;
 };
 
-export type UseListboxOptions<F extends ListboxFieldNames> = Omit<
-  ListboxBaseProps<F>,
-  "renderItem" | "renderGroupLabel"
-> & {
+export type UseListboxOptions<T extends ListboxItem> = Omit<ListboxBaseProps<T>, "renderItem" | "renderGroupLabel"> & {
   context: FloatingRootContext;
   loop?: boolean;
   onSelect?: () => void;
 };
 
-export const useListbox = <F extends ListboxFieldNames = typeof defaultFieldNames>(options: UseListboxOptions<F>) => {
+export type UseListboxResult<T extends ListboxItem> = ReturnType<typeof useListbox<T>>;
+
+export const useListbox = <T extends ListboxItem>(options: UseListboxOptions<T>) => {
   const {
     multiple = false,
     value,
     defaultValue = multiple ? [] : null,
     onChange,
     collection = [],
-    fieldNames,
+    valueKey = "value",
+    labelKey = "label",
+    disabledKey = "disabled",
+    childrenKey = "children",
     context,
     loop,
     onSelect,
     searchFilter,
   } = options;
 
-  const mergedFieldNames = {
-    value: fieldNames?.value ?? defaultFieldNames.value,
-    label: fieldNames?.label ?? defaultFieldNames.label,
-    disabled: fieldNames?.disabled ?? defaultFieldNames.disabled,
-    children: fieldNames?.children ?? defaultFieldNames.children,
-  };
-
   const [valueState, setValueState] = useControllableState<ListboxValue>({
     value,
     defaultValue,
-    onChange: onChange as (value: ListboxValue) => void,
+    onChange: onChange,
   });
+
+  const getItemValue = useCallback(
+    (item: T) => {
+      return item[valueKey] as string | number;
+    },
+    [valueKey],
+  );
+
+  const getItemLabel = useCallback(
+    (item: T) => {
+      return item[labelKey] as string;
+    },
+    [labelKey],
+  );
+
+  const getItemDisabled = useCallback(
+    (item: T) => {
+      return item[disabledKey] as boolean;
+    },
+    [disabledKey],
+  );
+
+  const getItemChildren = useCallback(
+    <E = T>(item: T) => {
+      return item[childrenKey] as E[] | undefined;
+    },
+    [childrenKey],
+  );
 
   const elementsRef = useRef<(HTMLDivElement | null)[]>([]);
   const labelsRef = useRef<(string | null)[]>([]);
@@ -98,14 +128,14 @@ export const useListbox = <F extends ListboxFieldNames = typeof defaultFieldName
   const [filterKeyword, setFilterKeyword] = useState<string>();
 
   const { nodeItems, indexedItems, selectedItems, selectedIndices } = useMemo(() => {
-    const nodeItems: ListboxNodeItem<F>[] = [];
-    const indexedItems: ListboxFlatItem<F>[] = [];
-    const selectedItems: ListboxFlatItem<F>[] = [];
+    const nodeItems: ListboxNodeItem[] = [];
+    const indexedItems: T[] = [];
+    const selectedItems: T[] = [];
     const selectedIndices: number[] = [];
 
     let itemIndex = 0;
 
-    const checkFilter = (item: ListboxListItem<F>) => {
+    const checkFilter = (item: T) => {
       if (!filterKeyword) {
         return true;
       }
@@ -115,17 +145,14 @@ export const useListbox = <F extends ListboxFieldNames = typeof defaultFieldName
       }
 
       return (
-        searchFilter ||
-        ((keyword, item) =>
-          (item[mergedFieldNames.value] as unknown as string | number)
-            .toString()
-            .toLowerCase()
-            .includes(keyword.toLowerCase()))
+        searchFilter || ((keyword, item) => getItemValue(item).toString().toLowerCase().includes(keyword.toLowerCase()))
       )(filterKeyword, item);
     };
 
-    const addItem = (item: ListboxListItem<F>) => {
-      const selected = checkSelected(valueState, item, mergedFieldNames.value);
+    const addItem = (item: T) => {
+      const value = getItemValue(item);
+
+      const selected = Array.isArray(valueState) ? valueState.includes(value) : valueState == value;
 
       if (selected) {
         selectedItems.push(item);
@@ -134,7 +161,7 @@ export const useListbox = <F extends ListboxFieldNames = typeof defaultFieldName
 
       if (selected || checkFilter(item)) {
         indexedItems.push(item);
-        labelsRef.current[itemIndex] = String(item[mergedFieldNames.value]);
+        labelsRef.current[itemIndex] = String(value);
 
         return true;
       }
@@ -143,10 +170,12 @@ export const useListbox = <F extends ListboxFieldNames = typeof defaultFieldName
     };
 
     for (const item of collection) {
-      if (Array.isArray(item[mergedFieldNames.children])) {
+      const children = getItemChildren(item);
+
+      if (Array.isArray(children)) {
         const childrenItems = [];
 
-        for (const child of item[mergedFieldNames.children] as ListboxFlatItem<F>[]) {
+        for (const child of children) {
           if (addItem(child)) {
             childrenItems.push({ ...child, __index: itemIndex });
             itemIndex++;
@@ -154,7 +183,7 @@ export const useListbox = <F extends ListboxFieldNames = typeof defaultFieldName
         }
 
         if (childrenItems.length > 0) {
-          nodeItems.push({ ...item, [mergedFieldNames.children]: childrenItems, __index: 0 });
+          nodeItems.push({ ...item, [childrenKey]: childrenItems, __index: 0 });
         }
       } else {
         if (addItem(item)) {
@@ -165,14 +194,14 @@ export const useListbox = <F extends ListboxFieldNames = typeof defaultFieldName
     }
 
     return { nodeItems, indexedItems, selectedItems, selectedIndices };
-  }, [collection, filterKeyword, mergedFieldNames.children, mergedFieldNames.value, searchFilter, valueState]);
+  }, [childrenKey, collection, filterKeyword, getItemChildren, getItemValue, searchFilter, valueState]);
 
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(() => selectedIndices[0] ?? null);
   const [pointer, setPointer] = useState(false);
 
-  const handleSelect = (item: ListboxFlatItem<F>, index: number) => {
-    const value = item[mergedFieldNames.value] as unknown as string | number;
+  const handleSelect = (item: T, index: number) => {
+    const value = getItemValue(item);
 
     if (Array.isArray(valueState)) {
       if (valueState.includes(value)) {
@@ -204,6 +233,7 @@ export const useListbox = <F extends ListboxFieldNames = typeof defaultFieldName
     virtual: !!context.elements.reference || filterRef.current,
   });
 
+  // noinspection JSUnusedGlobalSymbols
   const typeaheadInteraction = useTypeahead(context, {
     listRef: labelsRef,
     activeIndex,
@@ -225,6 +255,7 @@ export const useListbox = <F extends ListboxFieldNames = typeof defaultFieldName
     }
   };
 
+  // noinspection JSUnusedGlobalSymbols
   const interactiveHandlers = {
     onPointerMove: () => {
       setPointer(true);
@@ -246,7 +277,11 @@ export const useListbox = <F extends ListboxFieldNames = typeof defaultFieldName
   };
 
   return {
-    mergedFieldNames,
+    getItemValue,
+    getItemLabel,
+    getItemDisabled,
+    getItemChildren,
+    childrenKey,
     activeIndex,
     selectedIndex,
     nodeItems,

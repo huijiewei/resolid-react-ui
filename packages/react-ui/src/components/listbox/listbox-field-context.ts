@@ -1,12 +1,13 @@
 import { createSafeContext } from "../../primitives";
-import type { ListboxFieldNames } from "./utils";
+import type { ListboxItem, UseListboxResult } from "./use-listbox";
 
-export type ListboxFieldsContextValue<F extends ListboxFieldNames> = {
-  fieldNames: Required<F>;
+export type ListboxFieldsContextValue = Pick<
+  UseListboxResult<ListboxItem>,
+  "getItemValue" | "getItemLabel" | "getItemDisabled" | "getItemChildren"
+> & {
+  childrenKey: string;
 };
 
-export const [ListboxFieldsContext, useListboxFields] = createSafeContext<ListboxFieldsContextValue<ListboxFieldNames>>(
-  {
-    name: "ListboxFieldsContext",
-  },
-);
+export const [ListboxFieldsContext, useListboxFields] = createSafeContext<ListboxFieldsContextValue>({
+  name: "ListboxFieldsContext",
+});

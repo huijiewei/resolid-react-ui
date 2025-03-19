@@ -1,24 +1,24 @@
 import { useMergeRefs } from "../../hooks";
-import type { PrimitiveProps } from "../../primitives";
+import type { AnyObject, PrimitiveProps } from "../../primitives";
 import { getInteractiveHandlers } from "../../shared/utils";
 import { ariaAttr, dataAttr, tx } from "../../utils";
 import { inputHeightStyles, type InputSize, inputSizeStyles } from "../input/input.styles";
 import { useListboxFields } from "./listbox-field-context";
 import { useListboxItem } from "./listbox-item-context";
-import type { ListboxFieldNames, ListboxNodeItem } from "./utils";
 
 type ListboxItemProps = {
-  item: ListboxNodeItem<ListboxFieldNames>;
+  item: AnyObject & { __index: number };
   size: InputSize;
   disabled: boolean;
+  readOnly: boolean;
 };
 
 export const ListboxItem = (props: PrimitiveProps<"div", ListboxItemProps, "tabIndex" | "children">) => {
-  const { item, size, disabled: disabledProps, ref, className, ...rest } = props;
+  const { item, size, disabled: disabledProps, readOnly = false, ref, className, ...rest } = props;
 
   const { activeIndex, handleSelect, selectedIndices, getItemProps, typingRef, filterRef, renderItem, elementsRef } =
     useListboxItem();
-  const { fieldNames } = useListboxFields();
+  const { getItemDisabled } = useListboxFields();
 
   const refs = useMergeRefs(ref, (node) => {
     // eslint-disable-next-line react-compiler/react-compiler
@@ -27,11 +27,11 @@ export const ListboxItem = (props: PrimitiveProps<"div", ListboxItemProps, "tabI
 
   const active = item.__index === activeIndex;
   const selected = selectedIndices.includes(item.__index);
-  const disabled = disabledProps || (item[fieldNames.disabled] as unknown as boolean);
+  const disabled = disabledProps || getItemDisabled(item);
   const focusable = activeIndex !== null ? active : selectedIndices.length > 0 ? selected : item.__index === 0;
 
   const { handleClick, handleKeyUp, handleKeyDown } = getInteractiveHandlers({
-    disabled,
+    disabled: disabled || readOnly,
     typing: typingRef.current,
     onClick: () => {
       handleSelect(item, item.__index);

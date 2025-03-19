@@ -7,9 +7,9 @@ import { useListboxCollection } from "./listbox-collection-context";
 import { useListboxFields } from "./listbox-field-context";
 import { useListboxScroll } from "./listbox-scroll-context";
 import { useListboxState } from "./listbox-state-context";
-import { type ListboxGroupItem, ListboxVirtualizerContext } from "./listbox-virtualizer-context";
+import { ListboxVirtualizerContext } from "./listbox-virtualizer-context";
 import { listboxGroupLabelHeights, listboxItemHeights } from "./listbox.styles";
-import type { ListboxFieldNames, ListboxNodeItem } from "./utils";
+import type { ListboxFlatItem, ListboxNodeItem } from "./use-listbox";
 
 export type ListboxVirtualizerProps = {
   /**
@@ -79,22 +79,25 @@ export const ListboxVirtualizer = ({
   const { size } = useListboxState();
   const { floating, getFloatingProps } = usePopperFloating();
   const { collection } = useListboxCollection();
-  const { fieldNames } = useListboxFields();
+  const { getItemChildren, childrenKey } = useListboxFields();
   const { scrollToRef } = useListboxScroll();
 
   const { flatItems, groupLabelIndices } = useMemo(() => {
-    const flatItems: ListboxGroupItem<ListboxFieldNames>[] = [];
+    const flatItems: ListboxFlatItem[] = [];
     const groupLabelIndices: number[] = [];
+
     let itemIndex = 0;
 
     for (const item of collection) {
-      if (Array.isArray(item[fieldNames.children])) {
+      const children = getItemChildren<ListboxNodeItem>(item);
+
+      if (Array.isArray(children)) {
         groupLabelIndices.push(itemIndex);
 
-        flatItems.push({ ...omit(item, [fieldNames.children]), __group: true } as ListboxGroupItem<ListboxFieldNames>);
+        flatItems.push({ ...(omit(item, [childrenKey]) as ListboxNodeItem), __group: true });
         itemIndex++;
 
-        for (const child of item[fieldNames.children] as unknown as ListboxNodeItem<ListboxFieldNames>[]) {
+        for (const child of children) {
           flatItems.push(child);
           itemIndex++;
         }
@@ -105,7 +108,7 @@ export const ListboxVirtualizer = ({
     }
 
     return { flatItems, groupLabelIndices };
-  }, [collection, fieldNames.children]);
+  }, [childrenKey, collection, getItemChildren]);
 
   // noinspection JSUnusedGlobalSymbols
   const virtual = useVirtualizer({

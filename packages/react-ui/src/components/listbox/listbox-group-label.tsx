@@ -3,15 +3,15 @@ import { tx } from "../../utils";
 import type { InputSize } from "../input/input.styles";
 import { useListboxGroup } from "./listbox-group-context";
 import { listboxGroupLabelStyles } from "./listbox.styles";
-import type { ListboxFieldNames, ListboxNodeItem } from "./utils";
+import type { ListboxItem } from "./use-listbox";
 
 type ListboxGroupLabelProps = {
-  item: ListboxNodeItem<ListboxFieldNames>;
+  group: ListboxItem;
   size: InputSize;
 };
 
 export const ListboxGroupLabel = (props: PrimitiveProps<"div", ListboxGroupLabelProps, "children">) => {
-  const { item, size, className, ...rest } = props;
+  const { group, size, className, ...rest } = props;
 
   const { renderGroupLabel } = useListboxGroup();
 
@@ -24,7 +24,7 @@ export const ListboxGroupLabel = (props: PrimitiveProps<"div", ListboxGroupLabel
       )}
       {...rest}
     >
-      {renderGroupLabel(item)}
+      {renderGroupLabel(group)}
     </div>
   );
 };

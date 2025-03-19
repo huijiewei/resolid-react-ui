@@ -12,47 +12,28 @@ export type DisclosureProps = UseDisclosureOptions & {
   duration?: number;
 };
 
-export type SingleValueProps = {
+export type MultipleValueProps = {
   /**
    * 是否多选
    * @default false
    */
-  multiple?: false;
+  multiple?: boolean;
 
   /**
    * 受控值
    */
-  value?: string | number | null;
+  value?: (string | number)[] | string | number | null;
 
   /**
    * 默认值
    * @default null | []
    */
-  defaultValue?: string | number | null;
+  defaultValue?: (string | number)[] | string | number | null;
 
   /**
    * onChange 回调
    */
-  onChange?: (value: string | number | null) => void;
-};
-
-export type MultipleValueProps = {
-  /**
-   * 是否多选
-   */
-  multiple?: true;
-
-  /**
-   * 受控值
-   */
-  value?: (string | number)[];
-
-  defaultValue?: (string | number)[];
-
-  /**
-   * onChange 回调
-   */
-  onChange?: (value: (string | number)[]) => void;
+  onChange?: (value: (string | number)[] | string | number | null) => void;
 };
 
 export type CheckedValueProps = {

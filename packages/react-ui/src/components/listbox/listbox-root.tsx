@@ -2,29 +2,36 @@ import { useFloatingRootContext, useInteractions, useRole } from "@floating-ui/r
 import { useState } from "react";
 import type { PrimitiveProps } from "../../primitives";
 import type { FormFieldProps } from "../../shared/types";
-import { tx } from "../../utils";
+import { ariaAttr, tx } from "../../utils";
 import { ListboxProvider } from "./listbox-provider";
-import { type ListboxBaseProps, useListbox } from "./use-listbox";
-import type { defaultFieldNames, ListboxFieldNames } from "./utils";
+import { type ListboxBaseProps, type ListboxItem, useListbox } from "./use-listbox";
 
-export type ListboxRootProps<F extends ListboxFieldNames> = FormFieldProps & ListboxBaseProps<F>;
+export type ListboxRootProps<T extends ListboxItem> = FormFieldProps & {
+  /**
+   * 是否无效
+   * @default false
+   */
+  invalid?: boolean;
+} & ListboxBaseProps<T>;
 
-export const ListboxRoot = <F extends ListboxFieldNames = typeof defaultFieldNames>(
-  props: PrimitiveProps<"div", ListboxRootProps<F>>,
-) => {
+export const ListboxRoot = <T extends ListboxItem>(props: PrimitiveProps<"div", ListboxRootProps<T>>) => {
   const {
     multiple = false,
     value,
     defaultValue,
     onChange,
     collection,
-    fieldNames,
+    valueKey,
+    labelKey,
+    disabledKey,
+    childrenKey,
     renderItem,
     renderGroupLabel,
     name,
     disabled = false,
     readOnly = false,
     required = false,
+    invalid = false,
     size = "md",
     searchFilter,
     className,
@@ -50,7 +57,10 @@ export const ListboxRoot = <F extends ListboxFieldNames = typeof defaultFieldNam
     onChange,
     collection,
     searchFilter,
-    fieldNames,
+    valueKey,
+    labelKey,
+    disabledKey,
+    childrenKey,
     context,
   });
 
@@ -65,10 +75,12 @@ export const ListboxRoot = <F extends ListboxFieldNames = typeof defaultFieldNam
     getItemProps: getNavigationItemProps,
   } = useInteractions([navigationInteraction]);
 
-  const { mergedFieldNames } = providerValue;
-
   return (
-    <div role={"presentation"} className={tx("border-bd-normal rounded-md border", className)} {...rest}>
+    <div
+      role={"presentation"}
+      className={tx("rounded-md border", invalid ? "border-bd-invalid" : "border-bd-normal", className)}
+      {...rest}
+    >
       <ListboxProvider
         value={{
           ...providerValue,
@@ -89,10 +101,11 @@ export const ListboxRoot = <F extends ListboxFieldNames = typeof defaultFieldNam
               onKeyDown: handleEnterKeydown,
             }),
           getItemProps: (props) => getItemProps(getNavigationItemProps(props)),
-          size,
           open: true,
-          disabled,
+          size,
           multiple,
+          disabled,
+          readOnly,
         }}
       >
         {children}
@@ -104,10 +117,11 @@ export const ListboxRoot = <F extends ListboxFieldNames = typeof defaultFieldNam
               disabled={disabled}
               required={required}
               readOnly={readOnly}
-              key={item[mergedFieldNames.value]}
+              aria-invalid={ariaAttr(invalid)}
+              key={providerValue.getItemValue(item)}
               name={`${name}[]`}
               type={"hidden"}
-              value={item[mergedFieldNames.value]}
+              value={providerValue.getItemLabel(item)}
             />
           ))
         ) : (
@@ -115,9 +129,10 @@ export const ListboxRoot = <F extends ListboxFieldNames = typeof defaultFieldNam
             disabled={disabled}
             required={required}
             readOnly={readOnly}
+            aria-invalid={ariaAttr(invalid)}
             type={"hidden"}
             name={name}
-            value={selectedItems[0]?.[mergedFieldNames.value] ?? ""}
+            value={selectedItems.length > 0 ? providerValue.getItemValue(selectedItems[0]) : ""}
           />
         ))}
     </div>

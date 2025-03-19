@@ -1,10 +1,8 @@
 import { createSafeContext } from "../../primitives";
-import type { ListboxFieldNames, ListboxRenderGroupLabel } from "./utils";
+import type { ListboxBaseProps, ListboxItem } from "./use-listbox";
 
-export type ListboxGroupContextValue<F extends ListboxFieldNames> = {
-  renderGroupLabel: ListboxRenderGroupLabel<F>;
-};
+export type ListboxGroupContextValue = Required<Pick<ListboxBaseProps<ListboxItem>, "renderGroupLabel">>;
 
-export const [ListboxGroupContext, useListboxGroup] = createSafeContext<ListboxGroupContextValue<ListboxFieldNames>>({
+export const [ListboxGroupContext, useListboxGroup] = createSafeContext<ListboxGroupContextValue>({
   name: "ListboxGroupContext",
 });

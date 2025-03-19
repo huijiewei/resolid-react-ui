@@ -6,7 +6,10 @@ import { Input, type InputProps } from "../input/input";
 import { useListboxFilter } from "./listbox-filter-context";
 import { useListboxState } from "./listbox-state-context";
 
-export type ListboxFilterProps = Omit<InputProps, "type">;
+export type ListboxFilterProps = Omit<
+  InputProps,
+  "type" | "name" | "required" | "readOnly" | "invalid" | "suffix" | "suffixWidth"
+>;
 
 export const ListboxFilter = (props: PrimitiveProps<"input", ListboxFilterProps, "children" | "type">) => {
   const { size: listboxSize, disabled: listboxDisabled } = useListboxState();
@@ -17,7 +20,7 @@ export const ListboxFilter = (props: PrimitiveProps<"input", ListboxFilterProps,
     size = listboxSize,
     disabled = listboxDisabled,
     prefix,
-    suffix = <SearchIcon />,
+    prefixWidth,
     value,
     defaultValue,
     onChange,
@@ -26,6 +29,7 @@ export const ListboxFilter = (props: PrimitiveProps<"input", ListboxFilterProps,
   } = props;
 
   useIsomorphicEffect(() => {
+    // eslint-disable-next-line react-compiler/react-compiler
     filterRef.current = true;
   }, [filterRef]);
 
@@ -42,7 +46,8 @@ export const ListboxFilter = (props: PrimitiveProps<"input", ListboxFilterProps,
         defaultValue={defaultValue}
         onChange={handleChange}
         prefix={prefix}
-        suffix={suffix}
+        prefixWidth={prefixWidth}
+        suffix={<SearchIcon />}
         disabled={disabled}
         size={size}
         type={"text"}

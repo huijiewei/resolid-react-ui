@@ -4,34 +4,17 @@ import { useControllableState } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import { CompositeContext, type CompositeContextValue } from "../../primitives/composite/composite-context";
 import { OrientationContext } from "../../primitives/composite/orientation-context";
-import type { MultipleValueProps, Orientation, SingleValueProps } from "../../shared/types";
+import type { MultipleValueProps, Orientation } from "../../shared/types";
 import { tx } from "../../utils";
 import { type AccordionBaseProps, AccordionContext, type AccordionContextValue } from "./accordion-context";
 
-type AccordionSingleProps = {
-  /**
-   * 同时打开多个项目
-   */
-  multiple: false;
-
+export type AccordionRootProps = MultipleValueProps & {
   /**
    * 允许关闭内容, 当 `multiple` 为 `false` 时有效
    * @default false
    */
   collapsible?: boolean;
-} & Omit<SingleValueProps, "multiple">;
 
-type AccordionMultipleProps = {
-  /**
-   * 同时打开多个项目
-   * @default true
-   */
-  multiple?: true;
-
-  collapsible?: never;
-} & Omit<MultipleValueProps, "multiple">;
-
-export type AccordionRootProps = (AccordionMultipleProps | AccordionSingleProps) & {
   /**
    * 方向
    * @default "horizontal"

@@ -1,4 +1,4 @@
-import { type HTMLProps, type PropsWithChildren, useRef } from "react";
+import { type HTMLProps, type PropsWithChildren, type ReactNode, useRef } from "react";
 import { useIsomorphicEffect, usePrevious } from "../../hooks";
 import type { AnyObject } from "../../primitives";
 import {
@@ -7,18 +7,17 @@ import {
 } from "../../primitives/popper/popper-floating-context";
 import type { InputSize } from "../input/input.styles";
 import { ListboxCollectionContext } from "./listbox-collection-context";
-import { ListboxFieldsContext } from "./listbox-field-context";
+import { ListboxFieldsContext, type ListboxFieldsContextValue } from "./listbox-field-context";
 import { ListboxFilterContext } from "./listbox-filter-context";
 import { ListboxGroupContext, type ListboxGroupContextValue } from "./listbox-group-context";
 import { ListboxItemContext, type ListboxItemContextValue } from "./listbox-item-context";
 import { ListboxScrollContext, type VirtualScrollTo } from "./listbox-scroll-context";
 import { ListboxStateContext } from "./listbox-state-context";
-import type { useListbox } from "./use-listbox";
-import type { defaultFieldNames, ListboxFieldNames, ListboxRenderItem } from "./utils";
+import type { ListboxBaseProps, ListboxItem, UseListboxResult } from "./use-listbox";
 
-export type ListboxProviderProps<F extends ListboxFieldNames> = {
+export type ListboxProviderProps<T extends ListboxItem> = {
   value: Omit<
-    ReturnType<typeof useListbox>,
+    UseListboxResult<T>,
     | "navigationInteraction"
     | "typeaheadInteraction"
     | "interactiveHandlers"
@@ -26,24 +25,27 @@ export type ListboxProviderProps<F extends ListboxFieldNames> = {
     | "indexedItems"
     | "selectedItems"
   > &
-    Required<PopperFloatingContextValue> &
-    Partial<ListboxGroupContextValue<F>> & {
-      renderItem?: ListboxRenderItem<F>;
+    Required<PopperFloatingContextValue> & {
+      renderItem?: ListboxBaseProps<T>["renderItem"];
+      renderGroupLabel?: ListboxBaseProps<T>["renderGroupLabel"];
       getItemProps: (userProps?: HTMLProps<HTMLElement> | undefined) => AnyObject;
       getNavigationProps: (userProps?: HTMLProps<HTMLElement> | undefined) => AnyObject;
-      size: InputSize;
       open: boolean;
-      disabled: boolean;
+      size: InputSize;
       multiple: boolean;
+      disabled: boolean;
+      readOnly: boolean;
     };
 };
 
-export const ListboxProvider = <F extends ListboxFieldNames = typeof defaultFieldNames>(
-  props: PropsWithChildren<ListboxProviderProps<F>>,
-) => {
+export const ListboxProvider = <T extends ListboxItem>(props: PropsWithChildren<ListboxProviderProps<T>>) => {
   const {
     value: {
-      mergedFieldNames,
+      getItemValue,
+      getItemLabel,
+      getItemDisabled,
+      getItemChildren,
+      childrenKey,
       nodeItems,
       activeIndex,
       selectedIndex,
@@ -55,21 +57,22 @@ export const ListboxProvider = <F extends ListboxFieldNames = typeof defaultFiel
       floating,
       setFloating,
       getFloatingProps,
-      renderGroupLabel = (item) => item[mergedFieldNames.label],
-      renderItem = (item) => item[mergedFieldNames.label],
+      renderGroupLabel = (item) => getItemLabel(item) as ReactNode,
+      renderItem = (item) => getItemLabel(item) as ReactNode,
       getItemProps,
       getNavigationProps,
       filterRef,
       setFilterKeyword,
-      size,
       open,
-      disabled,
+      size,
       multiple,
+      disabled,
+      readOnly,
     },
     children,
   } = props;
 
-  const itemContext: ListboxItemContextValue<F> = {
+  const itemContext = {
     activeIndex,
     selectedIndices,
     handleSelect,
@@ -78,7 +81,19 @@ export const ListboxProvider = <F extends ListboxFieldNames = typeof defaultFiel
     elementsRef,
     typingRef,
     filterRef,
-  };
+  } as ListboxItemContextValue;
+
+  const fieldContext = {
+    getItemValue,
+    getItemLabel,
+    getItemDisabled,
+    getItemChildren,
+    childrenKey,
+  } as ListboxFieldsContextValue;
+
+  const groupContext = {
+    renderGroupLabel,
+  } as ListboxGroupContextValue;
 
   const scrollToRef = useRef<VirtualScrollTo | null>(null);
 
@@ -158,13 +173,13 @@ export const ListboxProvider = <F extends ListboxFieldNames = typeof defaultFiel
   }, [elementsRef, floating, open]);
 
   return (
-    <ListboxStateContext value={{ size, disabled, multiple }}>
+    <ListboxStateContext value={{ size, multiple, disabled, readOnly }}>
       <ListboxFilterContext value={{ getNavigationProps, filterRef, setFilterKeyword }}>
         <ListboxScrollContext value={{ scrollToRef }}>
           <PopperFloatingContext value={{ floating, setFloating, getFloatingProps }}>
-            <ListboxFieldsContext value={{ fieldNames: mergedFieldNames }}>
+            <ListboxFieldsContext value={fieldContext}>
               <ListboxCollectionContext value={{ collection: nodeItems }}>
-                <ListboxGroupContext value={{ renderGroupLabel }}>
+                <ListboxGroupContext value={groupContext}>
                   <ListboxItemContext value={itemContext}>{children}</ListboxItemContext>
                 </ListboxGroupContext>
               </ListboxCollectionContext>
