@@ -4,24 +4,54 @@ import { useControllableState, useMergeRefs } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import { useComposite } from "../../primitives/composite/composite-context";
 import { tx } from "../../utils";
+import { useTagsInputRoot } from "./tags-input-root-context";
 
-type TagsInputInputProps = {
-  delimiter: string | RegExp;
-  addOnBlur: boolean;
-  addOnPaste: boolean;
-  onAdd: (value: string | string[]) => boolean;
-  onDelete: (index: number) => void;
-  value: string | undefined;
+export type TagsInputInputProps = {
+  /**
+   * 可控值
+   */
+  value?: string;
+
+  /**
+   * 输入框值
+   * @default ""
+   */
+  defaultValue?: string;
+
+  /**
+   * onChange 回调
+   */
   onChange?: (value: string) => void;
+
+  /**
+   * 占位符文本
+   */
+  placeholder?: string;
+
+  /**
+   * 允许的最大字符数
+   */
+  maxLength?: number;
 };
 
-export const TagsInputInput = (props: PrimitiveProps<"input", TagsInputInputProps, "type" | "tabIndex">) => {
-  const { className, onFocus, delimiter, addOnBlur, addOnPaste, onAdd, onDelete, value, onChange, ref, ...rest } =
-    props;
+export const TagsInputInput = (
+  props: PrimitiveProps<
+    "input",
+    TagsInputInputProps,
+    "type" | "tabIndex" | "placeholder" | "maxLength" | "autoComplete" | "autoCorrect" | "autoCapitalize"
+  >,
+) => {
+  const { value, defaultValue = "", onChange, placeholder, maxLength, className, ref, ...rest } = props;
+
+  const { disabled, readOnly, addOnBlur, addOnPaste, inputClassname, delimiter, onAdd, onDelete } = useTagsInputRoot();
 
   const { ref: itemRef, index } = useListItem();
   const { activeIndex, setActiveIndex } = useComposite();
-  const [valueState, setValueState] = useControllableState({ value, defaultValue: "", onChange });
+  const [valueState, setValueState] = useControllableState({
+    value,
+    defaultValue,
+    onChange,
+  });
 
   const refs = useMergeRefs(ref, itemRef);
 
@@ -35,10 +65,8 @@ export const TagsInputInput = (props: PrimitiveProps<"input", TagsInputInputProp
     setActiveIndex(undefined);
   };
 
-  const handleFocus = (e: FocusEvent<HTMLInputElement>) => {
+  const handleFocus = () => {
     setActiveIndex(index);
-
-    onFocus?.(e);
   };
 
   const handlePaste = (e: ClipboardEvent<HTMLInputElement>) => {
@@ -149,12 +177,16 @@ export const TagsInputInput = (props: PrimitiveProps<"input", TagsInputInputProp
       autoComplete={"off"}
       autoCapitalize={"off"}
       autoCorrect={"off"}
+      disabled={disabled}
+      readOnly={readOnly}
+      placeholder={placeholder}
+      maxLength={maxLength}
       onBlur={handleBlur}
       onFocus={handleFocus}
       onPaste={handlePaste}
       onInput={handleInput}
       onKeyDown={handleKeyDown}
-      className={tx("min-w-20 flex-1 outline-none", className)}
+      className={tx("min-w-20 flex-1 outline-none", inputClassname, className)}
       value={valueState}
       onChange={handleChange}
       {...rest}
