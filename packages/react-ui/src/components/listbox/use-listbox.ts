@@ -1,5 +1,5 @@
 import { type FloatingRootContext, useListNavigation, useTypeahead } from "@floating-ui/react";
-import { type KeyboardEvent, type ReactNode, useCallback, useMemo, useRef, useState } from "react";
+import { type KeyboardEvent, type ReactNode, useCallback, useDeferredValue, useMemo, useRef, useState } from "react";
 import { useControllableState } from "../../hooks";
 import type { AnyObject } from "../../primitives";
 import type { MultipleValueProps } from "../../shared/types";
@@ -128,6 +128,7 @@ export const useListbox = <T extends ListboxItem>(options: UseListboxOptions<T>)
   const typingRef = useRef(false);
   const filterRef = useRef(false);
   const [filterKeyword, setFilterKeyword] = useState<string>();
+  const deferredKeyword = useDeferredValue(filterKeyword);
 
   const { nodeItems, indexedItems, selectedItems, selectedIndices } = useMemo(() => {
     const nodeItems: ListboxNodeItem[] = [];
@@ -138,17 +139,17 @@ export const useListbox = <T extends ListboxItem>(options: UseListboxOptions<T>)
     let itemIndex = 0;
 
     const checkFilter = (item: T) => {
-      if (!filterKeyword) {
+      if (!deferredKeyword) {
         return true;
       }
 
-      if (filterKeyword.length == 0) {
+      if (deferredKeyword.length == 0) {
         return true;
       }
 
       return (
         searchFilter || ((keyword, item) => getItemValue(item).toString().toLowerCase().includes(keyword.toLowerCase()))
-      )(filterKeyword, item);
+      )(deferredKeyword, item);
     };
 
     const addItem = (item: T) => {
@@ -196,7 +197,7 @@ export const useListbox = <T extends ListboxItem>(options: UseListboxOptions<T>)
     }
 
     return { nodeItems, indexedItems, selectedItems, selectedIndices };
-  }, [childrenKey, collection, filterKeyword, getItemChildren, getItemValue, searchFilter, valueState]);
+  }, [childrenKey, collection, deferredKeyword, getItemChildren, getItemValue, searchFilter, valueState]);
 
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(() => selectedIndices[0] ?? null);
