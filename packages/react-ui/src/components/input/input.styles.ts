@@ -1,11 +1,11 @@
 import { tv } from "../../utils";
 
 export const inputHeightStyles = {
-  xs: "py-[5px] min-h-7",
-  sm: "py-[5px] min-h-8",
-  md: "py-[5px] min-h-9",
-  lg: "py-[7px] min-h-10",
-  xl: "py-[7px] min-h-11",
+  xs: "py-[5px] min-h-6.5",
+  sm: "py-[5px] min-h-7.5",
+  md: "py-[5px] min-h-8.5",
+  lg: "py-[7px] min-h-9.5",
+  xl: "py-[7px] min-h-10.5",
 };
 
 export const inputSizeStyles = {
