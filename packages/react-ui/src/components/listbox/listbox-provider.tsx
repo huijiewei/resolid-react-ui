@@ -62,6 +62,7 @@ export const ListboxProvider = <T extends ListboxItem>(props: PropsWithChildren<
       getItemProps,
       getNavigationProps,
       filterRef,
+      virtual,
       setFilterKeyword,
       open,
       size,
@@ -80,7 +81,7 @@ export const ListboxProvider = <T extends ListboxItem>(props: PropsWithChildren<
     renderItem,
     elementsRef,
     typingRef,
-    filterRef,
+    virtual,
   } as ListboxItemContextValue;
 
   const fieldContext = {
@@ -183,7 +184,7 @@ export const ListboxProvider = <T extends ListboxItem>(props: PropsWithChildren<
         <ListboxScrollContext value={{ scrollToRef, scrollRef }}>
           <PopperFloatingContext value={{ setFloating, getFloatingProps }}>
             <ListboxFieldsContext value={fieldContext}>
-              <ListboxCollectionContext value={{ collection: nodeItems }}>
+              <ListboxCollectionContext value={{ nodeItems }}>
                 <ListboxGroupContext value={groupContext}>
                   <ListboxItemContext value={itemContext}>{children}</ListboxItemContext>
                 </ListboxGroupContext>

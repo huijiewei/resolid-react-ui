@@ -78,7 +78,7 @@ export const ListboxVirtualizer = ({
 }: PropsWithChildren<ListboxVirtualizerProps>) => {
   const { size } = useListboxState();
   const { getFloatingProps } = usePopperFloating();
-  const { collection } = useListboxCollection();
+  const { nodeItems } = useListboxCollection();
   const { getItemChildren, childrenKey } = useListboxFields();
   const { scrollToRef, scrollRef } = useListboxScroll();
 
@@ -90,7 +90,7 @@ export const ListboxVirtualizer = ({
     let itemIndex = 0;
     let groupIndex = 0;
 
-    for (const item of collection) {
+    for (const item of nodeItems) {
       const children = getItemChildren<ListboxNodeItem>(item);
 
       if (Array.isArray(children)) {
@@ -113,7 +113,7 @@ export const ListboxVirtualizer = ({
     }
 
     return { flatItems, groupLabelIndices, groupIndices };
-  }, [childrenKey, collection, getItemChildren]);
+  }, [childrenKey, nodeItems, getItemChildren]);
 
   // noinspection JSUnusedGlobalSymbols
   const virtual = useVirtualizer({

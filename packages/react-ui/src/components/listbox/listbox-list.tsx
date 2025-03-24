@@ -9,7 +9,7 @@ import type { ListboxNodeItem } from "./use-listbox";
 
 export const ListboxList = () => {
   const { size, disabled, readOnly } = useListboxState();
-  const { collection } = useListboxCollection();
+  const { nodeItems } = useListboxCollection();
   const { getItemValue, getItemLabel, getItemChildren } = useListboxFields();
 
   const virtual = useListboxVirtualizer(true);
@@ -45,7 +45,7 @@ export const ListboxList = () => {
     });
   }
 
-  return collection.map((item) => {
+  return nodeItems.map((item) => {
     const children = getItemChildren<ListboxNodeItem>(item);
 
     if (Array.isArray(children)) {

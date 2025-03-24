@@ -40,25 +40,23 @@ export const ListboxFilter = (props: PrimitiveProps<"input", ListboxFilterProps,
   };
 
   return (
-    <div className={tx("p-1", className)}>
-      <Input
-        value={value}
-        defaultValue={defaultValue}
-        onChange={handleChange}
-        prefix={prefix}
-        prefixWidth={prefixWidth}
-        suffix={<SearchIcon />}
-        disabled={disabled}
-        size={size}
-        type={"text"}
-        autoComplete={"off"}
-        autoCapitalize={"none"}
-        autoCorrect={"off"}
-        spellCheck={false}
-        aria-autocomplete={"list"}
-        className={"w-full"}
-        {...getNavigationProps(rest)}
-      />
-    </div>
+    <Input
+      value={value}
+      defaultValue={defaultValue}
+      onChange={handleChange}
+      prefix={prefix}
+      prefixWidth={prefixWidth}
+      suffix={<SearchIcon />}
+      disabled={disabled}
+      size={size}
+      type={"text"}
+      autoComplete={"off"}
+      autoCapitalize={"none"}
+      autoCorrect={"off"}
+      spellCheck={false}
+      aria-autocomplete={"list"}
+      className={tx("w-full", className)}
+      {...getNavigationProps(rest)}
+    />
   );
 };

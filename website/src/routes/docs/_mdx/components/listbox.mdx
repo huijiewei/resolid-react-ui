@@ -169,13 +169,17 @@ export default function App() {
   return (
     <div className={"flex flex-row gap-5"}>
       <Listbox className={"min-w-60"} collection={collection}>
-        <ListboxFilter size={"sm"} />
+        <div className={"border-bd-subtle border-b p-2"}>
+          <ListboxFilter size={"sm"} />
+        </div>
         <ListboxContent className={"max-h-60 p-1"}>
           <ListboxList />
         </ListboxContent>
       </Listbox>
       <Listbox className={"min-w-60"} collection={virtualCollection}>
-        <ListboxFilter size={"sm"} />
+        <div className={"border-bd-subtle border-b p-2"}>
+          <ListboxFilter size={"sm"} />
+        </div>
         <ListboxContent className={"max-h-60 px-1"}>
           <ListboxVirtualizer>
             <ListboxList />

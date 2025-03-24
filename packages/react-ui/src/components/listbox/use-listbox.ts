@@ -65,6 +65,7 @@ export type ListboxBaseProps<T extends ListboxItem> = MultipleValueProps & {
 export type UseListboxOptions<T extends ListboxItem> = Omit<ListboxBaseProps<T>, "renderItem" | "renderGroupLabel"> & {
   context: FloatingRootContext;
   loop?: boolean;
+  focusItemOnOpen?: boolean;
   onSelect?: () => void;
 };
 
@@ -83,6 +84,7 @@ export const useListbox = <T extends ListboxItem>(options: UseListboxOptions<T>)
     childrenKey = "children",
     context,
     loop,
+    focusItemOnOpen,
     onSelect,
     searchFilter,
   } = options;
@@ -224,13 +226,16 @@ export const useListbox = <T extends ListboxItem>(options: UseListboxOptions<T>)
     onSelect?.();
   };
 
+  const virtual = !!context.elements.reference || filterRef.current;
+
   const navigationInteraction = useListNavigation(context, {
     listRef: elementsRef,
     activeIndex,
     selectedIndex,
     onNavigate: setActiveIndex,
     loop,
-    virtual: !!context.elements.reference || filterRef.current,
+    focusItemOnOpen: focusItemOnOpen ?? "auto",
+    virtual,
   });
 
   // noinspection JSUnusedGlobalSymbols
@@ -297,6 +302,7 @@ export const useListbox = <T extends ListboxItem>(options: UseListboxOptions<T>)
     elementsRef,
     typingRef,
     filterRef,
+    virtual,
     setFilterKeyword,
   };
 };
