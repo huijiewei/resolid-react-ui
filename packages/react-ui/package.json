@@ -37,7 +37,7 @@
   "dependencies": {
     "@floating-ui/react": "^0.27.5",
     "@resolid/utils": "^0.3.3",
-    "@tanstack/react-virtual": "^3.13.4",
+    "@tanstack/react-virtual": "^3.13.5",
     "cva": "beta"
   },
   "devDependencies": {
