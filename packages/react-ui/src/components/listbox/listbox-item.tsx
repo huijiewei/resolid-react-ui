@@ -1,5 +1,6 @@
 import { useMergeRefs } from "../../hooks";
 import type { AnyObject, PrimitiveProps } from "../../primitives";
+import { CheckIcon } from "../../shared/icons";
 import { getInteractiveHandlers } from "../../shared/utils";
 import { ariaAttr, dataAttr, tx } from "../../utils";
 import { inputHeightStyles, type InputSize, inputSizeStyles } from "../input/input.styles";
@@ -48,7 +49,7 @@ export const ListboxItem = (props: PrimitiveProps<"div", ListboxItemProps, "tabI
       aria-disabled={ariaAttr(disabled)}
       tabIndex={focusable && !disabled ? 0 : -1}
       className={tx(
-        "flex w-full cursor-default items-center rounded-md leading-none outline-none transition-colors",
+        "flex w-full cursor-default items-center justify-between rounded-md leading-none outline-none transition-colors",
         disabled ? !selected && "text-fg-subtlest" : "active:bg-bg-subtle",
         inputHeightStyles[size],
         inputSizeStyles[size],
@@ -63,6 +64,7 @@ export const ListboxItem = (props: PrimitiveProps<"div", ListboxItemProps, "tabI
       })}
     >
       {renderItem(item, { active, selected })}
+      {selected && <CheckIcon />}
     </div>
   );
 };

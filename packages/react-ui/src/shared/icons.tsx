@@ -82,6 +82,25 @@ export const AngleDownIcon = (props: IconProps) => {
   );
 };
 
+export const CheckIcon = (props: IconProps) => {
+  const { size = "1em", ...rest } = props;
+
+  return (
+    <svg
+      style={{ width: size }}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...rest}
+    >
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  );
+};
+
 export const CheckedIcon = (props: IconProps) => {
   const { size = "1em", ...rest } = props;
 
