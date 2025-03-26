@@ -1,3 +1,11 @@
+export const listboxItemStyles = {
+  xs: "py-1.5 min-h-7",
+  sm: "py-1.5 min-h-8",
+  md: "py-1.5 min-h-9",
+  lg: "py-2 min-h-10",
+  xl: "py-2 min-h-11",
+};
+
 export const listboxItemHeights = {
   xs: 28,
   sm: 32,

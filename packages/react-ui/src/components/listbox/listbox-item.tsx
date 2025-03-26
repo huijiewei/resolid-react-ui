@@ -3,9 +3,10 @@ import type { AnyObject, PrimitiveProps } from "../../primitives";
 import { CheckIcon } from "../../shared/icons";
 import { getInteractiveHandlers } from "../../shared/utils";
 import { ariaAttr, dataAttr, tx } from "../../utils";
-import { inputHeightStyles, type InputSize, inputSizeStyles } from "../input/input.styles";
+import { type InputSize, inputSizeStyles } from "../input/input.styles";
 import { useListboxFields } from "./listbox-field-context";
 import { useListboxItem } from "./listbox-item-context";
+import { listboxItemStyles } from "./listbox.styles";
 
 type ListboxItemProps = {
   item: AnyObject & { __index: number };
@@ -49,9 +50,9 @@ export const ListboxItem = (props: PrimitiveProps<"div", ListboxItemProps, "tabI
       aria-disabled={ariaAttr(disabled)}
       tabIndex={focusable && !disabled ? 0 : -1}
       className={tx(
-        "flex w-full cursor-default items-center justify-between rounded-md leading-none outline-none transition-colors",
+        "flex w-full cursor-default items-center justify-between gap-1 rounded-md leading-none outline-none transition-colors",
         disabled ? !selected && "text-fg-subtlest" : "active:bg-bg-subtle",
-        inputHeightStyles[size],
+        listboxItemStyles[size],
         inputSizeStyles[size],
         selected && "text-fg-primary",
         className,
