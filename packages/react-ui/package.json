@@ -57,7 +57,7 @@
   "peerDependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "tailwindcss": "^4.0.15"
+    "tailwindcss": "^4.0.16"
   },
   "homepage": "https://ui.resolid.tech",
   "repository": {
