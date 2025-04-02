@@ -21,7 +21,7 @@
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
     "@resolid/config": "^3.3.3",
-    "@types/node": "^22.13.14",
+    "@types/node": "^22.13.17",
     "eslint": "^9.23.0",
     "lefthook": "^1.11.6",
     "prettier": "^3.5.3",
@@ -33,7 +33,7 @@
     "node": "22.x",
     "pnpm": "10.x"
   },
-  "packageManager": "pnpm@10.7.0",
+  "packageManager": "pnpm@10.7.1",
   "homepage": "https://ui.resolid.tech",
   "repository": {
     "type": "git",
