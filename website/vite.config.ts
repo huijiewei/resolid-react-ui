@@ -123,7 +123,13 @@ export default defineConfig(({ command }) => {
               return "react-router";
             }
 
-            if (id.includes("src/components/history-link.tsx") || id.includes("src/components/sprite-icon.tsx")) {
+            if (
+              id.includes("src/components/history-link.tsx") ||
+              id.includes("src/components/error-component.tsx") ||
+              id.includes("src/components/route-process-bar.tsx") ||
+              id.includes("src/components/color-mode-toggle.tsx") ||
+              id.includes("src/components/sprite-icon.tsx")
+            ) {
               return "components";
             }
           },
