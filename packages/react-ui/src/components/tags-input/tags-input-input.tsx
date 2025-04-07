@@ -1,5 +1,5 @@
 import { useListItem } from "@floating-ui/react";
-import type { ChangeEvent, ClipboardEvent, FocusEvent, KeyboardEvent, SyntheticEvent } from "react";
+import type { ClipboardEvent, FocusEvent, KeyboardEvent, SyntheticEvent } from "react";
 import { useControllableState, useMergeRefs } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import { useComposite } from "../../primitives/composite/composite-context";
@@ -41,7 +41,7 @@ export const TagsInputInput = (
     "type" | "tabIndex" | "placeholder" | "maxLength" | "autoComplete" | "autoCorrect" | "autoCapitalize"
   >,
 ) => {
-  const { value, defaultValue = "", onChange, placeholder, maxLength, className, ref, ...rest } = props;
+  const { value, defaultValue = "", onChange, placeholder, maxLength, className, onFocus, ref, ...rest } = props;
 
   const { disabled, readOnly, addOnBlur, addOnPaste, inputClassname, delimiter, onAdd, onDelete } = useTagsInputRoot();
 
@@ -65,8 +65,9 @@ export const TagsInputInput = (
     setActiveIndex(undefined);
   };
 
-  const handleFocus = () => {
+  const handleFocus = (e: FocusEvent<HTMLInputElement>) => {
     setActiveIndex(index);
+    onFocus?.(e);
   };
 
   const handlePaste = (e: ClipboardEvent<HTMLInputElement>) => {
@@ -108,8 +109,12 @@ export const TagsInputInput = (
 
       if (value && onAdd(value)) {
         setValueState("");
+
+        return;
       }
     }
+
+    setValueState(e.currentTarget.value);
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -166,10 +171,6 @@ export const TagsInputInput = (
     setActiveIndex(index);
   };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValueState(e.currentTarget.value);
-  };
-
   return (
     <input
       ref={refs}
@@ -188,7 +189,6 @@ export const TagsInputInput = (
       onKeyDown={handleKeyDown}
       className={tx("min-w-20 flex-1 outline-none", inputClassname, className)}
       value={valueState}
-      onChange={handleChange}
       {...rest}
     />
   );
