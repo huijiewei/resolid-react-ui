@@ -21,6 +21,7 @@ export default {
   ],
   future: {
     unstable_optimizeDeps: true,
+    unstable_subResourceIntegrity: true,
     unstable_splitRouteModules: true,
     unstable_viteEnvironmentApi: true,
   },
