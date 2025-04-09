@@ -43,11 +43,11 @@ export const inputStyles = tv({
 export type InputSize = keyof typeof inputSizeStyles;
 
 export const inputAffixDefaultSizes = {
-  xs: "28px",
-  sm: "32px",
-  md: "36px",
-  lg: "40px",
-  xl: "44px",
+  xs: "26px",
+  sm: "30px",
+  md: "34px",
+  lg: "38px",
+  xl: "42px",
 };
 
 export const inputGroupStyles =
