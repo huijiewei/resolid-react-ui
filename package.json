@@ -23,7 +23,7 @@
     "@resolid/config": "^3.3.3",
     "@types/node": "^22.14.0",
     "eslint": "^9.24.0",
-    "lefthook": "^1.11.7",
+    "lefthook": "^1.11.8",
     "prettier": "^3.5.3",
     "prettier-plugin-organize-imports": "^4.1.0",
     "prettier-plugin-tailwindcss": "^0.6.11",
@@ -41,7 +41,9 @@
   },
   "pnpm": {
     "overrides": {
-      "react-is": "^19.0.0",
+      "react": "^19.1.0",
+      "react-dom": "^19.1.0",
+      "react-is": "^19.1.0",
       "array-includes": "npm:@nolyfill/array-includes@^1",
       "array.prototype.findlast": "npm:@nolyfill/array.prototype.findlast@^1",
       "array.prototype.flat": "npm:@nolyfill/array.prototype.flat@^1",
