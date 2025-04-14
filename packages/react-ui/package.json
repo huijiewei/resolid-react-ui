@@ -35,7 +35,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@floating-ui/react": "^0.27.6",
+    "@floating-ui/react": "^0.27.7",
     "@resolid/utils": "^0.3.3",
     "@tanstack/react-virtual": "^3.13.6",
     "cva": "beta"
@@ -45,11 +45,11 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
-    "@types/react": "^19.1.0",
-    "@types/react-dom": "^19.1.1",
+    "@types/react": "^19.1.1",
+    "@types/react-dom": "^19.1.2",
     "babel-plugin-annotate-pure-calls": "^0.5.0",
     "babel-plugin-react-compiler": "beta",
-    "jsdom": "^26.0.0",
+    "jsdom": "^26.1.0",
     "tsup": "^8.4.0",
     "vitest": "^3.1.1",
     "vitest-axe": "pre"
