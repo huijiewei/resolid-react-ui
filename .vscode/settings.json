@@ -11,11 +11,7 @@
     "editor.quickSuggestions": {
         "strings": "on"
     },
-    "tailwindCSS.experimental.classRegex": [
-      ["tv\\(((?:[^()]|\\([^()]*\\))*)\\)", "[\"'`]?([^\"'`]+)[\"'`]?"],
-      ["tx\\(((?:[^()]|\\([^()]*\\))*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
-      ["ShareStyles\\s*(?::\\s*[^=]+)?\\s*=\\s*([^;]*);", "['\"`]([^'\"`]*)['\"`]"]
-    ],
+    "tailwindCSS.classFunctions": ["tv", "tx"],
     "tailwindCSS.experimental.configFile": "./website/src/root.css",
     "typescript.tsdk": "node_modules/typescript/lib",
     "npm.enableRunFromFolder": true,

@@ -17,10 +17,11 @@
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.17.4",
     "@changesets/changelog-github": "^0.5.1",
-    "@changesets/cli": "^2.29.1",
+    "@changesets/cli": "^2.29.2",
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
     "@resolid/config": "^3.3.3",
+    "@tailwindcss/language-server": "^0.14.15",
     "@types/node": "^22.14.1",
     "eslint": "^9.24.0",
     "lefthook": "^1.11.10",
