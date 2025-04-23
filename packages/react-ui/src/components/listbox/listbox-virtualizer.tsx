@@ -134,7 +134,7 @@ export const ListboxVirtualizer = ({
   });
 
   useIsomorphicEffect(() => {
-    // eslint-disable-next-line react-compiler/react-compiler
+    // eslint-disable-next-line react-hooks/react-compiler
     scrollToRef.current = (index, options) => {
       const groupCount = groupIndices.reduce((acc, num) => acc + (num <= index ? 1 : 0), 0);
 

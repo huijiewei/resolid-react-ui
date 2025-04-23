@@ -39,6 +39,6 @@ export const mergeRefs = <T>(...refs: OptionalRef<T>[]) => {
 };
 
 export const useMergeRefs = <T>(...refs: OptionalRef<T>[]) => {
-  // eslint-disable-next-line react-compiler/react-compiler,react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/react-compiler,react-hooks/exhaustive-deps
   return useCallback(mergeRefs(...refs), refs) as RefCallback<T>;
 };

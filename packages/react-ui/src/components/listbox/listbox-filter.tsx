@@ -29,7 +29,7 @@ export const ListboxFilter = (props: PrimitiveProps<"input", ListboxFilterProps,
   } = props;
 
   useIsomorphicEffect(() => {
-    // eslint-disable-next-line react-compiler/react-compiler
+    // eslint-disable-next-line react-hooks/react-compiler
     filterRef.current = true;
   }, [filterRef]);
 

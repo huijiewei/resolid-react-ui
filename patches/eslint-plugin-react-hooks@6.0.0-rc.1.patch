@@ -1,0 +1,98 @@
+diff --git a/cjs/eslint-plugin-react-hooks.development.js b/cjs/eslint-plugin-react-hooks.development.js
+index 179bf427960002c7ca4b6d7d81515f23d542b4ef..1b0c7e4df69a185915d948e729c76f9c8fed51e6 100644
+--- a/cjs/eslint-plugin-react-hooks.development.js
++++ b/cjs/eslint-plugin-react-hooks.development.js
+@@ -196,7 +196,7 @@ const rule$2 = {
+                 if (name === 'useRef' && id.type === 'Identifier') {
+                     return true;
+                 }
+-                else if (isUseEffectEventIdentifier$1() &&
++                else if (isUseEffectEventIdentifier$1(callee) &&
+                     id.type === 'Identifier') {
+                     for (const ref of resolved.references) {
+                         if (ref !== id) {
+@@ -1401,7 +1401,7 @@ function isAncestorNodeOf(a, b) {
+         a.range[1] >= b.range[1]);
+ }
+ function isUseEffectEventIdentifier$1(node) {
+-    return false;
++    return node.type === 'Identifier' && node.name === 'useEffectEvent';
+ }
+ function getUnknownDependenciesMessage(reactiveHookName) {
+     return (`React Hook ${reactiveHookName} received a function whose dependencies ` +
+@@ -55694,7 +55694,7 @@ function isInsideDoWhileLoop(node) {
+     return false;
+ }
+ function isUseEffectEventIdentifier(node) {
+-    return false;
++    return node.type === 'Identifier' && node.name === 'useEffectEvent';
+ }
+ function isUseIdentifier(node) {
+     return isReactFunction(node, 'use');
+@@ -55720,7 +55720,7 @@ const rule = {
+                     parent.init &&
+                     parent.init.type === 'CallExpression' &&
+                     parent.init.callee &&
+-                    isUseEffectEventIdentifier()) {
++                    isUseEffectEventIdentifier(parent.init.callee)) {
+                     if (reference.resolved === null) {
+                         throw new Error('Unexpected null reference.resolved');
+                     }
+@@ -55964,7 +55964,7 @@ const rule = {
+                 }
+                 if (node.callee.type === 'Identifier' &&
+                     (node.callee.name === 'useEffect' ||
+-                        isUseEffectEventIdentifier()) &&
++                        isUseEffectEventIdentifier(node.callee)) &&
+                     node.arguments.length > 0) {
+                     lastEffect = node;
+                 }
+diff --git a/cjs/eslint-plugin-react-hooks.production.js b/cjs/eslint-plugin-react-hooks.production.js
+index d085ed314408ee3db2940c94b42e6fdd0b1ee111..5ad4f517e08da730cc1301d8a975c75559eb35ac 100644
+--- a/cjs/eslint-plugin-react-hooks.production.js
++++ b/cjs/eslint-plugin-react-hooks.production.js
+@@ -192,7 +192,7 @@ const rule$2 = {
+                 if (name === 'useRef' && id.type === 'Identifier') {
+                     return true;
+                 }
+-                else if (isUseEffectEventIdentifier$1() &&
++                else if (isUseEffectEventIdentifier$1(callee) &&
+                     id.type === 'Identifier') {
+                     for (const ref of resolved.references) {
+                         if (ref !== id) {
+@@ -1397,7 +1397,7 @@ function isAncestorNodeOf(a, b) {
+         a.range[1] >= b.range[1]);
+ }
+ function isUseEffectEventIdentifier$1(node) {
+-    return false;
++    return node.type === 'Identifier' && node.name === 'useEffectEvent';
+ }
+ function getUnknownDependenciesMessage(reactiveHookName) {
+     return (`React Hook ${reactiveHookName} received a function whose dependencies ` +
+@@ -55521,7 +55521,7 @@ function isInsideDoWhileLoop(node) {
+     return false;
+ }
+ function isUseEffectEventIdentifier(node) {
+-    return false;
++    return node.type === 'Identifier' && node.name === 'useEffectEvent';
+ }
+ function isUseIdentifier(node) {
+     return isReactFunction(node, 'use');
+@@ -55547,7 +55547,7 @@ const rule = {
+                     parent.init &&
+                     parent.init.type === 'CallExpression' &&
+                     parent.init.callee &&
+-                    isUseEffectEventIdentifier()) {
++                    isUseEffectEventIdentifier(parent.init.callee)) {
+                     if (reference.resolved === null) {
+                         throw new Error('Unexpected null reference.resolved');
+                     }
+@@ -55791,7 +55791,7 @@ const rule = {
+                 }
+                 if (node.callee.type === 'Identifier' &&
+                     (node.callee.name === 'useEffect' ||
+-                        isUseEffectEventIdentifier()) &&
++                        isUseEffectEventIdentifier(node.callee)) &&
+                     node.arguments.length > 0) {
+                     lastEffect = node;
+                 }

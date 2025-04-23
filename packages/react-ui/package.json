@@ -35,7 +35,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@floating-ui/react": "^0.27.7",
+    "@floating-ui/react": "^0.27.8",
     "@resolid/utils": "^0.3.3",
     "@tanstack/react-virtual": "^3.13.6",
     "cva": "beta"
@@ -48,10 +48,10 @@
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "babel-plugin-annotate-pure-calls": "^0.5.0",
-    "babel-plugin-react-compiler": "beta",
+    "babel-plugin-react-compiler": "rc",
     "jsdom": "^26.1.0",
     "tsup": "^8.4.0",
-    "vitest": "^3.1.1",
+    "vitest": "^3.1.2",
     "vitest-axe": "pre"
   },
   "peerDependencies": {
