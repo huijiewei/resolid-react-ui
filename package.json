@@ -17,14 +17,14 @@
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.17.4",
     "@changesets/changelog-github": "^0.5.1",
-    "@changesets/cli": "^2.29.2",
+    "@changesets/cli": "^2.29.3",
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
     "@resolid/config": "^3.4.0",
-    "@tailwindcss/language-server": "^0.14.15",
-    "@types/node": "^22.14.1",
-    "eslint": "^9.25.1",
-    "lefthook": "^1.11.11",
+    "@tailwindcss/language-server": "^0.14.16",
+    "@types/node": "^22.15.9",
+    "eslint": "^9.26.0",
+    "lefthook": "^1.11.12",
     "prettier": "^3.5.3",
     "prettier-plugin-organize-imports": "^4.1.0",
     "prettier-plugin-tailwindcss": "^0.6.11",
@@ -34,7 +34,7 @@
     "node": "22.x",
     "pnpm": "10.x"
   },
-  "packageManager": "pnpm@10.9.0",
+  "packageManager": "pnpm@10.10.0",
   "homepage": "https://ui.resolid.tech",
   "repository": {
     "type": "git",
