@@ -18,11 +18,11 @@
     "@arethetypeswrong/cli": "^0.17.4",
     "@changesets/changelog-github": "^0.5.1",
     "@changesets/cli": "^2.29.3",
-    "@commitlint/cli": "^19.8.0",
-    "@commitlint/config-conventional": "^19.8.0",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@resolid/config": "^3.4.0",
     "@tailwindcss/language-server": "^0.14.16",
-    "@types/node": "^22.15.9",
+    "@types/node": "^22.15.17",
     "eslint": "^9.26.0",
     "lefthook": "^1.11.12",
     "prettier": "^3.5.3",
@@ -64,7 +64,8 @@
       "safer-buffer": "npm:@nolyfill/safer-buffer@^1",
       "isarray": "npm:@nolyfill/isarray@^1",
       "safe-buffer": "npm:@nolyfill/safe-buffer@^1",
-      "es-set-tostringtag": "npm:@nolyfill/es-set-tostringtag@^1"
+      "es-set-tostringtag": "npm:@nolyfill/es-set-tostringtag@^1",
+      "side-channel": "npm:@nolyfill/side-channel@^1"
     },
     "onlyBuiltDependencies": [
       "esbuild",
