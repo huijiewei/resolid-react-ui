@@ -35,23 +35,23 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@floating-ui/react": "^0.27.8",
+    "@floating-ui/react": "^0.27.12",
     "@resolid/utils": "^0.3.3",
     "@tanstack/react-virtual": "^3.13.9",
     "cva": "beta"
   },
   "devDependencies": {
-    "@babel/core": "^7.27.1",
+    "@babel/core": "^7.27.4",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
-    "@types/react": "^19.1.5",
+    "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.5",
     "babel-plugin-annotate-pure-calls": "^0.5.0",
     "babel-plugin-react-compiler": "rc",
     "jsdom": "^26.1.0",
     "tsup": "^8.5.0",
-    "vitest": "^3.1.4",
+    "vitest": "^3.2.0",
     "vitest-axe": "pre"
   },
   "peerDependencies": {
