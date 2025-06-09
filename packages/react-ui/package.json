@@ -46,12 +46,12 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19.1.6",
-    "@types/react-dom": "^19.1.5",
+    "@types/react-dom": "^19.1.6",
     "babel-plugin-annotate-pure-calls": "^0.5.0",
     "babel-plugin-react-compiler": "rc",
     "jsdom": "^26.1.0",
     "tsup": "^8.5.0",
-    "vitest": "^3.2.0",
+    "vitest": "^3.2.2",
     "vitest-axe": "pre"
   },
   "peerDependencies": {

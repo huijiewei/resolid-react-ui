@@ -21,8 +21,8 @@
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@resolid/config": "^3.4.0",
-    "@tailwindcss/language-server": "^0.14.20",
-    "@types/node": "^22.15.29",
+    "@tailwindcss/language-server": "^0.14.21",
+    "@types/node": "^22.15.30",
     "eslint": "^9.28.0",
     "lefthook": "^1.11.13",
     "prettier": "^3.5.3",
@@ -34,7 +34,7 @@
     "node": "22.x",
     "pnpm": "10.x"
   },
-  "packageManager": "pnpm@10.11.1",
+  "packageManager": "pnpm@10.12.1",
   "homepage": "https://ui.resolid.tech",
   "repository": {
     "type": "git",
