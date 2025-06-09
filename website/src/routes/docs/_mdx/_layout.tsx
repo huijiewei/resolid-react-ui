@@ -482,7 +482,7 @@ const Toc = ({ toc }: { toc: { depth: number; text: string; slug: string }[] }) 
 export const meta = mergeMeta(({ data }: Route.MetaArgs) => {
   return [
     {
-      title: data.meta.title,
+      title: data?.meta.title,
     },
   ];
 });

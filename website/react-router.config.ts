@@ -10,7 +10,7 @@ export default {
   presets: [
     env.VERCEL == "1"
       ? vercelPreset({
-          regions: ["sin1"],
+          regions: ["hkg1"],
           entryFile: "server.vercel.ts",
           nodeVersion: 22,
         })
