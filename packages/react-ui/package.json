@@ -35,18 +35,18 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@floating-ui/react": "^0.27.13",
+    "@floating-ui/react": "^0.27.15",
     "@resolid/utils": "^0.3.3",
     "@tanstack/react-virtual": "^3.13.12",
     "cva": "beta"
   },
   "devDependencies": {
     "@babel/core": "^7.28.0",
-    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/jest-dom": "^6.6.4",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7",
     "babel-plugin-annotate-pure-calls": "^0.5.0",
     "babel-plugin-react-compiler": "rc",
     "jsdom": "^26.1.0",
@@ -55,8 +55,8 @@
     "vitest-axe": "pre"
   },
   "peerDependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "tailwindcss": "^4.1.11"
   },
   "homepage": "https://ui.resolid.tech",
