@@ -62,6 +62,7 @@ export const ListboxRoot = <T extends ListboxItem>(props: PrimitiveProps<"div", 
     disabledKey,
     childrenKey,
     context,
+    focusItemOnOpen: false,
   });
 
   const { getFloatingProps, getItemProps } = useInteractions([
