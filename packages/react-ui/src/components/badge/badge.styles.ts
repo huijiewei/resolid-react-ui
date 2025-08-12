@@ -1,9 +1,9 @@
 import { alertAndBadgeShareStyles } from "../../shared/styles";
-import { tcm, tv, type VP } from "../../utils";
+import { tv, type VP } from "../../utils";
 
-export const badgeStyles = tcm(
-  tv({ base: "inline-flex items-center rounded-md border px-2 py-1 text-xs" }),
-  alertAndBadgeShareStyles,
-);
+export const badgeStyles = tv({
+  base: "inline-flex items-center rounded-md border px-2 py-1 text-xs",
+  extend: alertAndBadgeShareStyles,
+});
 
 export type BadgeStyleProps = VP<typeof badgeStyles>;
