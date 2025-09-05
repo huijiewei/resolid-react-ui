@@ -23,7 +23,6 @@ export const ListboxItem = (props: PrimitiveProps<"div", ListboxItemProps, "tabI
   const { getItemDisabled } = useListboxFields();
 
   const refs = useMergeRefs(ref, (node) => {
-    // eslint-disable-next-line react-hooks/react-compiler
     elementsRef.current[item.__index] = node;
   });
 

@@ -1,8 +1,8 @@
 diff --git a/cjs/eslint-plugin-react-hooks.development.js b/cjs/eslint-plugin-react-hooks.development.js
-index 179bf427960002c7ca4b6d7d81515f23d542b4ef..1b0c7e4df69a185915d948e729c76f9c8fed51e6 100644
+index 0d67652c25374269f9d52cb51962056555a49f90..057544bca33c334b79900e4a29af440508b882c6 100644
 --- a/cjs/eslint-plugin-react-hooks.development.js
 +++ b/cjs/eslint-plugin-react-hooks.development.js
-@@ -196,7 +196,7 @@ const rule$2 = {
+@@ -212,7 +212,7 @@ const rule$1 = {
                  if (name === 'useRef' && id.type === 'Identifier') {
                      return true;
                  }
@@ -11,7 +11,7 @@ index 179bf427960002c7ca4b6d7d81515f23d542b4ef..1b0c7e4df69a185915d948e729c76f9c
                      id.type === 'Identifier') {
                      for (const ref of resolved.references) {
                          if (ref !== id) {
-@@ -1401,7 +1401,7 @@ function isAncestorNodeOf(a, b) {
+@@ -1440,7 +1440,7 @@ function isAncestorNodeOf(a, b) {
          a.range[1] >= b.range[1]);
  }
  function isUseEffectEventIdentifier$1(node) {
@@ -20,8 +20,8 @@ index 179bf427960002c7ca4b6d7d81515f23d542b4ef..1b0c7e4df69a185915d948e729c76f9c
  }
  function getUnknownDependenciesMessage(reactiveHookName) {
      return (`React Hook ${reactiveHookName} received a function whose dependencies ` +
-@@ -55694,7 +55694,7 @@ function isInsideDoWhileLoop(node) {
-     return false;
+@@ -55395,7 +55395,7 @@ function isUseEffectIdentifier(node) {
+     return node.type === 'Identifier' && node.name === 'useEffect';
  }
  function isUseEffectEventIdentifier(node) {
 -    return false;
@@ -29,7 +29,7 @@ index 179bf427960002c7ca4b6d7d81515f23d542b4ef..1b0c7e4df69a185915d948e729c76f9c
  }
  function isUseIdentifier(node) {
      return isReactFunction(node, 'use');
-@@ -55720,7 +55720,7 @@ const rule = {
+@@ -55421,7 +55421,7 @@ const rule = {
                      parent.init &&
                      parent.init.type === 'CallExpression' &&
                      parent.init.callee &&
@@ -38,20 +38,20 @@ index 179bf427960002c7ca4b6d7d81515f23d542b4ef..1b0c7e4df69a185915d948e729c76f9c
                      if (reference.resolved === null) {
                          throw new Error('Unexpected null reference.resolved');
                      }
-@@ -55964,7 +55964,7 @@ const rule = {
+@@ -55691,7 +55691,7 @@ const rule = {
                  }
-                 if (node.callee.type === 'Identifier' &&
-                     (node.callee.name === 'useEffect' ||
--                        isUseEffectEventIdentifier()) &&
-+                        isUseEffectEventIdentifier(node.callee)) &&
+                 const nodeWithoutNamespace = getNodeWithoutReactNamespace(node.callee);
+                 if ((isUseEffectIdentifier(nodeWithoutNamespace) ||
+-                    isUseEffectEventIdentifier()) &&
++                    isUseEffectEventIdentifier(nodeWithoutNamespace)) &&
                      node.arguments.length > 0) {
                      lastEffect = node;
                  }
 diff --git a/cjs/eslint-plugin-react-hooks.production.js b/cjs/eslint-plugin-react-hooks.production.js
-index d085ed314408ee3db2940c94b42e6fdd0b1ee111..5ad4f517e08da730cc1301d8a975c75559eb35ac 100644
+index a65763e7ae939af900a50fec6ae1a0a7a4f28f15..cfeb0c4a599415e4d46a9fe102d1b81508b5946f 100644
 --- a/cjs/eslint-plugin-react-hooks.production.js
 +++ b/cjs/eslint-plugin-react-hooks.production.js
-@@ -192,7 +192,7 @@ const rule$2 = {
+@@ -208,7 +208,7 @@ const rule$1 = {
                  if (name === 'useRef' && id.type === 'Identifier') {
                      return true;
                  }
@@ -60,7 +60,7 @@ index d085ed314408ee3db2940c94b42e6fdd0b1ee111..5ad4f517e08da730cc1301d8a975c755
                      id.type === 'Identifier') {
                      for (const ref of resolved.references) {
                          if (ref !== id) {
-@@ -1397,7 +1397,7 @@ function isAncestorNodeOf(a, b) {
+@@ -1436,7 +1436,7 @@ function isAncestorNodeOf(a, b) {
          a.range[1] >= b.range[1]);
  }
  function isUseEffectEventIdentifier$1(node) {
@@ -69,8 +69,8 @@ index d085ed314408ee3db2940c94b42e6fdd0b1ee111..5ad4f517e08da730cc1301d8a975c755
  }
  function getUnknownDependenciesMessage(reactiveHookName) {
      return (`React Hook ${reactiveHookName} received a function whose dependencies ` +
-@@ -55521,7 +55521,7 @@ function isInsideDoWhileLoop(node) {
-     return false;
+@@ -55222,7 +55222,7 @@ function isUseEffectIdentifier(node) {
+     return node.type === 'Identifier' && node.name === 'useEffect';
  }
  function isUseEffectEventIdentifier(node) {
 -    return false;
@@ -78,7 +78,7 @@ index d085ed314408ee3db2940c94b42e6fdd0b1ee111..5ad4f517e08da730cc1301d8a975c755
  }
  function isUseIdentifier(node) {
      return isReactFunction(node, 'use');
-@@ -55547,7 +55547,7 @@ const rule = {
+@@ -55248,7 +55248,7 @@ const rule = {
                      parent.init &&
                      parent.init.type === 'CallExpression' &&
                      parent.init.callee &&
@@ -87,12 +87,12 @@ index d085ed314408ee3db2940c94b42e6fdd0b1ee111..5ad4f517e08da730cc1301d8a975c755
                      if (reference.resolved === null) {
                          throw new Error('Unexpected null reference.resolved');
                      }
-@@ -55791,7 +55791,7 @@ const rule = {
+@@ -55518,7 +55518,7 @@ const rule = {
                  }
-                 if (node.callee.type === 'Identifier' &&
-                     (node.callee.name === 'useEffect' ||
--                        isUseEffectEventIdentifier()) &&
-+                        isUseEffectEventIdentifier(node.callee)) &&
+                 const nodeWithoutNamespace = getNodeWithoutReactNamespace(node.callee);
+                 if ((isUseEffectIdentifier(nodeWithoutNamespace) ||
+-                    isUseEffectEventIdentifier()) &&
++                    isUseEffectEventIdentifier(nodeWithoutNamespace)) &&
                      node.arguments.length > 0) {
                      lastEffect = node;
                  }

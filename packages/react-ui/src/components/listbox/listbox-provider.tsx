@@ -174,7 +174,6 @@ export const ListboxProvider = <T extends ListboxItem>(props: PropsWithChildren<
         }
       }
     });
-    // eslint-disable-next-line react-hooks/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [elementsRef, open]);
 

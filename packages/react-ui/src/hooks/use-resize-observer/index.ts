@@ -1,6 +1,5 @@
 import { isBrowser } from "@resolid/utils";
 import { type RefObject, useRef } from "react";
-import { useEffectEvent } from "../use-effect-event";
 import { useIsomorphicEffect } from "../use-isomorphic-effect";
 
 export const useResizeObserver = <T extends Element>(
@@ -9,7 +8,7 @@ export const useResizeObserver = <T extends Element>(
   options?: ResizeObserverOptions,
 ) => {
   const observerRef = useRef<ResizeObserver>(null);
-  const callbackRef = useEffectEvent(callback);
+  const callbackRef = useRef(callback);
 
   useIsomorphicEffect(() => {
     if (!isBrowser) {
@@ -23,7 +22,7 @@ export const useResizeObserver = <T extends Element>(
     }
 
     observerRef.current = new ResizeObserver((entries) => {
-      callbackRef(entries[0]);
+      callbackRef.current(entries[0]);
     });
 
     observerRef.current.observe(element, options);

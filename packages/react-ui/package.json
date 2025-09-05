@@ -42,14 +42,14 @@
     "tailwind-variants": "^2.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.3",
+    "@babel/core": "^7.28.4",
     "@testing-library/jest-dom": "^6.8.0",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
-    "@types/react": "^19.1.11",
-    "@types/react-dom": "^19.1.7",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
     "babel-plugin-annotate-pure-calls": "^0.5.0",
-    "babel-plugin-react-compiler": "rc",
+    "babel-plugin-react-compiler": "19.1.0-rc.2",
     "jsdom": "^26.1.0",
     "tsup": "^8.5.0",
     "vitest": "^3.2.4",
