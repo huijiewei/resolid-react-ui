@@ -1,5 +1,5 @@
 import { useListItem } from "@floating-ui/react";
-import type { ClipboardEvent, FocusEvent, KeyboardEvent, SyntheticEvent } from "react";
+import type { ChangeEvent, ClipboardEvent, FocusEvent, KeyboardEvent, SyntheticEvent } from "react";
 import { useControllableState, useMergeRefs } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import { useComposite } from "../../primitives/composite/composite-context";
@@ -108,7 +108,7 @@ export const TagsInputInput = (
       const value = e.currentTarget.value.replaceAll(delimiter, "").trim();
 
       if (value && onAdd(value)) {
-        setValueState("");
+        e.currentTarget.value = "";
 
         return;
       }
@@ -171,6 +171,10 @@ export const TagsInputInput = (
     setActiveIndex(index);
   };
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setValueState(e.currentTarget.value);
+  };
+
   return (
     <input
       ref={refs}
@@ -187,6 +191,7 @@ export const TagsInputInput = (
       onPaste={handlePaste}
       onInput={handleInput}
       onKeyDown={handleKeyDown}
+      onChange={handleChange}
       className={tx("min-w-20 flex-1 outline-none", inputClassname, className)}
       value={valueState}
       {...rest}
