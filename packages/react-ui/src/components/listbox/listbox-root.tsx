@@ -1,10 +1,10 @@
 import { useFloatingRootContext, useInteractions, useRole } from "@floating-ui/react";
-import { useState } from "react";
+import { useState, type FocusEvent } from "react";
 import type { PrimitiveProps } from "../../primitives";
 import type { FormFieldProps } from "../../shared/types";
 import { ariaAttr, tx } from "../../utils";
 import { ListboxProvider } from "./listbox-provider";
-import { type ListboxBaseProps, type ListboxItem, useListbox } from "./use-listbox";
+import { useListbox, type ListboxBaseProps, type ListboxItem } from "./use-listbox";
 
 export type ListboxRootProps<T extends ListboxItem> = FormFieldProps & {
   /**
@@ -49,8 +49,13 @@ export const ListboxRoot = <T extends ListboxItem>(props: PrimitiveProps<"div", 
     typeaheadInteraction,
     interactiveHandlers,
     handleEnterKeydown,
+    activeIndex,
+    setActiveIndex,
+    selectedIndices,
     ...providerValue
   } = useListbox({
+    disabled,
+    readOnly,
     multiple,
     value,
     defaultValue,
@@ -76,15 +81,31 @@ export const ListboxRoot = <T extends ListboxItem>(props: PrimitiveProps<"div", 
     getItemProps: getNavigationItemProps,
   } = useInteractions([navigationInteraction]);
 
+  const handleBlur = (e: FocusEvent<HTMLElement>) => {
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      setActiveIndex(null);
+    }
+  };
+
+  const handleFocus = () => {
+    if (activeIndex == null) {
+      setActiveIndex(selectedIndices[0] ?? 0);
+    }
+  };
+
   return (
     <div
       role={"presentation"}
       className={tx("rounded-md border", invalid ? "border-bd-invalid" : "border-bd-normal", className)}
+      onBlur={handleBlur}
+      onFocus={handleFocus}
       {...rest}
     >
       <ListboxProvider
         value={{
           ...providerValue,
+          activeIndex,
+          selectedIndices,
           setFloating,
           getFloatingProps: (props) =>
             getFloatingProps(

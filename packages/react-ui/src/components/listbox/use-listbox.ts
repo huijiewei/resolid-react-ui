@@ -67,12 +67,16 @@ export type UseListboxOptions<T extends ListboxItem> = Omit<ListboxBaseProps<T>,
   loop?: boolean;
   focusItemOnOpen?: boolean;
   onSelect?: () => void;
+  disabled: boolean;
+  readOnly: boolean;
 };
 
 export type UseListboxResult<T extends ListboxItem> = ReturnType<typeof useListbox<T>>;
 
 export const useListbox = <T extends ListboxItem>(options: UseListboxOptions<T>) => {
   const {
+    disabled = false,
+    readOnly = false,
     multiple = false,
     value,
     defaultValue = multiple ? [] : null,
@@ -230,17 +234,19 @@ export const useListbox = <T extends ListboxItem>(options: UseListboxOptions<T>)
   const virtual = !!context.elements.reference || filterRef.current;
 
   const navigationInteraction = useListNavigation(context, {
+    enabled: !disabled && !readOnly,
     listRef: elementsRef,
     activeIndex,
     selectedIndex,
     onNavigate: setActiveIndex,
     loop,
-    focusItemOnOpen: focusItemOnOpen ?? "auto",
     virtual,
+    focusItemOnOpen: focusItemOnOpen ?? "auto",
   });
 
   // noinspection JSUnusedGlobalSymbols
   const typeaheadInteraction = useTypeahead(context, {
+    enabled: !disabled && !readOnly,
     listRef: labelsRef,
     activeIndex,
     selectedIndex,

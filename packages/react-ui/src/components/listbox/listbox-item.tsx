@@ -30,7 +30,12 @@ export const ListboxItem = (props: PrimitiveProps<"div", ListboxItemProps, "tabI
   const selected = selectedIndices.includes(item.__index);
   const disabled = disabledProps || getItemDisabled(item);
   const focusable =
-    !virtual && (activeIndex !== null ? active : selectedIndices.length > 0 ? selected : item.__index === 0);
+    !virtual &&
+    (activeIndex !== null
+      ? active
+      : selectedIndices.length > 0
+        ? selectedIndices[0] == item.__index
+        : item.__index === 0);
 
   const { handleClick, handleKeyUp, handleKeyDown } = getInteractiveHandlers({
     disabled: disabled || readOnly,

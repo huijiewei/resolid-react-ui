@@ -96,7 +96,9 @@ export const ListboxProvider = <T extends ListboxItem>(props: PropsWithChildren<
     renderGroupLabel,
   } as ListboxGroupContextValue;
 
+  // 滚动
   const scrollRef = useRef<HTMLElement | null>(null);
+  // 虚拟滚动
   const scrollToRef = useRef<VirtualScrollTo | null>(null);
 
   const prevActiveIndex = usePrevious<number | null>(activeIndex);
@@ -118,31 +120,29 @@ export const ListboxProvider = <T extends ListboxItem>(props: PropsWithChildren<
           align: "auto",
         });
       }
+    } else {
+      const floating = scrollRef.current;
 
-      return;
-    }
+      if (floating && floating.offsetHeight < floating.scrollHeight) {
+        const item =
+          activeIndex != null
+            ? elementsRef.current[activeIndex]
+            : selectedIndex != null
+              ? elementsRef.current[selectedIndex]
+              : null;
 
-    const floating = scrollRef.current;
+        if (item) {
+          const offsetHeight = elementsRef.current[prevActiveIndex]?.offsetHeight || 0;
 
-    if (floating && floating.offsetHeight < floating.scrollHeight) {
-      const item =
-        activeIndex != null
-          ? elementsRef.current[activeIndex]
-          : selectedIndex != null
-            ? elementsRef.current[selectedIndex]
-            : null;
+          const scrollHeight = floating.offsetHeight;
+          const top = item.offsetTop - offsetHeight;
+          const bottom = top + offsetHeight * 3;
 
-      if (item) {
-        const offsetHeight = elementsRef.current[prevActiveIndex]?.offsetHeight || 0;
-
-        const scrollHeight = floating.offsetHeight;
-        const top = item.offsetTop - offsetHeight;
-        const bottom = top + offsetHeight * 3;
-
-        if (top < floating.scrollTop) {
-          floating.scrollTop -= floating.scrollTop - top + 6;
-        } else if (bottom > scrollHeight + floating.scrollTop) {
-          floating.scrollTop += bottom - scrollHeight - floating.scrollTop + 6;
+          if (top < floating.scrollTop) {
+            floating.scrollTop -= floating.scrollTop - top + 6;
+          } else if (bottom > scrollHeight + floating.scrollTop) {
+            floating.scrollTop += bottom - scrollHeight - floating.scrollTop + 6;
+          }
         }
       }
     }
@@ -158,19 +158,17 @@ export const ListboxProvider = <T extends ListboxItem>(props: PropsWithChildren<
         if (selectedIndex !== null) {
           scrollToRef.current(selectedIndex, { align: "center" });
         }
+      } else {
+        const floating = scrollRef.current;
 
-        return;
-      }
+        if (floating && floating.offsetHeight < floating.scrollHeight) {
+          const item = selectedIndex !== null ? elementsRef.current[selectedIndex] : null;
 
-      const floating = scrollRef.current;
-
-      if (floating && floating.offsetHeight < floating.scrollHeight) {
-        const item = selectedIndex !== null ? elementsRef.current[selectedIndex] : null;
-
-        if (item) {
-          floating.scrollTo({
-            top: item.offsetTop - floating.offsetHeight / 2 + item.offsetHeight / 2,
-          });
+          if (item) {
+            floating.scrollTo({
+              top: item.offsetTop - floating.offsetHeight / 2 + item.offsetHeight / 2,
+            });
+          }
         }
       }
     });
