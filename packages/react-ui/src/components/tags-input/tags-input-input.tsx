@@ -41,7 +41,20 @@ export const TagsInputInput = (
     "type" | "tabIndex" | "placeholder" | "maxLength" | "autoComplete" | "autoCorrect" | "autoCapitalize"
   >,
 ) => {
-  const { value, defaultValue = "", onChange, placeholder, maxLength, className, onFocus, ref, ...rest } = props;
+  const {
+    value,
+    defaultValue = "",
+    onChange,
+    placeholder,
+    maxLength,
+    className,
+    onKeyDown,
+    onInput,
+    onFocus,
+    onBlur,
+    ref,
+    ...rest
+  } = props;
 
   const { disabled, readOnly, addOnBlur, addOnPaste, inputClassname, delimiter, onAdd, onDelete } = useTagsInputRoot();
 
@@ -56,6 +69,8 @@ export const TagsInputInput = (
   const refs = useMergeRefs(ref, itemRef);
 
   const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
+    onBlur?.(e);
+
     if (addOnBlur) {
       if (e.target.value && onAdd(e.target.value)) {
         setValueState("");
@@ -66,8 +81,8 @@ export const TagsInputInput = (
   };
 
   const handleFocus = (e: FocusEvent<HTMLInputElement>) => {
-    setActiveIndex(index);
     onFocus?.(e);
+    setActiveIndex(index);
   };
 
   const handlePaste = (e: ClipboardEvent<HTMLInputElement>) => {
@@ -100,6 +115,8 @@ export const TagsInputInput = (
   };
 
   const handleInput = (e: SyntheticEvent<HTMLInputElement, InputEvent>) => {
+    onInput?.(e);
+
     if (!e.nativeEvent.data) {
       return;
     }
@@ -118,6 +135,8 @@ export const TagsInputInput = (
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    onKeyDown?.(e);
+
     if (e.defaultPrevented) {
       return;
     }
@@ -148,6 +167,8 @@ export const TagsInputInput = (
       if (onAdd(value)) {
         setValueState("");
       }
+
+      e.preventDefault();
 
       return;
     }

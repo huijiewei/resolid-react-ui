@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@floating-ui/react": "^0.27.16",
-    "@resolid/utils": "^0.3.3",
+    "@resolid/utils": "^0.3.4",
     "@tanstack/react-virtual": "^3.13.12",
     "clsx": "^2.1.1",
     "tailwind-variants": "^2.1.0"
