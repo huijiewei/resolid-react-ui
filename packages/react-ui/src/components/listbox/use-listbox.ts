@@ -64,6 +64,7 @@ export type ListboxBaseProps<T extends ListboxItem> = MultipleValueProps & {
 
 export type UseListboxOptions<T extends ListboxItem> = Omit<ListboxBaseProps<T>, "renderItem" | "renderGroupLabel"> & {
   context: FloatingRootContext;
+  typeahead?: boolean;
   loop?: boolean;
   focusItemOnOpen?: boolean;
   onSelect?: () => void;
@@ -87,6 +88,7 @@ export const useListbox = <T extends ListboxItem>(options: UseListboxOptions<T>)
     disabledKey = "disabled",
     childrenKey = "children",
     context,
+    typeahead = true,
     loop,
     focusItemOnOpen,
     onSelect,
@@ -246,7 +248,7 @@ export const useListbox = <T extends ListboxItem>(options: UseListboxOptions<T>)
 
   // noinspection JSUnusedGlobalSymbols
   const typeaheadInteraction = useTypeahead(context, {
-    enabled: !disabled && !readOnly,
+    enabled: !disabled && !readOnly && typeahead,
     listRef: labelsRef,
     activeIndex,
     selectedIndex,
