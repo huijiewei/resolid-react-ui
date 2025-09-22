@@ -1,3 +1,4 @@
+import type { JSX } from "react/jsx-runtime";
 import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
 import { CloseButton } from "../close-button/close-button";
@@ -6,7 +7,7 @@ import { alertStyles } from "./alert.styles";
 
 export type AlertProps = Partial<AlertContextValue>;
 
-export const Alert = (props: PrimitiveProps<"div", AlertProps, "role">) => {
+export const Alert = (props: PrimitiveProps<"div", AlertProps, "role">): JSX.Element => {
   const { children, className, color = "primary", variant = "soft", ...rest } = props;
   return (
     <div role={"alert"} className={tx(alertStyles({ variant, color }), className)} {...rest}>
@@ -15,17 +16,17 @@ export const Alert = (props: PrimitiveProps<"div", AlertProps, "role">) => {
   );
 };
 
-export const AlertContent = (props: PrimitiveProps<"div">) => {
+export const AlertContent = (props: PrimitiveProps<"div">): JSX.Element => {
   return <div {...props} />;
 };
 
-export const AlertTitle = (props: PrimitiveProps<"div">) => {
+export const AlertTitle = (props: PrimitiveProps<"div">): JSX.Element => {
   const { className, ...rest } = props;
 
   return <div className={tx("font-medium", className)} {...rest} />;
 };
 
-export const AlertDescription = (props: PrimitiveProps<"div">) => {
+export const AlertDescription = (props: PrimitiveProps<"div">): JSX.Element => {
   const { className, ...rest } = props;
 
   const { variant } = useAlert();
@@ -33,7 +34,7 @@ export const AlertDescription = (props: PrimitiveProps<"div">) => {
   return <div className={tx(variant != "solid" ? "text-fg-normal" : "text-fg-emphasized", className)} {...rest} />;
 };
 
-export const AlertIndicator = (props: PrimitiveProps<"span">) => {
+export const AlertIndicator = (props: PrimitiveProps<"span">): JSX.Element => {
   const { className, ...rest } = props;
 
   return <span className={tx("shrink-0", className)} {...rest} />;
@@ -47,7 +48,9 @@ export type AlertCloseButtonProps = {
   size?: string;
 };
 
-export const AlertCloseButton = (props: PrimitiveProps<"button", AlertCloseButtonProps, "type" | "color">) => {
+export const AlertCloseButton = (
+  props: PrimitiveProps<"button", AlertCloseButtonProps, "type" | "color">,
+): JSX.Element => {
   const { size, ...rest } = props;
 
   const { variant, color } = useAlert();

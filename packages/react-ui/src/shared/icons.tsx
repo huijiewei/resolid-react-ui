@@ -1,11 +1,12 @@
 import type { SVGAttributes } from "react";
+import type { JSX } from "react/jsx-runtime";
 
 type IconProps = Omit<
   SVGAttributes<HTMLOrSVGElement>,
   "viewBox" | "stroke" | "strokeWidth" | "strokeLinejoin" | "strokeLinecap" | "fill" | "style"
 > & { size?: string };
 
-export const CloseIcon = (props: IconProps) => {
+export const CloseIcon = (props: IconProps): JSX.Element => {
   const { size = "1em", ...rest } = props;
 
   return (
@@ -24,7 +25,7 @@ export const CloseIcon = (props: IconProps) => {
   );
 };
 
-export const AngleLeftIcon = (props: IconProps) => {
+export const AngleLeftIcon = (props: IconProps): JSX.Element => {
   const { size = "1em", ...rest } = props;
 
   return (
@@ -34,7 +35,7 @@ export const AngleLeftIcon = (props: IconProps) => {
   );
 };
 
-export const AngleRightIcon = (props: IconProps) => {
+export const AngleRightIcon = (props: IconProps): JSX.Element => {
   const { size = "1em", ...rest } = props;
 
   return (
@@ -44,7 +45,7 @@ export const AngleRightIcon = (props: IconProps) => {
   );
 };
 
-export const AngleUpIcon = (props: IconProps) => {
+export const AngleUpIcon = (props: IconProps): JSX.Element => {
   const { size = "1em", ...rest } = props;
 
   return (
@@ -63,7 +64,7 @@ export const AngleUpIcon = (props: IconProps) => {
   );
 };
 
-export const AngleDownIcon = (props: IconProps) => {
+export const AngleDownIcon = (props: IconProps): JSX.Element => {
   const { size = "1em", ...rest } = props;
 
   return (
@@ -82,7 +83,7 @@ export const AngleDownIcon = (props: IconProps) => {
   );
 };
 
-export const CheckIcon = (props: IconProps) => {
+export const CheckIcon = (props: IconProps): JSX.Element => {
   const { size = "1em", ...rest } = props;
 
   return (
@@ -101,7 +102,7 @@ export const CheckIcon = (props: IconProps) => {
   );
 };
 
-export const CheckedIcon = (props: IconProps) => {
+export const CheckedIcon = (props: IconProps): JSX.Element => {
   const { size = "1em", ...rest } = props;
 
   return (
@@ -120,7 +121,7 @@ export const CheckedIcon = (props: IconProps) => {
   );
 };
 
-export const IndeterminateIcon = (props: IconProps) => {
+export const IndeterminateIcon = (props: IconProps): JSX.Element => {
   const { size = "1em", ...rest } = props;
 
   return (
@@ -130,7 +131,7 @@ export const IndeterminateIcon = (props: IconProps) => {
   );
 };
 
-export const SearchIcon = (props: IconProps) => {
+export const SearchIcon = (props: IconProps): JSX.Element => {
   const { size = "1em", ...rest } = props;
 
   return (

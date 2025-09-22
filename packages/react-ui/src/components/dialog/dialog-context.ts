@@ -1,6 +1,6 @@
 import type { FloatingRootContext } from "@floating-ui/react";
 import type { RefObject } from "react";
-import { createSafeContext } from "../../primitives";
+import { createSafeContext, type SafeContext, type UseSafeContext } from "../../primitives";
 
 export type DialogBaseProps = {
   /**
@@ -28,4 +28,7 @@ export type DialogBaseProps = {
 
 export type DialogContextValue = DialogBaseProps & { context: FloatingRootContext };
 
-export const [DialogContext, useDialog] = createSafeContext<DialogContextValue>({ name: "DialogContext" });
+const desc = createSafeContext<DialogContextValue>({ name: "DialogContext" });
+
+export const DialogContext: SafeContext<DialogContextValue> = desc[0];
+export const useDialog: UseSafeContext<DialogContextValue> = desc[1];

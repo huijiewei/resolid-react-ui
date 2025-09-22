@@ -1,5 +1,6 @@
 import { useListItem } from "@floating-ui/react";
 import type { ChangeEvent, ClipboardEvent, FocusEvent, KeyboardEvent, SyntheticEvent } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useControllableState, useMergeRefs } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import { useComposite } from "../../primitives/composite/composite-context";
@@ -40,7 +41,7 @@ export const TagsInputInput = (
     TagsInputInputProps,
     "type" | "tabIndex" | "placeholder" | "maxLength" | "autoComplete" | "autoCorrect" | "autoCapitalize"
   >,
-) => {
+): JSX.Element => {
   const {
     value,
     defaultValue = "",

@@ -1,4 +1,5 @@
 import type { ComponentProps } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useMergeRefs } from "../../hooks";
 import { AngleRightIcon } from "../../shared/icons";
 import { dataAttr, tx } from "../../utils";
@@ -10,7 +11,9 @@ import { useMenuHover } from "./menu-hover-context";
 
 export type MenuSubTriggerProps = MenuBaseItemProps;
 
-export const MenuSubTrigger = (props: PolymorphicProps<"div", MenuSubTriggerProps, "role" | "tabIndex">) => {
+export const MenuSubTrigger = (
+  props: PolymorphicProps<"div", MenuSubTriggerProps, "role" | "tabIndex">,
+): JSX.Element => {
   const { render, children, ref, className, disabled, ...rest } = props;
 
   const { open } = usePopperState();

@@ -1,3 +1,4 @@
+import type { JSX } from "react/jsx-runtime";
 import { useMergeRefs } from "../../hooks";
 import type { AnyObject, PrimitiveProps } from "../../primitives";
 import { CheckIcon } from "../../shared/icons";
@@ -15,7 +16,7 @@ type ListboxItemProps = {
   readOnly: boolean;
 };
 
-export const ListboxItem = (props: PrimitiveProps<"div", ListboxItemProps, "tabIndex" | "children">) => {
+export const ListboxItem = (props: PrimitiveProps<"div", ListboxItemProps, "tabIndex" | "children">): JSX.Element => {
   const { item, size, disabled: disabledProps, readOnly = false, ref, className, ...rest } = props;
 
   const { activeIndex, handleSelect, selectedIndices, getItemProps, typingRef, virtual, renderItem, elementsRef } =

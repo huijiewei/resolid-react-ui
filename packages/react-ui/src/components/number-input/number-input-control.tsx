@@ -1,3 +1,4 @@
+import type { JSX } from "react/jsx-runtime";
 import type { PrimitiveProps } from "../../primitives";
 import { AngleDownIcon, AngleUpIcon } from "../../shared/icons";
 import { inputTextShareStyles } from "../../shared/styles";
@@ -10,7 +11,7 @@ export const NumberInputControl = (
     { stepper: "increment" | "decrement"; size: InputSize; inputId: string },
     "type" | "children"
   >,
-) => {
+): JSX.Element => {
   const { className, disabled, stepper, size, inputId, ...rest } = props;
 
   return (

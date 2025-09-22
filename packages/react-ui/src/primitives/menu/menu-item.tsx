@@ -1,3 +1,4 @@
+import type { JSX } from "react/jsx-runtime";
 import { getInteractiveHandlers } from "../../shared/utils";
 import type { PolymorphicProps } from "../index";
 import { MenuBaseItem, type MenuBaseItemProps } from "./menu-base-item";
@@ -15,7 +16,7 @@ export type MenuItemProps = MenuBaseItemProps & {
   onSelect?: () => void;
 };
 
-export const MenuItem = (props: PolymorphicProps<"div", MenuItemProps, "tabIndex">) => {
+export const MenuItem = (props: PolymorphicProps<"div", MenuItemProps, "tabIndex">): JSX.Element => {
   const { menuEvents, closeOnSelect: menuCloseOnSelect, typingRef } = useMenuItem();
 
   const {

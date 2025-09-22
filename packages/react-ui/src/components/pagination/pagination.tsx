@@ -1,4 +1,5 @@
 import type { ReactElement } from "react";
+import type { JSX } from "react/jsx-runtime";
 import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
 import { PaginationItem, type PaginationItemProps } from "./pagination-item";
@@ -23,7 +24,7 @@ export type PaginationProps = UsePaginationOptions & {
   renderTotal?: (total: number, totalPages: number) => ReactElement;
 };
 
-export const Pagination = (props: PrimitiveProps<"nav", PaginationProps, "role">) => {
+export const Pagination = (props: PrimitiveProps<"nav", PaginationProps, "role">): JSX.Element => {
   const {
     page,
     defaultPage,

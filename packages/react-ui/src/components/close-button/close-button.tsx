@@ -1,3 +1,4 @@
+import type { JSX } from "react/jsx-runtime";
 import type { PrimitiveProps } from "../../primitives";
 import { CloseIcon } from "../../shared/icons";
 import { tx } from "../../utils";
@@ -36,7 +37,7 @@ export type CloseButtonProps = {
   noPadding?: boolean;
 };
 
-export const CloseButton = (props: PrimitiveProps<"button", CloseButtonProps, "type">) => {
+export const CloseButton = (props: PrimitiveProps<"button", CloseButtonProps, "type">): JSX.Element => {
   const {
     className,
     disabled,

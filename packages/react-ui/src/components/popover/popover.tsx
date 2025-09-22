@@ -1,4 +1,5 @@
 import type { ComponentProps, PropsWithChildren } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { PopperAnchor } from "../../primitives/popper/popper-anchor";
 import { PopperArrow, type PopperArrowProps } from "../../primitives/popper/popper-arrow";
 import { PopperClose } from "../../primitives/popper/popper-close";
@@ -8,7 +9,7 @@ import { PopperTrigger } from "../../primitives/popper/popper-trigger";
 import { PopoverProvider } from "./popover-provider";
 import { type PopoverProps, usePopover } from "./use-popover";
 
-export const Popover = (props: PropsWithChildren<PopoverProps>) => {
+export const Popover = (props: PropsWithChildren<PopoverProps>): JSX.Element => {
   const { children, ...rest } = props;
 
   const popover = usePopover(rest);
@@ -16,19 +17,19 @@ export const Popover = (props: PropsWithChildren<PopoverProps>) => {
   return <PopoverProvider value={popover}>{children}</PopoverProvider>;
 };
 
-export const PopoverTrigger = (props: Omit<ComponentProps<typeof PopperTrigger>, "active">) => {
+export const PopoverTrigger = (props: Omit<ComponentProps<typeof PopperTrigger>, "active">): JSX.Element => {
   return <PopperTrigger active={true} {...props} />;
 };
 
-export const PopoverArrow = (props: PopperArrowProps) => {
+export const PopoverArrow = (props: PopperArrowProps): JSX.Element => {
   const { width = 11, height = 6, ...rest } = props;
 
   return <PopperArrow width={width} height={height} {...rest} />;
 };
 
-export const PopoverAnchor = PopperAnchor;
-export const PopoverTitle = PopperTitle;
-export const PopoverDescription = PopperDescription;
-export const PopoverClose = PopperClose;
+export const PopoverAnchor: typeof PopperAnchor = PopperAnchor;
+export const PopoverTitle: typeof PopperTitle = PopperTitle;
+export const PopoverDescription: typeof PopperDescription = PopperDescription;
+export const PopoverClose: typeof PopperClose = PopperClose;
 
 export { PopoverContent } from "./popover-content";

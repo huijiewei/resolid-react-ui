@@ -1,4 +1,5 @@
 import { type CSSProperties, useEffect, useState } from "react";
+import type { JSX } from "react/jsx-runtime";
 import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
 import { useAvatar, useAvatarStatus } from "./avatar-context";
@@ -30,7 +31,9 @@ const stringToColor = (str: string): { color: string; light: boolean } => {
   };
 };
 
-export const AvatarFallback = (props: PrimitiveProps<"div", AvatarFallbackProps, "role" | "translate">) => {
+export const AvatarFallback = (
+  props: PrimitiveProps<"div", AvatarFallbackProps, "role" | "translate">,
+): JSX.Element | null => {
   const { delay = 200, className, style, children, ...rest } = props;
 
   const { name, radiusClass } = useAvatar();

@@ -1,3 +1,4 @@
+import type { JSX } from "react/jsx-runtime";
 import { ariaAttr, tx } from "../../utils";
 import type { PolymorphicProps } from "../index";
 import { MenuItem, type MenuItemProps } from "./menu-item";
@@ -15,7 +16,9 @@ export type MenuCheckboxItemProps = MenuItemProps & {
   onChange?: (checked: CheckedState) => void;
 };
 
-export const MenuCheckboxItem = (props: PolymorphicProps<"div", MenuCheckboxItemProps, "role" | "tabIndex">) => {
+export const MenuCheckboxItem = (
+  props: PolymorphicProps<"div", MenuCheckboxItemProps, "role" | "tabIndex">,
+): JSX.Element => {
   const { checked = false, className, onChange, onSelect, children, ...rest } = props;
 
   return (

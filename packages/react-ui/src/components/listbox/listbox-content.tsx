@@ -1,3 +1,4 @@
+import type { JSX } from "react/jsx-runtime";
 import { useMergeRefs } from "../../hooks";
 import type { EmptyObject, PrimitiveProps } from "../../primitives";
 import { usePopperFloating } from "../../primitives/popper/popper-floating-context";
@@ -6,7 +7,7 @@ import { ariaAttr, tx } from "../../utils";
 import { useListboxScroll } from "./listbox-scroll-context";
 import { useListboxState } from "./listbox-state-context";
 
-export const ListboxContent = (props: PrimitiveProps<"div", EmptyObject, "role" | "tabIndex">) => {
+export const ListboxContent = (props: PrimitiveProps<"div", EmptyObject, "role" | "tabIndex">): JSX.Element => {
   const { children, className, ref, ...rest } = props;
 
   const { size, multiple } = useListboxState();

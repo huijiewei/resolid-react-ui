@@ -1,3 +1,4 @@
+import type { JSX } from "react/jsx-runtime";
 import { MenuContent } from "../../primitives/menu/menu-content";
 import { MenuGroup } from "../../primitives/menu/menu-group";
 import { MenuItemIndicator } from "../../primitives/menu/menu-item-indicator";
@@ -8,7 +9,7 @@ import { MenuSubTrigger } from "../../primitives/menu/menu-sub-trigger";
 
 export type ContextMenuProps = Omit<MenuRootProps, "placement" | "preventScroll">;
 
-export const ContextMenu = (props: ContextMenuProps) => {
+export const ContextMenu = (props: ContextMenuProps): JSX.Element => {
   return <MenuRoot preventScroll {...props} />;
 };
 
@@ -18,9 +19,9 @@ export { ContextMenuRadioGroup } from "./context-menu-radio-group";
 export { ContextMenuRadioItem } from "./context-menu-radio-item";
 export { ContextMenuTrigger } from "./context-menu-trigger";
 
-export const ContextMenuContent = MenuContent;
-export const ContextMenuSeparator = MenuSeparator;
-export const ContextMenuGroup = MenuGroup;
-export const ContextMenuLabel = MenuLabel;
-export const ContextMenuItemIndicator = MenuItemIndicator;
-export const ContextMenuSubTrigger = MenuSubTrigger;
+export const ContextMenuContent: typeof MenuContent = MenuContent;
+export const ContextMenuSeparator: typeof MenuSeparator = MenuSeparator;
+export const ContextMenuGroup: typeof MenuGroup = MenuGroup;
+export const ContextMenuLabel: typeof MenuLabel = MenuLabel;
+export const ContextMenuItemIndicator: typeof MenuItemIndicator = MenuItemIndicator;
+export const ContextMenuSubTrigger: typeof MenuSubTrigger = MenuSubTrigger;

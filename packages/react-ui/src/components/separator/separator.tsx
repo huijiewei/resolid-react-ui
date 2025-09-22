@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import type { JSX } from "react/jsx-runtime";
 import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
 import { type SeparatorStyleProps, separatorStyles } from "./separator.styles";
@@ -35,7 +36,7 @@ export type SeparatorProps = {
   position?: "left" | "right" | "center";
 };
 
-export const Separator = (props: PrimitiveProps<"div", SeparatorProps, "role">) => {
+export const Separator = (props: PrimitiveProps<"div", SeparatorProps, "role">): JSX.Element => {
   const {
     color = "neutral",
     orientation = "horizontal",

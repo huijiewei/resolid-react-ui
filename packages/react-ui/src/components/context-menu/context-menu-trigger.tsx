@@ -1,4 +1,5 @@
 import { type MouseEvent, type PointerEvent, useCallback, useEffect, useRef } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { Polymorphic, type PolymorphicProps } from "../../primitives";
 import { usePopperAnchor } from "../../primitives/popper/popper-anchor-context";
 import { usePopperDispatch } from "../../primitives/popper/popper-dispatch-context";
@@ -13,7 +14,7 @@ type ContextMenuTriggerProps = {
   disabled?: boolean;
 };
 
-export const ContextMenuTrigger = (props: PolymorphicProps<"div", ContextMenuTriggerProps>) => {
+export const ContextMenuTrigger = (props: PolymorphicProps<"div", ContextMenuTriggerProps>): JSX.Element => {
   const {
     render,
     disabled = false,

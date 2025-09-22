@@ -1,10 +1,13 @@
-import { createSafeContext } from "../../primitives";
+import { createSafeContext, type SafeContext, type UseSafeContext } from "../../primitives";
 import type { ListboxNodeItem } from "./use-listbox";
 
 export type ListboxCollectionContextValue = {
   nodeItems: ListboxNodeItem[];
 };
 
-export const [ListboxCollectionContext, useListboxCollection] = createSafeContext<ListboxCollectionContextValue>({
+const desc = createSafeContext<ListboxCollectionContextValue>({
   name: "ListboxCollectionContext",
 });
+
+export const ListboxCollectionContext: SafeContext<ListboxCollectionContextValue> = desc[0];
+export const useListboxCollection: UseSafeContext<ListboxCollectionContextValue> = desc[1];

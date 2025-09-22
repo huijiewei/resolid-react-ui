@@ -1,10 +1,13 @@
-import { createSafeContext } from "../index";
+import { createSafeContext, type SafeContext, type UseSafeContext } from "../index";
 
 export type PopperAriaContextValue = {
   labelId: string;
   descriptionId: string;
 };
 
-export const [PopperAriaContext, usePopperAria] = createSafeContext<PopperAriaContextValue>({
+const dest = createSafeContext<PopperAriaContextValue>({
   name: "PopperAriaContext",
 });
+
+export const PopperAriaContext: SafeContext<PopperAriaContextValue> = dest[0];
+export const usePopperAria: UseSafeContext<PopperAriaContextValue> = dest[1];

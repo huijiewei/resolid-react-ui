@@ -1,12 +1,13 @@
 import { useListItem } from "@floating-ui/react";
 import type { MouseEvent } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useMergeRefs } from "../../hooks";
 import type { EmptyObject, PolymorphicProps } from "../../primitives";
 import { useComposite } from "../../primitives/composite/composite-context";
 import { dataAttr } from "../../utils";
 import { CollapsibleTrigger } from "../collapsible/collapsible-trigger";
 
-export const AccordionTrigger = (props: PolymorphicProps<"button", EmptyObject, "type" | "disabled">) => {
+export const AccordionTrigger = (props: PolymorphicProps<"button", EmptyObject, "type" | "disabled">): JSX.Element => {
   const { ref, onClick, ...rest } = props;
 
   const { ref: itemRef, index } = useListItem();

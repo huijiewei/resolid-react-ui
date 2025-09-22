@@ -1,3 +1,4 @@
+import type { JSX } from "react/jsx-runtime";
 import type { PrimitiveProps } from "../../primitives";
 import { AngleRightIcon } from "../../shared/icons";
 import { tx } from "../../utils";
@@ -5,7 +6,7 @@ import { BreadcrumbContext, type BreadcrumbContextValue } from "./breadcrumb-con
 
 export type BreadcrumbRootProps = BreadcrumbContextValue;
 
-export const BreadcrumbRoot = (props: PrimitiveProps<"nav", BreadcrumbRootProps>) => {
+export const BreadcrumbRoot = (props: PrimitiveProps<"nav", BreadcrumbRootProps>): JSX.Element => {
   const { children, className, separator = <AngleRightIcon />, ...rest } = props;
 
   return (

@@ -2,7 +2,7 @@ import { useCallback, useSyncExternalStore } from "react";
 
 const getServerSnapshot = () => false;
 
-export const useMediaQuery = (query: string) => {
+export const useMediaQuery = (query: string): boolean => {
   const subscribe = useCallback(
     (callback: () => void) => {
       const matchMedia = window.matchMedia(query);

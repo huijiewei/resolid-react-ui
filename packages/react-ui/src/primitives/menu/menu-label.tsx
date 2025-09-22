@@ -1,7 +1,8 @@
+import type { JSX } from "react/jsx-runtime";
 import { tx } from "../../utils";
 import type { PrimitiveProps } from "../index";
 
-export const MenuLabel = (props: PrimitiveProps<"div">) => {
+export const MenuLabel = (props: PrimitiveProps<"div">): JSX.Element => {
   const { children, className, ...rest } = props;
 
   return (

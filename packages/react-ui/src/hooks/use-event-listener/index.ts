@@ -28,7 +28,7 @@ export const useEventListener = <
   handler: (event: TargetEvent) => void,
   target?: Target,
   options?: boolean | AddEventListenerOptions,
-) => {
+): void => {
   const handlerRef = useRef(handler);
   const optionsRef = useRef(options);
 

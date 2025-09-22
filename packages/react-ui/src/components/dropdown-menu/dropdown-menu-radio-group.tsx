@@ -2,4 +2,4 @@ import { MenuRadioGroup, type MenuRadioGroupProps } from "../../primitives/menu/
 
 export type DropdownMenuRadioGroupProps = MenuRadioGroupProps;
 
-export const DropdownMenuRadioGroup = MenuRadioGroup;
+export const DropdownMenuRadioGroup: typeof MenuRadioGroup = MenuRadioGroup;

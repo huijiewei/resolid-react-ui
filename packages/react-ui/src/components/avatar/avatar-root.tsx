@@ -1,5 +1,6 @@
 import { isNumber } from "@resolid/utils";
 import { type CSSProperties, useState } from "react";
+import type { JSX } from "react/jsx-runtime";
 import type { ImageLoadStatus } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import { hasBackgroundClass } from "../../shared/utils";
@@ -14,7 +15,7 @@ export type AvatarRootProps = {
   name?: string;
 } & AvatarBaseProps;
 
-export const AvatarRoot = (props: PrimitiveProps<"div", AvatarRootProps>) => {
+export const AvatarRoot = (props: PrimitiveProps<"div", AvatarRootProps>): JSX.Element => {
   const group = useAvatarGroup(true);
 
   const {

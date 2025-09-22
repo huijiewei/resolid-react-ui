@@ -1,4 +1,5 @@
 import { useListItem } from "@floating-ui/react";
+import type { JSX } from "react/jsx-runtime";
 import type { PrimitiveProps } from "../../primitives";
 import { useComposite } from "../../primitives/composite/composite-context";
 import { ariaAttr, tx } from "../../utils";
@@ -11,7 +12,7 @@ type TagsInputItemProps = {
   onDelete: (index: number) => void;
 };
 
-export const TagsInputItem = (props: PrimitiveProps<"div", TagsInputItemProps, "ref" | "children">) => {
+export const TagsInputItem = (props: PrimitiveProps<"div", TagsInputItemProps, "ref" | "children">): JSX.Element => {
   const { name, value, disabled, onDelete, className, ...rest } = props;
 
   const { ref: itemRef, index } = useListItem();

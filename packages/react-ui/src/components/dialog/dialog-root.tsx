@@ -8,6 +8,7 @@ import {
   type FloatingContext,
 } from "@floating-ui/react";
 import { useId, useState, type PropsWithChildren } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useDisclosure, usePreventScroll } from "../../hooks";
 import { PopperAriaContext } from "../../primitives/popper/popper-aria-context";
 import {
@@ -54,7 +55,7 @@ export type DialogRootProps = DisclosureProps &
     role?: "dialog" | "alertdialog";
   };
 
-export const DialogRoot = (props: PropsWithChildren<DialogRootProps>) => {
+export const DialogRoot = (props: PropsWithChildren<DialogRootProps>): JSX.Element => {
   const {
     open,
     defaultOpen,

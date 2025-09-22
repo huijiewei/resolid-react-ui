@@ -1,3 +1,4 @@
+import type { JSX } from "react/jsx-runtime";
 import { ariaAttr, tx } from "../../utils";
 import type { PolymorphicProps } from "../index";
 import { MenuItem, type MenuItemProps } from "./menu-item";
@@ -11,7 +12,7 @@ export type MenuRadioItemProps = MenuItemProps & {
   value: string | number;
 };
 
-export const MenuRadioItem = (props: PolymorphicProps<"div", MenuRadioItemProps, "role" | "tabIndex">) => {
+export const MenuRadioItem = (props: PolymorphicProps<"div", MenuRadioItemProps, "role" | "tabIndex">): JSX.Element => {
   const { value, onSelect, children, className, ...rest } = props;
 
   const group = useMenuRadioGroup();

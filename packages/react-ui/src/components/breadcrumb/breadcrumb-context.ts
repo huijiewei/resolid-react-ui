@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { createSafeContext } from "../../primitives";
+import { createSafeContext, type SafeContext, type UseSafeContext } from "../../primitives";
 
 export type BreadcrumbContextValue = {
   /**
@@ -9,6 +9,9 @@ export type BreadcrumbContextValue = {
   separator?: ReactNode;
 };
 
-export const [BreadcrumbContext, useBreadcrumb] = createSafeContext<BreadcrumbContextValue>({
+const desc = createSafeContext<BreadcrumbContextValue>({
   name: "BreadcrumbContext",
 });
+
+export const BreadcrumbContext: SafeContext<BreadcrumbContextValue> = desc[0];
+export const useBreadcrumb: UseSafeContext<BreadcrumbContextValue> = desc[1];

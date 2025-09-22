@@ -2,4 +2,4 @@ import { MenuRadioGroup, type MenuRadioGroupProps } from "../../primitives/menu/
 
 export type ContextMenuRadioGroupProps = MenuRadioGroupProps;
 
-export const ContextMenuRadioGroup = MenuRadioGroup;
+export const ContextMenuRadioGroup: typeof MenuRadioGroup = MenuRadioGroup;

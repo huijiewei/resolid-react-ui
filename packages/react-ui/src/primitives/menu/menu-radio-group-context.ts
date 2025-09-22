@@ -1,4 +1,4 @@
-import { createSafeContext } from "../index";
+import { createSafeContext, type SafeContext, type UseSafeContext } from "../index";
 
 export type MenuRadioGroupContextValue = {
   /**
@@ -12,6 +12,9 @@ export type MenuRadioGroupContextValue = {
   onChange?: (value: string | number) => void;
 };
 
-export const [MenuRadioGroupContext, useMenuRadioGroup] = createSafeContext<MenuRadioGroupContextValue>({
+const dest = createSafeContext<MenuRadioGroupContextValue>({
   name: "MenuRadioGroupContext",
 });
+
+export const MenuRadioGroupContext: SafeContext<MenuRadioGroupContextValue> = dest[0];
+export const useMenuRadioGroup: UseSafeContext<MenuRadioGroupContextValue> = dest[1];

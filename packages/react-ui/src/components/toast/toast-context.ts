@@ -1,6 +1,6 @@
 import type { Alignment } from "@floating-ui/react";
 import type { ReactElement } from "react";
-import { createSafeContext } from "../../primitives";
+import { createSafeContext, type SafeContext, type UseSafeContext } from "../../primitives";
 
 export type ToastId = string | number;
 
@@ -29,9 +29,12 @@ export type ToastComponentContextValue = ToastBaseProps & {
   remove: () => void;
 };
 
-export const [ToastComponentContext, useToastComponent] = createSafeContext<ToastComponentContextValue>({
+const toastComponentDesc = createSafeContext<ToastComponentContextValue>({
   name: "ToastComponentContext",
 });
+
+export const ToastComponentContext: SafeContext<ToastComponentContextValue> = toastComponentDesc[0];
+export const useToastComponent: UseSafeContext<ToastComponentContextValue> = toastComponentDesc[1];
 
 export type ToastConfig = ToastBaseProps & {
   component: () => ReactElement;
@@ -57,6 +60,9 @@ export type ToastContextValue = {
   clearAll: (...args: ToastPlacement[]) => void;
 };
 
-export const [ToastContext, useToast] = createSafeContext<ToastContextValue>({
+const toastDesc = createSafeContext<ToastContextValue>({
   name: "ToastContext",
 });
+
+export const ToastContext: SafeContext<ToastContextValue> = toastDesc[0];
+export const useToast: UseSafeContext<ToastContextValue> = toastDesc[1];

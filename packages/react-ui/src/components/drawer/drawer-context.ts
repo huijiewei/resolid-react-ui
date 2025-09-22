@@ -1,4 +1,4 @@
-import { createSafeContext } from "../../primitives";
+import { createSafeContext, type SafeContext, type UseSafeContext } from "../../primitives";
 
 export type DrawerPlacement = "start" | "end" | "bottom" | "top";
 
@@ -10,6 +10,9 @@ export type DrawerContextValue = {
   placement: DrawerPlacement;
 };
 
-export const [DrawerContext, useDrawer] = createSafeContext<DrawerContextValue>({
+const desc = createSafeContext<DrawerContextValue>({
   name: "DrawerContext",
 });
+
+export const DrawerContext: SafeContext<DrawerContextValue> = desc[0];
+export const useDrawer: UseSafeContext<DrawerContextValue> = desc[1];

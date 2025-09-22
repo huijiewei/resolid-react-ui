@@ -1,4 +1,5 @@
 import type { ComponentProps } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { PopperBackdrop } from "../../primitives/popper/popper-backdrop";
 import { PopperClose } from "../../primitives/popper/popper-close";
 import { PopperDescription } from "../../primitives/popper/popper-description";
@@ -9,19 +10,19 @@ import { DialogRoot, type DialogRootProps } from "./dialog-root";
 
 export type DialogProps = DialogRootProps;
 
-export const Dialog = DialogRoot;
+export const Dialog: typeof DialogRoot = DialogRoot;
 
-export const DialogTrigger = (props: Omit<ComponentProps<typeof PopperTrigger>, "active">) => {
+export const DialogTrigger = (props: Omit<ComponentProps<typeof PopperTrigger>, "active">): JSX.Element => {
   return <PopperTrigger active={false} {...props} />;
 };
 
-export const DialogPortal = PopperPortal;
+export const DialogPortal: typeof PopperPortal = PopperPortal;
 
-export const DialogBackdrop = PopperBackdrop;
+export const DialogBackdrop: typeof PopperBackdrop = PopperBackdrop;
 
 export { DialogContent } from "./dialog-content";
 
-export const DialogTitle = PopperTitle;
-export const DialogDescription = PopperDescription;
+export const DialogTitle: typeof PopperTitle = PopperTitle;
+export const DialogDescription: typeof PopperDescription = PopperDescription;
 
-export const DialogClose = PopperClose;
+export const DialogClose: typeof PopperClose = PopperClose;

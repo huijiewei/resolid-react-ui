@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { tx } from "../../utils";
 import { ToastComponentContext, type ToastConfig, type ToastId, type ToastPlacement } from "./toast-context";
 
@@ -27,7 +28,7 @@ export type ToastRegionProps = ToastRegionBaseProps & {
   remove: (id: ToastId) => void;
 };
 
-export const ToastRegion = ({ placement, spacing, visibleToasts, toasts, remove }: ToastRegionProps) => {
+export const ToastRegion = ({ placement, spacing, visibleToasts, toasts, remove }: ToastRegionProps): JSX.Element => {
   return (
     <div
       role={"region"}

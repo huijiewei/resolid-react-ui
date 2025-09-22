@@ -7,7 +7,7 @@ export type UsePopperCloseCompleteOptions = {
   onCloseComplete: () => void;
 };
 
-export const usePopperCloseComplete = ({ status, onCloseComplete }: UsePopperCloseCompleteOptions) => {
+export const usePopperCloseComplete = ({ status, onCloseComplete }: UsePopperCloseCompleteOptions): void => {
   const prevStatus = usePrevious(status);
 
   useEffect(() => {

@@ -1,6 +1,24 @@
-import { tv, type VP } from "../../utils";
+import { tv, type TvReturnType, type VP } from "../../utils";
 
-export const spinnerStyles = tv({
+type SpinnerVariants = {
+  size: {
+    xs: string;
+    sm: string;
+    md: string;
+    lg: string;
+    xl: string;
+  };
+  color: {
+    primary: string;
+    secondary: string;
+    success: string;
+    warning: string;
+    danger: string;
+    neutral: string;
+  };
+};
+
+export const spinnerStyles: TvReturnType<SpinnerVariants, undefined, string, SpinnerVariants, undefined> = tv({
   base: "inline-block animate-spin rounded-full",
   variants: {
     size: {
@@ -21,4 +39,4 @@ export const spinnerStyles = tv({
   },
 });
 
-export type SpinnerStyles = VP<typeof spinnerStyles>;
+export type SpinnerStyleProps = VP<typeof spinnerStyles>;

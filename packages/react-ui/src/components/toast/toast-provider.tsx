@@ -1,5 +1,6 @@
 import { runIf } from "@resolid/utils";
 import { type PropsWithChildren, type ReactElement, useReducer } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { PortalLite } from "../portal/portal-lite";
 import {
   type ToastConfig,
@@ -121,7 +122,7 @@ export const ToastProvider = ({
   spacing = "0.75rem",
   visibleToasts = 5,
   children,
-}: PropsWithChildren<ToastProviderProps>) => {
+}: PropsWithChildren<ToastProviderProps>): JSX.Element => {
   const [state, dispatch] = useReducer(reducer, {
     "top-start": [],
     top: [],

@@ -1,4 +1,4 @@
-import { tv } from "../utils";
+import { tv, type TvReturnType } from "../utils";
 
 export const inputTextShareStyles = {
   xs: "text-xs",
@@ -42,7 +42,40 @@ export const toggleColorShareStyles = {
 
 export type ToggleColor = keyof typeof toggleColorShareStyles;
 
-export const binaryColorShareStyles = {
+type BinaryColorShareStyles = {
+  primary: {
+    border: string;
+    focus: string;
+    checked: string;
+  };
+  secondary: {
+    border: string;
+    focus: string;
+    checked: string;
+  };
+  success: {
+    border: string;
+    focus: string;
+    checked: string;
+  };
+  warning: {
+    border: string;
+    focus: string;
+    checked: string;
+  };
+  danger: {
+    border: string;
+    focus: string;
+    checked: string;
+  };
+  neutral: {
+    border: string;
+    focus: string;
+    checked: string;
+  };
+};
+
+export const binaryColorShareStyles: BinaryColorShareStyles = {
   primary: {
     ...toggleColorShareStyles.primary,
     border: "border-bg-primary-emphasis",
@@ -79,7 +112,33 @@ export const binarySizeShareStyles = {
 
 export type BinarySize = keyof typeof binarySizeShareStyles;
 
-export const alertAndBadgeShareStyles = tv({
+export type AlertAndBadgeVariants = {
+  variant: {
+    solid: string;
+    outline: string;
+    subtle: string;
+    soft: string;
+  };
+  color: {
+    primary: string;
+    secondary: string;
+    neutral: string;
+    success: string;
+    warning: string;
+    danger: string;
+  };
+};
+
+export type AlertAndBadgeShareStyles = TvReturnType<
+  AlertAndBadgeVariants,
+  undefined,
+  undefined,
+  AlertAndBadgeVariants,
+  undefined,
+  undefined
+>;
+
+export const alertAndBadgeShareStyles: AlertAndBadgeShareStyles = tv({
   variants: {
     variant: {
       solid: "text-fg-emphasized border-transparent",

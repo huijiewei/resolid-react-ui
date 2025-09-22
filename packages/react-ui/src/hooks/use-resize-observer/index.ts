@@ -6,7 +6,7 @@ export const useResizeObserver = <T extends Element>(
   target: RefObject<T | null> | T | null,
   callback: (entry: ResizeObserverEntry) => void,
   options?: ResizeObserverOptions,
-) => {
+): void => {
   const observerRef = useRef<ResizeObserver>(null);
   const callbackRef = useRef(callback);
 

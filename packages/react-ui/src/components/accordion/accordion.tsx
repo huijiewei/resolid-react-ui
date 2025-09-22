@@ -2,7 +2,7 @@ import { AccordionRoot, type AccordionRootProps } from "./accordion-root";
 
 export type AccordionProps = AccordionRootProps;
 
-export const Accordion = AccordionRoot;
+export const Accordion: typeof AccordionRoot = AccordionRoot;
 
 export { AccordionContent } from "./accordion-content";
 export { AccordionHeader } from "./accordion-header";

@@ -1,11 +1,14 @@
 import type { CSSProperties } from "react";
-import { createSafeContext } from "../context";
+import { createSafeContext, type SafeContext, type UseSafeContext } from "../context";
 
 export type PopperPositionerContextValue = {
   setPositioner: (node: HTMLElement | null) => void;
   positionerStyles: CSSProperties;
 };
 
-export const [PopperPositionerContext, usePopperPositioner] = createSafeContext<PopperPositionerContextValue>({
+const dest = createSafeContext<PopperPositionerContextValue>({
   name: "PopperPositionerContext",
 });
+
+export const PopperPositionerContext: SafeContext<PopperPositionerContextValue> = dest[0];
+export const usePopperPositioner: UseSafeContext<PopperPositionerContextValue> = dest[1];

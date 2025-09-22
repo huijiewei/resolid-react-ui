@@ -2,18 +2,24 @@ import { useEffect, useRef } from "react";
 import { useEffectEvent } from "../use-effect-event";
 import { useLatestRef } from "../use-lastest-ref";
 
-export const useTimeout = (callback: () => void, delay: number | null) => {
+export const useTimeout = (
+  callback: () => void,
+  delay: number | null,
+): {
+  clear: () => void;
+  reset: () => void;
+} => {
   const ref = useLatestRef(callback);
   const timer = useRef<ReturnType<typeof setTimeout>>(null);
 
-  const clear = () => {
+  const clear = (): void => {
     if (timer.current) {
       clearTimeout(timer.current);
       timer.current = null;
     }
   };
 
-  const reset = () => {
+  const reset = (): void => {
     clear();
 
     if (delay !== null) {

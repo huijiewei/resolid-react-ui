@@ -1,10 +1,11 @@
+import type { JSX } from "react/jsx-runtime";
 import { hasBackgroundClass } from "../../shared/utils";
 import { tx } from "../../utils";
 import type { PrimitiveProps } from "../index";
 import { usePopperTransition } from "./popper-transtion-context";
 import { getPopperAnimationProps } from "./utils";
 
-export const PopperBackdrop = (props: PrimitiveProps<"div">) => {
+export const PopperBackdrop = (props: PrimitiveProps<"div">): JSX.Element | null => {
   const { className, children, style, ...rest } = props;
 
   const { status, mounted, duration } = usePopperTransition();

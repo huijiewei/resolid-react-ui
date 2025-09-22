@@ -1,20 +1,21 @@
+import type { JSX } from "react/jsx-runtime";
 import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
 import { VisuallyHidden } from "../visually-hidden/visually-hidden";
-import { type SpinnerStyles, spinnerStyles } from "./spinner.styles";
+import { type SpinnerStyleProps, spinnerStyles } from "./spinner.styles";
 
 export type SpinnerProps = {
   /**
    * 颜色
    * @default "primary"
    */
-  color?: SpinnerStyles["color"];
+  color?: SpinnerStyleProps["color"];
 
   /**
    * 大小
    * @default "md"
    */
-  size?: SpinnerStyles["size"];
+  size?: SpinnerStyleProps["size"];
 
   /**
    * 标签
@@ -23,7 +24,7 @@ export type SpinnerProps = {
   label?: string;
 };
 
-export const Spinner = (props: PrimitiveProps<"span", SpinnerProps>) => {
+export const Spinner = (props: PrimitiveProps<"span", SpinnerProps>): JSX.Element => {
   const { label = "加载中", className, size = "md", color = "primary", ...rest } = props;
 
   return (

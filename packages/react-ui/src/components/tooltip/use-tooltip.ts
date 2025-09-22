@@ -5,7 +5,6 @@ import {
   flip,
   inline,
   offset,
-  type Placement,
   safePolygon,
   shift,
   useDismiss,
@@ -15,8 +14,10 @@ import {
   useInteractions,
   useRole,
   useTransitionStatus,
+  type Placement,
+  type ReferenceType,
 } from "@floating-ui/react";
-import { useState } from "react";
+import { useState, type RefObject } from "react";
 import { useDisclosure } from "../../hooks";
 import type { PopperAnchorContextValue } from "../../primitives/popper/popper-anchor-context";
 import type { PopperArrowContextValue } from "../../primitives/popper/popper-arrow-context";
@@ -78,12 +79,24 @@ export const useTooltip = ({
   closeDelay = 150,
   duration = 250,
   inlineMiddleware = false,
-}: TooltipProps = {}) => {
+}: TooltipProps = {}): {
+  setOpen: (open: boolean) => void;
+  setPositionReference: (node: ReferenceType | null) => void;
+  floatingReference: RefObject<HTMLElement | null>;
+  stateContext: PopperStateContextValue;
+  arrowContext: PopperArrowContextValue;
+  anchorContext: PopperAnchorContextValue;
+  referenceContext: PopperTriggerContextValue;
+  positionerContext: PopperPositionerContextValue;
+  floatingContext: PopperFloatingContextValue;
+  transitionContext: PopperTransitionContextValue;
+  tooltipRootContext: TooltipRootContextValue;
+} => {
   const [openState, { handleOpen, handleClose }] = useDisclosure({ open, defaultOpen, onOpenChange });
 
   const [arrowElem, setArrowElem] = useState<SVGSVGElement | null>(null);
 
-  const handleOpenChange = (open: boolean) => {
+  const handleOpenChange = (open: boolean): void => {
     if (open) {
       handleOpen();
     } else {

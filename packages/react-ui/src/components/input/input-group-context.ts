@@ -1,4 +1,4 @@
-import { createSafeContext } from "../../primitives";
+import { createSafeContext, type SafeContext, type UseSafeContext } from "../../primitives";
 import type { InputSize } from "./input.styles";
 
 export type InputGroupContextValue = {
@@ -9,6 +9,9 @@ export type InputGroupContextValue = {
   size: InputSize;
 };
 
-export const [InputGroupContext, useInputGroup] = createSafeContext<InputGroupContextValue>({
+const desc = createSafeContext<InputGroupContextValue>({
   name: "InputGroupContext",
 });
+
+export const InputGroupContext: SafeContext<InputGroupContextValue> = desc[0];
+export const useInputGroup: UseSafeContext<InputGroupContextValue> = desc[1];

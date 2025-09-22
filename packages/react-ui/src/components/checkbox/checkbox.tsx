@@ -1,4 +1,5 @@
 import { type ChangeEvent, type CSSProperties, useRef } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useControllableState, useIsomorphicEffect, useMergeRefs } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import { CheckedIcon, IndeterminateIcon } from "../../shared/icons";
@@ -39,7 +40,7 @@ export type CheckboxProps = CheckedValueProps &
     spacing?: string | number;
   };
 
-export const Checkbox = (props: PrimitiveProps<"input", CheckboxProps, "role" | "type">) => {
+export const Checkbox = (props: PrimitiveProps<"input", CheckboxProps, "role" | "type">): JSX.Element => {
   const group = useCheckboxGroup(true);
 
   const {

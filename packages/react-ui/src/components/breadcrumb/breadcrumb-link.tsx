@@ -1,3 +1,4 @@
+import type { JSX } from "react/jsx-runtime";
 import { Polymorphic, type PolymorphicProps } from "../../primitives";
 import { tx } from "../../utils";
 
@@ -8,7 +9,7 @@ export type BreadcrumbLinkProps = {
   current?: boolean;
 };
 
-export const BreadcrumbLink = (props: PolymorphicProps<"a", BreadcrumbLinkProps>) => {
+export const BreadcrumbLink = (props: PolymorphicProps<"a", BreadcrumbLinkProps>): JSX.Element => {
   const { render, children, className, href, current, ...rest } = props;
 
   if (current) {

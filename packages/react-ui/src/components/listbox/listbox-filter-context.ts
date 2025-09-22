@@ -1,5 +1,5 @@
 import type { Dispatch, HTMLProps, RefObject, SetStateAction } from "react";
-import { type AnyObject, createSafeContext } from "../../primitives";
+import { type AnyObject, createSafeContext, type SafeContext, type UseSafeContext } from "../../primitives";
 
 export type ListboxFilterContextValue = {
   filterRef: RefObject<boolean>;
@@ -7,6 +7,9 @@ export type ListboxFilterContextValue = {
   getNavigationProps: (userProps?: HTMLProps<HTMLElement> | undefined) => AnyObject;
 };
 
-export const [ListboxFilterContext, useListboxFilter] = createSafeContext<ListboxFilterContextValue>({
+const desc = createSafeContext<ListboxFilterContextValue>({
   name: "ListboxFilterContext",
 });
+
+export const ListboxFilterContext: SafeContext<ListboxFilterContextValue> = desc[0];
+export const useListboxFilter: UseSafeContext<ListboxFilterContextValue> = desc[1];

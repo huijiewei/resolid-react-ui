@@ -1,4 +1,5 @@
 import { type CSSProperties, useEffect, useRef, useState } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useEffectEvent, useResizeObserver } from "../../hooks";
 import type { Orientation } from "../../shared/types";
 import { tx } from "../../utils";
@@ -9,7 +10,7 @@ export type IndicatorProps = {
   orientation: Orientation;
 };
 
-export const Indicator = (props: PrimitiveProps<"span", IndicatorProps, "role" | "children">) => {
+export const Indicator = (props: PrimitiveProps<"span", IndicatorProps, "role" | "children">): JSX.Element => {
   const { orientation, className, style, ...rest } = props;
 
   const [indicatorStyle, setIndicatorStyle] = useState<CSSProperties>();

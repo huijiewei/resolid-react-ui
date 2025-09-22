@@ -1,4 +1,5 @@
 import { type CSSProperties, useId } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useDisclosure } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import type { DisclosureProps } from "../../shared/types";
@@ -14,7 +15,7 @@ export type CollapsibleRootProps = DisclosureProps & {
   disabled?: boolean;
 };
 
-export const CollapsibleRoot = (props: PrimitiveProps<"div", CollapsibleRootProps>) => {
+export const CollapsibleRoot = (props: PrimitiveProps<"div", CollapsibleRootProps>): JSX.Element => {
   const {
     open,
     defaultOpen = false,

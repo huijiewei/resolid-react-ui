@@ -1,4 +1,4 @@
-import { createSafeContext } from "../../primitives";
+import { createSafeContext, type SafeContext, type UseSafeContext } from "../../primitives";
 
 export type TabsContextValue = {
   baseId: string;
@@ -6,9 +6,12 @@ export type TabsContextValue = {
   setSelectedValue: (value: string) => void;
 };
 
-export const [TabsContext, useTabs] = createSafeContext<TabsContextValue>({
+const dest = createSafeContext<TabsContextValue>({
   name: "TabsContext",
 });
+
+export const TabsContext: SafeContext<TabsContextValue> = dest[0];
+export const useTabs: UseSafeContext<TabsContextValue> = dest[1];
 
 export const getTabId = (baseId: string, value: string) => `${baseId}-t-${value}`;
 

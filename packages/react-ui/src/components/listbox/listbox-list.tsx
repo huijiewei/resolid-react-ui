@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useListboxCollection } from "./listbox-collection-context";
 import { useListboxFields } from "./listbox-field-context";
 import { ListboxGroupLabel } from "./listbox-group-label";
@@ -7,7 +8,7 @@ import { useListboxState } from "./listbox-state-context";
 import { useListboxVirtualizer } from "./listbox-virtualizer-context";
 import type { ListboxNodeItem } from "./use-listbox";
 
-export const ListboxList = () => {
+export const ListboxList = (): JSX.Element[] => {
   const { size, disabled, readOnly } = useListboxState();
   const { nodeItems } = useListboxCollection();
   const { getItemValue, getItemLabel, getItemChildren } = useListboxFields();

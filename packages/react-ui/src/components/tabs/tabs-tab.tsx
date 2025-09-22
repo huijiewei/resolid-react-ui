@@ -1,5 +1,6 @@
 import { useListItem } from "@floating-ui/react";
 import type { FocusEvent, MouseEvent } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useButtonProps, useIsomorphicEffect, useMergeRefs } from "../../hooks";
 import { Polymorphic, type PolymorphicProps } from "../../primitives";
 import { useComposite } from "../../primitives/composite/composite-context";
@@ -20,7 +21,9 @@ type TabsTabProps = {
   disabled?: boolean;
 };
 
-export const TabsTab = (props: PolymorphicProps<"button", TabsTabProps, "type" | "role" | "id" | "tabIndex">) => {
+export const TabsTab = (
+  props: PolymorphicProps<"button", TabsTabProps, "type" | "role" | "id" | "tabIndex">,
+): JSX.Element => {
   const { render, value, disabled = false, children, className, onClick, onFocus, ref, ...rest } = props;
 
   const orientation = useOrientation();

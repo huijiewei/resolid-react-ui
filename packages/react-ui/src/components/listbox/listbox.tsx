@@ -3,7 +3,7 @@ import type { ListboxItem } from "./use-listbox";
 
 export type ListboxProps<T extends ListboxItem = ListboxItem> = ListboxRootProps<T>;
 
-export const Listbox = ListboxRoot;
+export const Listbox: typeof ListboxRoot = ListboxRoot;
 
 export { ListboxContent } from "./listbox-content";
 export { ListboxFilter } from "./listbox-filter";

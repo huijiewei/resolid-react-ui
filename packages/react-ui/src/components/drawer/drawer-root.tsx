@@ -1,3 +1,4 @@
+import type { JSX } from "react/jsx-runtime";
 import type { PrimitiveProps } from "../../primitives";
 import { DialogRoot, type DialogRootProps } from "../dialog/dialog-root";
 import { DrawerContext, type DrawerContextValue } from "./drawer-context";
@@ -5,7 +6,7 @@ import { DrawerContext, type DrawerContextValue } from "./drawer-context";
 export type DrawerRootProps = Omit<DialogRootProps, "scrollBehavior" | "preventScroll" | "placement" | "role"> &
   Partial<DrawerContextValue>;
 
-export const DrawerRoot = (props: PrimitiveProps<"div", DrawerRootProps, "role">) => {
+export const DrawerRoot = (props: PrimitiveProps<"div", DrawerRootProps, "role">): JSX.Element => {
   const { placement = "end", children, ...rest } = props;
 
   return (

@@ -1,4 +1,5 @@
 import { useLayoutEffect } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useImageLoad } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
@@ -11,7 +12,9 @@ export type AvatarImageProps = {
   src?: string;
 };
 
-export const AvatarImage = (props: PrimitiveProps<"img", AvatarImageProps, "alt" | "draggable">) => {
+export const AvatarImage = (
+  props: PrimitiveProps<"img", AvatarImageProps, "alt" | "draggable">,
+): JSX.Element | null => {
   const { src, crossOrigin, referrerPolicy, className, ...rest } = props;
 
   const { name, radiusClass } = useAvatar();

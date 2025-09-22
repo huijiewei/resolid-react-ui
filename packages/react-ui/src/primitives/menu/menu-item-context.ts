@@ -1,6 +1,6 @@
 import type { FloatingEvents } from "@floating-ui/react";
 import type { HTMLProps, RefObject } from "react";
-import { type AnyObject, createSafeContext } from "../index";
+import { type AnyObject, createSafeContext, type SafeContext, type UseSafeContext } from "../index";
 
 export type MenuItemContextValue = {
   menuEvents: FloatingEvents;
@@ -10,6 +10,9 @@ export type MenuItemContextValue = {
   typingRef: RefObject<boolean>;
 };
 
-export const [MenuItemContext, useMenuItem] = createSafeContext<MenuItemContextValue>({
+const dest = createSafeContext<MenuItemContextValue>({
   name: "MenuItemContext",
 });
+
+export const MenuItemContext: SafeContext<MenuItemContextValue> = dest[0];
+export const useMenuItem: UseSafeContext<MenuItemContextValue> = dest[1];

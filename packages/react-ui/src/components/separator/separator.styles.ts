@@ -1,6 +1,35 @@
-import { tv, type VP } from "../../utils";
+import { tv, type TvReturnType, type VP } from "../../utils";
 
-export const separatorStyles = tv({
+type SeparatorVariants = {
+  color: {
+    primary: string;
+    secondary: string;
+    success: string;
+    warning: string;
+    danger: string;
+    neutral: string;
+  };
+  variant: {
+    solid: string;
+    dashed: string;
+    dotted: string;
+  };
+  orientation: {
+    horizontal: string;
+    vertical: string;
+  };
+  label: {
+    true: string;
+    false: string;
+  };
+  position: {
+    left: string;
+    right: string;
+    center: string;
+  };
+};
+
+export const separatorStyles: TvReturnType<SeparatorVariants, undefined, string, SeparatorVariants, undefined> = tv({
   base: "m-0 border-0",
   variants: {
     color: {

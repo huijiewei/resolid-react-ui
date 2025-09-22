@@ -1,4 +1,5 @@
 import { useId } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useControllableState } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import { OrientationContext } from "../../primitives/composite/orientation-context";
@@ -29,7 +30,7 @@ export type TabsRootProps = {
   orientation?: Orientation;
 };
 
-export const TabsRoot = (props: PrimitiveProps<"div", TabsRootProps, "id">) => {
+export const TabsRoot = (props: PrimitiveProps<"div", TabsRootProps, "id">): JSX.Element => {
   const { children, className, value, defaultValue, onChange, orientation = "horizontal", ...rest } = props;
 
   const [valueState, setValueState] = useControllableState({ value, defaultValue, onChange });

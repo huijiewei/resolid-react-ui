@@ -1,5 +1,6 @@
 import { clamp, isNumber } from "@resolid/utils";
 import { type FocusEvent, type KeyboardEvent, useId, useRef, useState } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useControllableState, useEventListener, useMergeRefs } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import { Input, type InputProps } from "../input/input";
@@ -71,7 +72,7 @@ export type NumberInputProps = Omit<
   changeOnWheel?: boolean;
 };
 
-export const NumberInput = (props: PrimitiveProps<"input", NumberInputProps, "type" | "role">) => {
+export const NumberInput = (props: PrimitiveProps<"input", NumberInputProps, "type" | "role">): JSX.Element => {
   const {
     id,
     value,

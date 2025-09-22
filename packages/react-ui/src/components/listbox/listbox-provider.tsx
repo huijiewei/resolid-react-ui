@@ -1,4 +1,5 @@
 import { type HTMLProps, type PropsWithChildren, type ReactNode, useRef } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useIsomorphicEffect, usePrevious } from "../../hooks";
 import type { AnyObject } from "../../primitives";
 import {
@@ -39,7 +40,9 @@ export type ListboxProviderProps<T extends ListboxItem> = {
     };
 };
 
-export const ListboxProvider = <T extends ListboxItem>(props: PropsWithChildren<ListboxProviderProps<T>>) => {
+export const ListboxProvider = <T extends ListboxItem>(
+  props: PropsWithChildren<ListboxProviderProps<T>>,
+): JSX.Element => {
   const {
     value: {
       getItemValue,

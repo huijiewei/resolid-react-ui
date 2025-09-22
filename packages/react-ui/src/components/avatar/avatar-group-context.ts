@@ -1,4 +1,4 @@
-import { createSafeContext } from "../../primitives";
+import { createSafeContext, type SafeContext, type UseSafeContext } from "../../primitives";
 
 export type AvatarBaseProps = {
   /**
@@ -16,6 +16,9 @@ export type AvatarBaseProps = {
 
 export type AvatarGroupContextValue = AvatarBaseProps;
 
-export const [AvatarGroupContext, useAvatarGroup] = createSafeContext<AvatarGroupContextValue>({
+const desc = createSafeContext<AvatarGroupContextValue>({
   name: "AvatarGroupContext",
 });
+
+export const AvatarGroupContext: SafeContext<AvatarBaseProps> = desc[0];
+export const useAvatarGroup: UseSafeContext<AvatarBaseProps> = desc[1];

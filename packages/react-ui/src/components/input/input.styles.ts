@@ -1,4 +1,4 @@
-import { tv } from "../../utils";
+import { tv, type TvReturnType } from "../../utils";
 
 export const inputHeightStyles = {
   xs: "py-[5px] min-h-6.5",
@@ -16,7 +16,17 @@ export const inputSizeStyles = {
   xl: "px-3.5",
 };
 
-export const inputStyles = tv({
+type InputVariants = {
+  disabled: {
+    true: string;
+  };
+  invalid: {
+    true: string;
+    false: string;
+  };
+};
+
+export const inputStyles: TvReturnType<InputVariants, undefined, string[], InputVariants, undefined> = tv({
   base: [
     "relative inline-flex items-center rounded-md border",
     "outline-1 outline-transparent transition-colors",

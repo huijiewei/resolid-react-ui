@@ -1,3 +1,4 @@
+import type { JSX } from "react/jsx-runtime";
 import type { PrimitiveProps } from "../../primitives";
 import { AngleDownIcon } from "../../shared/icons";
 import { inputTextShareStyles } from "../../shared/styles";
@@ -14,7 +15,7 @@ export type NativeSelectProps = FormInputFieldProps & {
   size?: SelectSize;
 };
 
-export const NativeSelect = (props: PrimitiveProps<"select", NativeSelectProps>) => {
+export const NativeSelect = (props: PrimitiveProps<"select", NativeSelectProps>): JSX.Element => {
   const { size = "md", disabled = false, invalid = false, children, className, ...rest } = props;
 
   const sizeStyle = selectSizeStyles[size];

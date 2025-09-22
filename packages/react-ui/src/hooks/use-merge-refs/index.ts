@@ -30,7 +30,7 @@ export const mergeRefs = <T>(...refs: OptionalRef<T>[]) => {
       cleanups.push(cleanup);
     }
 
-    return () => {
+    return (): void => {
       for (const cleanup of cleanups) {
         cleanup?.();
       }

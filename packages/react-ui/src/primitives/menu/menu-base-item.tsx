@@ -1,5 +1,6 @@
 import { useListItem } from "@floating-ui/react";
 import { isString } from "@resolid/utils";
+import type { JSX } from "react/jsx-runtime";
 import { useMergeRefs } from "../../hooks";
 import { ariaAttr, dataAttr, tx } from "../../utils";
 import { Polymorphic, type PolymorphicProps } from "../index";
@@ -18,7 +19,7 @@ export type MenuBaseItemProps = {
   disabled?: boolean;
 };
 
-export const MenuBaseItem = (props: PolymorphicProps<"div", MenuBaseItemProps, "tabIndex">) => {
+export const MenuBaseItem = (props: PolymorphicProps<"div", MenuBaseItemProps, "tabIndex">): JSX.Element => {
   const { render, className, ref, children, label, role, disabled = false, ...rest } = props;
 
   const { getItemProps, activeIndex } = useMenuItem();

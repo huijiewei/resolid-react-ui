@@ -1,4 +1,4 @@
-import { createSafeContext } from "../../primitives";
+import { createSafeContext, type SafeContext, type UseSafeContext } from "../../primitives";
 
 export type TagsInputBaseProps = {
   /**
@@ -28,6 +28,9 @@ export type TagsInputRootContextValue = TagsInputBaseProps & {
   onDelete: (index: number) => void;
 };
 
-export const [TagsInputRootContext, useTagsInputRoot] = createSafeContext<TagsInputRootContextValue>({
+const dest = createSafeContext<TagsInputRootContextValue>({
   name: "TagsInputRootContext",
 });
+
+export const TagsInputRootContext: SafeContext<TagsInputRootContextValue> = dest[0];
+export const useTagsInputRoot: UseSafeContext<TagsInputRootContextValue> = dest[1];

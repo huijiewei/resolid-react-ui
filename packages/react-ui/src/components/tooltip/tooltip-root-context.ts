@@ -1,10 +1,13 @@
-import { createSafeContext } from "../../primitives";
+import { createSafeContext, type SafeContext, type UseSafeContext } from "../../primitives";
 
 export type TooltipRootContextValue = {
   interactive: boolean;
   contentClassName?: string;
 };
 
-export const [TooltipRootContext, useTooltipRoot] = createSafeContext<TooltipRootContextValue>({
+const dest = createSafeContext<TooltipRootContextValue>({
   name: "TooltipRootContext",
 });
+
+export const TooltipRootContext: SafeContext<TooltipRootContextValue> = dest[0];
+export const useTooltipRoot: UseSafeContext<TooltipRootContextValue> = dest[1];

@@ -1,4 +1,4 @@
-import { createSafeContext } from "../../primitives";
+import { createSafeContext, type SafeContext, type UseSafeContext } from "../../primitives";
 import type { BinarySize, ToggleColor } from "../../shared/styles";
 
 export type RadioBaseProps = {
@@ -55,6 +55,9 @@ export type RadioGroupContextValue = RadioGroupBaseProps & {
   onChange: (value: string | number) => void;
 };
 
-export const [RadioGroupContext, useRadioGroup] = createSafeContext<RadioGroupContextValue>({
+const dest = createSafeContext<RadioGroupContextValue>({
   name: "RadioGroupContext",
 });
+
+export const RadioGroupContext: SafeContext<RadioGroupContextValue> = dest[0];
+export const useRadioGroup: UseSafeContext<RadioGroupContextValue> = dest[1];

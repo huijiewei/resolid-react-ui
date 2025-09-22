@@ -1,4 +1,5 @@
 import type { CSSProperties, ChangeEvent } from "react";
+import type { JSX } from "react/jsx-runtime";
 import type { PrimitiveProps } from "../../primitives";
 import {
   binaryColorShareStyles,
@@ -29,7 +30,7 @@ export const Radio = (
     RadioProps,
     "name" | "role" | "type" | "checked" | "defaultChecked" | "onChange" | "readOnly" | "required"
   >,
-) => {
+): JSX.Element => {
   const group = useRadioGroup();
 
   const {

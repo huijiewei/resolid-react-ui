@@ -1,4 +1,4 @@
-import { createSafeContext } from "../../primitives";
+import { createSafeContext, type SafeContext, type UseSafeContext } from "../../primitives";
 
 export type CollapsibleContentContextValue = {
   id: string;
@@ -6,6 +6,9 @@ export type CollapsibleContentContextValue = {
   duration: number;
 };
 
-export const [CollapsibleContentContext, useCollapsibleContent] = createSafeContext<CollapsibleContentContextValue>({
+const desc = createSafeContext<CollapsibleContentContextValue>({
   name: "CollapsibleContentContext",
 });
+
+export const CollapsibleContentContext: SafeContext<CollapsibleContentContextValue> = desc[0];
+export const useCollapsibleContent: UseSafeContext<CollapsibleContentContextValue> = desc[1];

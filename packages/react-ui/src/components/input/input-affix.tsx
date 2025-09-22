@@ -1,7 +1,8 @@
+import type { JSX } from "react/jsx-runtime";
 import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
 
-export const InputAffix = (props: PrimitiveProps<"div">) => {
+export const InputAffix = (props: PrimitiveProps<"div">): JSX.Element => {
   const { children, className, ...rest } = props;
 
   return (

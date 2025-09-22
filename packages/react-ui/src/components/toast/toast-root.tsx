@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useEffectEvent, useElementTransitionStatus, useEventListener, usePrevious, useTimeout } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import { PopperAriaContext } from "../../primitives/popper/popper-aria-context";
@@ -21,7 +22,7 @@ export type ToastRootProps = AlertProps & {
   onDismiss?: () => void;
 };
 
-export const ToastRoot = (props: PrimitiveProps<"div", ToastRootProps, "role" | "id">) => {
+export const ToastRoot = (props: PrimitiveProps<"div", ToastRootProps, "role" | "id">): JSX.Element | null => {
   const {
     priority = "high",
     onDismiss,

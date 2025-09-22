@@ -1,9 +1,12 @@
-import { createSafeContext } from "../context";
+import { createSafeContext, type SafeContext, type UseSafeContext } from "../context";
 
 export type PopperStateContextValue = {
   open: boolean;
 };
 
-export const [PopperStateContext, usePopperState] = createSafeContext<PopperStateContextValue>({
+const dest = createSafeContext<PopperStateContextValue>({
   name: "PopperStateContext",
 });
+
+export const PopperStateContext: SafeContext<PopperStateContextValue> = dest[0];
+export const usePopperState: UseSafeContext<PopperStateContextValue> = dest[1];

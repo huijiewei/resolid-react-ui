@@ -1,5 +1,5 @@
 import { isNumber, isString, range } from "@resolid/utils";
-import { useMemo } from "react";
+import { useMemo, type SetStateAction } from "react";
 import { useControllableState } from "../../hooks";
 
 export type UsePaginationOptions = {
@@ -51,7 +51,18 @@ export type UsePaginationOptions = {
 
 export type PageType = "page" | "next" | "previous" | "start-ellipsis" | "end-ellipsis";
 
-export const usePagination = (options: UsePaginationOptions) => {
+export const usePagination = (
+  options: UsePaginationOptions,
+): {
+  pageItems: {
+    page: number;
+    pageType: PageType;
+    disabled: boolean;
+  }[];
+  totalPages: number;
+  currentPage: number;
+  setCurrentPage: (value: SetStateAction<number>) => void;
+} => {
   const { page, defaultPage, onChange, total, pageSize = 20, siblings = 2, boundaries = 2, disabled = false } = options;
 
   const totalPages = Math.max(1, Math.ceil(total / pageSize));

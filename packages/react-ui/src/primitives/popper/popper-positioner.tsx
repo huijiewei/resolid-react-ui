@@ -1,7 +1,8 @@
+import type { JSX } from "react/jsx-runtime";
 import type { EmptyObject, PrimitiveProps } from "../polymorphic";
 import { usePopperPositioner } from "./popper-positioner-context";
 
-export const PopperPositioner = (props: PrimitiveProps<"div", EmptyObject, "role" | "ref">) => {
+export const PopperPositioner = (props: PrimitiveProps<"div", EmptyObject, "role" | "ref">): JSX.Element => {
   const { className, style, children, ...rest } = props;
 
   const { positionerStyles, setPositioner } = usePopperPositioner();

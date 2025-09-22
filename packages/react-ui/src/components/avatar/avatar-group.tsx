@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import type { JSX } from "react/jsx-runtime";
 import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
 import { AvatarGroupContext, type AvatarGroupContextValue } from "./avatar-group-context";
@@ -11,7 +12,7 @@ export type AvatarGroupProps = AvatarGroupContextValue & {
   spacing?: string;
 };
 
-export const AvatarGroup = (props: PrimitiveProps<"div", AvatarGroupProps>) => {
+export const AvatarGroup = (props: PrimitiveProps<"div", AvatarGroupProps>): JSX.Element => {
   const { size, radius, spacing = "-1rem", children, className, style, ...rest } = props;
 
   const context = {

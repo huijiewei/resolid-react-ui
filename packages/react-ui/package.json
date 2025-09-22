@@ -28,9 +28,8 @@
     "./tailwindcss": "./tailwindcss/index.css"
   },
   "scripts": {
-    "check-exports": "attw --pack . --profile esm-only --exclude-entrypoints tailwindcss",
     "lint": "eslint .",
-    "build": "tsup",
+    "build": "tsdown",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
@@ -50,7 +49,7 @@
     "babel-plugin-annotate-pure-calls": "^0.5.0",
     "babel-plugin-react-compiler": "19.1.0-rc.2",
     "jsdom": "^26.1.0",
-    "tsup": "^8.5.0",
+    "tsdown": "^0.15.4",
     "vitest": "^3.2.4",
     "vitest-axe": "pre"
   },

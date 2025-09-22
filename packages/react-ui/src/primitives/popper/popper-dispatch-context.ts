@@ -1,10 +1,13 @@
-import { createSafeContext } from "../index";
+import { createSafeContext, type SafeContext, type UseSafeContext } from "../index";
 
 export type PopperDispatchContextValue = {
   handleOpen?: () => void;
   handleClose: () => void;
 };
 
-export const [PopperDispatchContext, usePopperDispatch] = createSafeContext<PopperDispatchContextValue>({
+const dest = createSafeContext<PopperDispatchContextValue>({
   name: "PopperDispatchContext",
 });
+
+export const PopperDispatchContext: SafeContext<PopperDispatchContextValue> = dest[0];
+export const usePopperDispatch: UseSafeContext<PopperDispatchContextValue> = dest[1];

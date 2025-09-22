@@ -10,7 +10,12 @@ export type PopperAnimationProps = {
   defaultClassName?: string | string[];
 };
 
-export const getPopperAnimationProps = (props: PopperAnimationProps) => {
+export const getPopperAnimationProps = (
+  props: PopperAnimationProps,
+): {
+  style: CSSProperties;
+  className: string | undefined;
+} => {
   const {
     status,
     duration,

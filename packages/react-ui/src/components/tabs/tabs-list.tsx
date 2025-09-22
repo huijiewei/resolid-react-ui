@@ -1,5 +1,6 @@
 import { Composite } from "@floating-ui/react";
 import { useRef, useState } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useMergeRefs } from "../../hooks";
 import type { EmptyObject, PrimitiveProps } from "../../primitives";
 import { CompositeContext } from "../../primitives/composite/composite-context";
@@ -7,7 +8,7 @@ import { useOrientation } from "../../primitives/composite/orientation-context";
 import { IndicatorContext } from "../../primitives/indicator/indicator-context";
 import { tx } from "../../utils";
 
-export const TabsList = (props: PrimitiveProps<"div", EmptyObject, "role">) => {
+export const TabsList = (props: PrimitiveProps<"div", EmptyObject, "role">): JSX.Element => {
   const { children, className, ref, ...rest } = props;
 
   const orientation = useOrientation();

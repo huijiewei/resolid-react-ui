@@ -1,3 +1,4 @@
+import type { JSX } from "react/jsx-runtime";
 import { useControllableState } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import type { Orientation } from "../../shared/types";
@@ -22,7 +23,7 @@ export type RadioGroupProps = RadioGroupBaseProps & {
   orientation?: Orientation;
 };
 
-export const RadioGroup = (props: PrimitiveProps<"div", RadioGroupProps, "role">) => {
+export const RadioGroup = (props: PrimitiveProps<"div", RadioGroupProps, "role">): JSX.Element => {
   const {
     color = "primary",
     size = "md",

@@ -22,6 +22,7 @@ import {
   useTypeahead,
 } from "@floating-ui/react";
 import { type PropsWithChildren, useEffect, useRef, useState } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useDisclosure, usePreventScroll } from "../../hooks";
 import type { DisclosureProps } from "../../shared/types";
 import { PopperAnchorContext, type PopperAnchorContextValue } from "../popper/popper-anchor-context";
@@ -56,7 +57,7 @@ export type MenuRootProps = DisclosureProps & {
   placement?: Placement;
 };
 
-export const MenuRoot = (props: PropsWithChildren<MenuRootProps>) => {
+export const MenuRoot = (props: PropsWithChildren<MenuRootProps>): JSX.Element => {
   const parentId = useFloatingParentNodeId();
 
   if (parentId == null) {

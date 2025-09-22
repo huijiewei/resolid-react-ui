@@ -20,7 +20,7 @@ export type PolymorphicProps<
 
 export const Polymorphic = <T extends keyof JSX.IntrinsicElements>(
   props: RenderProps & { as: string } & JSX.IntrinsicElements[T],
-) => {
+): ReactNode => {
   const { render, as: Tag, ...rest } = props;
 
   if (render) {

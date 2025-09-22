@@ -1,4 +1,5 @@
 import type { MouseEvent } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useButtonProps } from "../../hooks";
 import { Polymorphic, type PolymorphicProps } from "../../primitives";
 import { AngleLeftIcon, AngleRightIcon } from "../../shared/icons";
@@ -15,7 +16,9 @@ export type PaginationItemProps = {
   setCurrentPage: (page: number) => void;
 };
 
-export const PaginationItem = (props: PolymorphicProps<"button", PaginationItemProps, "type" | "role">) => {
+export const PaginationItem = (
+  props: PolymorphicProps<"button", PaginationItemProps, "type" | "role">,
+): JSX.Element => {
   const {
     render,
     color,

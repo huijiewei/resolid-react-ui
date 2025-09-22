@@ -1,4 +1,5 @@
 import { FloatingFocusManager } from "@floating-ui/react";
+import type { JSX } from "react/jsx-runtime";
 import type { PrimitiveProps } from "../../primitives";
 import { usePopperAria } from "../../primitives/popper/popper-aria-context";
 import { PopperFloating } from "../../primitives/popper/popper-floating";
@@ -10,7 +11,7 @@ import { tx } from "../../utils";
 import { Portal } from "../portal/portal";
 import { usePopoverRoot } from "./popover-root-context";
 
-export const PopoverContent = (props: PrimitiveProps<"div">) => {
+export const PopoverContent = (props: PrimitiveProps<"div">): JSX.Element | null => {
   const { children, style, className, ...rest } = props;
 
   const { context, initialFocus, finalFocus } = usePopoverRoot();

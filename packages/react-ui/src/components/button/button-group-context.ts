@@ -1,4 +1,4 @@
-import { createSafeContext } from "../../primitives";
+import { createSafeContext, type SafeContext, type UseSafeContext } from "../../primitives";
 import type { Orientation } from "../../shared/types";
 import type { ButtonStyleProps } from "./button.styles";
 
@@ -42,6 +42,9 @@ export type ButtonGroupContextValue = ButtonBaseProps & {
   orientation?: Orientation;
 };
 
-export const [ButtonGroupContext, useButtonGroup] = createSafeContext<ButtonGroupContextValue>({
+const desc = createSafeContext<ButtonGroupContextValue>({
   name: "ButtonGroupContext",
 });
+
+export const ButtonGroupContext: SafeContext<ButtonGroupContextValue> = desc[0];
+export const useButtonGroup: UseSafeContext<ButtonGroupContextValue> = desc[1];

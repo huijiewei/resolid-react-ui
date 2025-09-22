@@ -1,6 +1,7 @@
 import { omit } from "@resolid/utils";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { type PropsWithChildren, useMemo } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useIsomorphicEffect } from "../../hooks";
 import { usePopperFloating } from "../../primitives/popper/popper-floating-context";
 import { useListboxCollection } from "./listbox-collection-context";
@@ -75,7 +76,7 @@ export const ListboxVirtualizer = ({
   gap,
   useAnimationFrameWithResizeObserver = false,
   children,
-}: PropsWithChildren<ListboxVirtualizerProps>) => {
+}: PropsWithChildren<ListboxVirtualizerProps>): JSX.Element => {
   const { size } = useListboxState();
   const { getFloatingProps } = usePopperFloating();
   const { nodeItems } = useListboxCollection();

@@ -1,5 +1,16 @@
-import { type FloatingRootContext, useListNavigation, useTypeahead } from "@floating-ui/react";
-import { type KeyboardEvent, type ReactNode, useCallback, useDeferredValue, useMemo, useRef, useState } from "react";
+import { type ElementProps, type FloatingRootContext, useListNavigation, useTypeahead } from "@floating-ui/react";
+import {
+  type Dispatch,
+  type KeyboardEvent,
+  type ReactNode,
+  type RefObject,
+  type SetStateAction,
+  useCallback,
+  useDeferredValue,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useControllableState } from "../../hooks";
 import type { AnyObject } from "../../primitives";
 import type { MultipleValueProps } from "../../shared/types";
@@ -74,7 +85,36 @@ export type UseListboxOptions<T extends ListboxItem> = Omit<ListboxBaseProps<T>,
 
 export type UseListboxResult<T extends ListboxItem> = ReturnType<typeof useListbox<T>>;
 
-export const useListbox = <T extends ListboxItem>(options: UseListboxOptions<T>) => {
+export const useListbox = <T extends ListboxItem>(
+  options: UseListboxOptions<T>,
+): {
+  getItemValue: (item: T) => string | number;
+  getItemLabel: (item: T) => string;
+  getItemDisabled: (item: T) => boolean;
+  getItemChildren: <E = T>(item: T) => E[] | undefined;
+  childrenKey: string;
+  activeIndex: number | null;
+  setActiveIndex: Dispatch<SetStateAction<number | null>>;
+  selectedIndex: number | null;
+  nodeItems: ListboxNodeItem[];
+  selectedItems: T[];
+  selectedIndices: number[];
+  handleSelect: (item: T, index: number) => void;
+  navigationInteraction: ElementProps;
+  typeaheadInteraction: ElementProps;
+  pointer: boolean;
+  interactiveHandlers: {
+    onPointerMove: () => void;
+    onKeyDown: (e: KeyboardEvent<HTMLElement>) => void;
+    onKeyUp: (e: KeyboardEvent<HTMLElement>) => void;
+  };
+  handleEnterKeydown: (e: KeyboardEvent<HTMLElement>) => void;
+  elementsRef: RefObject<(HTMLDivElement | null)[]>;
+  typingRef: RefObject<boolean>;
+  filterRef: RefObject<boolean>;
+  virtual: boolean;
+  setFilterKeyword: Dispatch<SetStateAction<string | undefined>>;
+} => {
   const {
     disabled = false,
     readOnly = false,
@@ -209,7 +249,7 @@ export const useListbox = <T extends ListboxItem>(options: UseListboxOptions<T>)
   const [selectedIndex, setSelectedIndex] = useState<number | null>(() => selectedIndices[0] ?? null);
   const [pointer, setPointer] = useState(false);
 
-  const handleSelect = (item: T, index: number) => {
+  const handleSelect = (item: T, index: number): void => {
     const value = getItemValue(item);
 
     if (Array.isArray(valueState)) {
@@ -263,7 +303,7 @@ export const useListbox = <T extends ListboxItem>(options: UseListboxOptions<T>)
     },
   });
 
-  const handleEnterKeydown = (e: KeyboardEvent<HTMLElement>) => {
+  const handleEnterKeydown = (e: KeyboardEvent<HTMLElement>): void => {
     if (activeIndex != null && e.key == "Enter") {
       handleSelect(indexedItems[activeIndex], activeIndex);
     }
@@ -271,10 +311,10 @@ export const useListbox = <T extends ListboxItem>(options: UseListboxOptions<T>)
 
   // noinspection JSUnusedGlobalSymbols
   const interactiveHandlers = {
-    onPointerMove: () => {
+    onPointerMove: (): void => {
       setPointer(true);
     },
-    onKeyDown: (e: KeyboardEvent<HTMLElement>) => {
+    onKeyDown: (e: KeyboardEvent<HTMLElement>): void => {
       setPointer(false);
 
       handleEnterKeydown(e);
@@ -283,7 +323,7 @@ export const useListbox = <T extends ListboxItem>(options: UseListboxOptions<T>)
         e.preventDefault();
       }
     },
-    onKeyUp: (e: KeyboardEvent<HTMLElement>) => {
+    onKeyUp: (e: KeyboardEvent<HTMLElement>): void => {
       if (activeIndex != null && e.key == " " && !typingRef.current) {
         handleSelect(indexedItems[activeIndex], activeIndex);
       }

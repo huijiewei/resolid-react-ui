@@ -8,7 +8,15 @@ export type UseButtonPropsOptions = {
   tabIndex?: number;
 };
 
-export const useButtonProps = (options: UseButtonPropsOptions) => {
+export const useButtonProps = (
+  options: UseButtonPropsOptions,
+): {
+  type: "submit" | "reset" | "button" | undefined;
+  role: string | (string & {}) | undefined;
+  disabled: boolean | undefined;
+  tabIndex: number | undefined;
+  "aria-disabled": boolean | undefined;
+} => {
   const { hasRender, type = "button", role, disabled = false, tabIndex } = options;
 
   return {

@@ -1,3 +1,4 @@
+import type { JSX } from "react/jsx-runtime";
 import type { PrimitiveProps } from "../../primitives";
 import { inputTextShareStyles } from "../../shared/styles";
 import { hasBackgroundClass } from "../../shared/utils";
@@ -5,7 +6,7 @@ import { tx } from "../../utils";
 import { useInputGroup } from "./input-group-context";
 import { inputGroupStyles, inputSizeStyles } from "./input.styles";
 
-export const InputAddon = (props: PrimitiveProps<"div">) => {
+export const InputAddon = (props: PrimitiveProps<"div">): JSX.Element => {
   const { className, children, ...rest } = props;
 
   const group = useInputGroup();

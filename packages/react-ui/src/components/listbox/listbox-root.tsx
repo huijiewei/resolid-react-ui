@@ -1,5 +1,6 @@
 import { useFloatingRootContext, useInteractions, useRole } from "@floating-ui/react";
 import { useState, type FocusEvent } from "react";
+import type { JSX } from "react/jsx-runtime";
 import type { PrimitiveProps } from "../../primitives";
 import type { FormFieldProps } from "../../shared/types";
 import { ariaAttr, tx } from "../../utils";
@@ -14,7 +15,7 @@ export type ListboxRootProps<T extends ListboxItem> = FormFieldProps & {
   invalid?: boolean;
 } & ListboxBaseProps<T>;
 
-export const ListboxRoot = <T extends ListboxItem>(props: PrimitiveProps<"div", ListboxRootProps<T>>) => {
+export const ListboxRoot = <T extends ListboxItem>(props: PrimitiveProps<"div", ListboxRootProps<T>>): JSX.Element => {
   const {
     multiple = false,
     value,

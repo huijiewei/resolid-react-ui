@@ -1,4 +1,4 @@
-import { createSafeContext } from "../../primitives";
+import { createSafeContext, type SafeContext, type UseSafeContext } from "../../primitives";
 import type { InputSize } from "../input/input.styles";
 
 export type ListboxStateContextValue = {
@@ -8,6 +8,9 @@ export type ListboxStateContextValue = {
   readOnly: boolean;
 };
 
-export const [ListboxStateContext, useListboxState] = createSafeContext<ListboxStateContextValue>({
+const dest = createSafeContext<ListboxStateContextValue>({
   name: "ListboxStateContext",
 });
+
+export const ListboxStateContext: SafeContext<ListboxStateContextValue> = dest[0];
+export const useListboxState: UseSafeContext<ListboxStateContextValue> = dest[1];

@@ -1,4 +1,4 @@
-import { createSafeContext } from "../../primitives";
+import { createSafeContext, type SafeContext, type UseSafeContext } from "../../primitives";
 import type { AlertStyleProps } from "./alert.styles";
 
 export type AlertContextValue = {
@@ -15,6 +15,9 @@ export type AlertContextValue = {
   color: AlertStyleProps["color"];
 };
 
-export const [AlertContext, useAlert] = createSafeContext<AlertContextValue>({
+const desc = createSafeContext<AlertContextValue>({
   name: "AlertContext",
 });
+
+export const AlertContext: SafeContext<AlertContextValue> = desc[0];
+export const useAlert: UseSafeContext<AlertContextValue> = desc[1];

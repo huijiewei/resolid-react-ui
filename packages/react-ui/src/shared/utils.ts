@@ -1,6 +1,6 @@
 import type { KeyboardEvent, MouseEvent } from "react";
 
-export const hasBackgroundClass = (className?: string) => {
+export const hasBackgroundClass = (className?: string): boolean => {
   if (!className) {
     return false;
   }
@@ -16,8 +16,12 @@ export const getInteractiveHandlers = <E extends HTMLElement = HTMLDivElement>({
   disabled: boolean;
   typing: boolean;
   onClick: (e: MouseEvent<E>) => void;
-}) => {
-  const handleClick = (e: MouseEvent<E>) => {
+}): {
+  handleClick: (e: MouseEvent<E>) => void;
+  handleKeyDown: (e: KeyboardEvent) => void;
+  handleKeyUp: (e: KeyboardEvent) => void;
+} => {
+  const handleClick = (e: MouseEvent<E>): void => {
     if (disabled) {
       e.preventDefault();
       return;
@@ -26,7 +30,7 @@ export const getInteractiveHandlers = <E extends HTMLElement = HTMLDivElement>({
     onClick(e);
   };
 
-  const handleKeyDown = (e: KeyboardEvent) => {
+  const handleKeyDown = (e: KeyboardEvent): void => {
     if (e.target === e.currentTarget && e.key === " ") {
       e.preventDefault();
     }
@@ -36,7 +40,7 @@ export const getInteractiveHandlers = <E extends HTMLElement = HTMLDivElement>({
     }
   };
 
-  const handleKeyUp = (e: KeyboardEvent) => {
+  const handleKeyUp = (e: KeyboardEvent): void => {
     if (e.target === e.currentTarget && !typing && e.key === " ") {
       handleClick(e as unknown as MouseEvent<E>);
     }

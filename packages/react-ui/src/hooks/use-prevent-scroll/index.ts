@@ -72,7 +72,7 @@ const checkOverflowScroll = (element: Element): boolean => {
   return checkOverflowScroll(parent);
 };
 
-export const usePreventScroll = (options: UsePreventScrollOptions) => {
+export const usePreventScroll = (options: UsePreventScrollOptions): void => {
   const { enabled, contentElement } = options;
 
   useEffect(() => {

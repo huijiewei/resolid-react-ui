@@ -1,6 +1,9 @@
 import type { Orientation } from "../../shared/types";
-import { createSafeContext } from "../context";
+import { createSafeContext, type SafeContext, type UseSafeContext } from "../context";
 
-export const [OrientationContext, useOrientation] = createSafeContext<Orientation>({
+const dest = createSafeContext<Orientation>({
   name: "OrientationContext",
 });
+
+export const OrientationContext: SafeContext<Orientation> = dest[0];
+export const useOrientation: UseSafeContext<Orientation> = dest[1];

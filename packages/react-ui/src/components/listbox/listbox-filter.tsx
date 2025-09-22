@@ -1,3 +1,4 @@
+import type { JSX } from "react/jsx-runtime";
 import { useIsomorphicEffect } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import { SearchIcon } from "../../shared/icons";
@@ -11,7 +12,7 @@ export type ListboxFilterProps = Omit<
   "type" | "name" | "required" | "readOnly" | "invalid" | "suffix" | "suffixWidth"
 >;
 
-export const ListboxFilter = (props: PrimitiveProps<"input", ListboxFilterProps, "children" | "type">) => {
+export const ListboxFilter = (props: PrimitiveProps<"input", ListboxFilterProps, "children" | "type">): JSX.Element => {
   const { size: listboxSize, disabled: listboxDisabled } = useListboxState();
 
   const { getNavigationProps, filterRef, setFilterKeyword } = useListboxFilter();

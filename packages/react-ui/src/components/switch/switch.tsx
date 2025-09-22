@@ -1,4 +1,5 @@
 import type { ChangeEvent, CSSProperties } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useControllableState } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import {
@@ -44,7 +45,7 @@ export type SwitchProps = CheckedValueProps &
     spacing?: string | number;
   };
 
-export const Switch = (props: PrimitiveProps<"input", SwitchProps, "role" | "type">) => {
+export const Switch = (props: PrimitiveProps<"input", SwitchProps, "role" | "type">): JSX.Element => {
   const {
     color = "primary",
     size = "md",

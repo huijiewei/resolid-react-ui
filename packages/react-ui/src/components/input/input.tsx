@@ -1,4 +1,5 @@
 import { type ChangeEvent, type CSSProperties, type ReactNode, useRef } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useControllableState, useMergeRefs } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import { inputTextShareStyles } from "../../shared/styles";
@@ -59,7 +60,7 @@ export type InputProps = Partial<InputGroupContextValue> &
     type?: "text" | "email" | "number" | "password" | "search" | "tel" | "url";
   };
 
-export const Input = (props: PrimitiveProps<"input", InputProps, "children">) => {
+export const Input = (props: PrimitiveProps<"input", InputProps, "children">): JSX.Element => {
   const group = useInputGroup(true);
 
   const {

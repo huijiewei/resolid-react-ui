@@ -1,5 +1,5 @@
 import type { HTMLProps, RefObject } from "react";
-import type { AnyObject } from "../../primitives";
+import type { AnyObject, SafeContext, UseSafeContext } from "../../primitives";
 import { createSafeContext } from "../../primitives";
 import type { ListboxBaseProps, ListboxItem, UseListboxResult } from "./use-listbox";
 
@@ -13,6 +13,9 @@ export type ListboxItemContextValue = {
 } & Required<Pick<ListboxBaseProps<ListboxItem>, "renderItem">> &
   Required<Pick<UseListboxResult<ListboxItem>, "handleSelect">>;
 
-export const [ListboxItemContext, useListboxItem] = createSafeContext<ListboxItemContextValue>({
+const dest = createSafeContext<ListboxItemContextValue>({
   name: "ListboxItemContext",
 });
+
+export const ListboxItemContext: SafeContext<ListboxItemContextValue> = dest[0];
+export const useListboxItem: UseSafeContext<ListboxItemContextValue> = dest[1];

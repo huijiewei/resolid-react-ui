@@ -1,11 +1,12 @@
 import { type CSSProperties, useEffect, useState } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useElementTransitionStatus, useIsomorphicEffect, useMergeRefs } from "../../hooks";
 import type { EmptyObject, PrimitiveProps } from "../../primitives";
 import { useOrientation } from "../../primitives/composite/orientation-context";
 import { tx } from "../../utils";
 import { useCollapsibleContent } from "./collapsible-content-context";
 
-export const CollapsibleContent = (props: PrimitiveProps<"div", EmptyObject, "id">) => {
+export const CollapsibleContent = (props: PrimitiveProps<"div", EmptyObject, "id">): JSX.Element | null => {
   const { children, ref, ...rest } = props;
 
   const orientation = useOrientation(true);

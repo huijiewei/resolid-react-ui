@@ -26,7 +26,10 @@ const localStorageSubscribe = (callback: () => void) => {
   return () => window.removeEventListener("storage", callback);
 };
 
-export const useLocalStorage = <T>(key: string, initialValue?: (() => T) | T) => {
+export const useLocalStorage = <T>(
+  key: string,
+  initialValue?: (() => T) | T,
+): readonly [T | undefined, (value: SetStateAction<T>) => void] => {
   const initialResolved = isFunction(initialValue) ? initialValue() : initialValue;
 
   const getSnapshot = () => getLocalStorageItem(key);

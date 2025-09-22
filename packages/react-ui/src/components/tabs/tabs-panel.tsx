@@ -1,3 +1,4 @@
+import type { JSX } from "react/jsx-runtime";
 import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
 import { getPanelId, getTabId, useTabs } from "./tabs-context";
@@ -11,7 +12,7 @@ export type TabsPanelProps = {
 
 export const TabsPanel = (
   props: PrimitiveProps<"div", TabsPanelProps, "id" | "tabIndex" | "role" | "aria-labelledby">,
-) => {
+): JSX.Element | null => {
   const { children, className, value, ...rest } = props;
 
   const { baseId, selectedValue } = useTabs();

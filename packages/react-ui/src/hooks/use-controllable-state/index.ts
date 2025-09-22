@@ -8,7 +8,9 @@ export type UseControllableStateOptions<T> = {
   shouldUpdate?: (prev: T, next: T) => boolean;
 };
 
-export const useControllableState = <T>(options: UseControllableStateOptions<T>) => {
+export const useControllableState = <T>(
+  options: UseControllableStateOptions<T>,
+): readonly [T, (value: SetStateAction<T>) => void] => {
   const { value, defaultValue, onChange, shouldUpdate = (prev, next) => prev !== next } = options;
 
   const [uncontrolledState, setUncontrolledState] = useState(defaultValue as T);

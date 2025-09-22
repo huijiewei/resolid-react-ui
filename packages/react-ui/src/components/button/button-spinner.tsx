@@ -1,3 +1,4 @@
+import type { JSX } from "react/jsx-runtime";
 import type { Dict, PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
 import { Spinner } from "../spinner/spinner";
@@ -16,7 +17,7 @@ const SpinnerSizes: Dict<ButtonSpinnerProps["size"]> = {
   xl: "lg",
 };
 
-export const ButtonSpinner = (props: PrimitiveProps<"span", ButtonSpinnerProps>) => {
+export const ButtonSpinner = (props: PrimitiveProps<"span", ButtonSpinnerProps>): JSX.Element => {
   const { label, size, className, children = <Spinner size={SpinnerSizes[size]} />, ...rest } = props;
 
   return (

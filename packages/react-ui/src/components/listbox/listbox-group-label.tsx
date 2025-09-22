@@ -1,3 +1,4 @@
+import type { JSX } from "react/jsx-runtime";
 import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
 import type { InputSize } from "../input/input.styles";
@@ -10,7 +11,7 @@ type ListboxGroupLabelProps = {
   size: InputSize;
 };
 
-export const ListboxGroupLabel = (props: PrimitiveProps<"div", ListboxGroupLabelProps, "children">) => {
+export const ListboxGroupLabel = (props: PrimitiveProps<"div", ListboxGroupLabelProps, "children">): JSX.Element => {
   const { group, size, className, ...rest } = props;
 
   const { renderGroupLabel } = useListboxGroup();

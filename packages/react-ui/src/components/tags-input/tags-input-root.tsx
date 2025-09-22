@@ -1,5 +1,6 @@
 import { Composite } from "@floating-ui/react";
 import { useState } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useControllableState } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import { CompositeContext, type CompositeContextValue } from "../../primitives/composite/composite-context";
@@ -46,7 +47,7 @@ export type TagsInputRootProps = Omit<FormInputFieldProps, "placeholder"> &
     max?: number;
   };
 
-export const TagsInputRoot = (props: PrimitiveProps<"div", TagsInputRootProps>) => {
+export const TagsInputRoot = (props: PrimitiveProps<"div", TagsInputRootProps>): JSX.Element => {
   const {
     value,
     defaultValue = [],

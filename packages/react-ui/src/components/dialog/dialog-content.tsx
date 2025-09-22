@@ -1,4 +1,5 @@
 import { FloatingFocusManager } from "@floating-ui/react";
+import type { JSX } from "react/jsx-runtime";
 import type { PrimitiveProps } from "../../primitives";
 import { usePopperAria } from "../../primitives/popper/popper-aria-context";
 import { PopperFloating } from "../../primitives/popper/popper-floating";
@@ -8,7 +9,7 @@ import { hasBackgroundClass } from "../../shared/utils";
 import { tx } from "../../utils";
 import { useDialog } from "./dialog-context";
 
-export const DialogContent = (props: PrimitiveProps<"div">) => {
+export const DialogContent = (props: PrimitiveProps<"div">): JSX.Element | null => {
   const { children, className, style, ...rest } = props;
 
   const { context, initialFocus, finalFocus, scrollBehavior, placement } = useDialog();

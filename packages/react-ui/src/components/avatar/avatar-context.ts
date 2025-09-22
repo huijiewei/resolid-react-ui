@@ -1,21 +1,25 @@
 import type { Dispatch, SetStateAction } from "react";
 import type { ImageLoadStatus } from "../../hooks";
-import { createSafeContext } from "../../primitives";
+import { createSafeContext, type SafeContext, type UseSafeContext } from "../../primitives";
 
 export type AvatarContextValue = {
   name?: string;
   radiusClass?: string;
 };
 
-export const [AvatarContext, useAvatar] = createSafeContext<AvatarContextValue>({
+const avatarDesc = createSafeContext<AvatarContextValue>({
   name: "AvatarContext",
 });
+export const AvatarContext: SafeContext<AvatarContextValue> = avatarDesc[0];
+export const useAvatar: UseSafeContext<AvatarContextValue> = avatarDesc[1];
 
 export type AvatarStatusContextValue = {
   imageLoadStatus: ImageLoadStatus;
   setImageLoadStatus: Dispatch<SetStateAction<ImageLoadStatus>>;
 };
 
-export const [AvatarStatusContext, useAvatarStatus] = createSafeContext<AvatarStatusContextValue>({
+const avatarStatusDesc = createSafeContext<AvatarStatusContextValue>({
   name: "AvatarStatusContext",
 });
+export const AvatarStatusContext: SafeContext<AvatarStatusContextValue> = avatarStatusDesc[0];
+export const useAvatarStatus: UseSafeContext<AvatarStatusContextValue> = avatarStatusDesc[1];

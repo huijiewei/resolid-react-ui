@@ -1,5 +1,6 @@
 import { Composite } from "@floating-ui/react";
 import { type KeyboardEvent, useState } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useControllableState } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import { CompositeContext, type CompositeContextValue } from "../../primitives/composite/composite-context";
@@ -22,7 +23,7 @@ export type AccordionRootProps = MultipleValueProps & {
   orientation?: Orientation;
 } & AccordionBaseProps;
 
-export const AccordionRoot = (props: PrimitiveProps<"div", AccordionRootProps>) => {
+export const AccordionRoot = (props: PrimitiveProps<"div", AccordionRootProps>): JSX.Element => {
   const {
     value,
     multiple = true,

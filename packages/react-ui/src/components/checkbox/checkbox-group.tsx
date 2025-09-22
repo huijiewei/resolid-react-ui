@@ -1,4 +1,5 @@
 import type { ChangeEvent } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useControllableState } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import type { Orientation } from "../../shared/types";
@@ -23,7 +24,7 @@ export type CheckboxGroupProps = {
   orientation?: Orientation;
 } & CheckboxGroupBaseProps;
 
-export const CheckboxGroup = (props: PrimitiveProps<"div", CheckboxGroupProps, "role">) => {
+export const CheckboxGroup = (props: PrimitiveProps<"div", CheckboxGroupProps, "role">): JSX.Element => {
   const {
     color = "primary",
     size = "md",

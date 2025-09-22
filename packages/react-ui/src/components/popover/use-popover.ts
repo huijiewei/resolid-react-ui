@@ -5,7 +5,6 @@ import {
   flip,
   inline,
   offset,
-  type Placement,
   shift,
   useClick,
   useDismiss,
@@ -13,8 +12,10 @@ import {
   useInteractions,
   useRole,
   useTransitionStatus,
+  type Placement,
+  type ReferenceType,
 } from "@floating-ui/react";
-import { useId, useState } from "react";
+import { useId, useState, type RefObject } from "react";
 import { useDisclosure } from "../../hooks";
 import type { PopperAnchorContextValue } from "../../primitives/popper/popper-anchor-context";
 import type { PopperArrowContextValue } from "../../primitives/popper/popper-arrow-context";
@@ -65,7 +66,24 @@ export const usePopover = ({
   placement = "auto",
   duration = 250,
   inlineMiddleware = false,
-}: PopoverProps = {}) => {
+}: PopoverProps = {}): {
+  setOpen: (open: boolean) => void;
+  setPositionReference: (node: ReferenceType | null) => void;
+  floatingReference: RefObject<HTMLElement | null>;
+  ariaContext: {
+    labelId: string;
+    descriptionId: string;
+  };
+  arrowContext: PopperArrowContextValue;
+  stateContext: PopperStateContextValue;
+  transitionContext: PopperTransitionContextValue;
+  popoverRootContext: PopoverRootContextValue;
+  dispatchContext: PopperDispatchContextValue;
+  floatingContext: PopperFloatingContextValue;
+  referenceContext: PopperTriggerContextValue;
+  positionerContext: PopperPositionerContextValue;
+  anchorContext: PopperAnchorContextValue;
+} => {
   const [openState, { handleOpen, handleClose }] = useDisclosure({ open, defaultOpen, onOpenChange });
 
   const id = useId();
@@ -77,7 +95,7 @@ export const usePopover = ({
     descriptionId,
   };
 
-  const handleOpenChange = (open: boolean) => {
+  const handleOpenChange = (open: boolean): void => {
     if (open) {
       handleOpen();
     } else {

@@ -1,3 +1,4 @@
+import type { JSX } from "react/jsx-runtime";
 import type { PrimitiveProps } from "../../primitives";
 import { tx } from "../../utils";
 
@@ -9,7 +10,7 @@ export type AvatarIndicatorProps = {
   position?: "top" | "bottom";
 };
 
-export const AvatarIndicator = (props: PrimitiveProps<"div", AvatarIndicatorProps>) => {
+export const AvatarIndicator = (props: PrimitiveProps<"div", AvatarIndicatorProps>): JSX.Element => {
   const { position = "top", className, children, ...rest } = props;
   return (
     <div

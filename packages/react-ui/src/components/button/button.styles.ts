@@ -1,6 +1,45 @@
+import type { TVReturnType } from "tailwind-variants";
 import { tv, type VP } from "../../utils";
 
-export const buttonStyles = tv({
+type ButtonVariants = {
+  variant: {
+    solid: string;
+    outline: string;
+    subtle: string;
+    soft: string;
+    ghost: string;
+    link: string;
+  };
+  color: {
+    primary: string;
+    secondary: string;
+    success: string;
+    warning: string;
+    danger: string;
+    neutral: string;
+  };
+  size: {
+    xs: string;
+    sm: string;
+    md: string;
+    lg: string;
+    xl: string;
+  };
+  disabled: {
+    true: string;
+    false: string;
+  };
+  iconOnly: {
+    true: string;
+    false: string;
+  };
+  noPadding: {
+    true: string;
+    false: string;
+  };
+};
+
+export const buttonStyles: TVReturnType<ButtonVariants, undefined, string[], ButtonVariants, undefined> = tv({
   base: [
     "inline-flex items-center justify-center border",
     "select-none appearance-none whitespace-nowrap font-medium",

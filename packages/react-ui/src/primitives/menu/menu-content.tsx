@@ -1,4 +1,5 @@
 import { FloatingFocusManager, FloatingList } from "@floating-ui/react";
+import type { JSX } from "react/jsx-runtime";
 import { Portal } from "../../components/portal/portal";
 import { useMergeRefs } from "../../hooks";
 import { tx } from "../../utils";
@@ -11,7 +12,7 @@ import { useMenu } from "./menu-context";
 import { useMenuHover } from "./menu-hover-context";
 import { MenuItemContext, type MenuItemContextValue } from "./menu-item-context";
 
-export const MenuContent = (props: PrimitiveProps<"div">) => {
+export const MenuContent = (props: PrimitiveProps<"div">): JSX.Element | null => {
   const { children, className, style, ref, ...rest } = props;
 
   const { context, menuEvents, closeOnSelect, activeIndex, getItemProps, nested, elementsRef, labelsRef, typingRef } =

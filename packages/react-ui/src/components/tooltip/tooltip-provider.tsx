@@ -1,4 +1,5 @@
 import type { PropsWithChildren } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { PopperAnchorContext } from "../../primitives/popper/popper-anchor-context";
 import { PopperArrowContext } from "../../primitives/popper/popper-arrow-context";
 import { PopperFloatingContext } from "../../primitives/popper/popper-floating-context";
@@ -13,7 +14,7 @@ export type TooltipProviderProps = {
   value: ReturnType<typeof useTooltip>;
 };
 
-export const TooltipProvider = ({ value, children }: PropsWithChildren<TooltipProviderProps>) => {
+export const TooltipProvider = ({ value, children }: PropsWithChildren<TooltipProviderProps>): JSX.Element => {
   return (
     <PopperArrowContext value={value.arrowContext}>
       <PopperStateContext value={value.stateContext}>

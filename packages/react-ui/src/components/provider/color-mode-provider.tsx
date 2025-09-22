@@ -1,5 +1,6 @@
 import type { PropsWithChildren } from "react";
 import { useEffect } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useLocalStorage, useMediaQuery } from "../../hooks";
 import { type ColorMode, ColorModeDispatchContext, ColorModeStateContext } from "./color-mode-context";
 
@@ -15,7 +16,7 @@ export const ColorModeProvider = ({
   children,
   nonce,
   disableTransitionOnChange = false,
-}: PropsWithChildren<ColorModeProviderProps>) => {
+}: PropsWithChildren<ColorModeProviderProps>): JSX.Element => {
   const osDark = useMediaQuery(COLOR_SCHEME_QUERY);
 
   const [value, setValue] = useLocalStorage<ColorMode>(COLOR_MODE_STORAGE_KEY, "auto");

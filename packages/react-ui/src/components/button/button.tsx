@@ -1,5 +1,6 @@
 import { isNumber } from "@resolid/utils";
 import type { AriaRole, CSSProperties, ReactNode } from "react";
+import type { JSX } from "react/jsx-runtime";
 import { useButtonProps } from "../../hooks";
 import { Polymorphic, type PolymorphicProps } from "../../primitives";
 import { dataAttr, tx } from "../../utils";
@@ -50,7 +51,7 @@ export type ButtonProps = ButtonBaseProps & {
   spinnerPlacement?: "start" | "end";
 };
 
-export const Button = (props: PolymorphicProps<"button", ButtonProps, "role">) => {
+export const Button = (props: PolymorphicProps<"button", ButtonProps, "role">): JSX.Element => {
   const group = useButtonGroup(true);
 
   const {

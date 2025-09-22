@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from "react";
-import { createSafeContext } from "../../primitives";
+import { createSafeContext, type SafeContext, type UseSafeContext } from "../../primitives";
 
 export type AccordionBaseProps = {
   /**
@@ -21,4 +21,7 @@ export type AccordionContextValue = Required<AccordionBaseProps> & {
   setOpenedValue: Dispatch<SetStateAction<string | number | null | (string | number)[]>>;
 };
 
-export const [AccordionContext, useAccordion] = createSafeContext<AccordionContextValue>({ name: "AccordionContext" });
+const desc = createSafeContext<AccordionContextValue>({ name: "AccordionContext" });
+
+export const AccordionContext: SafeContext<AccordionContextValue> = desc[0];
+export const useAccordion: UseSafeContext<AccordionContextValue> = desc[1];
