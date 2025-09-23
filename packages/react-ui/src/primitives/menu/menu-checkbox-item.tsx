@@ -21,14 +21,16 @@ export const MenuCheckboxItem = (
 ): JSX.Element => {
   const { checked = false, className, onChange, onSelect, children, ...rest } = props;
 
+  const handleSelect = () => {
+    onChange?.(checked == "indeterminate" ? true : !checked);
+    onSelect?.();
+  };
+
   return (
     <MenuItemIndicatorContext value={{ checked }}>
       <MenuItem
         role="menuitemcheckbox"
-        onSelect={() => {
-          onChange?.(checked == "indeterminate" ? true : !checked);
-          onSelect?.();
-        }}
+        onSelect={handleSelect}
         aria-checked={checked == "indeterminate" ? "mixed" : ariaAttr(checked)}
         className={tx("relative pl-6", className)}
         {...rest}

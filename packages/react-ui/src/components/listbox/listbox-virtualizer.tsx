@@ -116,7 +116,6 @@ export const ListboxVirtualizer = ({
     return { flatItems, groupLabelIndices, groupIndices };
   }, [childrenKey, nodeItems, getItemChildren]);
 
-  // noinspection JSUnusedGlobalSymbols
   const virtual = useVirtualizer({
     count: flatItems.length,
     getScrollElement: () => scrollRef.current,

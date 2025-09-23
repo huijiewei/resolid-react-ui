@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { usePrevious } from "../../hooks";
+import { useEffectEvent, usePrevious } from "../../hooks";
 import type { PopperTransitionStatus } from "./popper-transtion-context";
 
 export type UsePopperCloseCompleteOptions = {
@@ -10,9 +10,11 @@ export type UsePopperCloseCompleteOptions = {
 export const usePopperCloseComplete = ({ status, onCloseComplete }: UsePopperCloseCompleteOptions): void => {
   const prevStatus = usePrevious(status);
 
+  const handleCloseComplete = useEffectEvent(onCloseComplete);
+
   useEffect(() => {
     if (prevStatus == "close" && status == "unmounted") {
-      onCloseComplete();
+      handleCloseComplete();
     }
-  }, [onCloseComplete, prevStatus, status]);
+  }, [prevStatus, status]);
 };

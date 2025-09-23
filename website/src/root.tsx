@@ -62,4 +62,5 @@ export default function Root() {
   return <Outlet />;
 }
 
+// noinspection JSUnusedGlobalSymbols
 export const ErrorBoundary = ErrorComponent;

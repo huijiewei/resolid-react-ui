@@ -23,7 +23,7 @@ import {
 } from "@floating-ui/react";
 import { type PropsWithChildren, useEffect, useRef, useState } from "react";
 import type { JSX } from "react/jsx-runtime";
-import { useDisclosure, usePreventScroll } from "../../hooks";
+import { useDisclosure, useEffectEvent, usePreventScroll } from "../../hooks";
 import type { DisclosureProps } from "../../shared/types";
 import { PopperAnchorContext, type PopperAnchorContextValue } from "../popper/popper-anchor-context";
 import { PopperArrowContext, type PopperArrowContextValue } from "../popper/popper-arrow-context";
@@ -181,7 +181,7 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
     setPositionReference: refs.setPositionReference,
   };
 
-  const { events: menuEvents } = useFloatingTree()!;
+  const menuEvents = useFloatingTree()!.events;
 
   const floatingContext: PopperFloatingContextValue = {
     getFloatingProps,
@@ -204,34 +204,29 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
     handleClose,
   };
 
+  const handleCloseEvent = useEffectEvent(() => {
+    handleClose();
+  });
+
+  const handleOpenChangeEvent = useEffectEvent((event: { open: boolean; nodeId: string; parentId: string }) => {
+    if (event.parentId === nodeId) {
+      setHoverEnabled(!event.open);
+    }
+
+    if (event.open && event.nodeId !== nodeId && event.parentId === parentId) {
+      handleClose();
+    }
+  });
+
   useEffect(() => {
-    menuEvents.on("close", handleClose);
+    menuEvents.on("close", handleCloseEvent);
+    menuEvents.on("openchange", handleOpenChangeEvent);
 
     return () => {
-      menuEvents.off("close", handleClose);
+      menuEvents.off("close", handleCloseEvent);
+      menuEvents.off("openchange", handleOpenChangeEvent);
     };
-  }, [menuEvents, handleClose]);
-
-  useEffect(() => {
-    const handleMenuOpen = (event: { open: boolean; nodeId: string; parentId: string }) => {
-      if (event.open) {
-        if (event.parentId === nodeId) {
-          setHoverEnabled(false);
-        }
-        if (event.nodeId !== nodeId && event.parentId === parentId) {
-          handleClose();
-        }
-      } else if (event.parentId === nodeId) {
-        setHoverEnabled(true);
-      }
-    };
-
-    menuEvents.on("openchange", handleMenuOpen);
-
-    return () => {
-      menuEvents.off("openchange", handleMenuOpen);
-    };
-  }, [menuEvents, nodeId, parentId, handleClose]);
+  }, [menuEvents]);
 
   useEffect(() => {
     menuEvents.emit("openchange", { open: openState, parentId, nodeId });

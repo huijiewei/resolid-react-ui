@@ -31,25 +31,37 @@ export const ContextMenuTrigger = (props: PolymorphicProps<"div", ContextMenuTri
   const { setPositionReference } = usePopperAnchor();
   const { handleOpen } = usePopperDispatch();
 
-  const longPressTimerRef = useRef(0);
+  const longPressTimerRef = useRef<number | null>(null);
 
-  const clearLongPress = useCallback(() => window.clearTimeout(longPressTimerRef.current), []);
+  const clearLongPress = useCallback(() => {
+    if (longPressTimerRef.current) {
+      window.clearTimeout(longPressTimerRef.current);
+      longPressTimerRef.current = null;
+    }
+  }, []);
 
-  useEffect(() => clearLongPress, [clearLongPress]);
-  useEffect(() => void (disabled && clearLongPress()), [disabled, clearLongPress]);
+  useEffect(() => {
+    return () => clearLongPress();
+  }, [clearLongPress]);
 
-  const openMenu = (e: MouseEvent | PointerEvent) => {
+  useEffect(() => {
+    if (disabled) {
+      clearLongPress();
+    }
+  }, [disabled, clearLongPress]);
+
+  const openMenu = ({ clientX, clientY }: { clientX: number; clientY: number }) => {
     setPositionReference({
       getBoundingClientRect() {
         return {
           height: 0,
           width: 0,
-          x: e.clientX,
-          y: e.clientY,
-          top: e.clientY,
-          right: e.clientX,
-          bottom: e.clientY,
-          left: e.clientX,
+          x: clientX,
+          y: clientY,
+          top: clientY,
+          right: clientX,
+          bottom: clientY,
+          left: clientX,
         };
       },
     });
@@ -62,7 +74,7 @@ export const ContextMenuTrigger = (props: PolymorphicProps<"div", ContextMenuTri
 
     if (!disabled) {
       clearLongPress();
-      openMenu(e);
+      openMenu({ clientX: e.clientX, clientY: e.clientY });
       e.preventDefault();
     }
   };
@@ -72,7 +84,7 @@ export const ContextMenuTrigger = (props: PolymorphicProps<"div", ContextMenuTri
 
     if (!disabled && e.pointerType != "mouse") {
       clearLongPress();
-      longPressTimerRef.current = window.setTimeout(() => openMenu(e), 700);
+      longPressTimerRef.current = window.setTimeout(() => openMenu({ clientX: e.clientX, clientY: e.clientY }), 700);
     }
   };
 

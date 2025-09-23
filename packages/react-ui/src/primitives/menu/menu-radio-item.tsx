@@ -18,14 +18,16 @@ export const MenuRadioItem = (props: PolymorphicProps<"div", MenuRadioItemProps,
   const group = useMenuRadioGroup();
   const checked = value == group.value;
 
+  const handleSelect = () => {
+    group.onChange?.(value);
+    onSelect?.();
+  };
+
   return (
     <MenuItemIndicatorContext value={{ checked }}>
       <MenuItem
         role="menuitemradio"
-        onSelect={() => {
-          group.onChange?.(value);
-          onSelect?.();
-        }}
+        onSelect={handleSelect}
         label={value as string}
         aria-checked={ariaAttr(checked)}
         className={tx("relative pl-6", className)}
