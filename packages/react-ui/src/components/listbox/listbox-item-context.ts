@@ -9,7 +9,8 @@ export type ListboxItemContextValue = {
   getItemProps: (userProps?: HTMLProps<HTMLElement> | undefined) => AnyObject;
   elementsRef: RefObject<(HTMLDivElement | null)[]>;
   typingRef: RefObject<boolean>;
-  virtual: boolean;
+  focusItemOnOpen?: boolean;
+  virtual?: boolean;
 } & Required<Pick<ListboxBaseProps<ListboxItem>, "renderItem">> &
   Required<Pick<UseListboxResult<ListboxItem>, "handleSelect">>;
 

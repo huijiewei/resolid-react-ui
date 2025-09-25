@@ -32,6 +32,8 @@ export type ListboxProviderProps<T extends ListboxItem> = {
       renderGroupLabel?: ListboxBaseProps<T>["renderGroupLabel"];
       getItemProps: (userProps?: HTMLProps<HTMLElement> | undefined) => AnyObject;
       getNavigationProps: (userProps?: HTMLProps<HTMLElement> | undefined) => AnyObject;
+      virtual?: boolean;
+      focusItemOnOpen?: boolean;
       open: boolean;
       size: InputSize;
       multiple: boolean;
@@ -65,13 +67,14 @@ export const ListboxProvider = <T extends ListboxItem>(
       getItemProps,
       getNavigationProps,
       filterRef,
-      virtual,
       setFilterKeyword,
       open,
       size,
       multiple,
       disabled,
       readOnly,
+      focusItemOnOpen,
+      virtual,
     },
     children,
   } = props;
@@ -84,6 +87,7 @@ export const ListboxProvider = <T extends ListboxItem>(
     renderItem,
     elementsRef,
     typingRef,
+    focusItemOnOpen,
     virtual,
   } as ListboxItemContextValue;
 
@@ -168,9 +172,7 @@ export const ListboxProvider = <T extends ListboxItem>(
           const item = selectedIndex !== null ? elementsRef.current[selectedIndex] : null;
 
           if (item) {
-            floating.scrollTo({
-              top: item.offsetTop - floating.offsetHeight / 2 + item.offsetHeight / 2,
-            });
+            floating.scrollTop = item.offsetTop - floating.offsetHeight / 2 + item.offsetHeight / 2;
           }
         }
       }

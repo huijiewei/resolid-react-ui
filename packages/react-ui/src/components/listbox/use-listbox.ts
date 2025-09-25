@@ -83,11 +83,7 @@ export type UseListboxOptions<T extends ListboxItem> = Omit<ListboxBaseProps<T>,
   readOnly: boolean;
 };
 
-export type UseListboxResult<T extends ListboxItem> = ReturnType<typeof useListbox<T>>;
-
-export const useListbox = <T extends ListboxItem>(
-  options: UseListboxOptions<T>,
-): {
+export type UseListboxResult<T extends ListboxItem> = {
   getItemValue: (item: T) => string | number;
   getItemLabel: (item: T) => string;
   getItemDisabled: (item: T) => boolean;
@@ -99,10 +95,11 @@ export const useListbox = <T extends ListboxItem>(
   nodeItems: ListboxNodeItem[];
   selectedItems: T[];
   selectedIndices: number[];
-  handleSelect: (item: T, index: number) => void;
+  handleSelect: (item: T) => void;
   navigationInteraction: ElementProps;
   typeaheadInteraction: ElementProps;
   pointer: boolean;
+  virtual: boolean;
   interactiveHandlers: {
     onPointerMove: () => void;
     onKeyDown: (e: KeyboardEvent<HTMLElement>) => void;
@@ -112,9 +109,10 @@ export const useListbox = <T extends ListboxItem>(
   elementsRef: RefObject<(HTMLDivElement | null)[]>;
   typingRef: RefObject<boolean>;
   filterRef: RefObject<boolean>;
-  virtual: boolean;
   setFilterKeyword: Dispatch<SetStateAction<string | undefined>>;
-} => {
+};
+
+export const useListbox = <T extends ListboxItem>(options: UseListboxOptions<T>): UseListboxResult<T> => {
   const {
     disabled = false,
     readOnly = false,
@@ -246,27 +244,24 @@ export const useListbox = <T extends ListboxItem>(
   }, [childrenKey, collection, deferredKeyword, getItemChildren, getItemValue, searchFilter, valueState]);
 
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(() => selectedIndices[0] ?? null);
   const [pointer, setPointer] = useState(false);
 
-  const handleSelect = (item: T, index: number): void => {
+  const selectedIndex = selectedIndices[0] ?? null;
+
+  const handleSelect = (item: T): void => {
     const value = getItemValue(item);
 
     if (Array.isArray(valueState)) {
       if (valueState.includes(value)) {
         setValueState(valueState.filter((p) => p != value));
-        setSelectedIndex(null);
       } else {
         setValueState([...valueState, value]);
-        setSelectedIndex(index);
       }
     } else {
       if (value == valueState) {
         setValueState(null);
-        setSelectedIndex(null);
       } else {
         setValueState(value);
-        setSelectedIndex(index);
       }
     }
 
@@ -305,7 +300,7 @@ export const useListbox = <T extends ListboxItem>(
 
   const handleEnterKeydown = (e: KeyboardEvent<HTMLElement>): void => {
     if (activeIndex != null && e.key == "Enter") {
-      handleSelect(indexedItems[activeIndex], activeIndex);
+      handleSelect(indexedItems[activeIndex]);
     }
   };
 
@@ -325,7 +320,7 @@ export const useListbox = <T extends ListboxItem>(
     },
     onKeyUp: (e: KeyboardEvent<HTMLElement>): void => {
       if (activeIndex != null && e.key == " " && !typingRef.current) {
-        handleSelect(indexedItems[activeIndex], activeIndex);
+        handleSelect(indexedItems[activeIndex]);
       }
     },
   };
@@ -351,7 +346,7 @@ export const useListbox = <T extends ListboxItem>(
     elementsRef,
     typingRef,
     filterRef,
-    virtual,
     setFilterKeyword,
+    virtual,
   };
 };

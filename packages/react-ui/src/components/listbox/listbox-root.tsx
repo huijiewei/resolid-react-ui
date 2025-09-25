@@ -1,11 +1,11 @@
 import { useFloatingRootContext, useInteractions, useRole } from "@floating-ui/react";
-import { useState, type FocusEvent } from "react";
+import { type FocusEvent, useState } from "react";
 import type { JSX } from "react/jsx-runtime";
 import type { PrimitiveProps } from "../../primitives";
 import type { FormFieldProps } from "../../shared/types";
 import { ariaAttr, tx } from "../../utils";
 import { ListboxProvider } from "./listbox-provider";
-import { useListbox, type ListboxBaseProps, type ListboxItem } from "./use-listbox";
+import { type ListboxBaseProps, type ListboxItem, useListbox } from "./use-listbox";
 
 export type ListboxRootProps<T extends ListboxItem> = FormFieldProps & {
   /**
@@ -53,6 +53,7 @@ export const ListboxRoot = <T extends ListboxItem>(props: PrimitiveProps<"div", 
     activeIndex,
     setActiveIndex,
     selectedIndices,
+    selectedIndex,
     ...providerValue
   } = useListbox({
     disabled,
@@ -90,7 +91,7 @@ export const ListboxRoot = <T extends ListboxItem>(props: PrimitiveProps<"div", 
 
   const handleFocus = () => {
     if (activeIndex == null) {
-      setActiveIndex(selectedIndices[0] ?? 0);
+      setActiveIndex(selectedIndex ?? 0);
     }
   };
 
@@ -106,6 +107,7 @@ export const ListboxRoot = <T extends ListboxItem>(props: PrimitiveProps<"div", 
         value={{
           ...providerValue,
           activeIndex,
+          selectedIndex,
           selectedIndices,
           setFloating,
           getFloatingProps: (props) =>
@@ -128,6 +130,7 @@ export const ListboxRoot = <T extends ListboxItem>(props: PrimitiveProps<"div", 
           multiple,
           disabled,
           readOnly,
+          focusItemOnOpen: false,
         }}
       >
         {children}

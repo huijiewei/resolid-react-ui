@@ -222,7 +222,12 @@ export default function App() {
           </ListboxVirtualizer>
         </ListboxContent>
       </Listbox>
-      <Listbox defaultValue={201} className={"min-w-60"} collection={groupCollection}>
+      <Listbox
+        multiple
+        defaultValue={[201, 203]}
+        className={"min-w-60"}
+        collection={groupCollection}
+      >
         <ListboxContent className={"max-h-60 px-1"}>
           <ListboxVirtualizer>
             <ListboxList />
