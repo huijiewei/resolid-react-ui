@@ -127,12 +127,8 @@ export const TagsInputInput = (
 
       if (value && onAdd(value)) {
         e.currentTarget.value = "";
-
-        return;
       }
     }
-
-    setValueState(e.currentTarget.value);
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
