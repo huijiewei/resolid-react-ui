@@ -21,7 +21,7 @@ export const ListboxContent = (props: PrimitiveProps<"div", EmptyObject, "role" 
       ref={refs}
       tabIndex={scrollToRef.current ? -1 : undefined}
       className={tx(
-        "scrollbar scrollbar-thin relative overflow-y-auto overscroll-contain rounded-md outline-none",
+        "scrollbar scrollbar-thin relative overflow-y-auto overscroll-contain outline-none",
         inputTextShareStyles[size],
         className,
       )}
