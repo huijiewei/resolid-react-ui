@@ -52,6 +52,7 @@ export const TagsInputRoot = (props: PrimitiveProps<"div", TagsInputRootProps>):
     value,
     defaultValue = [],
     onChange,
+    placeholder,
     name,
     disabled = false,
     readOnly = false,
@@ -125,6 +126,8 @@ export const TagsInputRoot = (props: PrimitiveProps<"div", TagsInputRootProps>):
     addOnBlur,
     addOnPaste,
     delimiter,
+    placeholder,
+    valueCount: valueState.length,
     onAdd: addValue,
     onDelete: deleteValue,
   };

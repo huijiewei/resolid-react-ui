@@ -10,8 +10,8 @@ import { TagsInput, TagsInputInput } from "@resolid/react-ui";
 
 export default function App() {
   return (
-    <TagsInput className={"max-w-80"} defaultValue={["React", "Vue"]}>
-      <TagsInputInput placeholder={"请输入标签"} />
+    <TagsInput placeholder={"请输入标签"} className={"max-w-80"} defaultValue={["React", "Vue"]}>
+      <TagsInputInput />
     </TagsInput>
   );
 }
@@ -49,8 +49,13 @@ export default function App() {
   return (
     <div className={"flex flex-col gap-2"}>
       <p>你输入了标签: {value.join(", ")}</p>
-      <TagsInput className={"max-w-80"} value={value} onChange={setValue}>
-        <TagsInputInput placeholder={"请输入标签"} />
+      <TagsInput
+        placeholder={"请输入标签"}
+        className={"max-w-80"}
+        value={value}
+        onChange={setValue}
+      >
+        <TagsInputInput />
       </TagsInput>
     </div>
   );
@@ -66,8 +71,13 @@ import { TagsInput, TagsInputInput } from "@resolid/react-ui";
 
 export default function App() {
   return (
-    <TagsInput max={3} className={"max-w-80"} defaultValue={["React", "Vue"]}>
-      <TagsInputInput placeholder={"请输入标签"} />
+    <TagsInput
+      placeholder={"请输入标签"}
+      max={3}
+      className={"max-w-80"}
+      defaultValue={["React", "Vue"]}
+    >
+      <TagsInputInput />
     </TagsInput>
   );
 }
@@ -82,8 +92,8 @@ import { TagsInput, TagsInputInput } from "@resolid/react-ui";
 
 export default function App() {
   return (
-    <TagsInput className={"max-w-80"} defaultValue={["React", "Vue"]}>
-      <TagsInputInput maxLength={6} placeholder={"请输入标签"} />
+    <TagsInput placeholder={"请输入标签"} className={"max-w-80"} defaultValue={["React", "Vue"]}>
+      <TagsInputInput maxLength={6} />
     </TagsInput>
   );
 }
@@ -98,8 +108,13 @@ import { TagsInput, TagsInputInput } from "@resolid/react-ui";
 
 export default function App() {
   return (
-    <TagsInput addOnBlur className={"max-w-80"} defaultValue={["React", "Vue"]}>
-      <TagsInputInput placeholder={"请输入标签"} />
+    <TagsInput
+      placeholder={"请输入标签"}
+      addOnBlur
+      className={"max-w-80"}
+      defaultValue={["React", "Vue"]}
+    >
+      <TagsInputInput />
     </TagsInput>
   );
 }
@@ -114,8 +129,13 @@ import { TagsInput, TagsInputInput } from "@resolid/react-ui";
 
 export default function App() {
   return (
-    <TagsInput addOnPaste className={"max-w-80"} defaultValue={["React", "Vue"]}>
-      <TagsInputInput placeholder={"请输入标签"} />
+    <TagsInput
+      placeholder={"请输入标签"}
+      addOnPaste
+      className={"max-w-80"}
+      defaultValue={["React", "Vue"]}
+    >
+      <TagsInputInput />
     </TagsInput>
   );
 }

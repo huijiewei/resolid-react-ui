@@ -25,11 +25,6 @@ export type TagsInputInputProps = {
   onChange?: (value: string) => void;
 
   /**
-   * 占位符文本
-   */
-  placeholder?: string;
-
-  /**
    * 允许的最大字符数
    */
   maxLength?: number;
@@ -43,21 +38,32 @@ export const TagsInputInput = (
   >,
 ): JSX.Element => {
   const {
-    value,
-    defaultValue = "",
-    onChange,
-    placeholder,
     maxLength,
     className,
     onKeyDown,
     onInput,
     onFocus,
     onBlur,
+    value,
+    defaultValue = "",
+    onChange,
     ref,
+    role,
     ...rest
   } = props;
 
-  const { disabled, readOnly, addOnBlur, addOnPaste, inputClassname, delimiter, onAdd, onDelete } = useTagsInputRoot();
+  const {
+    disabled,
+    readOnly,
+    addOnBlur,
+    addOnPaste,
+    inputClassname,
+    delimiter,
+    placeholder,
+    valueCount,
+    onAdd,
+    onDelete,
+  } = useTagsInputRoot();
 
   const { ref: itemRef, index } = useListItem();
   const { activeIndex, setActiveIndex } = useComposite();
@@ -125,7 +131,12 @@ export const TagsInputInput = (
     if (e.nativeEvent.data == delimiter || (delimiter instanceof RegExp && delimiter.test(e.nativeEvent.data))) {
       const value = e.currentTarget.value.replaceAll(delimiter, "").trim();
 
-      if (value && onAdd(value)) {
+      if (value == "") {
+        e.currentTarget.value = "";
+        return;
+      }
+
+      if (onAdd(value)) {
         e.currentTarget.value = "";
       }
     }
@@ -147,10 +158,19 @@ export const TagsInputInput = (
         e.stopPropagation();
       }
 
+      if (activeIndex === undefined) {
+        setActiveIndex(valueCount - 1);
+      }
+
       return;
     }
 
     if (e.key == "Enter") {
+      if (role == "combobox") {
+        setActiveIndex(undefined);
+        return;
+      }
+
       if (!e.currentTarget.value) {
         return;
       }
@@ -190,12 +210,13 @@ export const TagsInputInput = (
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValueState(e.currentTarget.value);
+    setValueState(e.target.value);
   };
 
   return (
     <input
       ref={refs}
+      role={role}
       type={"text"}
       autoComplete={"off"}
       autoCapitalize={"off"}
@@ -209,9 +230,9 @@ export const TagsInputInput = (
       onPaste={handlePaste}
       onInput={handleInput}
       onKeyDown={handleKeyDown}
-      onChange={handleChange}
       className={tx("min-w-20 flex-1 outline-none", inputClassname, className)}
       value={valueState}
+      onChange={handleChange}
       {...rest}
     />
   );
