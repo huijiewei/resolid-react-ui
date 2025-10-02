@@ -21,9 +21,9 @@ import {
   useTransitionStatus,
   useTypeahead,
 } from "@floating-ui/react";
-import { type PropsWithChildren, useEffect, useRef, useState } from "react";
+import { type PropsWithChildren, useEffect, useEffectEvent, useRef, useState } from "react";
 import type { JSX } from "react/jsx-runtime";
-import { useDisclosure, useEffectEvent, usePreventScroll } from "../../hooks";
+import { useDisclosure, usePreventScroll } from "../../hooks";
 import type { DisclosureProps } from "../../shared/types";
 import { PopperAnchorContext, type PopperAnchorContextValue } from "../popper/popper-anchor-context";
 import { PopperArrowContext, type PopperArrowContextValue } from "../popper/popper-arrow-context";

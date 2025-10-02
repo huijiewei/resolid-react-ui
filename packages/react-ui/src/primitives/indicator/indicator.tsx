@@ -1,6 +1,6 @@
-import { type CSSProperties, useEffect, useRef, useState } from "react";
+import { type CSSProperties, useEffect, useEffectEvent, useRef, useState } from "react";
 import type { JSX } from "react/jsx-runtime";
-import { useEffectEvent, useResizeObserver } from "../../hooks";
+import { useResizeObserver } from "../../hooks";
 import type { Orientation } from "../../shared/types";
 import { tx } from "../../utils";
 import type { PrimitiveProps } from "../polymorphic";
@@ -37,10 +37,10 @@ export const Indicator = (props: PrimitiveProps<"span", IndicatorProps, "role" |
     } as CSSProperties);
   };
 
-  const computeStyleRef = useEffectEvent(computeStyle);
+  const computeStyleEvent = useEffectEvent(computeStyle);
 
   useEffect(() => {
-    computeStyleRef();
+    computeStyleEvent();
   }, [activeIndex]);
 
   useResizeObserver(listRef, computeStyle);

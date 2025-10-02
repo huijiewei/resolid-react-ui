@@ -1,5 +1,4 @@
-import { useEffect, useRef } from "react";
-import { useEffectEvent } from "../use-effect-event";
+import { useEffect, useEffectEvent, useRef } from "react";
 import { useLatestRef } from "../use-lastest-ref";
 
 export const useTimeout = (
@@ -27,10 +26,10 @@ export const useTimeout = (
     }
   };
 
-  const resetRef = useEffectEvent(reset);
+  const resetEvent = useEffectEvent(reset);
 
   useEffect(() => {
-    resetRef();
+    resetEvent();
 
     return clear;
   }, []);

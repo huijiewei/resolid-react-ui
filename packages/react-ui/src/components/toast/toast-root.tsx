@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useEffectEvent, useState } from "react";
 import type { JSX } from "react/jsx-runtime";
-import { useEffectEvent, useElementTransitionStatus, useEventListener, usePrevious, useTimeout } from "../../hooks";
+import { useElementTransitionStatus, useEventListener, usePrevious, useTimeout } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import { PopperAriaContext } from "../../primitives/popper/popper-aria-context";
 import { PopperDispatchContext } from "../../primitives/popper/popper-dispatch-context";
@@ -47,11 +47,11 @@ export const ToastRoot = (props: PrimitiveProps<"div", ToastRootProps, "role" | 
     onDismiss?.();
   };
 
-  const handleDismissRef = useEffectEvent(handleDismiss);
+  const handleDismissEvent = useEffectEvent(handleDismiss);
 
   useEffect(() => {
     if (dismiss) {
-      handleDismissRef();
+      handleDismissEvent();
     }
   }, [dismiss]);
 
