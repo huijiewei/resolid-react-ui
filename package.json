@@ -20,8 +20,8 @@
     "@changesets/cli": "^2.29.7",
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
-    "@resolid/config": "^3.7.1",
-    "@tailwindcss/language-server": "^0.14.26",
+    "@resolid/config": "^3.7.2",
+    "@tailwindcss/language-server": "^0.14.27",
     "@types/node": "^22.18.8",
     "eslint": "^9.36.0",
     "eslint-plugin-react-you-might-not-need-an-effect": "^0.5.5",
@@ -35,7 +35,7 @@
     "node": "22.x",
     "pnpm": "10.x"
   },
-  "packageManager": "pnpm@10.17.1",
+  "packageManager": "pnpm@10.18.0",
   "homepage": "https://ui.resolid.tech",
   "repository": {
     "type": "git",

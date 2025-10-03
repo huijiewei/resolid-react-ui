@@ -1,0 +1,31 @@
+import { Alert, AlertIndicator, type AlertProps, AlertTitle } from "@resolid/react-ui";
+import type { ComponentProps } from "react";
+import { SpriteIcon } from "~/components/sprite-icon";
+
+export const MdxBlockQuote = (props: ComponentProps<"blockquote"> & { "data-type"?: string }) => {
+  const { children, "data-type": dataType, ...rest } = props;
+
+  if (dataType) {
+    const alertColors = {
+      NOTE: "primary",
+      IMPORTANT: "secondary",
+      TIP: "success",
+      WARNING: "warning",
+      CAUTION: "danger",
+    };
+
+    return (
+      <Alert
+        color={alertColors[dataType as keyof typeof alertColors] as AlertProps["color"]}
+        className={"not-prose my-5 flex flex-row gap-2"}
+      >
+        <AlertIndicator className={"pt-1.75"}>
+          <SpriteIcon name={`github-${dataType}`} />
+        </AlertIndicator>
+        <AlertTitle>{children}</AlertTitle>
+      </Alert>
+    );
+  }
+
+  return <blockquote {...rest}>{children}</blockquote>;
+};

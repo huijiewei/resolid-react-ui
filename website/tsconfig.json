@@ -4,9 +4,9 @@
     ".react-router/types/**/*",
     ".resolid/component-demos/*",
     "src/**/*",
+    "env.d.ts",
     "react-router.config.ts",
-    "vite.config.ts",
-    "vite.env.d.ts"
+    "vite.config.ts"
   ],
   "compilerOptions": {
     "rootDirs": [".", "./.react-router/types"],

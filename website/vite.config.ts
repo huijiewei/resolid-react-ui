@@ -13,6 +13,8 @@ import { type AliasOptions, defineConfig, type UserConfig } from "vite";
 import babel from "vite-plugin-babel";
 import viteInspect from "vite-plugin-inspect";
 import tsconfigPaths from "vite-tsconfig-paths";
+import { rehypeParseMeta } from "./plugins/rehype-parse-meta";
+import remarkDetails from "./plugins/remark-details";
 import remarkDocgen from "./plugins/remark-docgen";
 import remarkGithubAlert from "./plugins/remark-github-alert";
 import remarkRemove from "./plugins/remark-remove";
@@ -38,11 +40,7 @@ export default defineConfig(({ command }) => {
                 dark: "github-dark",
               },
               defaultColor: false,
-              parseMetaString: (meta: string) => {
-                const matches = meta.match(/online=["']?([a-zA-Z]+)["']?/);
-
-                return matches ? { online: matches[1] } : undefined;
-              },
+              parseMetaString: rehypeParseMeta,
             },
           ],
         ],
@@ -51,6 +49,7 @@ export default defineConfig(({ command }) => {
           remarkFrontmatter,
           remarkGfm,
           remarkGithubAlert,
+          remarkDetails,
           [remarkDocgen, { sourceRoot: join(__dirname, "../packages/react-ui/src/components") }],
           remarkRemove,
         ],

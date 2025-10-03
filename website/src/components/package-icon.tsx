@@ -1,5 +1,5 @@
 import { tx } from "@resolid/react-ui";
-import browserIcons from "~/assets/icons/browser.svg?no-inline";
+import packageIcons from "~/assets/icons/package.svg?no-inline";
 
 type SpriteIconProps = {
   name: string;
@@ -7,12 +7,12 @@ type SpriteIconProps = {
   className?: string;
 };
 
-export const BrowserIcon = (props: SpriteIconProps) => {
+export const PackageIcon = (props: SpriteIconProps) => {
   const { name, size = "1em", className } = props;
 
   return (
     <svg style={{ width: size }} className={tx("aspect-square", className)}>
-      <use href={`${browserIcons}#${name}`} />
+      <use href={`${packageIcons}#${name}`} />
     </svg>
   );
 };

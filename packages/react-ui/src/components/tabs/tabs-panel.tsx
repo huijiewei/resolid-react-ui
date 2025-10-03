@@ -11,9 +11,9 @@ export type TabsPanelProps = {
 };
 
 export const TabsPanel = (
-  props: PrimitiveProps<"div", TabsPanelProps, "id" | "tabIndex" | "role" | "aria-labelledby">,
+  props: PrimitiveProps<"div", TabsPanelProps, "id" | "role" | "aria-labelledby">,
 ): JSX.Element | null => {
-  const { children, className, value, ...rest } = props;
+  const { children, className, tabIndex, value, ...rest } = props;
 
   const { baseId, selectedValue } = useTabs();
 
@@ -29,7 +29,7 @@ export const TabsPanel = (
     <div
       id={panelId}
       role="tabpanel"
-      tabIndex={selected ? 0 : -1}
+      tabIndex={tabIndex ?? (selected ? 0 : -1)}
       aria-labelledby={tabId}
       className={tx(selected ? "block" : "hidden", className)}
       {...rest}

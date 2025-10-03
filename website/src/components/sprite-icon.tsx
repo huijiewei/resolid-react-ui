@@ -1,5 +1,5 @@
 import { tx } from "@resolid/react-ui";
-import spriteIcons from "~/assets/icons/sprite.svg";
+import spriteIcons from "~/assets/icons/sprite.svg?no-inline";
 
 type SpriteIconProps = {
   name: string;
