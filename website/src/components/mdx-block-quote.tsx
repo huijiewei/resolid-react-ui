@@ -1,4 +1,4 @@
-import { Alert, AlertIndicator, type AlertProps, AlertTitle } from "@resolid/react-ui";
+import { Alert, AlertDescription, AlertIndicator, type AlertProps } from "@resolid/react-ui";
 import type { ComponentProps } from "react";
 import { SpriteIcon } from "~/components/sprite-icon";
 
@@ -22,7 +22,7 @@ export const MdxBlockQuote = (props: ComponentProps<"blockquote"> & { "data-type
         <AlertIndicator className={"pt-1.75"}>
           <SpriteIcon name={`github-${dataType}`} />
         </AlertIndicator>
-        <AlertTitle>{children}</AlertTitle>
+        <AlertDescription className={"[&_code]:text-sm"}>{children}</AlertDescription>
       </Alert>
     );
   }
