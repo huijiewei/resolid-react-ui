@@ -56,7 +56,12 @@ export const DrawerContent = (props: PrimitiveProps<"div">): JSX.Element | null 
 
   return (
     <div className={"z-55 fixed left-0 top-0 flex h-screen w-screen justify-center"}>
-      <FloatingFocusManager context={context} initialFocus={initialFocus} returnFocus={finalFocus}>
+      <FloatingFocusManager
+        disabled={!context.open}
+        context={context}
+        initialFocus={initialFocus}
+        returnFocus={finalFocus}
+      >
         <PopperFloating
           style={{ ...animationProps.style, ...style }}
           className={tx(

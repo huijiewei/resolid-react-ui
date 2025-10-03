@@ -28,7 +28,12 @@ export const PopoverContent = (props: PrimitiveProps<"div">): JSX.Element | null
   return (
     <Portal>
       <PopperPositioner style={{ ...style, ...animationProps.style }} className={animationProps.className}>
-        <FloatingFocusManager context={context} initialFocus={initialFocus} returnFocus={finalFocus}>
+        <FloatingFocusManager
+          disabled={!context.open}
+          context={context}
+          initialFocus={initialFocus}
+          returnFocus={finalFocus}
+        >
           <PopperFloating
             className={tx(
               "relative border shadow-md",

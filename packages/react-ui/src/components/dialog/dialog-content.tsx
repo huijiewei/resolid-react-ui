@@ -32,7 +32,12 @@ export const DialogContent = (props: PrimitiveProps<"div">): JSX.Element | null 
         scrollBehavior == "inside" ? "h-screen" : "h-full overflow-y-auto",
       )}
     >
-      <FloatingFocusManager context={context} initialFocus={initialFocus} returnFocus={finalFocus}>
+      <FloatingFocusManager
+        disabled={!context.open}
+        context={context}
+        initialFocus={initialFocus}
+        returnFocus={finalFocus}
+      >
         <PopperFloating
           style={{ ...style, ...animationProps.style }}
           className={tx(

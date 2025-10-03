@@ -58,7 +58,7 @@ export const CollapsibleContent = (props: PrimitiveProps<"div", EmptyObject, "id
         } as CSSProperties
       }
       className={tx(
-        "overflow-hidden",
+        "overflow-clip",
         !skipAnimation && ["duration-(--dv)", horizontal ? "transition-[width]" : "transition-[height]"],
         skipAnimation || status == "open" ? (horizontal ? "w-(--wv)" : "h-(--hv)") : horizontal ? "w-0" : "h-0",
       )}
