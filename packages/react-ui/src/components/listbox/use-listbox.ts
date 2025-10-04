@@ -77,10 +77,11 @@ export type UseListboxOptions<T extends ListboxItem> = Omit<ListboxBaseProps<T>,
   context: FloatingRootContext;
   typeahead?: boolean;
   loop?: boolean;
-  focusItemOnOpen?: boolean;
   onSelect?: () => void;
   disabled: boolean;
   readOnly: boolean;
+  focusItemOnOpen?: boolean;
+  openOnArrowKeyDown?: boolean;
 };
 
 export type UseListboxResult<T extends ListboxItem> = {
@@ -129,6 +130,7 @@ export const useListbox = <T extends ListboxItem>(options: UseListboxOptions<T>)
     typeahead = true,
     loop,
     focusItemOnOpen,
+    openOnArrowKeyDown,
     onSelect,
     searchFilter,
   } = options;
@@ -279,6 +281,7 @@ export const useListbox = <T extends ListboxItem>(options: UseListboxOptions<T>)
     loop,
     virtual,
     focusItemOnOpen: focusItemOnOpen ?? "auto",
+    openOnArrowKeyDown,
   });
 
   // noinspection JSUnusedGlobalSymbols

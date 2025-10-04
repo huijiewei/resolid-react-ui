@@ -1,0 +1,477 @@
+---
+title: 组合框
+description: 将文本输入与列表框相结合，允许用户过滤符合查询的项目的选项列表。
+---
+
+## 演示
+
+```jsx demo online=Combobox componentProps=combobox/combobox.tsx|size,disabled,readOnly,invalid,closeOnSelect
+import {
+  Combobox,
+  ComboboxAnchor,
+  ComboboxInput,
+  ComboboxTrigger,
+  ComboboxPopup,
+  ComboboxContent,
+  ComboboxList,
+} from "@resolid/react-ui";
+
+export default function App() {
+  const collection = [
+    { value: "Apple" },
+    { value: "Banana" },
+    { value: "Blueberry" },
+    { value: "Grapes", disabled: true },
+    { value: "Pineapple" },
+  ];
+
+  return (
+    <Combobox collection={collection}>
+      <ComboboxAnchor>
+        <ComboboxInput placeholder={"搜索"} />
+        <ComboboxTrigger />
+      </ComboboxAnchor>
+      <ComboboxPopup>
+        <ComboboxContent>
+          <ComboboxList />
+        </ComboboxContent>
+      </ComboboxPopup>
+    </Combobox>
+  );
+}
+```
+
+## 用法
+
+```js
+import {
+  Combobox,
+  ComboboxAnchor,
+  ComboboxInput,
+  ComboboxTrigger,
+  ComboboxPopup,
+  ComboboxContent,
+  ComboboxVirtualizer,
+  ComboboxList,
+} from "@resolid/react-ui";
+```
+
+- `Combobox`: 组合框的根容器。
+- `ComboboxAnchor`: 组合框定位锚。
+- `ComboboxInput`: 组合框输入框。
+- `ComboboxTrigger`: 打开组合框的按钮。
+- `ComboboxPopup`: 当组合框打开时，将其子项传送到 body 中。
+- `ComboboxContent`: 组合框要渲染的内容。
+- `ComboboxVirtualizer`: 组合框列表虚拟化。
+- `ComboboxList`: 组合框的项目列表。
+
+```jsx
+<Combobox>
+  <ComboboxAnchor>
+    <ComboboxInput />
+    <ComboboxTrigger />
+  </ComboboxAnchor>
+  <ComboboxPopup>
+    <ComboboxContent>
+      <ComboboxListbox />
+    </ComboboxContent>
+  </ComboboxPopup>
+</Combobox>
+```
+
+## 特点
+
+- 使用 [WAI ARIA Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/) 设计模式作为 Combobox 辅助技术。
+- 可以控制或不受控制。
+- 全键盘导航。
+- 支持单选和多选。
+- 支持禁用选项。
+- 支持项目、标签、项目组。
+- 支持自定义占位符。
+
+## 举例
+
+### 默认值
+
+```jsx demo
+import {
+  Combobox,
+  ComboboxAnchor,
+  ComboboxInput,
+  ComboboxTrigger,
+  ComboboxPopup,
+  ComboboxContent,
+  ComboboxList,
+} from "@resolid/react-ui";
+
+export default function App() {
+  const collection = [
+    { value: "Apple" },
+    { value: "Banana" },
+    { value: "Blueberry" },
+    { value: "Grapes", disabled: true },
+    { value: "Pineapple" },
+  ];
+
+  return (
+    <Combobox defaultValue={"Banana"} collection={collection}>
+      <ComboboxAnchor>
+        <ComboboxInput placeholder={"搜索"} />
+        <ComboboxTrigger />
+      </ComboboxAnchor>
+      <ComboboxPopup>
+        <ComboboxContent>
+          <ComboboxList />
+        </ComboboxContent>
+      </ComboboxPopup>
+    </Combobox>
+  );
+}
+```
+
+### 多选
+
+```jsx demo
+import {
+  Combobox,
+  ComboboxAnchor,
+  ComboboxInput,
+  ComboboxTrigger,
+  ComboboxPopup,
+  ComboboxContent,
+  ComboboxList,
+} from "@resolid/react-ui";
+
+export default function App() {
+  const collection = [
+    { value: "Apple" },
+    { value: "Banana" },
+    { value: "Blueberry" },
+    { value: "Grapes", disabled: true },
+    { value: "Pineapple" },
+  ];
+
+  return (
+    <Combobox multiple collection={collection}>
+      <ComboboxAnchor>
+        <ComboboxInput placeholder={"搜索"} />
+        <ComboboxTrigger />
+      </ComboboxAnchor>
+      <ComboboxPopup>
+        <ComboboxContent>
+          <ComboboxList />
+        </ComboboxContent>
+      </ComboboxPopup>
+    </Combobox>
+  );
+}
+```
+
+### 搭配 TagsInput
+
+```jsx demo
+import {
+  Combobox,
+  ComboboxAnchor,
+  ComboboxContent,
+  ComboboxInput,
+  ComboboxList,
+  ComboboxPopup,
+  ComboboxTrigger,
+  TagsInput,
+  TagsInputInput,
+} from "@resolid/react-ui";
+import { useState } from "react";
+
+export default function App() {
+  const collection = [
+    { value: "Apple" },
+    { value: "Banana" },
+    { value: "Blueberry" },
+    { value: "Grapes", disabled: true },
+    { value: "Pineapple" },
+  ];
+
+  const [value, setValue] = useState(["Apple", "Blueberry"]);
+  const [query, setQuery] = useState("");
+
+  const handleChange = (value) => {
+    setValue(value);
+    setQuery("");
+  };
+
+  return (
+    <Combobox multiple value={value} onChange={handleChange} collection={collection}>
+      <ComboboxAnchor
+        render={(props) => (
+          <TagsInput
+            placeholder={"搜索"}
+            delimiter=""
+            onChange={setValue}
+            value={value}
+            {...props}
+          />
+        )}
+      >
+        <ComboboxInput
+          value={query}
+          onChange={setQuery}
+          render={(props) => {
+            return <TagsInputInput {...props} />;
+          }}
+        />
+        <ComboboxTrigger />
+      </ComboboxAnchor>
+      <ComboboxPopup>
+        <ComboboxContent>
+          <ComboboxList />
+        </ComboboxContent>
+      </ComboboxPopup>
+    </Combobox>
+  );
+}
+```
+
+### 嵌入 Textarea
+
+```jsx demo
+import {
+  ComboboxContent,
+  ComboboxInput,
+  ComboboxList,
+  ComboboxPopup,
+  ComboboxProvider,
+  useCombobox,
+  Textarea,
+  getCaretCoordinates,
+} from "@resolid/react-ui";
+import { useDeferredValue, useLayoutEffect, useEffect, useMemo, useRef, useState } from "react";
+
+export default function App() {
+  const [value, setValue] = useState("");
+  const [trigger, setTrigger] = useState(null);
+  const [searchValue, setSearchValue] = useState(null);
+  const [caretOffset, setCaretOffset] = useState(null);
+  const [comboboxValue, setComboboxValue] = useState(null);
+
+  const deferedSearchValue = useDeferredValue(searchValue);
+  const textareaRef = useRef();
+
+  const collection = useMemo(() => {
+    return getList(trigger)
+      .filter((item) => item.includes(deferedSearchValue))
+      .map((item) => ({ value: item }));
+  }, [trigger, deferedSearchValue]);
+
+  const handleInput = (e) => {
+    const _trigger = getTrigger(e.currentTarget);
+    const _searchValue = getSearchValue(e.currentTarget);
+
+    if (_trigger) {
+      setTrigger(_trigger);
+      setOpen(true);
+
+      if (textareaRef.current) {
+        setPosition({
+          getBoundingClientRect: () => {
+            const { x, y, height } = getAnchorRect(textareaRef.current);
+            return { x, y, height, top: y, left: x, width: 0 };
+          },
+        });
+      }
+    } else if (!_searchValue) {
+      setOpen(false);
+      setTrigger(null);
+    }
+
+    setValue(e.currentTarget.value);
+    setSearchValue(_searchValue);
+  };
+
+  const handleKeydown = (e) => {
+    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+      setOpen(false);
+    }
+
+    if (open && e.key == "Enter") {
+      e.preventDefault();
+    }
+  };
+
+  const { open, setOpen, setPosition, ...combobox } = useCombobox({
+    value: comboboxValue,
+    collection,
+    duration: 0,
+    openOnChange: false,
+    openOnArrowKeyDown: false,
+    searchFilter: (_, item) => item,
+    onChange: (value) => {
+      if (!textareaRef.current) {
+        return;
+      }
+
+      const offset = getTriggerOffset(textareaRef.current);
+      const displayValue = getValue(value, trigger);
+
+      if (!displayValue) {
+        return;
+      }
+
+      setOpen(false);
+      setComboboxValue("");
+
+      setTrigger(null);
+      setValue(
+        (prev) =>
+          `${prev.slice(0, offset) + displayValue} ${prev.slice(offset + searchValue.length + 1)}`,
+      );
+
+      setCaretOffset(offset + displayValue.length + 1);
+    },
+  });
+
+  useEffect(() => {
+    setOpen(!!collection.length);
+  }, [collection]);
+
+  useLayoutEffect(() => {
+    if (caretOffset != null) {
+      textareaRef.current?.setSelectionRange(caretOffset, caretOffset);
+    }
+  }, [caretOffset]);
+
+  return (
+    <ComboboxProvider value={combobox}>
+      <ComboboxInput
+        value={value}
+        onInput={handleInput}
+        onKeyDown={handleKeydown}
+        ref={textareaRef}
+        render={(props) => {
+          return <Textarea cols={39} rows={3} placeholder="输入 @, # 或者 :" {...props} />;
+        }}
+      />
+      <ComboboxPopup placement={"bottom-start"}>
+        <ComboboxContent>
+          <ComboboxList />
+        </ComboboxContent>
+      </ComboboxPopup>
+    </ComboboxProvider>
+  );
+}
+
+const defaultTriggers = ["@", "#", ":"];
+
+const getTrigger = (element) => {
+  const prevChar = element.value[element.selectionStart - 1];
+
+  if (!prevChar) {
+    return null;
+  }
+
+  const secondPrevChar = element.value[element.selectionStart - 2];
+  const isIsolated = !secondPrevChar || /\s/.test(secondPrevChar);
+
+  if (!isIsolated) {
+    return null;
+  }
+
+  if (defaultTriggers.includes(prevChar)) {
+    return prevChar;
+  }
+
+  return null;
+};
+
+const getTriggerOffset = (element) => {
+  for (let i = element.selectionStart; i >= 0; i--) {
+    const char = element.value[i];
+    if (char && defaultTriggers.includes(char)) {
+      return i;
+    }
+  }
+  return -1;
+};
+
+const getAnchorRect = (element) => {
+  const offset = getTriggerOffset(element);
+
+  const { left, top, height } = getCaretCoordinates(element, offset + 1);
+  const { x, y } = element.getBoundingClientRect();
+
+  return {
+    x: left + x - element.scrollLeft,
+    y: top + y - element.scrollTop,
+    height,
+  };
+};
+
+const getSearchValue = (element) => {
+  const offset = getTriggerOffset(element);
+
+  if (offset === -1) {
+    return "";
+  }
+
+  return element.value.slice(offset + 1, element.selectionStart);
+};
+
+const getList = (trigger) => {
+  switch (trigger) {
+    case "@":
+      return users.map((user) => user.listValue);
+    case "#":
+      return issues.map((issue) => issue.listValue);
+    case ":":
+      return emoji.map((item) => item.listValue);
+    default:
+      return [];
+  }
+};
+
+const getValue = (listValue, trigger) => {
+  return (trigger === "@" ? users : trigger === "#" ? issues : trigger === ":" ? emoji : []).find(
+    (item) => item.listValue === listValue,
+  )?.value;
+};
+
+const users = [
+  { value: "@diegohaz", listValue: "diegohaz" },
+  { value: "@tcodes0", listValue: "tcodes0" },
+  { value: "@SCasarotto", listValue: "SCasarotto" },
+  { value: "@matheus1lva", listValue: "matheus1lva" },
+  { value: "@tom-sherman", listValue: "tom-sherman" },
+  { value: "@amogower", listValue: "amogower" },
+  { value: "@lluia", listValue: "lluia" },
+];
+
+const issues = [
+  { value: "#1165", listValue: "#1165 fix: Fix composite focus scroll issues" },
+  { value: "#1059", listValue: "#1059 chore: Add checkbox-mixed example" },
+  { value: "#1018", listValue: "#1018 feat: Add `Tree` components" },
+  { value: "#1011", listValue: "#1011 Dependency Dashboard" },
+  { value: "#983", listValue: "#983 [V2] Transition component" },
+  { value: "#981", listValue: "#981 chore: Add `disclosure-animated` example" },
+  { value: "#972", listValue: "#972 Add. turborepo" },
+  { value: "#970", listValue: "#970 chore: Add `toolbar` example" },
+];
+
+const emoji = [
+  { value: "😄", listValue: "😄 smile" },
+  { value: "😆", listValue: "😆 laughing" },
+  { value: "😊", listValue: "😊 blush" },
+  { value: "😃", listValue: "😃 smiley" },
+  { value: "😏", listValue: "😏 smirk" },
+  { value: "😍", listValue: "😍 heart_eyes" },
+];
+```
+
+## 属性
+
+### Combobox
+
+::PropsTable{file=combobox/combobox.tsx}
+
+### ComboboxVirtualizer
+
+::PropsTable{file=combobox/combobox-virtualizer.tsx}
