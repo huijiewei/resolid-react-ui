@@ -258,10 +258,10 @@ export const useListbox = <T extends ListboxItem>(options: UseListboxOptions<T>)
         setValueState([...valueState, value]);
       }
     } else {
-      if (value == valueState) {
-        setValueState(null);
-      } else {
+      if (value != valueState) {
         setValueState(value);
+      } else {
+        setValueState(null);
       }
     }
 

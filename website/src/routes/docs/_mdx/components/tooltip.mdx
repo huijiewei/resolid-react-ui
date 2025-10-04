@@ -180,7 +180,7 @@ import { useEffect, useRef } from "react";
 
 const useTooltipSelection = () => {
   const ref = useRef(null);
-  const { setOpen, setPositionReference, floatingReference, ...tooltip } = useTooltip({
+  const { setOpen, setPosition, floatingElement, ...tooltip } = useTooltip({
     placement: "top",
     inlineMiddleware: true,
   });
@@ -195,7 +195,7 @@ const useTooltipSelection = () => {
     const doc = node.ownerDocument || document;
 
     const handleMouseUp = (e) => {
-      if (floatingReference.current?.contains(e.target)) {
+      if (floatingElement?.contains(e.target)) {
         return;
       }
 
@@ -214,7 +214,7 @@ const useTooltipSelection = () => {
         const range = selection.getRangeAt(0);
 
         if (range && node.contains(range.commonAncestorContainer)) {
-          setPositionReference({
+          setPosition({
             getBoundingClientRect: () => range.getBoundingClientRect(),
             getClientRects: () => range.getClientRects(),
           });
@@ -225,7 +225,7 @@ const useTooltipSelection = () => {
     };
 
     const handleMouseDown = (e) => {
-      if (floatingReference.current?.contains(e.target)) {
+      if (floatingElement?.contains(e.target)) {
         return;
       }
 
@@ -241,7 +241,7 @@ const useTooltipSelection = () => {
       doc.removeEventListener("mouseup", handleMouseUp);
       doc.removeEventListener("mousedown", handleMouseDown);
     };
-  }, [floatingReference]);
+  }, [floatingElement]);
 
   return { tooltip, ref };
 };

@@ -200,7 +200,7 @@ export const TagsInputInput = (
       }
 
       if (e.key == "Backspace") {
-        setActiveIndex((idx) => (idx ? idx - 1 : index));
+        setActiveIndex((idx) => (idx ? idx - 1 : valueCount - 1));
       }
 
       return;

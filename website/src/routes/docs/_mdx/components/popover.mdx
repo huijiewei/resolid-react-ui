@@ -254,7 +254,7 @@ import { useEffect, useRef } from "react";
 
 const usePopoverSelection = () => {
   const ref = useRef(null);
-  const { setOpen, setPositionReference, floatingReference, ...popover } = usePopover({
+  const { setOpen, setPosition, floatingElement, ...popover } = usePopover({
     placement: "top",
     inlineMiddleware: true,
   });
@@ -269,7 +269,7 @@ const usePopoverSelection = () => {
     const doc = node.ownerDocument || document;
 
     const handleMouseUp = (e) => {
-      if (floatingReference.current?.contains(e.target)) {
+      if (floatingElement?.contains(e.target)) {
         return;
       }
 
@@ -288,7 +288,7 @@ const usePopoverSelection = () => {
         const range = selection.getRangeAt(0);
 
         if (range && node.contains(range.commonAncestorContainer)) {
-          setPositionReference({
+          setPosition({
             getBoundingClientRect: () => range.getBoundingClientRect(),
             getClientRects: () => range.getClientRects(),
           });
@@ -299,7 +299,7 @@ const usePopoverSelection = () => {
     };
 
     const handleMouseDown = (e) => {
-      if (floatingReference.current?.contains(e.target)) {
+      if (floatingElement?.contains(e.target)) {
         return;
       }
 
@@ -315,7 +315,7 @@ const usePopoverSelection = () => {
       doc.removeEventListener("mouseup", handleMouseUp);
       doc.removeEventListener("mousedown", handleMouseDown);
     };
-  }, [floatingReference]);
+  }, [floatingElement]);
 
   return { popover, ref };
 };

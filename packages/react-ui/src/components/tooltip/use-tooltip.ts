@@ -1,23 +1,13 @@
 import {
-  arrow,
-  autoPlacement,
-  autoUpdate,
-  flip,
-  inline,
-  offset,
   safePolygon,
-  shift,
   useDismiss,
-  useFloating,
   useFocus,
   useHover,
   useInteractions,
   useRole,
   useTransitionStatus,
-  type Placement,
   type ReferenceType,
 } from "@floating-ui/react";
-import { useState, type RefObject } from "react";
 import { useDisclosure } from "../../hooks";
 import type { PopperAnchorContextValue } from "../../primitives/popper/popper-anchor-context";
 import type { PopperArrowContextValue } from "../../primitives/popper/popper-arrow-context";
@@ -26,6 +16,7 @@ import type { PopperPositionerContextValue } from "../../primitives/popper/poppe
 import type { PopperStateContextValue } from "../../primitives/popper/popper-state-context";
 import type { PopperTransitionContextValue } from "../../primitives/popper/popper-transtion-context";
 import type { PopperTriggerContextValue } from "../../primitives/popper/popper-trigger-context";
+import { usePopperWithInline, type PopperWithInlineProps } from "../../primitives/popper/use-popper-with-inline";
 import type { DisclosureProps } from "../../shared/types";
 import type { TooltipRootContextValue } from "./tooltip-root-context";
 import { tooltipColorStyles } from "./tooltip.styles";
@@ -36,12 +27,6 @@ export type TooltipProps = DisclosureProps & {
    * @default "neutral"
    */
   color?: keyof typeof tooltipColorStyles;
-
-  /**
-   * 放置位置
-   * @default "auto"
-   */
-  placement?: "auto" | Placement;
 
   /**
    * 打开延迟
@@ -60,13 +45,7 @@ export type TooltipProps = DisclosureProps & {
    * @default false
    */
   interactive?: boolean;
-
-  /**
-   * 控制是否启用 inline 中间件
-   * @default false
-   */
-  inlineMiddleware?: boolean;
-};
+} & PopperWithInlineProps;
 
 export const useTooltip = ({
   open,
@@ -81,8 +60,8 @@ export const useTooltip = ({
   inlineMiddleware = false,
 }: TooltipProps = {}): {
   setOpen: (open: boolean) => void;
-  setPositionReference: (node: ReferenceType | null) => void;
-  floatingReference: RefObject<HTMLElement | null>;
+  setPosition: (node: ReferenceType | null) => void;
+  floatingElement: HTMLElement | null;
   stateContext: PopperStateContextValue;
   arrowContext: PopperArrowContextValue;
   anchorContext: PopperAnchorContextValue;
@@ -94,31 +73,12 @@ export const useTooltip = ({
 } => {
   const [openState, { handleOpen, handleClose }] = useDisclosure({ open, defaultOpen, onOpenChange });
 
-  const [arrowElem, setArrowElem] = useState<SVGSVGElement | null>(null);
-
-  const handleOpenChange = (open: boolean): void => {
-    if (open) {
-      handleOpen();
-    } else {
-      handleClose();
-    }
-  };
-
-  const { floatingStyles, refs, context } = useFloating({
-    middleware: [
-      inlineMiddleware && inline(),
-      offset(8),
-      placement == "auto" ? autoPlacement() : flip(),
-      shift({ padding: 8 }),
-      arrow({
-        element: arrowElem,
-        padding: 4,
-      }),
-    ],
-    open: openState,
-    onOpenChange: handleOpenChange,
-    placement: placement == "auto" ? undefined : placement,
-    whileElementsMounted: autoUpdate,
+  const { setArrowElem, floatingStyles, refs, context } = usePopperWithInline({
+    inlineMiddleware,
+    placement,
+    openState,
+    handleOpen,
+    handleClose,
   });
 
   const tooltipColorStyle = tooltipColorStyles[color];
@@ -179,9 +139,9 @@ export const useTooltip = ({
   };
 
   return {
-    setOpen: handleOpenChange,
-    setPositionReference: refs.setPositionReference,
-    floatingReference: refs.floating,
+    setOpen: (open) => context.onOpenChange(open),
+    setPosition: refs.setPositionReference,
+    floatingElement: context.elements.floating,
     stateContext,
     arrowContext,
     anchorContext,

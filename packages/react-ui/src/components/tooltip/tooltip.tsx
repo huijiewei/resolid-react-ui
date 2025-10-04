@@ -5,6 +5,8 @@ import { PopperTrigger } from "../../primitives/popper/popper-trigger";
 import { TooltipProvider } from "./tooltip-provider";
 import { type TooltipProps, useTooltip } from "./use-tooltip";
 
+export type { TooltipProps };
+
 export const Tooltip = (props: PropsWithChildren<TooltipProps>): JSX.Element => {
   const { children, ...rest } = props;
 

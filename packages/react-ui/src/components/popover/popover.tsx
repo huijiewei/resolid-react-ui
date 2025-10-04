@@ -9,6 +9,8 @@ import { PopperTrigger } from "../../primitives/popper/popper-trigger";
 import { PopoverProvider } from "./popover-provider";
 import { type PopoverProps, usePopover } from "./use-popover";
 
+export type { PopoverProps };
+
 export const Popover = (props: PropsWithChildren<PopoverProps>): JSX.Element => {
   const { children, ...rest } = props;
 
