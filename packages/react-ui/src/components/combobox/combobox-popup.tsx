@@ -89,7 +89,7 @@ export const ComboboxPopup = (props: PrimitiveProps<"div", ComboboxPopupProps>):
             context={rootContext}
             initialFocus={-1}
             returnFocus={false}
-            visuallyHiddenDismiss={true}
+            visuallyHiddenDismiss={"关闭"}
           >
             <>{children}</>
           </FloatingFocusManager>

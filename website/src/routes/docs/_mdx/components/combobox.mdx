@@ -13,6 +13,7 @@ import {
   ComboboxTrigger,
   ComboboxPopup,
   ComboboxContent,
+  ComboboxEmpty,
   ComboboxList,
 } from "@resolid/react-ui";
 
@@ -33,6 +34,7 @@ export default function App() {
       </ComboboxAnchor>
       <ComboboxPopup>
         <ComboboxContent className={"p-1"}>
+          <ComboboxEmpty />
           <ComboboxList />
         </ComboboxContent>
       </ComboboxPopup>
@@ -51,6 +53,7 @@ import {
   ComboboxTrigger,
   ComboboxPopup,
   ComboboxContent,
+  ComboboxEmpty,
   ComboboxVirtualizer,
   ComboboxList,
 } from "@resolid/react-ui";
@@ -62,6 +65,7 @@ import {
 - `ComboboxTrigger`: 打开组合框的按钮。
 - `ComboboxPopup`: 当组合框打开时，将其子项传送到 body 中。
 - `ComboboxContent`: 组合框要渲染的内容。
+- `ComboboxEmpty`: 组合框搜索结果为空时显示。
 - `ComboboxVirtualizer`: 组合框列表虚拟化。
 - `ComboboxList`: 组合框的项目列表。
 
@@ -73,6 +77,7 @@ import {
   </ComboboxAnchor>
   <ComboboxPopup>
     <ComboboxContent>
+      <ComboboxEmpty />
       <ComboboxListbox />
     </ComboboxContent>
   </ComboboxPopup>
@@ -101,6 +106,7 @@ import {
   ComboboxTrigger,
   ComboboxPopup,
   ComboboxContent,
+  ComboboxEmpty,
   ComboboxList,
 } from "@resolid/react-ui";
 
@@ -121,6 +127,7 @@ export default function App() {
       </ComboboxAnchor>
       <ComboboxPopup>
         <ComboboxContent className={"p-1"}>
+          <ComboboxEmpty />
           <ComboboxList />
         </ComboboxContent>
       </ComboboxPopup>
@@ -139,6 +146,7 @@ import {
   ComboboxTrigger,
   ComboboxPopup,
   ComboboxContent,
+  ComboboxEmpty,
   ComboboxList,
 } from "@resolid/react-ui";
 
@@ -159,6 +167,7 @@ export default function App() {
       </ComboboxAnchor>
       <ComboboxPopup>
         <ComboboxContent className={"p-1"}>
+          <ComboboxEmpty />
           <ComboboxList />
         </ComboboxContent>
       </ComboboxPopup>
@@ -179,6 +188,7 @@ import {
   ComboboxTrigger,
   ComboboxPopup,
   ComboboxContent,
+  ComboboxEmpty,
   ComboboxVirtualizer,
   ComboboxList,
 } from "@resolid/react-ui";
@@ -196,6 +206,7 @@ export default function App() {
       </ComboboxAnchor>
       <ComboboxPopup>
         <ComboboxContent className={"max-h-60 px-1"}>
+          <ComboboxEmpty className={"pt-4"} />
           <ComboboxVirtualizer>
             <ComboboxList />
           </ComboboxVirtualizer>
@@ -216,6 +227,7 @@ import {
   ComboboxTrigger,
   ComboboxPopup,
   ComboboxContent,
+  ComboboxEmpty,
   ComboboxList,
 } from "@resolid/react-ui";
 import { BrowserIcon } from "~/components/browser-icon";
@@ -274,6 +286,7 @@ export default function App() {
       </ComboboxAnchor>
       <ComboboxPopup>
         <ComboboxContent className={"max-w-90 p-1"}>
+          <ComboboxEmpty>没有找到浏览器</ComboboxEmpty>
           <ComboboxList />
         </ComboboxContent>
       </ComboboxPopup>
@@ -288,6 +301,7 @@ export default function App() {
 import {
   Combobox,
   ComboboxAnchor,
+  ComboboxEmpty,
   ComboboxContent,
   ComboboxInput,
   ComboboxList,
@@ -339,6 +353,7 @@ export default function App() {
       </ComboboxAnchor>
       <ComboboxPopup>
         <ComboboxContent className={"p-1"}>
+          <ComboboxEmpty />
           <ComboboxList />
         </ComboboxContent>
       </ComboboxPopup>

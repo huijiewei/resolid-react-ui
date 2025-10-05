@@ -20,3 +20,7 @@ body {
   color: var(--color-fg-normal);
   background-color: var(--color-bg-normal);
 }
+
+input::placeholder, textarea::placeholder {
+  color: var(--color-fg-placeholder);
+}

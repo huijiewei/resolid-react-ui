@@ -1,4 +1,5 @@
 import type { JSX, PropsWithChildren } from "react";
+import { OptionEmptyContext } from "../../primitives/common/option-empty-context";
 import { PopperAnchorContext } from "../../primitives/popper/popper-anchor-context";
 import { PopperStateContext } from "../../primitives/popper/popper-state-context";
 import { PopperTriggerContext } from "../../primitives/popper/popper-trigger-context";
@@ -28,7 +29,9 @@ export const ComboboxProvider = <T extends ListboxItem>({
               <PopperTriggerContext value={value.popperTriggerContext}>
                 <PopperAnchorContext value={value.popperAnchorContext}>
                   <ComboboxStateContext value={value.stateContext}>
-                    <ListboxProvider value={value.listboxProviderValue}>{children}</ListboxProvider>
+                    <OptionEmptyContext value={value.listboxProviderValue.nodeItems.length == 0}>
+                      <ListboxProvider value={value.listboxProviderValue}>{children}</ListboxProvider>
+                    </OptionEmptyContext>
                   </ComboboxStateContext>
                 </PopperAnchorContext>
               </PopperTriggerContext>

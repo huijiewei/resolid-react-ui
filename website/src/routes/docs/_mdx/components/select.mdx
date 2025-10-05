@@ -6,7 +6,7 @@ description: 当用户需要从一组同类数据中选择一个或多个时，�
 ## 演示
 
 ```jsx demo online=Combobox componentProps=select/select.tsx|size,disabled,readOnly,invalid,closeOnSelect
-import { Select, SelectContent, SelectList } from "@resolid/react-ui";
+import { Select, SelectContent, SelectList, SelectEmpty } from "@resolid/react-ui";
 
 export default function App() {
   const collection = [
@@ -18,9 +18,10 @@ export default function App() {
   ];
 
   return (
-    <Select collection={collection}>
+    <Select className={"w-50"} collection={collection}>
       <SelectContent className={"p-1"}>
-        <SelectList></SelectList>
+        <SelectEmpty />
+        <SelectList />
       </SelectContent>
     </Select>
   );
@@ -34,6 +35,7 @@ import {
   Select,
   SelectFilter,
   SelectContent,
+  SelectEmpty,
   SelectVirtualizer,
   SelectList,
 } from "@resolid/react-ui";
@@ -42,6 +44,7 @@ import {
 - `Select`: 选择器的根容器。
 - `SelectFilter`: 选择器筛选。
 - `SelectContent`: 选择器要渲染的内容。
+- `SelectEmpty`: 选择器搜索结果为空时显示。
 - `SelectVirtualizer`: 选择器列表虚拟化。
 - `SelectList`: 选择器的项目列表。
 
@@ -88,7 +91,7 @@ export default function App() {
   return (
     <div className={"flex flex-col gap-2"}>
       <p>你选择了水果: {value.join(", ")}</p>
-      <Select value={value} onChange={setValue} collection={collection}>
+      <Select className={"w-50"} value={value} onChange={setValue} collection={collection}>
         <SelectContent className={"p-1"}>
           <SelectList></SelectList>
         </SelectContent>
@@ -114,12 +117,17 @@ export default function App() {
 
   return (
     <div className={"flex gap-3"}>
-      <Select defaultValue={"blueberry"} collection={collection}>
+      <Select defaultValue={"blueberry"} className={"w-50"} collection={collection}>
         <SelectContent className={"p-1"}>
           <SelectList></SelectList>
         </SelectContent>
       </Select>
-      <Select multiple defaultValue={["apple", "pineapple"]} collection={collection}>
+      <Select
+        multiple
+        defaultValue={["apple", "pineapple"]}
+        className={"min-w-50"}
+        collection={collection}
+      >
         <SelectContent className={"p-1"}>
           <SelectList></SelectList>
         </SelectContent>
@@ -144,7 +152,7 @@ export default function App() {
   ];
 
   return (
-    <Select multiple collection={collection}>
+    <Select className={"min-w-50"} multiple collection={collection}>
       <SelectContent className={"p-1"}>
         <SelectList></SelectList>
       </SelectContent>
@@ -156,7 +164,7 @@ export default function App() {
 ### 可筛选
 
 ```jsx demo
-import { Select, SelectFilter, SelectContent, SelectList } from "@resolid/react-ui";
+import { Select, SelectFilter, SelectContent, SelectEmpty, SelectList } from "@resolid/react-ui";
 
 export default function App() {
   const collection = [
@@ -168,11 +176,12 @@ export default function App() {
   ];
 
   return (
-    <Select collection={collection}>
+    <Select className={"min-w-50"} collection={collection}>
       <div className={"p-1 pb-0"}>
         <SelectFilter size={"sm"} />
       </div>
       <SelectContent className={"p-1"}>
+        <SelectEmpty />
         <SelectList />
       </SelectContent>
     </Select>

@@ -14,6 +14,7 @@ import {
 import type { JSX, ReactNode } from "react";
 import { useDisclosure, useMergeRefs } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
+import { OptionEmptyContext } from "../../primitives/common/option-empty-context";
 import { PopperPositioner } from "../../primitives/popper/popper-positioner";
 import {
   PopperPositionerContext,
@@ -221,59 +222,61 @@ export const SelectRoot = <T extends ListboxItem>(props: PrimitiveProps<"div", S
             <div className={sizeStyle.item}>{renderValueFn(selectedItems[0])}</div>
           )
         ) : (
-          <div className={tx("text-gray-500", sizeStyle.item)}>{placeholder}</div>
+          <div className={tx("text-fg-placeholder", sizeStyle.item)}>{placeholder}</div>
         )}
         <SelectChevron className={sizeStyle.chevron} />
       </div>
       {isMounted && (
         <Portal>
           <PopperPositionerContext value={positionerContext}>
-            <PopperPositioner
-              style={animationProps.style}
-              className={tx("border-bd-normal bg-bg-normal rounded-md border shadow-sm", animationProps.className)}
-              tabIndex={-1}
-            >
-              <FloatingFocusManager
-                initialFocus={filterInputRef}
-                disabled={!openState}
-                context={context}
-                modal={false}
-                returnFocus={false}
+            <OptionEmptyContext value={providerValue.nodeItems.length == 0}>
+              <PopperPositioner
+                style={animationProps.style}
+                className={tx("border-bd-normal bg-bg-normal rounded-md border shadow-sm", animationProps.className)}
+                tabIndex={-1}
               >
-                <ListboxProvider
-                  value={{
-                    ...providerValue,
-                    selectedIndex,
-                    selectedIndices,
-                    filterInputRef,
-                    setFloating: refs.setFloating,
-                    getFloatingProps: (props) =>
-                      getFloatingProps(
-                        getNavigationFloatingProps({
-                          ...interactiveHandlers,
+                <FloatingFocusManager
+                  initialFocus={filterInputRef}
+                  disabled={!openState}
+                  context={context}
+                  modal={false}
+                  returnFocus={false}
+                >
+                  <ListboxProvider
+                    value={{
+                      ...providerValue,
+                      selectedIndex,
+                      selectedIndices,
+                      filterInputRef,
+                      setFloating: refs.setFloating,
+                      getFloatingProps: (props) =>
+                        getFloatingProps(
+                          getNavigationFloatingProps({
+                            ...interactiveHandlers,
+                            ...props,
+                          }),
+                        ),
+                      renderItem,
+                      renderGroupLabel,
+                      getNavigationProps: (props) =>
+                        getNavigationProps({
+                          onKeyDown: handleEnterKeydown,
                           ...props,
                         }),
-                      ),
-                    renderItem,
-                    renderGroupLabel,
-                    getNavigationProps: (props) =>
-                      getNavigationProps({
-                        onKeyDown: handleEnterKeydown,
-                        ...props,
-                      }),
-                    getItemProps: (props) => getItemProps(getNavigationItemProps(props)),
+                      getItemProps: (props) => getItemProps(getNavigationItemProps(props)),
 
-                    open: openState,
-                    size,
-                    multiple,
-                    disabled,
-                    readOnly,
-                  }}
-                >
-                  {children}
-                </ListboxProvider>
-              </FloatingFocusManager>
-            </PopperPositioner>
+                      open: openState,
+                      size,
+                      multiple,
+                      disabled,
+                      readOnly,
+                    }}
+                  >
+                    {children}
+                  </ListboxProvider>
+                </FloatingFocusManager>
+              </PopperPositioner>
+            </OptionEmptyContext>
           </PopperPositionerContext>
         </Portal>
       )}

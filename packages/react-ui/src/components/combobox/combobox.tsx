@@ -1,4 +1,5 @@
 import type { JSX, PropsWithChildren } from "react";
+import { OptionEmpty } from "../../primitives/common/option-empty";
 import { ListboxContent } from "../listbox/listbox-content";
 import { ListboxList } from "../listbox/listbox-list";
 import type { ListboxItem } from "../listbox/use-listbox";
@@ -16,7 +17,7 @@ export const Combobox = <T extends ListboxItem>(props: PropsWithChildren<Combobo
 };
 
 export const ComboboxContent: typeof ListboxContent = ListboxContent;
-
+export const ComboboxEmpty: typeof OptionEmpty = OptionEmpty;
 export const ComboboxList: typeof ListboxList = ListboxList;
 
 export { ComboboxAnchor } from "./combobox-anchor";
