@@ -66,7 +66,7 @@ export const ListboxProvider = <T extends ListboxItem>(
       renderItem = (item) => getItemLabel(item) as ReactNode,
       getItemProps,
       getNavigationProps,
-      filterRef,
+      filterInputRef,
       setFilterKeyword,
       open,
       size,
@@ -182,7 +182,7 @@ export const ListboxProvider = <T extends ListboxItem>(
 
   return (
     <ListboxStateContext value={{ size, multiple, disabled, readOnly }}>
-      <ListboxFilterContext value={{ getNavigationProps, filterRef, setFilterKeyword }}>
+      <ListboxFilterContext value={{ getNavigationProps, filterInputRef, setFilterKeyword }}>
         <ListboxScrollContext value={{ scrollToRef, scrollRef }}>
           <PopperFloatingContext value={{ setFloating, getFloatingProps }}>
             <ListboxFieldsContext value={fieldContext}>

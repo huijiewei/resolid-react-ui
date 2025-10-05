@@ -1,0 +1,337 @@
+---
+title: 选择器
+description: 当用户需要从一组同类数据中选择一个或多个时，可以使用下拉选择器，点击后选择对应项。
+---
+
+## 演示
+
+```jsx demo online=Combobox componentProps=select/select.tsx|size,disabled,readOnly,invalid,closeOnSelect
+import { Select, SelectContent, SelectList } from "@resolid/react-ui";
+
+export default function App() {
+  const collection = [
+    { value: "apple", label: "Apple" },
+    { value: "banana", label: "Banana" },
+    { value: "blueberry", label: "Blueberry" },
+    { value: "grapes", label: "Grapes", disabled: true },
+    { value: "pineapple", label: "Pineapple" },
+  ];
+
+  return (
+    <Select collection={collection}>
+      <SelectContent className={"p-1"}>
+        <SelectList></SelectList>
+      </SelectContent>
+    </Select>
+  );
+}
+```
+
+## 用法
+
+```js
+import {
+  Select,
+  SelectFilter,
+  SelectContent,
+  SelectVirtualizer,
+  SelectList,
+} from "@resolid/react-ui";
+```
+
+- `Select`: 选择器的根容器。
+- `SelectFilter`: 选择器筛选。
+- `SelectContent`: 选择器要渲染的内容。
+- `SelectVirtualizer`: 选择器列表虚拟化。
+- `SelectList`: 选择器的项目列表。
+
+```jsx
+<Select>
+  <SelectFilter />
+  <SelectContent>
+    <SelectList />
+  </SelectContent>
+</Select>
+```
+
+## 特点
+
+- 使用 [WAI ARIA Listbox](https://www.w3.org/WAI/ARIA/apg/patterns/listbox/) 设计模式作为 Select 辅助技术。
+- 可以控制或不受控制。
+- 全键盘导航。
+- 支持单选和多选。
+- 支持禁用选项。
+- 支持项目、标签、项目组。
+- 支持自定义占位符。
+
+## 举例
+
+### 可控值
+
+使用 `value` 和 `onChange` 属性来控制选择的值。
+
+```jsx demo
+import { Select, SelectContent, SelectList } from "@resolid/react-ui";
+import { useState } from "react";
+
+export default function App() {
+  const [value, setValue] = useState([]);
+
+  const collection = [
+    { value: "apple", label: "Apple" },
+    { value: "banana", label: "Banana" },
+    { value: "blueberry", label: "Blueberry" },
+    { value: "grapes", label: "Grapes", disabled: true },
+    { value: "pineapple", label: "Pineapple" },
+  ];
+
+  return (
+    <div className={"flex flex-col gap-2"}>
+      <p>你选择了水果: {value.join(", ")}</p>
+      <Select value={value} onChange={setValue} collection={collection}>
+        <SelectContent className={"p-1"}>
+          <SelectList></SelectList>
+        </SelectContent>
+      </Select>
+    </div>
+  );
+}
+```
+
+### 默认值
+
+```jsx demo
+import { Select, SelectContent, SelectList } from "@resolid/react-ui";
+
+export default function App() {
+  const collection = [
+    { value: "apple", label: "Apple" },
+    { value: "banana", label: "Banana" },
+    { value: "blueberry", label: "Blueberry" },
+    { value: "grapes", label: "Grapes", disabled: true },
+    { value: "pineapple", label: "Pineapple" },
+  ];
+
+  return (
+    <div className={"flex gap-3"}>
+      <Select defaultValue={"blueberry"} collection={collection}>
+        <SelectContent className={"p-1"}>
+          <SelectList></SelectList>
+        </SelectContent>
+      </Select>
+      <Select multiple defaultValue={["apple", "pineapple"]} collection={collection}>
+        <SelectContent className={"p-1"}>
+          <SelectList></SelectList>
+        </SelectContent>
+      </Select>
+    </div>
+  );
+}
+```
+
+### 多选
+
+```jsx demo
+import { Select, SelectContent, SelectList } from "@resolid/react-ui";
+
+export default function App() {
+  const collection = [
+    { value: "apple", label: "Apple" },
+    { value: "banana", label: "Banana" },
+    { value: "blueberry", label: "Blueberry" },
+    { value: "grapes", label: "Grapes", disabled: true },
+    { value: "pineapple", label: "Pineapple" },
+  ];
+
+  return (
+    <Select multiple collection={collection}>
+      <SelectContent className={"p-1"}>
+        <SelectList></SelectList>
+      </SelectContent>
+    </Select>
+  );
+}
+```
+
+### 可筛选
+
+```jsx demo
+import { Select, SelectFilter, SelectContent, SelectList } from "@resolid/react-ui";
+
+export default function App() {
+  const collection = [
+    { value: "apple", label: "Apple" },
+    { value: "banana", label: "Banana" },
+    { value: "blueberry", label: "Blueberry" },
+    { value: "grapes", label: "Grapes", disabled: true },
+    { value: "pineapple", label: "Pineapple" },
+  ];
+
+  return (
+    <Select collection={collection}>
+      <div className={"p-1 pb-0"}>
+        <SelectFilter size={"sm"} />
+      </div>
+      <SelectContent className={"p-1"}>
+        <SelectList />
+      </SelectContent>
+    </Select>
+  );
+}
+```
+
+### 虚拟化
+
+使用 SelectVirtualizer 组件可以实现虚拟化
+
+```jsx demo
+import {
+  Select,
+  SelectFilter,
+  SelectContent,
+  SelectList,
+  SelectVirtualizer,
+} from "@resolid/react-ui";
+
+export default function App() {
+  const collection = Array.from({ length: 1000 }, (_, i) => ({
+    value: i + 1,
+    label: `Item ${i + 1}`,
+  }));
+
+  const groupCollection = Array.from({ length: Math.ceil(collection.length / 20) }, (_, i) => ({
+    label: `Group ${i + 1}`,
+    children: collection.slice(i * 20, (i + 1) * 20),
+  }));
+
+  return (
+    <div className={"flex gap-3"}>
+      <Select className={"w-50"} collection={collection}>
+        <SelectContent className={"max-h-60 px-1"}>
+          <SelectVirtualizer>
+            <SelectList />
+          </SelectVirtualizer>
+        </SelectContent>
+      </Select>
+      <Select className={"w-50"} collection={groupCollection}>
+        <SelectContent className={"max-h-60 px-1"}>
+          <SelectVirtualizer>
+            <SelectList />
+          </SelectVirtualizer>
+        </SelectContent>
+      </Select>
+    </div>
+  );
+}
+```
+
+### 自定义渲染
+
+```jsx demo
+import { Select, SelectFilter, SelectContent, SelectList } from "@resolid/react-ui";
+import { BrowserIcon } from "~/components/browser-icon";
+
+export default function App() {
+  const collection = [
+    {
+      value: "chrome",
+      label: "Chrome",
+      description: "Google Chrome 是一款快速、易于使用且安全的网络浏览器。",
+    },
+    {
+      value: "firefox",
+      label: "Firefox",
+      description: "Firefox 是一款快速、轻量、注重隐私的浏览器，全平台可用。",
+    },
+    {
+      value: "microsoft-edge",
+      label: "Microsoft Edge",
+      description: "Microsoft Edge 是 AI 驱动的浏览器。更智能的浏览方式。",
+    },
+    {
+      value: "safari",
+      label: "Safari",
+      description: "Safari 是在所有 Apple 设备上体验互联网的最佳方式。",
+    },
+    {
+      value: "opera",
+      label: "Opera",
+      description: "比默认浏览器更快、更安全、更智能。 功能齐全，可保护隐私、安全等。",
+    },
+  ];
+
+  return (
+    <Select
+      className={"w-50"}
+      collection={collection}
+      renderValue={(item) => {
+        return (
+          <div className={"flex items-center gap-1"}>
+            <BrowserIcon size={"1em"} name={item.value} />
+            <span>{item.label}</span>
+          </div>
+        );
+      }}
+      renderItem={(item, { selected }) => {
+        return (
+          <div className={"flex items-center gap-2"}>
+            <div className={"w-12 flex-1"}>
+              <BrowserIcon size={"2em"} name={item.value} />
+            </div>
+            <div className={"flex flex-col gap-1"}>
+              <div>{item.label}</div>
+              <div className={`text-sm ${!selected ? "text-fg-subtle" : ""}`}>
+                {item.description}
+              </div>
+            </div>
+          </div>
+        );
+      }}
+    >
+      <SelectContent className={"max-w-90 p-1"}>
+        <SelectList />
+      </SelectContent>
+    </Select>
+  );
+}
+```
+
+### 原生选择器
+
+```jsx demo
+import { NativeSelect } from "@resolid/react-ui";
+
+export default function App() {
+  const collection = [
+    { value: "apple", label: "Apple" },
+    { value: "banana", label: "Banana" },
+    { value: "blueberry", label: "Blueberry" },
+    { value: "grapes", label: "Grapes", disabled: true },
+    { value: "pineapple", label: "Pineapple" },
+  ];
+
+  return (
+    <div className={"flex items-center gap-2"}>
+      {["xs", "sm", "md", "lg", "xl"].map((size) => (
+        <NativeSelect key={size} placeholder={"选择器"} size={size}>
+          {collection.map((item) => (
+            <option key={item.value} value={item.value} disabled={item.disabled}>
+              {item.label}
+            </option>
+          ))}
+        </NativeSelect>
+      ))}
+    </div>
+  );
+}
+```
+
+## 属性
+
+### Select
+
+::PropsTable{file=select/select.tsx}
+
+### SelectVirtualizer
+
+::PropsTable{file=select/select-virtualizer.tsx}

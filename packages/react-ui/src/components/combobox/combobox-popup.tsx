@@ -39,11 +39,12 @@ export const ComboboxPopup = (props: PrimitiveProps<"div", ComboboxPopupProps>):
   const { floatingStyles, context } = useFloating({
     rootContext,
     middleware: [
-      offset(8),
+      offset(6),
       flip(),
       size({
-        apply({ elements, rects }) {
+        apply({ availableWidth, elements, rects }) {
           Object.assign(elements.floating.style, {
+            maxWidth: `${availableWidth}px`,
             minWidth: `${rects.reference.width}px`,
           });
         },
@@ -76,7 +77,7 @@ export const ComboboxPopup = (props: PrimitiveProps<"div", ComboboxPopupProps>):
         <PopperPositioner
           style={{ ...style, ...animationProps.style }}
           className={tx(
-            "border-bd-normal bg-bg-normal rounded-md border p-1 shadow-md",
+            "border-bd-normal bg-bg-normal rounded-md border shadow-sm",
             animationProps.className,
             className,
           )}

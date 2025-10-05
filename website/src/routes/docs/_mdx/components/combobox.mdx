@@ -32,7 +32,7 @@ export default function App() {
         <ComboboxTrigger />
       </ComboboxAnchor>
       <ComboboxPopup>
-        <ComboboxContent>
+        <ComboboxContent className={"p-1"}>
           <ComboboxList />
         </ComboboxContent>
       </ComboboxPopup>
@@ -120,7 +120,7 @@ export default function App() {
         <ComboboxTrigger />
       </ComboboxAnchor>
       <ComboboxPopup>
-        <ComboboxContent>
+        <ComboboxContent className={"p-1"}>
           <ComboboxList />
         </ComboboxContent>
       </ComboboxPopup>
@@ -158,7 +158,122 @@ export default function App() {
         <ComboboxTrigger />
       </ComboboxAnchor>
       <ComboboxPopup>
-        <ComboboxContent>
+        <ComboboxContent className={"p-1"}>
+          <ComboboxList />
+        </ComboboxContent>
+      </ComboboxPopup>
+    </Combobox>
+  );
+}
+```
+
+### 虚拟化
+
+使用 ComboboxVirtualizer 组件可以实现虚拟化
+
+```jsx demo
+import {
+  Combobox,
+  ComboboxAnchor,
+  ComboboxInput,
+  ComboboxTrigger,
+  ComboboxPopup,
+  ComboboxContent,
+  ComboboxVirtualizer,
+  ComboboxList,
+} from "@resolid/react-ui";
+
+export default function App() {
+  const collection = Array.from({ length: 1000 }, (_, i) => ({
+    value: `item ${i + 1}`,
+  }));
+
+  return (
+    <Combobox collection={collection}>
+      <ComboboxAnchor>
+        <ComboboxInput placeholder={"搜索"} />
+        <ComboboxTrigger />
+      </ComboboxAnchor>
+      <ComboboxPopup>
+        <ComboboxContent className={"max-h-60 px-1"}>
+          <ComboboxVirtualizer>
+            <ComboboxList />
+          </ComboboxVirtualizer>
+        </ComboboxContent>
+      </ComboboxPopup>
+    </Combobox>
+  );
+}
+```
+
+### 自定义渲染
+
+```jsx demo
+import {
+  Combobox,
+  ComboboxAnchor,
+  ComboboxInput,
+  ComboboxTrigger,
+  ComboboxPopup,
+  ComboboxContent,
+  ComboboxList,
+} from "@resolid/react-ui";
+import { BrowserIcon } from "~/components/browser-icon";
+
+export default function App() {
+  const collection = [
+    {
+      value: "chrome",
+      label: "Chrome",
+      description: "Google Chrome 是一款快速、易于使用且安全的网络浏览器。",
+    },
+    {
+      value: "firefox",
+      label: "Firefox",
+      description: "Firefox 是一款快速、轻量、注重隐私的浏览器，全平台可用。",
+    },
+    {
+      value: "microsoft-edge",
+      label: "Microsoft Edge",
+      description: "Microsoft Edge 是 AI 驱动的浏览器。更智能的浏览方式。",
+    },
+    {
+      value: "safari",
+      label: "Safari",
+      description: "Safari 是在所有 Apple 设备上体验互联网的最佳方式。",
+    },
+    {
+      value: "opera",
+      label: "Opera",
+      description: "比默认浏览器更快、更安全、更智能。 功能齐全，可保护隐私、安全等。",
+    },
+  ];
+
+  return (
+    <Combobox
+      collection={collection}
+      renderItem={(item, { selected }) => {
+        return (
+          <div className={"flex items-center gap-2"}>
+            <div className={"w-12 flex-1"}>
+              <BrowserIcon size={"2em"} name={item.value} />
+            </div>
+            <div className={"flex flex-col gap-1"}>
+              <div>{item.label}</div>
+              <div className={`text-sm ${!selected ? "text-fg-subtle" : ""}`}>
+                {item.description}
+              </div>
+            </div>
+          </div>
+        );
+      }}
+    >
+      <ComboboxAnchor>
+        <ComboboxInput placeholder={"搜索"} />
+        <ComboboxTrigger />
+      </ComboboxAnchor>
+      <ComboboxPopup>
+        <ComboboxContent className={"max-w-90 p-1"}>
           <ComboboxList />
         </ComboboxContent>
       </ComboboxPopup>
@@ -223,7 +338,7 @@ export default function App() {
         <ComboboxTrigger />
       </ComboboxAnchor>
       <ComboboxPopup>
-        <ComboboxContent>
+        <ComboboxContent className={"p-1"}>
           <ComboboxList />
         </ComboboxContent>
       </ComboboxPopup>
@@ -355,7 +470,7 @@ export default function App() {
         }}
       />
       <ComboboxPopup placement={"bottom-start"}>
-        <ComboboxContent>
+        <ComboboxContent className={"p-1"}>
           <ComboboxList />
         </ComboboxContent>
       </ComboboxPopup>

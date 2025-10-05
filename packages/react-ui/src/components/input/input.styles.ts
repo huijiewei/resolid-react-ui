@@ -19,33 +19,42 @@ export const inputSizeStyles = {
 type InputVariants = {
   disabled: {
     true: string;
+    false: string;
   };
   invalid: {
+    true: string;
+    false: string;
+  };
+  active: {
+    true: string;
+    false: string;
+  };
+  focusable: {
     true: string;
     false: string;
   };
 };
 
 export const inputStyles: TvReturnType<InputVariants, undefined, string[], InputVariants, undefined> = tv({
-  base: [
-    "relative inline-flex items-center rounded-md border",
-    "outline-1 outline-transparent transition-colors",
-    "focus-within:border-bg-primary-emphasis focus-within:outline-bg-primary-emphasis/70",
-  ],
+  base: ["relative inline-flex items-center rounded-md border", "outline-1 outline-transparent transition-colors"],
   variants: {
-    disabled: {
-      true: "opacity-60",
-    },
-    invalid: {
-      true: "border-bd-invalid",
-      false: "border-bd-normal",
-    },
+    disabled: { true: "opacity-60", false: "" },
+    invalid: { true: "border-bd-invalid", false: "border-bd-normal" },
+    active: { true: "", false: "" },
+    focusable: { true: "", false: "" },
   },
   compoundVariants: [
     {
       disabled: false,
       invalid: false,
+      active: false,
       className: "not-focus-within:hover:border-bd-hovered",
+    },
+    {
+      disabled: false,
+      active: false,
+      focusable: true,
+      className: "focus-within:border-bg-primary-emphasis focus-within:outline-bg-primary-emphasis/70",
     },
   ],
 });

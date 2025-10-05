@@ -1,23 +1,38 @@
 export const selectSizeStyles = {
   xs: {
-    select: "pl-2.5 pr-7",
+    select: "pr-7",
     chevron: "px-1.5",
+    native: "pl-2.5",
+    root: "pl-1",
+    item: "ps-1.5",
   },
   sm: {
-    select: "pl-3 pr-8",
+    select: "pr-8",
     chevron: "px-2",
+    native: "pl-3",
+    root: "pl-1",
+    item: "ps-1.5",
   },
   md: {
-    select: "pl-3.5 pr-8",
+    select: "pr-8",
     chevron: "px-2",
+    native: "pl-3.5",
+    root: "pl-1.5",
+    item: "ps-1.5",
   },
   lg: {
-    select: "pl-4 pr-10",
+    select: "pr-10",
     chevron: "px-2",
+    native: "pl-4",
+    root: "pl-1.5",
+    item: "ps-2",
   },
   xl: {
-    select: "pl-4 pr-10",
+    select: "pr-10",
     chevron: "px-2.5",
+    native: "pl-4",
+    root: "pl-1.5",
+    item: "ps-2",
   },
 };
 

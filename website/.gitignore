@@ -1,17 +1,12 @@
-# vercel
-.vercel/
-
 # vite
-.vite-inspect/
+build/
 
 # env files
 .env.local
 .env.*.local
 
-# resolid
 .resolid/
-
-# react-router
 .react-router/
-
-build/
+.vercel/
+.vite-inspect/
+.sonda/

@@ -2,7 +2,7 @@ import type { Dispatch, HTMLProps, RefObject, SetStateAction } from "react";
 import { type AnyObject, createSafeContext, type SafeContext, type UseSafeContext } from "../../primitives";
 
 export type ListboxFilterContextValue = {
-  filterRef: RefObject<boolean>;
+  filterInputRef: RefObject<HTMLInputElement | null>;
   setFilterKeyword: Dispatch<SetStateAction<string | undefined>>;
   getNavigationProps: (userProps?: HTMLProps<HTMLElement> | undefined) => AnyObject;
 };

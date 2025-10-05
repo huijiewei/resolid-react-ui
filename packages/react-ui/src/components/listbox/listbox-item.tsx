@@ -39,21 +39,22 @@ export const ListboxItem = (props: PrimitiveProps<"div", ListboxItemProps, "tabI
   const active = item.__index === activeIndex;
   const selected = selectedIndices.includes(item.__index);
   const disabled = disabledProps || getItemDisabled(item);
-  const tabIndex = disabled
-    ? undefined
-    : virtual && focusItemOnOpen === false
-      ? -1
-      : activeIndex != null
-        ? active
-          ? 0
-          : -1
-        : selectedIndices.length > 0
-          ? selectedIndices[0] == item.__index
+  const tabIndex =
+    disabled || focusItemOnOpen !== false
+      ? undefined
+      : virtual
+        ? -1
+        : activeIndex != null
+          ? active
             ? 0
             : -1
-          : item.__index == 0
-            ? 0
-            : -1;
+          : selectedIndices.length > 0
+            ? selectedIndices[0] == item.__index
+              ? 0
+              : -1
+            : item.__index == 0
+              ? 0
+              : -1;
 
   const { handleClick, handleKeyUp, handleKeyDown } = getInteractiveHandlers({
     disabled: disabled || readOnly,
