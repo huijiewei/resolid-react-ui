@@ -6,14 +6,13 @@ import { ariaAttr, tx } from "../../utils";
 import { CloseButton } from "../close-button/close-button";
 
 type TagsInputItemProps = {
-  name?: string;
   value: string;
   disabled: boolean;
   onDelete: (index: number) => void;
 };
 
 export const TagsInputItem = (props: PrimitiveProps<"div", TagsInputItemProps, "ref" | "children">): JSX.Element => {
-  const { name, value, disabled, onDelete, className, ...rest } = props;
+  const { value, disabled, onDelete, className, ...rest } = props;
 
   const { ref: itemRef, index } = useListItem();
   const { activeIndex } = useComposite();
@@ -38,7 +37,6 @@ export const TagsInputItem = (props: PrimitiveProps<"div", TagsInputItemProps, "
       {...rest}
     >
       {value}
-      {name && <input type={"hidden"} disabled={disabled} tabIndex={-1} name={`${name}[]`} value={value} />}
       <CloseButton
         radius
         disabled={disabled}

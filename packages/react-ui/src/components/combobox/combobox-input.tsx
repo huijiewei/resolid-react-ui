@@ -1,6 +1,6 @@
 import type { JSX } from "react/jsx-runtime";
 import { useMergeRefs } from "../../hooks";
-import { Polymorphic, type PolymorphicProps } from "../../primitives";
+import { type EmptyObject, Polymorphic, type PolymorphicProps } from "../../primitives";
 import { usePopperTrigger } from "../../primitives/popper/popper-trigger-context";
 import { inputTextShareStyles } from "../../shared/styles";
 import { tx } from "../../utils";
@@ -16,10 +16,10 @@ const comboboxInputSizes = {
   xl: "mr-6",
 };
 
-export const ComboboxInput = (props: PolymorphicProps<"input">): JSX.Element => {
-  const { render, disabled = false, className, ref, ...rest } = props;
+export const ComboboxInput = (props: PolymorphicProps<"input", EmptyObject, "name" | "disabled">): JSX.Element => {
+  const { render, className, ref, ...rest } = props;
 
-  const { size, disabled: ctxDisabled, readOnly } = useListboxState();
+  const { size, disabled, readOnly } = useListboxState();
 
   const { getReferenceProps, setReference } = usePopperTrigger();
   const { inputRef, inputValue, name } = useComboboxInput();
@@ -43,7 +43,7 @@ export const ComboboxInput = (props: PolymorphicProps<"input">): JSX.Element => 
         className,
       )}
       name={name}
-      disabled={disabled || ctxDisabled}
+      disabled={disabled}
       readOnly={readOnly}
       autoComplete="off"
       autoCorrect="off"

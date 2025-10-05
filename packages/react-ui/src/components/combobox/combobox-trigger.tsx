@@ -9,22 +9,24 @@ import { useComboboxInput } from "./combobox-input-context";
 import { useComboboxRoot } from "./combobox-root-context";
 import { useComboboxTrigger } from "./combobox-trigger-context";
 
-export const ComboboxTrigger = (props: PolymorphicProps<"button", EmptyObject, "type" | "tabIndex">): JSX.Element => {
-  const { render, disabled, children, ref, ...rest } = props;
+export const ComboboxTrigger = (
+  props: PolymorphicProps<"button", EmptyObject, "type" | "tabIndex" | "disabled">,
+): JSX.Element => {
+  const { render, children, ref, ...rest } = props;
 
   const { inputRef } = useComboboxInput();
   const { triggerRef } = useComboboxTrigger();
   const { rootContext } = useComboboxRoot();
-  const { size, disabled: ctxDisabled } = useListboxState();
+  const { size, disabled } = useListboxState();
 
   const buttonProps = useButtonProps({
     hasRender: !!render,
-    disabled: disabled || ctxDisabled,
+    disabled: disabled,
     tabIndex: -1,
   });
 
   const handleClick = () => {
-    rootContext.onOpenChange(!rootContext.open);
+    rootContext.onOpenChange(!rootContext.open, undefined, "click");
   };
 
   const handleFocus = () => {

@@ -20,7 +20,7 @@ export const ComboboxAnchor = (props: PolymorphicProps<"div">): JSX.Element => {
       data-active={dataAttr(open)}
       className={tx(
         !render && inputStyles({ disabled, invalid }),
-        "active:border-bg-primary-emphasis active:outline-bg-primary-emphasis/70",
+        !disabled && "active:border-bg-primary-emphasis active:outline-bg-primary-emphasis/70",
         className,
       )}
       {...rest}

@@ -172,7 +172,7 @@ export default function App() {
 
   return (
     <div className={"flex flex-row gap-5"}>
-      <Listbox className={"min-w-60"} collection={collection}>
+      <Listbox name={"testSingleNormal"} className={"min-w-60"} collection={collection}>
         <div className={"border-bd-subtle border-b p-2"}>
           <ListboxFilter size={"sm"} />
         </div>
@@ -180,7 +180,13 @@ export default function App() {
           <ListboxList />
         </ListboxContent>
       </Listbox>
-      <Listbox className={"min-w-60"} collection={virtualCollection}>
+      <Listbox
+        name={"testMultipleVirtual"}
+        multiple
+        required
+        className={"min-w-60"}
+        collection={virtualCollection}
+      >
         <div className={"border-bd-subtle border-b p-2"}>
           <ListboxFilter size={"sm"} />
         </div>

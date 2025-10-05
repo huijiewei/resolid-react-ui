@@ -248,6 +248,8 @@ import {
 import { useDeferredValue, useLayoutEffect, useEffect, useMemo, useRef, useState } from "react";
 
 export default function App() {
+  const textareaRef = useRef();
+
   const [value, setValue] = useState("");
   const [trigger, setTrigger] = useState(null);
   const [searchValue, setSearchValue] = useState(null);
@@ -255,12 +257,13 @@ export default function App() {
   const [comboboxValue, setComboboxValue] = useState(null);
 
   const deferedSearchValue = useDeferredValue(searchValue);
-  const textareaRef = useRef();
 
   const collection = useMemo(() => {
     return getList(trigger)
-      .filter((item) => item.includes(deferedSearchValue))
-      .map((item) => ({ value: item }));
+      .filter(
+        (v) => !deferedSearchValue || v.toLowerCase().includes(deferedSearchValue.toLowerCase()),
+      )
+      .map((v) => ({ value: v }));
   }, [trigger, deferedSearchValue]);
 
   const handleInput = (e) => {
@@ -331,7 +334,7 @@ export default function App() {
   });
 
   useEffect(() => {
-    setOpen(!!collection.length);
+    setOpen(collection.length > 0);
   }, [collection]);
 
   useLayoutEffect(() => {

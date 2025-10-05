@@ -3,7 +3,8 @@ import { type FocusEvent, useState } from "react";
 import type { JSX } from "react/jsx-runtime";
 import type { PrimitiveProps } from "../../primitives";
 import type { FormFieldProps } from "../../shared/types";
-import { ariaAttr, tx } from "../../utils";
+import { tx } from "../../utils";
+import { VisuallyHiddenInput } from "../visually-hidden/visually-hidden-input";
 import { ListboxProvider } from "./listbox-provider";
 import { type ListboxBaseProps, type ListboxItem, useListbox } from "./use-listbox";
 
@@ -113,16 +114,16 @@ export const ListboxRoot = <T extends ListboxItem>(props: PrimitiveProps<"div", 
           getFloatingProps: (props) =>
             getFloatingProps(
               getNavigationFloatingProps({
-                ...props,
                 ...interactiveHandlers,
+                ...props,
               }),
             ),
           renderItem,
           renderGroupLabel,
           getNavigationProps: (props) =>
             getNavigationProps({
-              ...props,
               onKeyDown: handleEnterKeydown,
+              ...props,
             }),
           getItemProps: (props) => getItemProps(getNavigationItemProps(props)),
           open: true,
@@ -135,31 +136,15 @@ export const ListboxRoot = <T extends ListboxItem>(props: PrimitiveProps<"div", 
       >
         {children}
       </ListboxProvider>
-      {name &&
-        (multiple ? (
-          selectedItems.map((item) => (
-            <input
-              disabled={disabled}
-              required={required}
-              readOnly={readOnly}
-              aria-invalid={ariaAttr(invalid)}
-              key={providerValue.getItemValue(item)}
-              name={`${name}[]`}
-              type={"hidden"}
-              value={providerValue.getItemLabel(item)}
-            />
-          ))
-        ) : (
-          <input
-            disabled={disabled}
-            required={required}
-            readOnly={readOnly}
-            aria-invalid={ariaAttr(invalid)}
-            type={"hidden"}
-            name={name}
-            value={selectedItems.length > 0 ? providerValue.getItemValue(selectedItems[0]) : ""}
-          />
-        ))}
+      {name && (
+        <VisuallyHiddenInput
+          name={name}
+          value={multiple ? selectedItems : selectedItems[0]}
+          getValue={providerValue.getItemValue}
+          disabled={disabled}
+          required={required}
+        />
+      )}
     </div>
   );
 };

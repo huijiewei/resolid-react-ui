@@ -8,6 +8,7 @@ import { inputTextShareStyles } from "../../shared/styles";
 import type { FormInputFieldProps } from "../../shared/types";
 import { ariaAttr, tx } from "../../utils";
 import { inputHeightStyles, type InputSize, inputStyles } from "../input/input.styles";
+import { VisuallyHiddenInput } from "../visually-hidden/visually-hidden-input";
 import { TagsInputItem } from "./tags-input-item";
 import {
   type TagsInputBaseProps,
@@ -133,43 +134,45 @@ export const TagsInputRoot = (props: PrimitiveProps<"div", TagsInputRootProps>):
   };
 
   return (
-    <Composite
-      orientation={"horizontal"}
-      activeIndex={activeIndex}
-      onNavigate={setActiveIndex}
-      loop={false}
-      className={tx(
-        inputStyles({ disabled, invalid }),
-        "bg-bg-normal flex-wrap gap-1",
-        tagsInputSizeStyle.root,
-        inputHeightStyles[size],
-        inputTextShareStyles[size],
-        className,
-      )}
-      aria-disabled={ariaAttr(disabled)}
-      aria-required={ariaAttr(required)}
-      aria-readonly={ariaAttr(readOnly)}
-      aria-invalid={ariaAttr(invalid)}
-      tabIndex={tabIndex}
-      style={style}
-      {...rest}
-      render={(props) => <div {...props} aria-orientation={undefined} />}
-    >
-      <TagsInputRootContext value={rootContext}>
-        <CompositeContext value={context}>
-          {valueState.map((value, index) => (
-            <TagsInputItem
-              key={index}
-              name={name}
-              value={value}
-              className={tagsInputSizeStyle.item}
-              disabled={disabled || readOnly}
-              onDelete={deleteValue}
-            />
-          ))}
-          {children}
-        </CompositeContext>
-      </TagsInputRootContext>
-    </Composite>
+    <>
+      <Composite
+        orientation={"horizontal"}
+        activeIndex={activeIndex}
+        onNavigate={setActiveIndex}
+        loop={false}
+        className={tx(
+          inputStyles({ disabled, invalid }),
+          "bg-bg-normal flex-wrap gap-1",
+          tagsInputSizeStyle.root,
+          inputHeightStyles[size],
+          inputTextShareStyles[size],
+          className,
+        )}
+        aria-disabled={ariaAttr(disabled)}
+        aria-required={ariaAttr(required)}
+        aria-readonly={ariaAttr(readOnly)}
+        aria-invalid={ariaAttr(invalid)}
+        tabIndex={tabIndex}
+        style={style}
+        {...rest}
+        render={(props) => <div {...props} aria-orientation={undefined} />}
+      >
+        <TagsInputRootContext value={rootContext}>
+          <CompositeContext value={context}>
+            {valueState.map((value, index) => (
+              <TagsInputItem
+                key={index}
+                value={value}
+                className={tagsInputSizeStyle.item}
+                disabled={disabled || readOnly}
+                onDelete={deleteValue}
+              />
+            ))}
+            {children}
+          </CompositeContext>
+        </TagsInputRootContext>
+      </Composite>
+      {name && <VisuallyHiddenInput name={name} value={valueState} disabled={disabled} required={required} />}
+    </>
   );
 };

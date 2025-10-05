@@ -102,7 +102,9 @@ export const useCombobox = <T extends ListboxItem>({
     open: openState,
     onOpenChange: (open, e, reason) => {
       if (open) {
-        setActiveIndex(selectedIndex ?? 0);
+        if (reason != "click") {
+          setActiveIndex(selectedIndex ?? 0);
+        }
         handleOpen();
       } else {
         if (
@@ -111,8 +113,12 @@ export const useCombobox = <T extends ListboxItem>({
             (reason == "outside-press" && triggerRef.current?.contains(e?.target as Node))
           )
         ) {
-          setFilterKeyword("");
           handleClose();
+
+          setTimeout(() => {
+            setActiveIndex(null);
+            setFilterKeyword("");
+          }, duration);
         }
       }
     },
@@ -156,7 +162,7 @@ export const useCombobox = <T extends ListboxItem>({
     context,
     onSelect: () => {
       if (closeOnSelect) {
-        handleClose();
+        context.onOpenChange(false);
       }
 
       requestAnimationFrame(() => {
@@ -186,7 +192,6 @@ export const useCombobox = <T extends ListboxItem>({
     getItemProps: getNavigationItemProps,
   } = useInteractions([navigationInteraction]);
 
-  // noinspection JSUnusedGlobalSymbols
   const referenceContext: PopperTriggerContextValue = {
     setReference: (node) => {
       setReference(node as HTMLElement);
@@ -194,6 +199,7 @@ export const useCombobox = <T extends ListboxItem>({
     getReferenceProps: (props) => {
       const { onKeyDown, onInput, ...rest } = props as HTMLProps<HTMLElement | HTMLInputElement>;
 
+      // noinspection JSUnusedGlobalSymbols
       return getReferenceProps(
         getNavigationProps({
           onKeyDown: (e: KeyboardEvent<HTMLElement>) => {

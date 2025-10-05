@@ -16,10 +16,8 @@ import {
   PopperPositionerContext,
   type PopperPositionerContextValue,
 } from "../../primitives/popper/popper-positioner-context";
-import { usePopperCloseComplete } from "../../primitives/popper/use-popper-close-complete";
 import { getPopperAnimationProps } from "../../primitives/popper/utils";
 import { tx } from "../../utils";
-import { useListboxFilter } from "../listbox/listbox-filter-context";
 import { Portal } from "../portal/portal";
 import { useComboboxPopup } from "./combobox-popup-context";
 import { useComboboxRoot } from "./combobox-root-context";
@@ -37,7 +35,6 @@ export const ComboboxPopup = (props: PrimitiveProps<"div", ComboboxPopupProps>):
 
   const { rootContext } = useComboboxRoot();
   const { duration, setFloating } = useComboboxPopup();
-  const { setFilterKeyword } = useListboxFilter();
 
   const { floatingStyles, context } = useFloating({
     rootContext,
@@ -58,13 +55,6 @@ export const ComboboxPopup = (props: PrimitiveProps<"div", ComboboxPopupProps>):
 
   const { isMounted, status } = useTransitionStatus(context, {
     duration,
-  });
-
-  usePopperCloseComplete({
-    status,
-    onCloseComplete: () => {
-      setFilterKeyword("");
-    },
   });
 
   const refs = useMergeRefs(ref, setFloating);
