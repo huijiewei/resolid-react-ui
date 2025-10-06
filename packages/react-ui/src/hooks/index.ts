@@ -4,6 +4,7 @@ export * from "./use-controllable-state";
 export * from "./use-disclosure";
 export * from "./use-element-transition-status";
 export * from "./use-event-listener";
+export * from "./use-hydrated";
 export * from "./use-image-load";
 export * from "./use-isomorphic-effect";
 export * from "./use-lastest-ref";

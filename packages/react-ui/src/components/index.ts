@@ -8,6 +8,7 @@ export * from "./button/button";
 export * from "./button/button-group";
 export * from "./checkbox/checkbox";
 export * from "./checkbox/checkbox-group";
+export * from "./client-only/client-only";
 export * from "./close-button/close-button";
 export * from "./collapsible/collapsible";
 export * from "./combobox/combobox";
