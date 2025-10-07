@@ -1,6 +1,5 @@
 import { isBrowser, isString } from "@resolid/utils";
-import { type RefObject, useEffect, useRef } from "react";
-import { useIsomorphicEffect } from "../use-isomorphic-effect";
+import { type RefObject, useEffect, useEffectEvent } from "react";
 
 type UseEventListenerTarget = Window | Document | HTMLElement | RefObject<HTMLElement | null>;
 
@@ -29,16 +28,7 @@ export const useEventListener = <
   target?: Target,
   options?: boolean | AddEventListenerOptions,
 ): void => {
-  const handlerRef = useRef(handler);
-  const optionsRef = useRef(options);
-
-  useIsomorphicEffect(() => {
-    handlerRef.current = handler;
-  }, [handler]);
-
-  useIsomorphicEffect(() => {
-    optionsRef.current = options;
-  }, [options]);
+  const handlerEvent = useEffectEvent(handler);
 
   useEffect(() => {
     if (!isBrowser) {
@@ -56,14 +46,12 @@ export const useEventListener = <
       return;
     }
 
-    const eventOptions = optionsRef.current;
+    const eventListener = (event: Event) => handlerEvent(event as unknown as TargetEvent);
 
-    const eventListener = (event: Event) => handlerRef.current(event as unknown as TargetEvent);
-
-    targetElement.addEventListener(eventName, eventListener, eventOptions);
+    targetElement.addEventListener(eventName, eventListener, options);
 
     return () => {
       targetElement.removeEventListener(eventName, eventListener);
     };
-  }, [target, eventName]);
+  }, [target, eventName, options]);
 };

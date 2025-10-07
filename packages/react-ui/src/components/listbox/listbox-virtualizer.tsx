@@ -2,7 +2,6 @@ import { omit } from "@resolid/utils";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { type PropsWithChildren, useMemo } from "react";
 import type { JSX } from "react/jsx-runtime";
-import { useIsomorphicEffect } from "../../hooks";
 import { usePopperFloating } from "../../primitives/popper/popper-floating-context";
 import { useListboxCollection } from "./listbox-collection-context";
 import { useListboxFields } from "./listbox-field-context";
@@ -116,7 +115,7 @@ export const ListboxVirtualizer = ({
     return { flatItems, groupLabelIndices, groupIndices };
   }, [childrenKey, nodeItems, getItemChildren]);
 
-  const virtual = useVirtualizer({
+  const { virtualItems, totalSize, scrollToIndex } = useVirtual({
     count: flatItems.length,
     getScrollElement: () => scrollRef.current,
     estimateSize: (index) => {
@@ -133,23 +132,23 @@ export const ListboxVirtualizer = ({
     useAnimationFrameWithResizeObserver,
   });
 
-  useIsomorphicEffect(() => {
-    scrollToRef.current = (index, options) => {
-      const groupCount = groupIndices.reduce((acc, num) => acc + (num <= index ? 1 : 0), 0);
+  scrollToRef.current = (index, options) => {
+    const groupCount = groupIndices.reduce((acc, num) => acc + (num <= index ? 1 : 0), 0);
 
-      virtual.scrollToIndex(index > 0 ? index + groupCount : 0, options);
-    };
-  }, [groupIndices, scrollToRef, virtual]);
+    scrollToIndex(index > 0 ? index + groupCount : 0, options);
+  };
 
   return (
-    <div
-      className={"relative w-full outline-none"}
-      style={{ height: `${virtual.getTotalSize()}px` }}
-      {...getFloatingProps()}
-    >
-      <ListboxVirtualizerContext value={{ virtualItems: virtual.getVirtualItems(), flatItems }}>
-        {children}
-      </ListboxVirtualizerContext>
+    <div className={"relative w-full outline-none"} style={{ height: `${totalSize}px` }} {...getFloatingProps()}>
+      <ListboxVirtualizerContext value={{ virtualItems, flatItems }}>{children}</ListboxVirtualizerContext>
     </div>
   );
+};
+
+const useVirtual = (options: Parameters<typeof useVirtualizer>[0]) => {
+  "use no memo";
+
+  const { getVirtualItems, getTotalSize, scrollToIndex } = useVirtualizer(options);
+
+  return { virtualItems: getVirtualItems(), totalSize: getTotalSize(), scrollToIndex };
 };

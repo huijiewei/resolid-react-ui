@@ -1,12 +1,14 @@
-import { type ImgHTMLAttributes, useState } from "react";
+import { isBrowser } from "@resolid/utils";
+import { type ImgHTMLAttributes, useEffectEvent, useState } from "react";
 import { useIsomorphicEffect } from "../use-isomorphic-effect";
 
 type NativeImageProps = ImgHTMLAttributes<HTMLImageElement>;
 
 export type UseImageLoadOptions = {
-  src?: string;
+  src?: NativeImageProps["src"];
   crossOrigin?: NativeImageProps["crossOrigin"];
   referrerPolicy?: NativeImageProps["referrerPolicy"];
+  delayLoad?: boolean;
 };
 
 export type ImageLoadStatus = "idle" | "loading" | "loaded" | "error";
@@ -16,43 +18,33 @@ export const useImageLoad = (options: UseImageLoadOptions): ImageLoadStatus => {
 
   const [loadStatus, setLoadStatus] = useState<ImageLoadStatus>("idle");
 
-  useIsomorphicEffect(() => {
-    if (!src) {
-      setLoadStatus("error");
-      return () => {};
-    }
+  const handleStatus = useEffectEvent((status: ImageLoadStatus) => {
+    setLoadStatus(status);
+  });
 
-    let isMounted = true;
+  useIsomorphicEffect(() => {
+    if (!src || !isBrowser) {
+      handleStatus("error");
+      return;
+    }
 
     const image = new window.Image();
 
-    const updateStatus = (status: ImageLoadStatus) => () => {
-      if (!isMounted) {
-        return;
-      }
+    handleStatus("loading");
 
-      setLoadStatus(status);
-    };
+    image.onload = () => handleStatus("loaded");
+    image.onerror = () => handleStatus("error");
 
-    setLoadStatus("loading");
-
-    image.onload = updateStatus("loaded");
-    image.onerror = updateStatus("error");
-
-    if (crossOrigin) {
-      image.crossOrigin = crossOrigin;
-    }
-
-    if (referrerPolicy) {
-      image.referrerPolicy = referrerPolicy;
-    }
+    if (crossOrigin) image.crossOrigin = crossOrigin;
+    if (referrerPolicy) image.referrerPolicy = referrerPolicy;
 
     image.src = src;
 
     return () => {
-      isMounted = false;
+      image.onload = null;
+      image.onerror = null;
     };
-  }, [crossOrigin, referrerPolicy, src]);
+  }, [src, crossOrigin, referrerPolicy]);
 
   return loadStatus;
 };

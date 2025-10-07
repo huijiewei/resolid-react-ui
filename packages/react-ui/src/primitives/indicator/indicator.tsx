@@ -1,4 +1,4 @@
-import { type CSSProperties, useEffect, useEffectEvent, useRef, useState } from "react";
+import { type CSSProperties, useEffect, useEffectEvent, useState } from "react";
 import type { JSX } from "react/jsx-runtime";
 import { useResizeObserver } from "../../hooks";
 import type { Orientation } from "../../shared/types";
@@ -16,24 +16,23 @@ export const Indicator = (props: PrimitiveProps<"span", IndicatorProps, "role" |
   const [indicatorStyle, setIndicatorStyle] = useState<CSSProperties>();
 
   const { listRef, activeIndex } = useIndicator();
-  const activeRef = useRef<HTMLElement | undefined>(null);
 
   const computeStyle = () => {
-    activeRef.current = listRef.current?.querySelector<HTMLElement>("[data-active]");
+    const active = listRef.current?.querySelector<HTMLElement>("[data-active]");
 
-    if (!activeRef.current) {
+    if (!active) {
       return;
     }
 
     const style = getComputedStyle(listRef.current!);
 
     setIndicatorStyle({
-      "--wv": activeRef.current.offsetWidth + "px",
-      "--hv": activeRef.current.offsetHeight + "px",
+      "--wv": active.offsetWidth + "px",
+      "--hv": active.offsetHeight + "px",
       "--tv":
         orientation == "vertical"
-          ? `${activeRef.current.offsetTop - parseFloat(style.paddingTop)}px`
-          : `${activeRef.current.offsetLeft - parseFloat(style.paddingLeft)}px`,
+          ? `${active.offsetTop - parseFloat(style.paddingTop)}px`
+          : `${active.offsetLeft - parseFloat(style.paddingLeft)}px`,
     } as CSSProperties);
   };
 

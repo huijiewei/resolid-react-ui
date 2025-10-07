@@ -1,4 +1,4 @@
-import { type HTMLProps, type PropsWithChildren, type ReactNode, useRef } from "react";
+import { type HTMLProps, type PropsWithChildren, type ReactNode, useEffectEvent, useRef } from "react";
 import type { JSX } from "react/jsx-runtime";
 import { useIsomorphicEffect, usePrevious } from "../../hooks";
 import type { AnyObject } from "../../primitives";
@@ -110,15 +110,7 @@ export const ListboxProvider = <T extends ListboxItem>(
 
   const prevActiveIndex = usePrevious<number | null>(activeIndex);
 
-  useIsomorphicEffect(() => {
-    if (!open || pointer) {
-      return;
-    }
-
-    if (prevActiveIndex == null) {
-      return;
-    }
-
+  const scrollEvent = useEffectEvent((prevActiveIndex: number) => {
     if (scrollToRef.current) {
       const scrollIndex = activeIndex ?? selectedIndex;
 
@@ -153,13 +145,21 @@ export const ListboxProvider = <T extends ListboxItem>(
         }
       }
     }
-  }, [activeIndex, elementsRef, open, pointer, prevActiveIndex, selectedIndex]);
+  });
 
   useIsomorphicEffect(() => {
-    if (!open) {
+    if (!open || pointer) {
       return;
     }
 
+    if (prevActiveIndex == null) {
+      return;
+    }
+
+    scrollEvent(prevActiveIndex);
+  }, [open, pointer, prevActiveIndex]);
+
+  const initScrollEvent = useEffectEvent(() => {
     requestAnimationFrame(() => {
       if (scrollToRef.current) {
         if (selectedIndex !== null) {
@@ -177,8 +177,15 @@ export const ListboxProvider = <T extends ListboxItem>(
         }
       }
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [elementsRef, open]);
+  });
+
+  useIsomorphicEffect(() => {
+    if (!open) {
+      return;
+    }
+
+    initScrollEvent();
+  }, [open]);
 
   return (
     <ListboxStateContext value={{ size, multiple, disabled, readOnly }}>
