@@ -18,7 +18,6 @@ import remarkDetails from "./plugins/remark-details";
 import remarkDocgen from "./plugins/remark-docgen";
 import remarkGithubAlert from "./plugins/remark-github-alert";
 import remarkRemove from "./plugins/remark-remove";
-import viteSsrCopy from "./plugins/vite-ssr-copy";
 
 export default defineConfig(({ command }) => {
   const isBuild = command == "build";
@@ -82,9 +81,6 @@ export default defineConfig(({ command }) => {
       }),
       !isBuild && tsconfigPaths(),
       !isBuild && viteInspect(),
-      viteSsrCopy({
-        targets: ["src/routes/docs/_mdx/**/*.mdx"],
-      }),
     ].filter(Boolean),
     environments: {
       ssr: {

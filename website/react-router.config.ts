@@ -3,6 +3,8 @@ import { nodePreset } from "@resolid/react-router-hono/node-preset";
 import { vercelPreset } from "@resolid/react-router-hono/vercel-preset";
 import { env } from "node:process";
 
+const includeFiles = ["src/routes/docs/_mdx/**/*.mdx"];
+
 // noinspection JSUnusedGlobalSymbols
 export default {
   appDirectory: "src",
@@ -10,18 +12,18 @@ export default {
   presets: [
     env.VERCEL == "1"
       ? vercelPreset({
-          regions: ["hkg1"],
           entryFile: "server.vercel.ts",
+          includeFiles,
           nodeVersion: 22,
         })
       : nodePreset({
           entryFile: "server.node.ts",
+          includeFiles,
           nodeVersion: 22,
         }),
   ],
   future: {
     unstable_optimizeDeps: true,
-    unstable_subResourceIntegrity: true,
     unstable_splitRouteModules: true,
     unstable_viteEnvironmentApi: true,
   },

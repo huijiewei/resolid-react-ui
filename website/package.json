@@ -1,14 +1,14 @@
 {
   "name": "website",
-  "type": "module",
   "private": true,
+  "type": "module",
   "scripts": {
-    "lint": "eslint .",
-    "typegen": "react-router typegen",
-    "typecheck": "tsc --noEmit --project tsconfig.check.json",
-    "dev": "vite dev",
     "build": "vite build",
-    "start": "NODE_ENV=production SERVER_PORT=3001 node ./build/server/server.mjs"
+    "dev": "vite dev",
+    "lint": "eslint .",
+    "start": "NODE_ENV=production SERVER_PORT=3001 node ./build/server/server.mjs",
+    "typecheck": "tsc --noEmit --project tsconfig.check.json",
+    "typegen": "react-router typegen"
   },
   "dependencies": {
     "@mdx-js/react": "^3.1.1",
@@ -31,27 +31,26 @@
   "devDependencies": {
     "@mdx-js/rollup": "^3.1.1",
     "@react-router/dev": "^7.9.4",
-    "@resolid/config": "^3.8.0",
+    "@resolid/config": "^3.10.2",
     "@resolid/flex-routes": "^1.6.0",
-    "@resolid/react-router-hono": "^2.0.3",
+    "@resolid/react-router-hono": "^2.2.0",
     "@shikijs/rehype": "^3.13.0",
     "@tailwindcss/vite": "^4.1.14",
     "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.1",
+    "@types/react-dom": "^19.2.2",
     "babel-plugin-react-compiler": "^1.0.0",
-    "fast-glob": "^3.3.3",
     "react-docgen-typescript": "beta",
     "rehype-slug": "^6.0.0",
     "remark-directive": "^4.0.0",
     "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.1",
     "unist-util-visit": "^5.0.0",
-    "vite": "^7.1.9",
+    "vite": "^7.1.10",
     "vite-plugin-babel": "^1.3.2",
     "vite-plugin-inspect": "^11.3.3",
     "vite-tsconfig-paths": "^5.1.4"
   },
   "engines": {
-    "node": "22.x"
+    "node": "^20.19.0 || ^22.13.0 || >=24"
   }
 }
