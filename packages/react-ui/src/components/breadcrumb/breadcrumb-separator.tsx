@@ -6,7 +6,7 @@ export const BreadcrumbSeparator = (props: PrimitiveProps<"span", EmptyObject, "
   const { separator } = useBreadcrumb();
 
   return (
-    <span className={"text-fg-subtle inline-flex items-center"} aria-hidden="true" role="presentation" {...props}>
+    <span className={"inline-flex items-center text-fg-subtle"} aria-hidden="true" role="presentation" {...props}>
       {separator}
     </span>
   );

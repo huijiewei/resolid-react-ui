@@ -30,9 +30,9 @@ export const MdxCode = (
         ref={preRef}
         translate={"no"}
         className={tx(
-          !codeGroup && "scrollbar scrollbar-thin border-bd-normal rounded-md border p-3",
+          !codeGroup && "scrollbar scrollbar-thin rounded-md border border-bd-normal p-3",
           !codeGroup && "group-[.is-demo]:mt-0 group-[.is-demo]:rounded-t-none group-[.is-demo]:border-t-0",
-          codeGroup && "mb-0 mt-0",
+          codeGroup && "mt-0 mb-0",
           className,
         )}
         {...rest}
@@ -40,7 +40,7 @@ export const MdxCode = (
       >
         {children}
       </pre>
-      <div className={"z-base absolute right-1.5 top-1.5 flex gap-1"}>
+      <div className={"z-base absolute top-1.5 right-1.5 flex gap-1"}>
         {online && <StackblitzButton name={online} code={content} />}
         <ClipboardButton content={content} />
       </div>

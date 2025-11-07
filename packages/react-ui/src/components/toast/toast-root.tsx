@@ -105,7 +105,7 @@ export const ToastRoot = (props: PrimitiveProps<"div", ToastRootProps, "role" | 
       {...rest}
     >
       <Alert
-        className={tx("max-w-128 pointer-events-auto relative w-auto min-w-80 pe-8 shadow-md", className)}
+        className={tx("pointer-events-auto relative w-auto max-w-128 min-w-80 pe-8 shadow-md", className)}
         color={color}
         variant={variant}
         aria-labelledby={labelId}

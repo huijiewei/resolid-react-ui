@@ -19,10 +19,10 @@ export default function Layout() {
   const [opened, setOpened] = useState(false);
 
   return (
-    <div className={"xl:max-w-288 mx-auto flex"}>
+    <div className={"mx-auto flex xl:max-w-288"}>
       <div
         className={
-          "z-15 bg-bg-normal border-b-bd-normal fixed flex h-9 w-full items-center justify-between border-b px-2 text-sm md:hidden"
+          "fixed z-15 flex h-9 w-full items-center justify-between border-b border-b-bd-normal bg-bg-normal px-2 text-sm md:hidden"
         }
       >
         <button type={"button"} onClick={() => setOpened(true)} className={"inline-flex items-center gap-1"}>
@@ -32,7 +32,7 @@ export default function Layout() {
       </div>
       <aside
         className={tx(
-          "z-15 bg-bg-normal border-r-bg-normal fixed w-48 border-r md:z-0 md:block md:border-none",
+          "fixed z-15 w-48 border-r border-r-bg-normal bg-bg-normal md:z-0 md:block md:border-none",
           "scrollbar scrollbar-base overflow-y-auto",
           "max-h-[calc(100vh-var(--spacing)*16)] md:sticky md:top-16",
           opened ? "block" : "hidden",

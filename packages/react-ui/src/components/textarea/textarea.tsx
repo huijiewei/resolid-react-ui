@@ -7,7 +7,7 @@ export const Textarea = ({ className, ...rest }: PrimitiveProps<"textarea">): JS
     <textarea
       className={tx(
         "rounded-md border p-2",
-        "border-bd-normal bg-bg-normal rounded-md border p-2 outline-1 outline-transparent transition-colors",
+        "rounded-md border border-bd-normal bg-bg-normal p-2 outline-1 outline-transparent transition-colors",
         "focus-within:border-bg-primary-emphasis focus-within:outline-bg-primary-emphasis/70 not-focus-within:hover:border-bd-hovered",
         className,
       )}

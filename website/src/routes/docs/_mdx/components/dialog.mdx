@@ -25,7 +25,7 @@ export default function App() {
       <DialogTrigger render={(props) => <Button {...props} />}>打开对话框</DialogTrigger>
       <DialogPortal>
         <DialogBackdrop />
-        <DialogContent className="md:max-w-128 max-w-[calc(100vw-6rem) my-20">
+        <DialogContent className="max-w-[calc(100vw-6rem) my-20 md:max-w-128">
           <DialogClose
             className={"absolute end-2 top-2 p-1"}
             render={(props) => <CloseButton {...props} />}
@@ -135,7 +135,7 @@ export default function App() {
             </DialogTrigger>
             <DialogPortal>
               <DialogBackdrop />
-              <DialogContent className="md:max-w-128 max-w-[calc(100vw-6rem) my-20">
+              <DialogContent className="max-w-[calc(100vw-6rem) my-20 md:max-w-128">
                 <DialogClose
                   className={"absolute end-2 top-2 p-1"}
                   render={(props) => <CloseButton {...props} />}
@@ -186,7 +186,7 @@ export default function App() {
       <DialogTrigger render={(props) => <Button {...props} />}>打开对话框</DialogTrigger>
       <DialogPortal>
         <DialogBackdrop />
-        <DialogContent className="md:max-w-128 max-w-[calc(100vw-6rem) my-25">
+        <DialogContent className="max-w-[calc(100vw-6rem) my-25 md:max-w-128">
           <DialogClose
             className={"absolute end-2 top-2 p-1"}
             render={(props) => <CloseButton {...props} />}
@@ -207,7 +207,7 @@ export default function App() {
               </DialogTrigger>
               <DialogPortal>
                 <DialogBackdrop />
-                <DialogContent className="md:max-w-86 max-w-[calc(100vw-6rem) my-20">
+                <DialogContent className="max-w-[calc(100vw-6rem) my-20 md:max-w-86">
                   <DialogClose
                     className={"absolute end-2 top-2 p-1"}
                     render={(props) => <CloseButton {...props} />}
@@ -271,7 +271,7 @@ export default function App() {
         <DialogTrigger render={(props) => <Button {...props} />}>打开对话框</DialogTrigger>
         <DialogPortal>
           <DialogBackdrop />
-          <DialogContent className="md:max-w-160 max-w-[calc(100vw-6rem) my-20 flex flex-col">
+          <DialogContent className="max-w-[calc(100vw-6rem) my-20 flex flex-col md:max-w-160">
             <DialogClose
               className={"absolute end-2 top-2 p-1"}
               render={(props) => <CloseButton {...props} />}
@@ -327,7 +327,7 @@ export default function App() {
       <DialogTrigger render={(props) => <Button {...props} />}>打开对话框</DialogTrigger>
       <DialogPortal>
         <DialogBackdrop />
-        <DialogContent className="md:max-w-128 max-w-[calc(100vw-6rem) my-20">
+        <DialogContent className="max-w-[calc(100vw-6rem) my-20 md:max-w-128">
           <DialogClose
             className={"absolute end-2 top-2 p-1"}
             render={(props) => <CloseButton {...props} />}
@@ -380,7 +380,7 @@ export default function App() {
 
         <DialogPortal>
           <DialogBackdrop />
-          <DialogContent className="md:max-w-128 max-w-[calc(100vw-6rem) my-20">
+          <DialogContent className="max-w-[calc(100vw-6rem) my-20 md:max-w-128">
             <DialogTitle className={"p-4"}>对话框标题</DialogTitle>
             <div className={"flex flex-col gap-4 p-4 pt-1"}>
               <div className={"flex flex-col gap-1"}>
@@ -464,7 +464,7 @@ export default function App() {
               <textarea
                 rows={6}
                 required
-                className={"border-bd-normal w-full rounded-md border px-3 py-2"}
+                className={"w-full rounded-md border border-bd-normal px-3 py-2"}
                 placeholder={"有什么新想法吗?"}
                 onChange={(e) => setTextareaValue(e.target.value)}
               />

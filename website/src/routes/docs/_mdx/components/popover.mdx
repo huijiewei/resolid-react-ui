@@ -209,7 +209,7 @@ import {
 export default function App() {
   return (
     <Popover placement={"bottom"}>
-      <PopoverAnchor className={"bg-bg-subtlest rounded-md p-3"}>
+      <PopoverAnchor className={"rounded-md bg-bg-subtlest p-3"}>
         <p className={"flex items-center"}>
           单击&nbsp;
           <PopoverTrigger
@@ -366,7 +366,7 @@ export default function App() {
   return (
     <Popover placement={"bottom"}>
       <PopoverTrigger render={(props) => <Button {...props} />}>打开弹出框</PopoverTrigger>
-      <PopoverContent className="bg-bg-primary-hovered max-w-90">
+      <PopoverContent className="max-w-90 bg-bg-primary-hovered">
         <PopoverArrow
           className={"fill-bg-primary-hovered [&>path:first-of-type]:stroke-bg-primary-hovered"}
         />

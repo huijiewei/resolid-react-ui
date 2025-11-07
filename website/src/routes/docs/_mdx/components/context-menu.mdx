@@ -21,7 +21,7 @@ export default function App() {
     <ContextMenu>
       <ContextMenuTrigger
         className={
-          "border-bd-normal flex h-32 select-none items-center rounded-md border border-dashed p-6"
+          "flex h-32 items-center rounded-md border border-dashed border-bd-normal p-6 select-none"
         }
       >
         右键点击显示菜单
@@ -29,11 +29,11 @@ export default function App() {
       <ContextMenuContent className={"text-sm"}>
         <ContextMenuItem>
           新标签页
-          <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+T</span>
+          <span className={"ml-auto pl-5 text-xs tracking-widest text-fg-subtle"}>⌘+T</span>
         </ContextMenuItem>
         <ContextMenuItem>
           打开新窗口
-          <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+N</span>
+          <span className={"ml-auto pl-5 text-xs tracking-widest text-fg-subtle"}>⌘+N</span>
         </ContextMenuItem>
         <ContextMenuItem disabled>
           打开新的无痕式窗口
@@ -42,11 +42,11 @@ export default function App() {
         <ContextMenuSeparator />
         <ContextMenuItem>
           关闭窗口
-          <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⇧+⌘+W</span>
+          <span className={"ml-auto pl-5 text-xs tracking-widest text-fg-subtle"}>⇧+⌘+W</span>
         </ContextMenuItem>
         <ContextMenuItem>
           关闭标签页
-          <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+W</span>
+          <span className={"ml-auto pl-5 text-xs tracking-widest text-fg-subtle"}>⌘+W</span>
         </ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>
@@ -144,7 +144,7 @@ export default function App() {
     <ContextMenu>
       <ContextMenuTrigger
         className={
-          "border-bd-normal flex h-32 select-none items-center rounded-md border border-dashed p-6"
+          "flex h-32 items-center rounded-md border border-dashed border-bd-normal p-6 select-none"
         }
       >
         右键点击显示菜单
@@ -212,7 +212,7 @@ export default function App() {
     <ContextMenu>
       <ContextMenuTrigger
         className={
-          "border-bd-normal flex h-32 select-none items-center rounded-md border border-dashed p-6"
+          "flex h-32 items-center rounded-md border border-dashed border-bd-normal p-6 select-none"
         }
       >
         右键点击显示菜单
@@ -265,7 +265,7 @@ export default function App() {
     <ContextMenu>
       <ContextMenuTrigger
         className={
-          "border-bd-normal flex h-32 select-none items-center rounded-md border border-dashed p-6"
+          "flex h-32 items-center rounded-md border border-dashed border-bd-normal p-6 select-none"
         }
       >
         右键点击显示菜单
@@ -273,11 +273,11 @@ export default function App() {
       <ContextMenuContent className={"text-sm"}>
         <ContextMenuItem>
           新标签页
-          <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+T</span>
+          <span className={"ml-auto pl-5 text-xs tracking-widest text-fg-subtle"}>⌘+T</span>
         </ContextMenuItem>
         <ContextMenuItem>
           打开新窗口
-          <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+N</span>
+          <span className={"ml-auto pl-5 text-xs tracking-widest text-fg-subtle"}>⌘+N</span>
         </ContextMenuItem>
         <ContextMenuItem disabled>
           打开新的无痕式窗口
@@ -286,15 +286,15 @@ export default function App() {
         <ContextMenuSeparator />
         <ContextMenuItem>
           关闭窗口
-          <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⇧+⌘+W</span>
+          <span className={"ml-auto pl-5 text-xs tracking-widest text-fg-subtle"}>⇧+⌘+W</span>
         </ContextMenuItem>
         <ContextMenuItem>
           关闭标签页
-          <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+W</span>
+          <span className={"ml-auto pl-5 text-xs tracking-widest text-fg-subtle"}>⌘+W</span>
         </ContextMenuItem>
         <ContextMenuItem>
           页面存储为...
-          <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+S</span>
+          <span className={"ml-auto pl-5 text-xs tracking-widest text-fg-subtle"}>⌘+S</span>
         </ContextMenuItem>
         <ContextMenuSeparator />
         <ContextMenu>
@@ -308,7 +308,7 @@ export default function App() {
         <ContextMenuSeparator />
         <ContextMenuItem>
           打印
-          <span className={"text-fg-subtle ml-auto pl-5 text-xs tracking-widest"}>⌘+P</span>
+          <span className={"ml-auto pl-5 text-xs tracking-widest text-fg-subtle"}>⌘+P</span>
         </ContextMenuItem>
         <ContextMenuSeparator />
         <ContextMenuCheckboxItem checked={bookmarksChecked} onChange={setBookmarksChecked}>
@@ -316,7 +316,7 @@ export default function App() {
             <SpriteIcon size={"1rem"} name={"check"} />
           </ContextMenuItemIndicator>
           显示书签栏
-          <div className="text-fg-subtle ml-auto pl-5 text-xs tracking-widest">⌘+B</div>
+          <div className="ml-auto pl-5 text-xs tracking-widest text-fg-subtle">⌘+B</div>
         </ContextMenuCheckboxItem>
         <ContextMenuCheckboxItem checked={urlsChecked} onChange={setUrlsChecked}>
           <ContextMenuItemIndicator>

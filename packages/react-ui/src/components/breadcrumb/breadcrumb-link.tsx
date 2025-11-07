@@ -14,7 +14,7 @@ export const BreadcrumbLink = (props: PolymorphicProps<"a", BreadcrumbLinkProps>
 
   if (current) {
     return (
-      <span className={tx("text-fg-muted inline-flex items-center", className)} aria-current="page" {...rest}>
+      <span className={tx("inline-flex items-center text-fg-muted", className)} aria-current="page" {...rest}>
         {children}
       </span>
     );
@@ -25,7 +25,7 @@ export const BreadcrumbLink = (props: PolymorphicProps<"a", BreadcrumbLinkProps>
       as={"a"}
       render={render}
       href={href}
-      className={tx("hover:text-link-hovered inline-flex cursor-pointer items-center", className)}
+      className={tx("inline-flex cursor-pointer items-center hover:text-link-hovered", className)}
       {...rest}
     >
       {children}

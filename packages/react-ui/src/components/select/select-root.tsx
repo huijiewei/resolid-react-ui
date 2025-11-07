@@ -213,7 +213,7 @@ export const SelectRoot = <T extends ListboxItem>(props: PrimitiveProps<"div", S
           multiple ? (
             <div className={"inline-flex gap-1"}>
               {selectedItems.map((item) => (
-                <div className={"bg-bg-subtlest rounded-md px-1.5"} key={providerValue.getItemValue(item)}>
+                <div className={"rounded-md bg-bg-subtlest px-1.5"} key={providerValue.getItemValue(item)}>
                   {renderValueFn(item)}
                 </div>
               ))}
@@ -232,7 +232,7 @@ export const SelectRoot = <T extends ListboxItem>(props: PrimitiveProps<"div", S
             <OptionEmptyContext value={providerValue.nodeItems.length == 0}>
               <PopperPositioner
                 style={animationProps.style}
-                className={tx("border-bd-normal bg-bg-normal rounded-md border shadow-sm", animationProps.className)}
+                className={tx("rounded-md border border-bd-normal bg-bg-normal shadow-sm", animationProps.className)}
                 tabIndex={-1}
               >
                 <FloatingFocusManager

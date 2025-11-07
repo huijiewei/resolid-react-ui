@@ -38,16 +38,16 @@ export default function App() {
   return (
     <Accordion
       defaultValue={["what"]}
-      className={"border-bd-normal bg-bg-normal w-80 rounded-md border"}
+      className={"w-80 rounded-md border border-bd-normal bg-bg-normal"}
     >
       {accordionItems.map((item) => (
         <AccordionItem
           key={item.value}
           value={item.value}
-          className={"not-last:border-b border-bd-normal group"}
+          className={"group border-bd-normal not-last:border-b"}
         >
           <AccordionHeader
-            className={"border-bd-subtle bg-bg-subtlest/30 -mb-px border-b font-medium"}
+            className={"-mb-px border-b border-bd-subtle bg-bg-subtlest/30 font-medium"}
           >
             <AccordionTrigger
               className={
@@ -56,7 +56,7 @@ export default function App() {
             >
               {item.title}
               <SpriteIcon
-                className={"duration-(--dv) transition-transform group-aria-expanded:rotate-180"}
+                className={"transition-transform duration-(--dv) group-aria-expanded:rotate-180"}
                 size={"1.5em"}
                 name={"angle-down"}
               />
@@ -147,16 +147,16 @@ export default function App() {
     <Accordion
       multiple={false}
       defaultValue={"what"}
-      className={"border-bd-normal bg-bg-normal w-80 rounded-md border"}
+      className={"w-80 rounded-md border border-bd-normal bg-bg-normal"}
     >
       {accordionItems.map((item) => (
         <AccordionItem
           key={item.value}
           value={item.value}
-          className={"not-last:border-b border-bd-normal group"}
+          className={"group border-bd-normal not-last:border-b"}
         >
           <AccordionHeader
-            className={"border-bd-subtle bg-bg-subtlest/30 -mb-px border-b font-medium"}
+            className={"-mb-px border-b border-bd-subtle bg-bg-subtlest/30 font-medium"}
           >
             <AccordionTrigger
               className={
@@ -165,7 +165,7 @@ export default function App() {
             >
               {item.title}
               <SpriteIcon
-                className={"duration-(--dv) transition-transform group-aria-expanded:rotate-180"}
+                className={"transition-transform duration-(--dv) group-aria-expanded:rotate-180"}
                 size={"1.5em"}
                 name={"angle-down"}
               />
@@ -217,16 +217,16 @@ export default function App() {
     <Accordion
       multiple={false}
       collapsible
-      className={"border-bd-normal bg-bg-normal w-80 rounded-md border"}
+      className={"w-80 rounded-md border border-bd-normal bg-bg-normal"}
     >
       {accordionItems.map((item) => (
         <AccordionItem
           key={item.value}
           value={item.value}
-          className={"not-last:border-b border-bd-normal group"}
+          className={"group border-bd-normal not-last:border-b"}
         >
           <AccordionHeader
-            className={"border-bd-subtle bg-bg-subtlest/30 -mb-px border-b font-medium"}
+            className={"-mb-px border-b border-bd-subtle bg-bg-subtlest/30 font-medium"}
           >
             <AccordionTrigger
               className={
@@ -235,7 +235,7 @@ export default function App() {
             >
               {item.title}
               <SpriteIcon
-                className={"duration-(--dv) transition-transform group-aria-expanded:rotate-180"}
+                className={"transition-transform duration-(--dv) group-aria-expanded:rotate-180"}
                 size={"1.5em"}
                 name={"angle-down"}
               />
@@ -287,16 +287,16 @@ export default function App() {
   ];
 
   return (
-    <Accordion className={"border-bd-normal bg-bg-normal mx-auto w-80 rounded-md border"}>
+    <Accordion className={"mx-auto w-80 rounded-md border border-bd-normal bg-bg-normal"}>
       {accordionItems.map((item) => (
         <AccordionItem
           key={item.value}
           value={item.value}
           disabled={item.disabled}
-          className={"not-last:border-b border-bd-normal group"}
+          className={"group border-bd-normal not-last:border-b"}
         >
           <AccordionHeader
-            className={"border-bd-subtle bg-bg-subtlest/30 -mb-px border-b font-medium"}
+            className={"-mb-px border-b border-bd-subtle bg-bg-subtlest/30 font-medium"}
           >
             <AccordionTrigger
               className={
@@ -305,7 +305,7 @@ export default function App() {
             >
               {item.title}
               <SpriteIcon
-                className={"duration-(--dv) transition-transform group-aria-expanded:rotate-180"}
+                className={"transition-transform duration-(--dv) group-aria-expanded:rotate-180"}
                 size={"1.5em"}
                 name={"angle-down"}
               />
@@ -356,20 +356,20 @@ export default function App() {
   return (
     <Accordion
       orientation={"horizontal"}
-      className={"border-bd-normal bg-bg-normal h-50 w-fit rounded-md border"}
+      className={"h-50 w-fit rounded-md border border-bd-normal bg-bg-normal"}
     >
       {accordionItems.map((item) => (
         <AccordionItem
           key={item.value}
           value={item.value}
-          className={"not-last:border-e border-bd-normal group flex flex-row"}
+          className={"group flex flex-row border-bd-normal not-last:border-e"}
         >
           <AccordionHeader
-            className={"border-bd-subtle bg-bg-subtlest/30 -me-px border-e font-medium"}
+            className={"-me-px border-e border-bd-subtle bg-bg-subtlest/30 font-medium"}
           >
             <AccordionTrigger
               className={
-                "group h-full items-start justify-between break-all p-1 text-left leading-none"
+                "group h-full items-start justify-between p-1 text-left leading-none break-all"
               }
             >
               <SpriteIcon size={"1.375em"} name={"info"} />

@@ -25,7 +25,7 @@ export const NativeSelect = (props: PrimitiveProps<"select", NativeSelectProps, 
       <select
         disabled={disabled}
         className={tx(
-          "bg-bg-normal appearance-none",
+          "appearance-none bg-bg-normal",
           inputStyles({ disabled, invalid, focusable: true }),
           inputHeightStyles[size],
           sizeStyle.select,

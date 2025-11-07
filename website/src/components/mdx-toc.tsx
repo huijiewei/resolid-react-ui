@@ -11,7 +11,7 @@ export const MdxToc = ({ toc }: { toc: { depth: number; text: string; slug: stri
             <a
               href={href}
               className={tx(
-                "border-s-bd-normal -ml-px block border-s py-1",
+                "-ml-px block border-s border-s-bd-normal py-1",
                 depth == 2 ? "ps-4" : depth == 3 ? "ps-8" : "ps-10",
                 href == "1" ? "border-link text-link" : "text-fg-muted hover:border-link-hovered hover:text-fg-subtle",
               )}

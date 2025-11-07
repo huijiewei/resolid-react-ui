@@ -22,7 +22,7 @@ export const NumberInputControl = (
       aria-label={`${stepper} value`}
       aria-controls={inputId}
       className={tx(
-        "bg-bg-subtle pointer-events-auto flex h-full select-none appearance-none items-center justify-center transition-colors",
+        "pointer-events-auto flex h-full appearance-none items-center justify-center bg-bg-subtle transition-colors select-none",
         disabled ? "opacity-60" : "hover:bg-bg-muted",
         stepper == "increment" && "rounded-tr-md",
         stepper == "decrement" && "rounded-br-md",

@@ -141,7 +141,7 @@ export const TagsInputRoot = (props: PrimitiveProps<"div", TagsInputRootProps>):
         onNavigate={setActiveIndex}
         loop={false}
         className={tx(
-          "bg-bg-normal flex-wrap gap-1",
+          "flex-wrap gap-1 bg-bg-normal",
           inputStyles({ disabled, invalid, focusable: true }),
           tagsInputSizeStyle.root,
           inputHeightStyles[size],

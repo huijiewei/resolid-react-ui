@@ -77,7 +77,7 @@ export const ComboboxPopup = (props: PrimitiveProps<"div", ComboboxPopupProps>):
         <PopperPositioner
           style={{ ...style, ...animationProps.style }}
           className={tx(
-            "border-bd-normal bg-bg-normal rounded-md border shadow-sm",
+            "rounded-md border border-bd-normal bg-bg-normal shadow-sm",
             animationProps.className,
             className,
           )}

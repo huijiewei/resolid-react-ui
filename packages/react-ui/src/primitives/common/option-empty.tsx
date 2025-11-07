@@ -8,7 +8,7 @@ export const OptionEmpty = ({ className, children, ...rest }: PrimitiveProps<"di
 
   if (isEmpty) {
     return (
-      <div className={tx("text-fg-subtlest py-2 text-center text-sm", className)} {...rest}>
+      <div className={tx("py-2 text-center text-sm text-fg-subtlest", className)} {...rest}>
         {children ?? "没有选项"}
       </div>
     );

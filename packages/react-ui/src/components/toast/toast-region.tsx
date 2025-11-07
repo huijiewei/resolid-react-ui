@@ -34,7 +34,7 @@ export const ToastRegion = ({ placement, spacing, visibleToasts, toasts, remove 
       role={"region"}
       aria-live={"polite"}
       style={{ "--sv": spacing } as CSSProperties}
-      className={tx("z-60 m-(--sv) gap-(--sv) pointer-events-none fixed flex flex-col", getToastListStyles(placement))}
+      className={tx("pointer-events-none fixed z-60 m-(--sv) flex flex-col gap-(--sv)", getToastListStyles(placement))}
     >
       {toasts.slice(0, visibleToasts).map((toast) => {
         const ToastComponent = toast.component;

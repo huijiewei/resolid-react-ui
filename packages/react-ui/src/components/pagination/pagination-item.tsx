@@ -62,9 +62,9 @@ export const PaginationItem = (
       aria-label={title}
       aria-current={current ? "page" : undefined}
       className={tx(
-        "inline-flex h-8 min-w-8 select-none appearance-none items-center justify-center rounded-md px-2",
+        "inline-flex h-8 min-w-8 appearance-none items-center justify-center rounded-md px-2 select-none",
         current ? ["text-fg-emphasized", currentStyle] : "bg-bg-subtle",
-        disabled ? "opacity-60" : !current && "hover:bg-bg-muted cursor-pointer",
+        disabled ? "opacity-60" : !current && "cursor-pointer hover:bg-bg-muted",
         className,
       )}
       onClick={handleClick}

@@ -72,7 +72,7 @@ export const ListboxItem = (props: PrimitiveProps<"div", ListboxItemProps, "tabI
       aria-selected={ariaAttr(selected)}
       aria-disabled={ariaAttr(disabled)}
       className={tx(
-        "flex w-full cursor-default items-center justify-between gap-1 rounded-md leading-none outline-none transition-colors",
+        "flex w-full cursor-default items-center justify-between gap-1 rounded-md leading-none transition-colors outline-none",
         disabled ? !selected && "text-fg-subtlest" : "active:bg-bg-subtle",
         listboxItemStyles[size],
         inputSizeStyles[size],

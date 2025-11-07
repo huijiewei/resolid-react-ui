@@ -92,7 +92,7 @@ export const Radio = (
           checked ? ["text-fg-emphasized", colorStyle.checked] : "bg-bg-normal",
           sizeStyle,
           checked &&
-            "before:h-5/9 before:w-5/9 before:relative before:inline-block before:rounded-full before:bg-current before:content-['']",
+            "before:relative before:inline-block before:h-5/9 before:w-5/9 before:rounded-full before:bg-current before:content-['']",
         )}
       />
       {children && <div className={tx("select-none", labelSizeStyle)}>{children}</div>}

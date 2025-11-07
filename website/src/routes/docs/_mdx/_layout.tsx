@@ -35,7 +35,7 @@ const mdxComponents = {
       <a
         href={href}
         className={tx(
-          "text-link hover:text-link-hovered active:text-link-pressed inline-flex items-center no-underline hover:underline",
+          "inline-flex items-center text-link no-underline hover:text-link-hovered hover:underline active:text-link-pressed",
           className,
         )}
         {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
@@ -64,7 +64,7 @@ const mdxComponents = {
     return (
       <kbd
         className={tx(
-          "border-bd-normal bg-bg-subtlest border-b-bg-muted inline-block rounded-md border font-mono text-xs font-bold shadow-sm",
+          "inline-block rounded-md border border-bd-normal border-b-bg-muted bg-bg-subtlest font-mono text-xs font-bold shadow-sm",
           className,
         )}
         {...rest}
@@ -76,7 +76,7 @@ const mdxComponents = {
 
     return (
       <div className={"is-demo group"}>
-        <div className={"not-prose scrollbar scrollbar-thin border-bd-normal overflow-x-auto rounded-t-md border p-3"}>
+        <div className={"not-prose scrollbar scrollbar-thin overflow-x-auto rounded-t-md border border-bd-normal p-3"}>
           {componentProps && settingProps ? (
             <MdxCodeDemo componentProps={componentProps} settingProps={settingProps}>
               {children[1] as unknown as (props: Dict<string | boolean | number | undefined>) => ReactNode}
@@ -132,7 +132,7 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
     <>
       <article
         className={
-          "prose dark:prose-invert w-full max-w-none px-4 py-6 md:px-6 lg:max-w-[calc(100%-var(--spacing)*48)]"
+          "prose w-full max-w-none px-4 py-6 md:px-6 lg:max-w-[calc(100%-var(--spacing)*48)] dark:prose-invert"
         }
       >
         <div className={"flex items-start justify-between"}>

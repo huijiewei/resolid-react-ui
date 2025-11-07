@@ -148,6 +148,7 @@ export const ListboxVirtualizer = ({
 const useVirtual = (options: Parameters<typeof useVirtualizer>[0]) => {
   "use no memo";
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const { getVirtualItems, getTotalSize, scrollToIndex } = useVirtualizer(options);
 
   return { virtualItems: getVirtualItems(), totalSize: getTotalSize(), scrollToIndex };

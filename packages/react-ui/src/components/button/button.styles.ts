@@ -42,17 +42,17 @@ type ButtonVariants = {
 export const buttonStyles: TVReturnType<ButtonVariants, undefined, string[], ButtonVariants, undefined> = tv({
   base: [
     "inline-flex items-center justify-center border",
-    "select-none appearance-none whitespace-nowrap font-medium",
+    "appearance-none font-medium whitespace-nowrap select-none",
     "outline-2 outline-offset-2 outline-transparent transition-colors",
   ],
   variants: {
     variant: {
-      solid: "text-fg-emphasized border-transparent",
-      outline: "bg-bg-normal border-current",
+      solid: "border-transparent text-fg-emphasized",
+      outline: "border-current bg-bg-normal",
       subtle: "border-current",
       soft: "border-transparent",
       ghost: "border-transparent",
-      link: "underline-offset-3 border-transparent underline",
+      link: "border-transparent underline underline-offset-3",
     },
     color: {
       primary: "focus-visible:outline-bg-primary-emphasis/70",

@@ -141,8 +141,8 @@ export type AlertAndBadgeShareStyles = TvReturnType<
 export const alertAndBadgeShareStyles: AlertAndBadgeShareStyles = tv({
   variants: {
     variant: {
-      solid: "text-fg-emphasized border-transparent",
-      outline: "bg-bg-normal border-current",
+      solid: "border-transparent text-fg-emphasized",
+      outline: "border-current bg-bg-normal",
       subtle: "border-current",
       soft: "border-transparent",
     },

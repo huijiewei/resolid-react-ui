@@ -52,7 +52,7 @@ export const MenuContent = (props: PrimitiveProps<"div">): JSX.Element | null =>
           style={{ ...style, ...positionerStyles, ...animationProps.style }}
           onMouseEnter={handleMouseEnter}
           className={tx(
-            "border-bd-normal bg-bg-normal min-w-25 z-30 border p-1 shadow-sm",
+            "z-30 min-w-25 border border-bd-normal bg-bg-normal p-1 shadow-sm",
             animationProps.className,
             className,
           )}

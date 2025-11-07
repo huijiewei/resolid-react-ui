@@ -108,8 +108,8 @@ export const Button = (props: PolymorphicProps<"button", ButtonProps, "role">): 
         group && [
           "not-last:not-first:rounded-none focus-visible:z-1",
           group.orientation == "horizontal"
-            ? "not-only:first:rounded-e-none not-only:last:rounded-s-none not-first:-ms-px"
-            : "not-only:first:rounded-b-none not-only:last:rounded-t-none not-first:-mt-px",
+            ? "not-first:-ms-px not-only:first:rounded-e-none not-only:last:rounded-s-none"
+            : "not-first:-mt-px not-only:first:rounded-b-none not-only:last:rounded-t-none",
         ],
         className,
       )}

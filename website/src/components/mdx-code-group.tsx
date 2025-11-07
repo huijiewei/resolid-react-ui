@@ -31,9 +31,9 @@ export const MdxCodeGroup = ({
   }
 
   return (
-    <Tabs defaultValue={"pnpm"} className={"border-bd-normal w-auto rounded-md border"}>
-      <TabsList className={"border-bd-normal gap-1 border-b p-2"}>
-        <TabsIndicator className={"bg-bg-subtle -z-1 w-(--wv) h-(--hv) rounded-md"} />
+    <Tabs defaultValue={"pnpm"} className={"w-auto rounded-md border border-bd-normal"}>
+      <TabsList className={"gap-1 border-b border-bd-normal p-2"}>
+        <TabsIndicator className={"-z-1 h-(--hv) w-(--wv) rounded-md bg-bg-subtle"} />
         {tabs.map((tab) => {
           return (
             <TabsTab key={tab.name} value={tab.name} className={"inline-flex gap-2 rounded-md px-3"}>

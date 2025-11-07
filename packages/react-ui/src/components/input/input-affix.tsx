@@ -8,7 +8,7 @@ export const InputAffix = (props: PrimitiveProps<"div">): JSX.Element => {
   return (
     <div
       className={tx(
-        "text-fg-subtlest pointer-events-none absolute inset-y-0 flex items-center justify-center",
+        "pointer-events-none absolute inset-y-0 flex items-center justify-center text-fg-subtlest",
         className,
       )}
       {...rest}

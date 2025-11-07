@@ -37,7 +37,7 @@ export const PopoverContent = (props: PrimitiveProps<"div">): JSX.Element | null
           <PopperFloating
             className={tx(
               "relative border shadow-md",
-              hasBackgroundClass(className) ? "border-transparent" : "bg-bg-normal border-bd-normal",
+              hasBackgroundClass(className) ? "border-transparent" : "border-bd-normal bg-bg-normal",
               className,
             )}
             aria-labelledby={labelId}

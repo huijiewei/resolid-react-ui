@@ -116,7 +116,7 @@ export const Switch = (props: PrimitiveProps<"input", SwitchProps, "role" | "typ
       >
         <span
           className={tx(
-            "bg-bg-normal aspect-square h-full rounded-full transition-transform",
+            "aspect-square h-full rounded-full bg-bg-normal transition-transform",
             checkedState && sizeStyle.thumb,
           )}
         />

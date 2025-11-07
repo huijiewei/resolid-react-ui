@@ -4,7 +4,7 @@
   --color-fg-muted: var(--color-gray-600);
   --color-fg-subtle: var(--color-gray-500);
   --color-fg-subtlest: var(--color-gray-400);
-  --color-fg-placeholder:var(--color-gray-300);
+  --color-fg-placeholder: var(--color-gray-300);
 
   --color-fg-primary: var(--color-blue-500);
   --color-fg-primary-hovered: var(--color-blue-600);

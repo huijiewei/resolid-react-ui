@@ -19,7 +19,7 @@ export const ListboxGroupLabel = (props: PrimitiveProps<"div", ListboxGroupLabel
   return (
     <div
       className={tx(
-        "text-fg-subtle flex w-full items-center px-1 text-[0.9em] leading-none",
+        "flex w-full items-center px-1 text-[0.9em] leading-none text-fg-subtle",
         listboxGroupLabelStyles[size],
         className,
       )}

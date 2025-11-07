@@ -44,9 +44,9 @@ export const AvatarRoot = (props: PrimitiveProps<"div", AvatarRootProps>): JSX.E
     <div
       style={{ ...style, "--sv": sizeStyle, "--rv": radiusStyle } as CSSProperties}
       className={tx(
-        "w-(--sv) h-(--sv) relative inline-flex shrink-0 select-none items-center justify-center",
+        "relative inline-flex h-(--sv) w-(--sv) shrink-0 items-center justify-center select-none",
         radiusClass,
-        group && "border-bg-normal not-first:ms-(--pv) border-2",
+        group && "border-2 border-bg-normal not-first:ms-(--pv)",
         !hasBackgroundClass(className) && "bg-bg-subtlest",
         className,
       )}

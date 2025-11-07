@@ -61,7 +61,7 @@ export const MdxCodeDemo = (props: {
       <div className={"flex min-h-32 min-w-max items-center justify-center"}>{props.children(state)}</div>
       <Popover placement={"top-end"}>
         <PopoverTrigger
-          className={"absolute bottom-0 start-0"}
+          className={"absolute start-0 bottom-0"}
           render={(props) => <Button size={"xs"} variant={"soft"} color={"neutral"} {...props} />}
         >
           属性设置
@@ -124,7 +124,7 @@ export const MdxCodeDemo = (props: {
                           return (
                             <button
                               className={tx(
-                                "text-fg-emphasized inline-flex h-6 w-6 items-center justify-center rounded-md",
+                                "inline-flex h-6 w-6 items-center justify-center rounded-md text-fg-emphasized",
                                 color == "primary" && "bg-bg-primary-emphasis",
                                 color == "secondary" && "bg-bg-secondary-emphasis",
                                 color == "success" && "bg-bg-success-emphasis",

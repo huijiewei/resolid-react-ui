@@ -15,8 +15,8 @@ export const AvatarIndicator = (props: PrimitiveProps<"div", AvatarIndicatorProp
   return (
     <div
       className={tx(
-        "translate-x-1/10 absolute right-0 flex items-center justify-center",
-        position == "top" ? "-translate-y-1/10 top-0" : "translate-y-1/10 bottom-0",
+        "absolute right-0 flex translate-x-1/10 items-center justify-center",
+        position == "top" ? "top-0 -translate-y-1/10" : "bottom-0 translate-y-1/10",
         className,
       )}
       {...rest}

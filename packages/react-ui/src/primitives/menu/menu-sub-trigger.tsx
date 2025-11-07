@@ -27,7 +27,7 @@ export const MenuSubTrigger = (
       render={render}
       ref={refs}
       data-open={dataAttr(open)}
-      className={tx("open:not-active:bg-bg-subtlest justify-between pe-0.5", className)}
+      className={tx("justify-between pe-0.5 open:not-active:bg-bg-subtlest", className)}
       {...(getReferenceProps({
         ...rest,
         onMouseEnter: () => {

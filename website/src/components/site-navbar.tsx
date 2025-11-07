@@ -11,20 +11,20 @@ export const SiteNavbar = () => {
   const [opened, setOpened] = useState(false);
 
   return (
-    <nav className={"xl:max-w-288 mx-auto flex h-16 items-center justify-between gap-4 px-4"}>
+    <nav className={"mx-auto flex h-16 items-center justify-between gap-4 px-4 xl:max-w-288"}>
       <Link to={"/"} aria-label={"Resolid React UI"}>
         <ResolidUiLogo />
       </Link>
       <div
         className={tx(
-          "bg-bg-normal absolute inset-x-0 top-[calc(var(--spacing)*16+1px)] z-20 h-screen grow p-0",
+          "absolute inset-x-0 top-[calc(var(--spacing)*16+1px)] z-20 h-screen grow bg-bg-normal p-0",
           "md:relative md:top-0 md:block md:h-auto md:bg-inherit",
           opened ? "block" : "hidden",
         )}
       >
         <ul
           className={tx(
-            "mx-auto flex max-w-xs list-none flex-col justify-end p-4 text-center font-medium tracking-widest",
+            "max-w-xs mx-auto flex list-none flex-col justify-end p-4 text-center font-medium tracking-widest",
             "md:max-w-none md:flex-row md:p-0 md:tracking-normal",
           )}
         >
@@ -36,7 +36,7 @@ export const SiteNavbar = () => {
             return (
               <li className={"p-2.5 md:px-4"} key={menu.name}>
                 <HistoryNavLink
-                  className={({ isActive }) => tx("hover:text-link-hovered block", isActive && "text-link-pressed")}
+                  className={({ isActive }) => tx("block hover:text-link-hovered", isActive && "text-link-pressed")}
                   onClick={() => setOpened(false)}
                   to={menu.href}
                   end={menu.end}
@@ -53,7 +53,7 @@ export const SiteNavbar = () => {
           </li>
         </ul>
       </div>
-      <div className={"text-fg-muted inline-flex items-center gap-1"}>
+      <div className={"inline-flex items-center gap-1 text-fg-muted"}>
         <ColorModeToggle />
         <Tooltip placement={"bottom"}>
           <TooltipTrigger
@@ -98,7 +98,7 @@ export const SiteNavbar = () => {
             render={(props) => (
               <a
                 {...props}
-                className={"hover:text-fg-primary ms-3 hidden md:block"}
+                className={"ms-3 hidden hover:text-fg-primary md:block"}
                 aria-label={"Resolid Tech"}
                 href={"https://www.resolid.tech"}
                 target={"_blank"}

@@ -30,7 +30,7 @@ export const TooltipContent = (props: PrimitiveProps<"div">): JSX.Element | null
         ref={refs}
         style={{ ...style, ...positionerStyles, ...animationProps.style }}
         className={tx(
-          "z-90 text-fg-emphasized inline-block max-w-96 border px-2 py-1 text-sm shadow-sm",
+          "z-90 inline-block max-w-96 border px-2 py-1 text-sm text-fg-emphasized shadow-sm",
           animationProps.className,
           !interactive && "select-none",
           contentClassName,

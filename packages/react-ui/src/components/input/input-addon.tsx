@@ -14,7 +14,7 @@ export const InputAddon = (props: PrimitiveProps<"div">): JSX.Element => {
   return (
     <div
       className={tx(
-        "text-fg-muted border-bd-normal inline-flex items-center text-nowrap rounded-md border",
+        "inline-flex items-center rounded-md border border-bd-normal text-nowrap text-fg-muted",
         inputGroupStyles,
         inputSizeStyles[group.size],
         inputTextShareStyles[group.size],

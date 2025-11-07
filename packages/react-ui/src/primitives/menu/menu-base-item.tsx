@@ -39,7 +39,7 @@ export const MenuBaseItem = (props: PolymorphicProps<"div", MenuBaseItemProps, "
       data-active={dataAttr(active)}
       tabIndex={active ? 0 : -1}
       className={tx(
-        "flex w-full cursor-default select-none items-center rounded-md px-2 py-1.5 outline-none transition-colors",
+        "flex w-full cursor-default items-center rounded-md px-2 py-1.5 transition-colors outline-none select-none",
         disabled ? "text-fg-muted" : "active:bg-bg-subtle",
         className,
       )}

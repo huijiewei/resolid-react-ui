@@ -121,12 +121,12 @@ export const InputBase = (props: PrimitiveProps<"input", InputBaseProps, "childr
         } as CSSProperties
       }
     >
-      {prefix && <InputAffix className={"w-(--pw) start-0"}>{prefix}</InputAffix>}
+      {prefix && <InputAffix className={"start-0 w-(--pw)"}>{prefix}</InputAffix>}
       <input
         ref={refs}
         className={tx(
           "w-full resize-none appearance-none text-left align-middle outline-none",
-          "bg-bg-normal rounded-md transition-colors",
+          "rounded-md bg-bg-normal transition-colors",
           disabled && "bg-bg-subtlest/60",
           inputSizeStyles[size],
           inputHeightStyles[size],
@@ -144,7 +144,7 @@ export const InputBase = (props: PrimitiveProps<"input", InputBaseProps, "childr
         onChange={handleChange}
         {...rest}
       />
-      {suffix && <InputAffix className={"w-(--sw) end-0"}>{suffix}</InputAffix>}
+      {suffix && <InputAffix className={"end-0 w-(--sw)"}>{suffix}</InputAffix>}
     </div>
   );
 };
