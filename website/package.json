@@ -14,7 +14,7 @@
     "@mdx-js/react": "^3.1.1",
     "@react-router/node": "^7.9.5",
     "@resolid/react-ui": "workspace:^",
-    "@resolid/utils": "^1.0.0",
+    "@resolid/utils": "^1.1.0",
     "@tailwindcss/typography": "^0.5.19",
     "@vercel/analytics": "^1.5.0",
     "github-slugger": "^2.0.0",
@@ -45,7 +45,7 @@
     "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.1",
     "unist-util-visit": "^5.0.0",
-    "vite": "^7.2.1",
+    "vite": "^7.2.2",
     "vite-plugin-babel": "^1.3.2",
     "vite-plugin-inspect": "^11.3.3",
     "vite-tsconfig-paths": "^5.1.4"

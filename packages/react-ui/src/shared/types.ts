@@ -14,7 +14,7 @@ export type DisclosureProps = UseDisclosureOptions & {
 
 export type MultipleValueProps = {
   /**
-   * 是否多选
+   * 是否多个值
    * @default false
    */
   multiple?: boolean;
