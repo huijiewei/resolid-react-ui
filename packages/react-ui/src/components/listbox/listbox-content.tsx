@@ -1,3 +1,4 @@
+import { useLayoutEffect, useState } from "react";
 import type { JSX } from "react/jsx-runtime";
 import { useMergeRefs } from "../../hooks";
 import type { EmptyObject, PrimitiveProps } from "../../primitives";
@@ -14,19 +15,25 @@ export const ListboxContent = (props: PrimitiveProps<"div", EmptyObject, "role" 
   const { scrollToRef, scrollRef } = useListboxScroll();
   const { setFloating, getFloatingProps } = usePopperFloating();
 
+  const [hasScrollTo, setHasScrollTo] = useState<boolean>(false);
+
+  useLayoutEffect(() => {
+    setHasScrollTo(!!scrollToRef.current);
+  }, [scrollToRef, setHasScrollTo]);
+
   const refs = useMergeRefs(ref, setFloating, scrollRef);
 
   return (
     <div
       ref={refs}
-      tabIndex={scrollToRef.current ? -1 : undefined}
+      tabIndex={hasScrollTo ? -1 : undefined}
       className={tx(
         "scrollbar scrollbar-thin relative overflow-y-auto overscroll-contain outline-none",
         inputTextShareStyles[size],
         className,
       )}
       aria-multiselectable={ariaAttr(multiple)}
-      {...(scrollToRef.current ? rest : getFloatingProps(rest))}
+      {...(hasScrollTo ? rest : getFloatingProps(rest))}
     >
       {children}
     </div>

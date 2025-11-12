@@ -58,7 +58,7 @@ export const ListboxItem = (props: PrimitiveProps<"div", ListboxItemProps, "tabI
 
   const { handleClick, handleKeyUp, handleKeyDown } = getInteractiveHandlers({
     disabled: disabled || readOnly,
-    typing: typingRef.current,
+    typingRef,
     onClick: () => {
       handleSelect(item);
     },

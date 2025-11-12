@@ -9,9 +9,4 @@ export default [
   ...eslintReact,
   ...eslintBrowser,
   reactYouMightNotNeedAnEffect.configs.recommended,
-  {
-    rules: {
-      "react-hooks/refs": "off",
-    },
-  },
 ];

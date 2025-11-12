@@ -1,4 +1,4 @@
-import type { KeyboardEvent, MouseEvent } from "react";
+import type { KeyboardEvent, MouseEvent, RefObject } from "react";
 
 export const hasBackgroundClass = (className?: string): boolean => {
   if (!className) {
@@ -10,11 +10,11 @@ export const hasBackgroundClass = (className?: string): boolean => {
 
 export const getInteractiveHandlers = <E extends HTMLElement = HTMLDivElement>({
   disabled,
-  typing,
+  typingRef,
   onClick,
 }: {
   disabled: boolean;
-  typing: boolean;
+  typingRef: RefObject<boolean>;
   onClick: (e: MouseEvent<E>) => void;
 }): {
   handleClick: (e: MouseEvent<E>) => void;
@@ -41,7 +41,7 @@ export const getInteractiveHandlers = <E extends HTMLElement = HTMLDivElement>({
   };
 
   const handleKeyUp = (e: KeyboardEvent): void => {
-    if (e.target === e.currentTarget && !typing && e.key === " ") {
+    if (e.target === e.currentTarget && !typingRef.current && e.key === " ") {
       handleClick(e as unknown as MouseEvent<E>);
     }
   };

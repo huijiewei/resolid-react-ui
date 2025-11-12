@@ -1,6 +1,6 @@
 import { omit } from "@resolid/utils";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import { type PropsWithChildren, useMemo } from "react";
+import { type PropsWithChildren, useLayoutEffect, useMemo } from "react";
 import type { JSX } from "react/jsx-runtime";
 import { usePopperFloating } from "../../primitives/popper/popper-floating-context";
 import { useListboxCollection } from "./listbox-collection-context";
@@ -84,7 +84,7 @@ export const ListboxVirtualizer = ({
 
   const { flatItems, groupLabelIndices, groupIndices } = useMemo(() => {
     const flatItems: ListboxFlatItem[] = [];
-    const groupLabelIndices: number[] = [];
+    const groupLabelIndices = new Set<number>();
     const groupIndices: number[] = [];
 
     let itemIndex = 0;
@@ -94,7 +94,7 @@ export const ListboxVirtualizer = ({
       const children = getItemChildren<ListboxNodeItem>(item);
 
       if (Array.isArray(children)) {
-        groupLabelIndices.push(itemIndex);
+        groupLabelIndices.add(itemIndex);
         groupIndices.push(groupIndex);
 
         flatItems.push({ ...(omit(item, [childrenKey]) as ListboxNodeItem), __group: true });
@@ -115,11 +115,11 @@ export const ListboxVirtualizer = ({
     return { flatItems, groupLabelIndices, groupIndices };
   }, [childrenKey, nodeItems, getItemChildren]);
 
-  const { virtualItems, totalSize, scrollToIndex } = useVirtual({
+  const { virtualItems, totalSize, scrollToIndex } = useListboxVirtualizer({
     count: flatItems.length,
     getScrollElement: () => scrollRef.current,
     estimateSize: (index) => {
-      return groupLabelIndices.includes(index)
+      return groupLabelIndices.has(index)
         ? (groupLabelHeight ?? listboxGroupLabelHeights[size])
         : (itemHeight ?? listboxItemHeights[size]);
     },
@@ -132,11 +132,17 @@ export const ListboxVirtualizer = ({
     useAnimationFrameWithResizeObserver,
   });
 
-  scrollToRef.current = (index, options) => {
-    const groupCount = groupIndices.reduce((acc, num) => acc + (num <= index ? 1 : 0), 0);
+  useLayoutEffect(() => {
+    scrollToRef.current = (index, options) => {
+      const scrollIndex = index > 0 ? index + groupIndices.reduce((acc, num) => acc + (num <= index ? 1 : 0), 0) : 0;
 
-    scrollToIndex(index > 0 ? index + groupCount : 0, options);
-  };
+      scrollToIndex(scrollIndex, options);
+    };
+
+    return () => {
+      scrollToRef.current = null;
+    };
+  }, [groupIndices, scrollToIndex, scrollToRef]);
 
   return (
     <div className={"relative w-full outline-none"} style={{ height: `${totalSize}px` }} {...getFloatingProps()}>
@@ -145,7 +151,7 @@ export const ListboxVirtualizer = ({
   );
 };
 
-const useVirtual = (options: Parameters<typeof useVirtualizer>[0]) => {
+const useListboxVirtualizer = (options: Parameters<typeof useVirtualizer>[0]) => {
   "use no memo";
 
   // eslint-disable-next-line react-hooks/incompatible-library

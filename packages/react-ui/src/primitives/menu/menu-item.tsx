@@ -31,7 +31,7 @@ export const MenuItem = (props: PolymorphicProps<"div", MenuItemProps, "tabIndex
 
   const { handleClick, handleKeyUp, handleKeyDown } = getInteractiveHandlers({
     disabled,
-    typing: typingRef.current,
+    typingRef,
     onClick: (e) => {
       onClick?.(e);
       onSelect?.();
