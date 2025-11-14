@@ -1,7 +1,5 @@
 import type { UseDisclosureOptions } from "../hooks";
 
-export type Direction = "rtl" | "ltr";
-
 export type Orientation = "horizontal" | "vertical";
 
 export type DisclosureProps = UseDisclosureOptions & {
