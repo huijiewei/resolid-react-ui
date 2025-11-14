@@ -14,10 +14,11 @@ type ListboxItemProps = {
   size: InputSize;
   disabled: boolean;
   readOnly: boolean;
+  checkmark: boolean;
 };
 
 export const ListboxItem = (props: PrimitiveProps<"div", ListboxItemProps, "tabIndex" | "children">): JSX.Element => {
-  const { item, size, disabled: disabledProps, readOnly = false, ref, className, ...rest } = props;
+  const { item, size, disabled: disabledProps, readOnly = false, checkmark = true, ref, className, ...rest } = props;
 
   const {
     activeIndex,
@@ -88,7 +89,7 @@ export const ListboxItem = (props: PrimitiveProps<"div", ListboxItemProps, "tabI
       })}
     >
       {renderItem(item, { active, selected })}
-      {selected && <CheckIcon />}
+      {checkmark && selected && <CheckIcon />}
     </div>
   );
 };

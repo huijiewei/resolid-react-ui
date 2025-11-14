@@ -8,7 +8,11 @@ import { useListboxState } from "./listbox-state-context";
 import { useListboxVirtualizer } from "./listbox-virtualizer-context";
 import type { ListboxNodeItem } from "./use-listbox";
 
-export const ListboxList = (): JSX.Element[] => {
+export type ListboxListProps = {
+  checkmark?: boolean;
+};
+
+export const ListboxList = ({ checkmark = true }: ListboxListProps): JSX.Element[] => {
   const { size, disabled, readOnly } = useListboxState();
   const { nodeItems } = useListboxCollection();
   const { getItemValue, getItemLabel, getItemChildren } = useListboxFields();
@@ -38,6 +42,7 @@ export const ListboxList = (): JSX.Element[] => {
           size={size}
           disabled={disabled}
           readOnly={readOnly}
+          checkmark={checkmark}
           aria-setsize={setSize}
           aria-posinset={item.__index + 1}
           style={style}
@@ -55,13 +60,29 @@ export const ListboxList = (): JSX.Element[] => {
           <ListboxGroupLabel group={item} size={size} />
           {children.map((child) => {
             return (
-              <ListboxItem key={getItemValue(child)} size={size} disabled={disabled} readOnly={readOnly} item={child} />
+              <ListboxItem
+                key={getItemValue(child)}
+                size={size}
+                disabled={disabled}
+                readOnly={readOnly}
+                checkmark={checkmark}
+                item={child}
+              />
             );
           })}
         </div>
       );
     } else {
-      return <ListboxItem key={getItemValue(item)} size={size} disabled={disabled} readOnly={readOnly} item={item} />;
+      return (
+        <ListboxItem
+          key={getItemValue(item)}
+          size={size}
+          disabled={disabled}
+          readOnly={readOnly}
+          checkmark={checkmark}
+          item={item}
+        />
+      );
     }
   });
 };

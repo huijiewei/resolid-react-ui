@@ -52,6 +52,7 @@ import {
 <Select>
   <SelectFilter />
   <SelectContent>
+    <SelectEmpty />
     <SelectList />
   </SelectContent>
 </Select>
@@ -93,7 +94,7 @@ export default function App() {
       <p>你选择了水果: {value.join(", ")}</p>
       <Select className={"w-50"} value={value} onChange={setValue} collection={collection}>
         <SelectContent className={"p-1"}>
-          <SelectList></SelectList>
+          <SelectList />
         </SelectContent>
       </Select>
     </div>
@@ -119,7 +120,7 @@ export default function App() {
     <div className={"flex gap-3"}>
       <Select defaultValue={"blueberry"} className={"w-50"} collection={collection}>
         <SelectContent className={"p-1"}>
-          <SelectList></SelectList>
+          <SelectList />
         </SelectContent>
       </Select>
       <Select
@@ -129,7 +130,7 @@ export default function App() {
         collection={collection}
       >
         <SelectContent className={"p-1"}>
-          <SelectList></SelectList>
+          <SelectList />
         </SelectContent>
       </Select>
     </div>
@@ -154,7 +155,7 @@ export default function App() {
   return (
     <Select className={"min-w-50"} multiple collection={collection}>
       <SelectContent className={"p-1"}>
-        <SelectList></SelectList>
+        <SelectList />
       </SelectContent>
     </Select>
   );
