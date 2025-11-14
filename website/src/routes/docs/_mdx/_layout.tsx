@@ -1,7 +1,7 @@
 import { MDXProvider } from "@mdx-js/react";
 import { type Dict, type PrimitiveProps, tx } from "@resolid/react-ui";
-import { startsWith } from "@resolid/utils";
-import { Children, type ComponentProps, isValidElement, type ReactElement, type ReactNode } from "react";
+import { startsWith, trimStart } from "@resolid/utils";
+import { Children, type ComponentProps, isValidElement, type ReactElement, type ReactNode, useRef } from "react";
 import { Outlet } from "react-router";
 import { MdxBlockQuote } from "~/components/mdx-block-quote";
 import { MdxCode } from "~/components/mdx-code";
@@ -105,32 +105,18 @@ export const meta = mergeMeta(({ loaderData }: Route.MetaArgs) => {
 // noinspection JSUnusedGlobalSymbols
 export const loader = async ({ request }: Route.LoaderArgs) => {
   const { pathname } = new URL(request.url);
-  const basename = pathname.replace("/docs", "");
 
-  const githubRepo = "https://github.com/huijiewei/resolid-react-ui/blob/main";
-  const docPath = "src/routes/docs/_mdx";
-  const docFile = `${docPath}${basename == "" ? "/_index" : basename}.mdx`;
-
-  const hasSource =
-    basename.startsWith("/components/") && basename != "/components/icon" && basename != "/components/typography";
-  const componentName = basename.replace("/components/", "");
-
-  const data = await getMdxMeta(docFile);
-
-  return {
-    sourceLink: hasSource
-      ? `${githubRepo}/packages/react-ui/src/components/${componentName}/${componentName}.tsx`
-      : null,
-    documentLink: `${githubRepo}/website/${docFile}`,
-    ...data,
-  };
+  return await getMdxMeta(trimStart(pathname, "/"));
 };
 
 // noinspection JSUnusedGlobalSymbols
 export default function Layout({ loaderData }: Route.ComponentProps) {
+  const contentRef = useRef<HTMLDivElement>(null);
+
   return (
     <>
       <article
+        ref={contentRef}
         className={
           "prose w-full max-w-none px-4 py-6 md:px-6 lg:max-w-[calc(100%-var(--spacing)*48)] dark:prose-invert"
         }
@@ -154,7 +140,7 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
         </p>
       </article>
       <nav className={"hidden w-48 shrink-0 lg:block"}>
-        <MdxToc toc={loaderData.toc} />
+        <MdxToc contentRef={contentRef} toc={loaderData.toc} />
       </nav>
     </>
   );

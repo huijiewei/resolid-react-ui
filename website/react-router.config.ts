@@ -3,7 +3,7 @@ import { nodePreset } from "@resolid/react-router-hono/node-preset";
 import { vercelPreset } from "@resolid/react-router-hono/vercel-preset";
 import { env } from "node:process";
 
-const includeFiles = ["src/routes/docs/_mdx/**/*.mdx"];
+const includeFiles = [".resolid/content/*.json"];
 
 // noinspection JSUnusedGlobalSymbols
 export default {

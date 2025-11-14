@@ -5,6 +5,7 @@ import { ColorModeToggle } from "~/components/color-mode-toggle";
 import { HistoryNavLink } from "~/components/history-link";
 import { ResolidLogo } from "~/components/resolid-logo";
 import { ResolidUiLogo } from "~/components/resolid-ui-logo";
+import { SiteSearch } from "~/components/site-search";
 import { SpriteIcon } from "~/components/sprite-icon";
 
 export const SiteNavbar = () => {
@@ -12,9 +13,10 @@ export const SiteNavbar = () => {
 
   return (
     <nav className={"mx-auto flex h-16 items-center justify-between gap-4 px-4 xl:max-w-288"}>
-      <Link to={"/"} aria-label={"Resolid React UI"}>
+      <Link className={"md:w-39"} to={"/"} aria-label={"Resolid React UI"}>
         <ResolidUiLogo />
       </Link>
+      <SiteSearch />
       <div
         className={tx(
           "absolute inset-x-0 top-[calc(var(--spacing)*16+1px)] z-20 h-screen grow bg-bg-normal p-0",

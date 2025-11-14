@@ -1,42 +1,28 @@
-import GithubSlugger from "github-slugger";
-import { fromMarkdown } from "mdast-util-from-markdown";
-import { toString } from "mdast-util-to-string";
+import MiniSearch from "minisearch";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { cwd } from "node:process";
-import { visit } from "unist-util-visit";
-import { parse } from "yaml";
 
-const MATTER_RE = /^---(?:\r?\n|\r)(?:([\s\S]*?)(?:\r?\n|\r))?---(?:\r?\n|\r|$)/;
+export const getMdxMeta = async (pathname: string) => {
+  const filePath = join(cwd(), ".resolid/content/markdown.json");
 
-export const getMdxMeta = async (file: string) => {
-  const filePath = join(cwd(), file);
+  const markdownMeta = JSON.parse(await readFile(filePath, { encoding: "utf-8" }));
 
-  const doc = await readFile(filePath, { encoding: "utf-8" });
+  return markdownMeta[pathname] ?? null;
+};
 
-  const match = doc.match(MATTER_RE);
-  const matter = match == null ? null : match[1];
-  const meta: { title?: string; description?: string } = matter == null ? {} : (parse(matter) ?? {});
+export const getSearchData = async (q: string) => {
+  const filePath = join(cwd(), ".resolid/content/search.json");
 
-  const tree = fromMarkdown(match == null ? doc : doc.slice(match[0].length).trim());
-  const slugs = new GithubSlugger();
+  const searchData = JSON.parse(await readFile(filePath, { encoding: "utf-8" }));
 
-  const toc: { depth: number; text: string; slug: string }[] = [];
-
-  visit(tree, ["heading"], (node) => {
-    if (node.type == "heading") {
-      const text = toString(node);
-
-      toc.push({
-        depth: node.depth,
-        text: text,
-        slug: slugs.slug(text),
-      });
-    }
+  const miniSearch = new MiniSearch({
+    fields: ["title", "description", "content"],
+    storeFields: ["id", "title", "description"],
+    searchOptions: { fuzzy: 0.2, prefix: true },
   });
 
-  return {
-    meta,
-    toc,
-  };
+  miniSearch.addAll(searchData);
+
+  return miniSearch.search(q);
 };

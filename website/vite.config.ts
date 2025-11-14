@@ -4,7 +4,6 @@ import { reactRouterHonoServer } from "@resolid/react-router-hono/dev";
 import rehypeShiki from "@shikijs/rehype";
 import tailwindcss from "@tailwindcss/vite";
 import { extname, join } from "node:path";
-import { fileURLToPath } from "node:url";
 import rehypeSlug from "rehype-slug";
 import remarkDirective from "remark-directive";
 import remarkFrontmatter from "remark-frontmatter";
@@ -18,11 +17,10 @@ import remarkDetails from "./plugins/remark-details";
 import remarkDocgen from "./plugins/remark-docgen";
 import remarkGithubAlert from "./plugins/remark-github-alert";
 import remarkRemove from "./plugins/remark-remove";
+import viteContent from "./plugins/vite-content";
 
 export default defineConfig(({ command }) => {
   const isBuild = command == "build";
-
-  const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
   const config: UserConfig = {
     plugins: [
@@ -79,6 +77,7 @@ export default defineConfig(({ command }) => {
           return extname(path).substring(1) as "js" | "jsx";
         },
       }),
+      viteContent(),
       !isBuild && tsconfigPaths(),
       !isBuild && viteInspect(),
     ].filter(Boolean),
