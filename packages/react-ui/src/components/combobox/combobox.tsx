@@ -8,7 +8,9 @@ import { type ComboboxProps, useCombobox } from "./use-combobox";
 
 export type { ComboboxProps };
 
-export const Combobox = <T extends ListboxItem>(props: PropsWithChildren<ComboboxProps<T>>): JSX.Element => {
+export const Combobox = <T extends ListboxItem>(
+  props: PropsWithChildren<ComboboxProps<T>>,
+): JSX.Element => {
   const { children, ...rest } = props;
 
   const combobox = useCombobox<T>(rest);

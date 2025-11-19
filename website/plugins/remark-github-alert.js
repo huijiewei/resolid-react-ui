@@ -35,7 +35,8 @@ export default function () {
         return;
       }
 
-      const textNodeChildren = textNodes.length > 0 ? [{ type: "text", value: textNodes.join("\n") }] : [];
+      const textNodeChildren =
+        textNodes.length > 0 ? [{ type: "text", value: textNodes.join("\n") }] : [];
 
       const hasParagraphChildren = textNodeChildren.length > 0 || paragraphChildren.length > 0;
 

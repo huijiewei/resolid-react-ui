@@ -30,7 +30,9 @@ export const ComboboxProvider = <T extends ListboxItem>({
                 <PopperAnchorContext value={value.popperAnchorContext}>
                   <ComboboxStateContext value={value.stateContext}>
                     <OptionEmptyContext value={value.listboxProviderValue.nodeItems.length == 0}>
-                      <ListboxProvider value={value.listboxProviderValue}>{children}</ListboxProvider>
+                      <ListboxProvider value={value.listboxProviderValue}>
+                        {children}
+                      </ListboxProvider>
                     </OptionEmptyContext>
                   </ComboboxStateContext>
                 </PopperAnchorContext>

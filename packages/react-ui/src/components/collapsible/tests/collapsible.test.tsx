@@ -2,7 +2,12 @@ import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { afterEach, describe, expect, test } from "vitest";
 import { axe } from "vitest-axe";
-import { Collapsible, CollapsibleContent, type CollapsibleProps, CollapsibleTrigger } from "../collapsible";
+import {
+  Collapsible,
+  CollapsibleContent,
+  type CollapsibleProps,
+  CollapsibleTrigger,
+} from "../collapsible";
 
 const ComponentUnderTest = (props: CollapsibleProps) => (
   <Collapsible {...props}>

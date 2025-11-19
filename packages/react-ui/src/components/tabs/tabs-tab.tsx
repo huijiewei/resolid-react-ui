@@ -24,7 +24,17 @@ type TabsTabProps = {
 export const TabsTab = (
   props: PolymorphicProps<"button", TabsTabProps, "type" | "role" | "id" | "tabIndex">,
 ): JSX.Element => {
-  const { render, value, disabled = false, children, className, onClick, onFocus, ref, ...rest } = props;
+  const {
+    render,
+    value,
+    disabled = false,
+    children,
+    className,
+    onClick,
+    onFocus,
+    ref,
+    ...rest
+  } = props;
 
   const orientation = useOrientation();
   const { baseId, selectedValue, setSelectedValue } = useTabs();
@@ -82,7 +92,11 @@ export const TabsTab = (
       aria-controls={selected ? panelId : undefined}
       aria-selected={ariaAttr(selected)}
       data-active={dataAttr(selected)}
-      className={tx(orientation == "horizontal" ? "-mb-px" : "-me-px", disabled && "opacity-60", className)}
+      className={tx(
+        orientation == "horizontal" ? "-mb-px" : "-me-px",
+        disabled && "opacity-60",
+        className,
+      )}
       onClick={handleClick}
       onFocus={handleFocus}
       {...rest}

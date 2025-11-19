@@ -1,7 +1,12 @@
 import type { CSSProperties } from "react";
 import type { JSX } from "react/jsx-runtime";
 import { tx } from "../../utils";
-import { ToastComponentContext, type ToastConfig, type ToastId, type ToastPlacement } from "./toast-context";
+import {
+  ToastComponentContext,
+  type ToastConfig,
+  type ToastId,
+  type ToastPlacement,
+} from "./toast-context";
 
 export type ToastRegionBaseProps = {
   /**
@@ -28,13 +33,22 @@ export type ToastRegionProps = ToastRegionBaseProps & {
   remove: (id: ToastId) => void;
 };
 
-export const ToastRegion = ({ placement, spacing, visibleToasts, toasts, remove }: ToastRegionProps): JSX.Element => {
+export const ToastRegion = ({
+  placement,
+  spacing,
+  visibleToasts,
+  toasts,
+  remove,
+}: ToastRegionProps): JSX.Element => {
   return (
     <div
       role={"region"}
       aria-live={"polite"}
       style={{ "--sv": spacing } as CSSProperties}
-      className={tx("pointer-events-none fixed z-60 m-(--sv) flex flex-col gap-(--sv)", getToastListStyles(placement))}
+      className={tx(
+        "pointer-events-none fixed z-60 m-(--sv) flex flex-col gap-(--sv)",
+        getToastListStyles(placement),
+      )}
     >
       {toasts.slice(0, visibleToasts).map((toast) => {
         const ToastComponent = toast.component;

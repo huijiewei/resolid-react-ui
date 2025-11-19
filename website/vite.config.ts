@@ -132,7 +132,9 @@ export default defineConfig(({ command }) => {
     },
     esbuild: { legalComments: "none" },
     resolve: {
-      alias: [isBuild && { find: "~", replacement: join(__dirname, "./src") }].filter(Boolean) as AliasOptions,
+      alias: [isBuild && { find: "~", replacement: join(__dirname, "./src") }].filter(
+        Boolean,
+      ) as AliasOptions,
     },
   };
 

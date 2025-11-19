@@ -58,7 +58,9 @@ export const MdxCodeDemo = (props: {
 
   return (
     <div className={"relative"}>
-      <div className={"flex min-h-32 min-w-max items-center justify-center"}>{props.children(state)}</div>
+      <div className={"flex min-h-32 min-w-max items-center justify-center"}>
+        {props.children(state)}
+      </div>
       <Popover placement={"top-end"}>
         <PopoverTrigger
           className={"absolute start-0 bottom-0"}
@@ -138,7 +140,9 @@ export const MdxCodeDemo = (props: {
                                 setState((prev) => ({ ...prev, [prop.name]: color }));
                               }}
                             >
-                              {state[prop.name] == color && <SpriteIcon size={"1.25em"} name={"check"} />}
+                              {state[prop.name] == color && (
+                                <SpriteIcon size={"1.25em"} name={"check"} />
+                              )}
                             </button>
                           );
                         })}
@@ -162,7 +166,8 @@ export const MdxCodeDemo = (props: {
                         }}
                       >
                         {prop.typeValues?.map((item) => {
-                          const option = item != "true" && item != "false" ? item.trim().slice(1, -1) : item;
+                          const option =
+                            item != "true" && item != "false" ? item.trim().slice(1, -1) : item;
 
                           return (
                             <option key={option} value={option}>

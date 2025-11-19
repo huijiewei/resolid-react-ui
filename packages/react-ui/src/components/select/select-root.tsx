@@ -52,7 +52,9 @@ export type SelectRootProps<T extends ListboxItem> = DisclosureProps &
     closeOnSelect?: boolean;
   };
 
-export const SelectRoot = <T extends ListboxItem>(props: PrimitiveProps<"div", SelectRootProps<T>>): JSX.Element => {
+export const SelectRoot = <T extends ListboxItem>(
+  props: PrimitiveProps<"div", SelectRootProps<T>>,
+): JSX.Element => {
   const {
     open,
     defaultOpen,
@@ -85,7 +87,11 @@ export const SelectRoot = <T extends ListboxItem>(props: PrimitiveProps<"div", S
     ...rest
   } = props;
 
-  const [openState, { handleOpen, handleClose }] = useDisclosure({ open, defaultOpen, onOpenChange });
+  const [openState, { handleOpen, handleClose }] = useDisclosure({
+    open,
+    defaultOpen,
+    onOpenChange,
+  });
 
   const { refs, context, elements, floatingStyles } = useFloating<HTMLDivElement>({
     middleware: [
@@ -204,7 +210,9 @@ export const SelectRoot = <T extends ListboxItem>(props: PrimitiveProps<"div", S
           inputTextShareStyles[size],
           sizeStyle.select,
           sizeStyle.root,
-          disabled ? "opacity-60" : "active:border-bg-primary-emphasis active:outline-bg-primary-emphasis/70",
+          disabled
+            ? "opacity-60"
+            : "active:border-bg-primary-emphasis active:outline-bg-primary-emphasis/70",
           className,
         )}
         {...getReferenceProps(getNavigationProps(rest))}
@@ -213,7 +221,10 @@ export const SelectRoot = <T extends ListboxItem>(props: PrimitiveProps<"div", S
           multiple ? (
             <div className={"inline-flex gap-1"}>
               {selectedItems.map((item) => (
-                <div className={"rounded-md bg-bg-subtlest px-1.5"} key={providerValue.getItemValue(item)}>
+                <div
+                  className={"rounded-md bg-bg-subtlest px-1.5"}
+                  key={providerValue.getItemValue(item)}
+                >
                   {renderValueFn(item)}
                 </div>
               ))}
@@ -232,7 +243,10 @@ export const SelectRoot = <T extends ListboxItem>(props: PrimitiveProps<"div", S
             <OptionEmptyContext value={providerValue.nodeItems.length == 0}>
               <PopperPositioner
                 style={animationProps.style}
-                className={tx("rounded-md border border-bd-normal bg-bg-normal shadow-sm", animationProps.className)}
+                className={tx(
+                  "rounded-md border border-bd-normal bg-bg-normal shadow-sm",
+                  animationProps.className,
+                )}
                 tabIndex={-1}
               >
                 <FloatingFocusManager

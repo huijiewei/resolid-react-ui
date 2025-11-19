@@ -93,9 +93,13 @@ export default function ({ sourceRoot }) {
         const codeDemoAttrs = [];
 
         if (propsMeta) {
-          const { componentName, componentPropsVar } = getComponentPropsInfo(propsMeta.componentFile);
+          const { componentName, componentPropsVar } = getComponentPropsInfo(
+            propsMeta.componentFile,
+          );
 
-          code = code.replace("App()", "App(props)").replace(`<${componentName}`, `<${componentName} {...props}`);
+          code = code
+            .replace("App()", "App(props)")
+            .replace(`<${componentName}`, `<${componentName} {...props}`);
 
           codeDemoAttrs.push({
             type: "mdxJsxAttribute",
@@ -296,7 +300,10 @@ const tsParser = withCustomConfig("tsconfig.json", {
     }
 
     if (prop.declarations && prop.declarations.length > 0) {
-      return prop.declarations.find((declaration) => !declaration.fileName.includes("node_modules")) !== undefined;
+      return (
+        prop.declarations.find((declaration) => !declaration.fileName.includes("node_modules")) !==
+        undefined
+      );
     }
 
     return true;
@@ -327,7 +334,10 @@ const getComponentPropsData = (componentFile, sourceRoot, virtualDir) => {
 
   const componentPropsFile = join(virtualDir, `${componentName}.json`);
 
-  if (!existsSync(componentPropsFile) || statSync(componentPropsFile).mtimeMs < statSync(sourceFile).mtimeMs) {
+  if (
+    !existsSync(componentPropsFile) ||
+    statSync(componentPropsFile).mtimeMs < statSync(sourceFile).mtimeMs
+  ) {
     const componentDoc = tsParser.parse(sourceFile).find((c) => c.displayName === componentName);
 
     const props = componentDoc
@@ -368,10 +378,15 @@ const getComponentPropsData = (componentFile, sourceRoot, virtualDir) => {
             }
 
             if (type.type.startsWith("NonNullable<")) {
-              type.type = type.type.slice(12, -1).replace(" | null", "").replace(" | undefined", "");
+              type.type = type.type
+                .slice(12, -1)
+                .replace(" | null", "")
+                .replace(" | undefined", "");
             }
 
-            type.type = type.type.replace("React.", "").replace(/ReactElement<.*>/g, "ReactElement");
+            type.type = type.type
+              .replace("React.", "")
+              .replace(/ReactElement<.*>/g, "ReactElement");
 
             return {
               name: key,

@@ -22,7 +22,9 @@ export type ToastRootProps = AlertProps & {
   onDismiss?: () => void;
 };
 
-export const ToastRoot = (props: PrimitiveProps<"div", ToastRootProps, "role" | "id">): JSX.Element | null => {
+export const ToastRoot = (
+  props: PrimitiveProps<"div", ToastRootProps, "role" | "id">,
+): JSX.Element | null => {
   const {
     priority = "high",
     onDismiss,
@@ -39,7 +41,9 @@ export const ToastRoot = (props: PrimitiveProps<"div", ToastRootProps, "role" | 
   const [openState, setOpenState] = useState(true);
   const [transitionEnable, setTransitionEnable] = useState(!update);
 
-  const { isMounted, status, setElement } = useElementTransitionStatus(openState, { duration: 300 });
+  const { isMounted, status, setElement } = useElementTransitionStatus(openState, {
+    duration: 300,
+  });
 
   const handleDismiss = () => {
     setTransitionEnable(true);
@@ -80,7 +84,8 @@ export const ToastRoot = (props: PrimitiveProps<"div", ToastRootProps, "role" | 
     descriptionId,
   };
 
-  const translateStyle = placementTranslateStyles[placement?.split("-")[0] as keyof typeof placementTranslateStyles];
+  const translateStyle =
+    placementTranslateStyles[placement?.split("-")[0] as keyof typeof placementTranslateStyles];
 
   const animationProps = getPopperAnimationProps({
     status,
@@ -105,14 +110,19 @@ export const ToastRoot = (props: PrimitiveProps<"div", ToastRootProps, "role" | 
       {...rest}
     >
       <Alert
-        className={tx("pointer-events-auto relative w-auto max-w-128 min-w-80 pe-8 shadow-md", className)}
+        className={tx(
+          "pointer-events-auto relative w-auto max-w-128 min-w-80 pe-8 shadow-md",
+          className,
+        )}
         color={color}
         variant={variant}
         aria-labelledby={labelId}
         aria-describedby={descriptionId}
       >
         <PopperAriaContext value={ariaContext}>
-          <PopperDispatchContext value={{ handleClose: handleDismiss }}>{children}</PopperDispatchContext>
+          <PopperDispatchContext value={{ handleClose: handleDismiss }}>
+            {children}
+          </PopperDispatchContext>
         </PopperAriaContext>
       </Alert>
     </div>

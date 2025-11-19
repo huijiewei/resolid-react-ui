@@ -31,7 +31,15 @@ export type TabsRootProps = {
 };
 
 export const TabsRoot = (props: PrimitiveProps<"div", TabsRootProps, "id">): JSX.Element => {
-  const { children, className, value, defaultValue, onChange, orientation = "horizontal", ...rest } = props;
+  const {
+    children,
+    className,
+    value,
+    defaultValue,
+    onChange,
+    orientation = "horizontal",
+    ...rest
+  } = props;
 
   const [valueState, setValueState] = useControllableState({ value, defaultValue, onChange });
 
@@ -44,7 +52,10 @@ export const TabsRoot = (props: PrimitiveProps<"div", TabsRootProps, "id">): JSX
   };
 
   return (
-    <div className={tx("flex", orientation == "horizontal" ? "flex-col" : "flex-row", className)} {...rest}>
+    <div
+      className={tx("flex", orientation == "horizontal" ? "flex-col" : "flex-row", className)}
+      {...rest}
+    >
       <OrientationContext value={orientation}>
         <TabsContext value={context}>{children}</TabsContext>
       </OrientationContext>

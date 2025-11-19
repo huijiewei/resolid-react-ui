@@ -5,7 +5,10 @@ import { tx } from "../../utils";
 export const SelectChevron = ({ className }: { className: string }): JSX.Element => {
   return (
     <span
-      className={tx("pointer-events-none absolute top-0 right-0 bottom-0 flex items-center justify-center", className)}
+      className={tx(
+        "pointer-events-none absolute top-0 right-0 bottom-0 flex items-center justify-center",
+        className,
+      )}
     >
       <AngleDownIcon className={"text-fg-subtle"} />
     </span>

@@ -11,7 +11,9 @@ type ListboxGroupLabelProps = {
   size: InputSize;
 };
 
-export const ListboxGroupLabel = (props: PrimitiveProps<"div", ListboxGroupLabelProps, "children">): JSX.Element => {
+export const ListboxGroupLabel = (
+  props: PrimitiveProps<"div", ListboxGroupLabelProps, "children">,
+): JSX.Element => {
   const { group, size, className, ...rest } = props;
 
   const { renderGroupLabel } = useListboxGroup();

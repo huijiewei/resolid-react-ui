@@ -8,7 +8,9 @@ import { ariaAttr, tx } from "../../utils";
 import { useListboxScroll } from "./listbox-scroll-context";
 import { useListboxState } from "./listbox-state-context";
 
-export const ListboxContent = (props: PrimitiveProps<"div", EmptyObject, "role" | "tabIndex">): JSX.Element => {
+export const ListboxContent = (
+  props: PrimitiveProps<"div", EmptyObject, "role" | "tabIndex">,
+): JSX.Element => {
   const { children, className, ref, ...rest } = props;
 
   const { size, multiple } = useListboxState();

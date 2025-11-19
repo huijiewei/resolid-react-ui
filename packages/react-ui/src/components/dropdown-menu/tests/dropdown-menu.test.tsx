@@ -44,7 +44,11 @@ const ComponentUnderTest = (
         <DropdownMenuRadioGroup value="react" onChange={onValueChange}>
           <DropdownMenuLabel>JS Frameworks</DropdownMenuLabel>
           {["react", "solid", "vue", "svelte"].map((framework) => (
-            <DropdownMenuRadioItem key={framework} value={framework} disabled={framework === "svelte"}>
+            <DropdownMenuRadioItem
+              key={framework}
+              value={framework}
+              disabled={framework === "svelte"}
+            >
               <DropdownMenuItemIndicator>✅</DropdownMenuItemIndicator>
               {framework}
             </DropdownMenuRadioItem>

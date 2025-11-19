@@ -29,7 +29,13 @@ type SeparatorVariants = {
   };
 };
 
-export const separatorStyles: TvReturnType<SeparatorVariants, undefined, string, SeparatorVariants, undefined> = tv({
+export const separatorStyles: TvReturnType<
+  SeparatorVariants,
+  undefined,
+  string,
+  SeparatorVariants,
+  undefined
+> = tv({
   base: "m-0 border-0",
   variants: {
     color: {

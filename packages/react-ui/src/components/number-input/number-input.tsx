@@ -72,7 +72,9 @@ export type NumberInputProps = Omit<
   changeOnWheel?: boolean;
 };
 
-export const NumberInput = (props: PrimitiveProps<"input", NumberInputProps, "type" | "role">): JSX.Element => {
+export const NumberInput = (
+  props: PrimitiveProps<"input", NumberInputProps, "type" | "role">,
+): JSX.Element => {
   const {
     id,
     value,
@@ -109,7 +111,9 @@ export const NumberInput = (props: PrimitiveProps<"input", NumberInputProps, "ty
     onChange,
   });
 
-  const [inputValue, setInputValue] = useState(isNumber(valueState) ? valueState.toFixed(precisionValue) : "");
+  const [inputValue, setInputValue] = useState(
+    isNumber(valueState) ? valueState.toFixed(precisionValue) : "",
+  );
 
   const formattedValue = format(inputValue);
 
@@ -230,7 +234,9 @@ export const NumberInput = (props: PrimitiveProps<"input", NumberInputProps, "ty
       setInputValue("");
       update(undefined);
     } else {
-      const parsed = parse(event.target.value[0] == "." ? `0${event.target.value}` : event.target.value);
+      const parsed = parse(
+        event.target.value[0] == "." ? `0${event.target.value}` : event.target.value,
+      );
       const value = clamp(Number.parseFloat(parsed), [minValue, maxValue]);
 
       if (!Number.isNaN(value)) {

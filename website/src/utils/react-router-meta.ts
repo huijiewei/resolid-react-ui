@@ -3,7 +3,8 @@ import type { MetaDescriptor } from "react-router";
 
 type MetaArgs = {
   matches: Array<
-    { pathname: string; meta: MetaDescriptor[]; data: unknown; handle?: unknown; error?: unknown } | undefined
+    | { pathname: string; meta: MetaDescriptor[]; data: unknown; handle?: unknown; error?: unknown }
+    | undefined
   >;
 };
 

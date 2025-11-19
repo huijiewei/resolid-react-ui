@@ -92,7 +92,10 @@ const contentBuild = async ({ root, contentDir, watch }) => {
 
       const documentLink = new URL(resolvePath, githubRepo + "website/src/routes/").toString();
 
-      const urlPath = trimEnd(resolvePath.replace("/_mdx", "").replace("_index", "").replace(".mdx", ""), "/");
+      const urlPath = trimEnd(
+        resolvePath.replace("/_mdx", "").replace("_index", "").replace(".mdx", ""),
+        "/",
+      );
 
       const componentName = resolvePath.replace("docs/_mdx/", "").startsWith("components/")
         ? resolvePath.replace("docs/_mdx/components/", "").replace(".mdx", "")
@@ -150,8 +153,12 @@ const contentBuild = async ({ root, contentDir, watch }) => {
       });
     }
 
-    await writeFile(join(contentDir, "markdown.json"), JSON.stringify(markdownMeta, null, 2), { encoding: "utf8" });
-    await writeFile(join(contentDir, "search.json"), JSON.stringify(markdownSearch, null, 2), { encoding: "utf8" });
+    await writeFile(join(contentDir, "markdown.json"), JSON.stringify(markdownMeta, null, 2), {
+      encoding: "utf8",
+    });
+    await writeFile(join(contentDir, "search.json"), JSON.stringify(markdownSearch, null, 2), {
+      encoding: "utf8",
+    });
   };
 
   if (watch) {

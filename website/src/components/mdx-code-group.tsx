@@ -36,7 +36,11 @@ export const MdxCodeGroup = ({
         <TabsIndicator className={"-z-1 h-(--hv) w-(--wv) rounded-md bg-bg-subtle"} />
         {tabs.map((tab) => {
           return (
-            <TabsTab key={tab.name} value={tab.name} className={"inline-flex gap-2 rounded-md px-3"}>
+            <TabsTab
+              key={tab.name}
+              value={tab.name}
+              className={"inline-flex gap-2 rounded-md px-3"}
+            >
               <PackageIcon size={"1em"} name={tab.name} />
               {tab.name}
             </TabsTab>

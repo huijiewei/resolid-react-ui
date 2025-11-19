@@ -3,7 +3,10 @@ import { useState } from "react";
 import type { JSX } from "react/jsx-runtime";
 import { useControllableState } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
-import { CompositeContext, type CompositeContextValue } from "../../primitives/composite/composite-context";
+import {
+  CompositeContext,
+  type CompositeContextValue,
+} from "../../primitives/composite/composite-context";
 import { inputTextShareStyles } from "../../shared/styles";
 import type { FormInputFieldProps } from "../../shared/types";
 import { ariaAttr, tx } from "../../utils";
@@ -79,7 +82,9 @@ export const TagsInputRoot = (props: PrimitiveProps<"div", TagsInputRootProps>):
         return true;
       }
 
-      const appends = value.filter((v) => !valueState.includes(v)).slice(0, max - valueState.length);
+      const appends = value
+        .filter((v) => !valueState.includes(v))
+        .slice(0, max - valueState.length);
 
       if (appends.length == 0) {
         return true;
@@ -172,7 +177,14 @@ export const TagsInputRoot = (props: PrimitiveProps<"div", TagsInputRootProps>):
           </CompositeContext>
         </TagsInputRootContext>
       </Composite>
-      {name && <VisuallyHiddenInput name={name} value={valueState} disabled={disabled} required={required} />}
+      {name && (
+        <VisuallyHiddenInput
+          name={name}
+          value={valueState}
+          disabled={disabled}
+          required={required}
+        />
+      )}
     </>
   );
 };

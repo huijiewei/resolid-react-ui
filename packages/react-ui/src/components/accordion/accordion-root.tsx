@@ -3,11 +3,18 @@ import { type KeyboardEvent, useState } from "react";
 import type { JSX } from "react/jsx-runtime";
 import { useControllableState } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
-import { CompositeContext, type CompositeContextValue } from "../../primitives/composite/composite-context";
+import {
+  CompositeContext,
+  type CompositeContextValue,
+} from "../../primitives/composite/composite-context";
 import { OrientationContext } from "../../primitives/composite/orientation-context";
 import type { MultipleValueProps, Orientation } from "../../shared/types";
 import { tx } from "../../utils";
-import { type AccordionBaseProps, AccordionContext, type AccordionContextValue } from "./accordion-context";
+import {
+  type AccordionBaseProps,
+  AccordionContext,
+  type AccordionContextValue,
+} from "./accordion-context";
 
 export type AccordionRootProps = MultipleValueProps & {
   /**
@@ -39,7 +46,9 @@ export const AccordionRoot = (props: PrimitiveProps<"div", AccordionRootProps>):
     ...rest
   } = props;
 
-  const [valueState, setValueState] = useControllableState<(string | number)[] | string | number | null>({
+  const [valueState, setValueState] = useControllableState<
+    (string | number)[] | string | number | null
+  >({
     value,
     defaultValue,
     onChange: onChange as (value: (string | number)[] | string | number | null) => void,

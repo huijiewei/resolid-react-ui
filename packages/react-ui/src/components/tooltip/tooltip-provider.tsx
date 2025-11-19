@@ -14,7 +14,10 @@ export type TooltipProviderProps = {
   value: ReturnType<typeof useTooltip>;
 };
 
-export const TooltipProvider = ({ value, children }: PropsWithChildren<TooltipProviderProps>): JSX.Element => {
+export const TooltipProvider = ({
+  value,
+  children,
+}: PropsWithChildren<TooltipProviderProps>): JSX.Element => {
   return (
     <PopperArrowContext value={value.arrowContext}>
       <PopperStateContext value={value.stateContext}>
@@ -23,7 +26,9 @@ export const TooltipProvider = ({ value, children }: PropsWithChildren<TooltipPr
             <TooltipRootContext value={value.tooltipRootContext}>
               <PopperTransitionContext value={value.transitionContext}>
                 <PopperPositionerContext value={value.positionerContext}>
-                  <PopperFloatingContext value={value.floatingContext}>{children}</PopperFloatingContext>
+                  <PopperFloatingContext value={value.floatingContext}>
+                    {children}
+                  </PopperFloatingContext>
                 </PopperPositionerContext>
               </PopperTransitionContext>
             </TooltipRootContext>

@@ -10,7 +10,9 @@ export type IndicatorProps = {
   orientation: Orientation;
 };
 
-export const Indicator = (props: PrimitiveProps<"span", IndicatorProps, "role" | "children">): JSX.Element => {
+export const Indicator = (
+  props: PrimitiveProps<"span", IndicatorProps, "role" | "children">,
+): JSX.Element => {
   const { orientation, className, style, ...rest } = props;
 
   const [indicatorStyle, setIndicatorStyle] = useState<CSSProperties>();

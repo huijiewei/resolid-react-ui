@@ -1,4 +1,11 @@
-import { Button, Tooltip, TooltipArrow, TooltipContent, TooltipTrigger, tx } from "@resolid/react-ui";
+import {
+  Button,
+  Tooltip,
+  TooltipArrow,
+  TooltipContent,
+  TooltipTrigger,
+  tx,
+} from "@resolid/react-ui";
 import { useState } from "react";
 import { Link } from "react-router";
 import { ColorModeToggle } from "~/components/color-mode-toggle";
@@ -38,7 +45,9 @@ export const SiteNavbar = () => {
             return (
               <li className={"p-2.5 md:px-4"} key={menu.name}>
                 <HistoryNavLink
-                  className={({ isActive }) => tx("block hover:text-link-hovered", isActive && "text-link-pressed")}
+                  className={({ isActive }) =>
+                    tx("block hover:text-link-hovered", isActive && "text-link-pressed")
+                  }
                   onClick={() => setOpened(false)}
                   to={menu.href}
                   end={menu.end}
@@ -93,7 +102,11 @@ export const SiteNavbar = () => {
           className={"md:hidden"}
           onClick={() => setOpened((prev) => !prev)}
         >
-          {opened ? <SpriteIcon size={"1.5em"} name={"close"} /> : <SpriteIcon size={"1.5em"} name={"menu"} />}
+          {opened ? (
+            <SpriteIcon size={"1.5em"} name={"close"} />
+          ) : (
+            <SpriteIcon size={"1.5em"} name={"menu"} />
+          )}
         </Button>
         <Tooltip placement={"bottom"}>
           <TooltipTrigger

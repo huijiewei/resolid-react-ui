@@ -52,7 +52,9 @@ describe("NumberInput", () => {
     render(
       <NumberInput
         parse={(value) => value.replace(/\$\s?|(,*)/g, "")}
-        format={(value) => (!Number.isNaN(value) ? `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "$ ")}
+        format={(value) =>
+          !Number.isNaN(value) ? `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "$ "
+        }
         defaultValue={1999}
       />,
     );

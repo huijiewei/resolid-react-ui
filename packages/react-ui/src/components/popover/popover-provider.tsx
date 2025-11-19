@@ -16,7 +16,10 @@ export type PopoverProviderProps = {
   value: ReturnType<typeof usePopover>;
 };
 
-export const PopoverProvider = ({ value, children }: PropsWithChildren<PopoverProviderProps>): JSX.Element => {
+export const PopoverProvider = ({
+  value,
+  children,
+}: PropsWithChildren<PopoverProviderProps>): JSX.Element => {
   return (
     <PopperAriaContext value={value.ariaContext}>
       <PopperArrowContext value={value.arrowContext}>
@@ -27,7 +30,9 @@ export const PopoverProvider = ({ value, children }: PropsWithChildren<PopoverPr
                 <PopperDispatchContext value={value.dispatchContext}>
                   <PopperTransitionContext value={value.transitionContext}>
                     <PopperPositionerContext value={value.positionerContext}>
-                      <PopperFloatingContext value={value.floatingContext}>{children}</PopperFloatingContext>
+                      <PopperFloatingContext value={value.floatingContext}>
+                        {children}
+                      </PopperFloatingContext>
                     </PopperPositionerContext>
                   </PopperTransitionContext>
                 </PopperDispatchContext>

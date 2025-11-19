@@ -45,7 +45,9 @@ export type SwitchProps = CheckedValueProps &
     spacing?: string | number;
   };
 
-export const Switch = (props: PrimitiveProps<"input", SwitchProps, "role" | "type">): JSX.Element => {
+export const Switch = (
+  props: PrimitiveProps<"input", SwitchProps, "role" | "type">,
+): JSX.Element => {
   const {
     color = "primary",
     size = "md",

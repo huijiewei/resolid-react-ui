@@ -12,7 +12,9 @@ export type DialogProps = DialogRootProps;
 
 export const Dialog: typeof DialogRoot = DialogRoot;
 
-export const DialogTrigger = (props: Omit<ComponentProps<typeof PopperTrigger>, "active">): JSX.Element => {
+export const DialogTrigger = (
+  props: Omit<ComponentProps<typeof PopperTrigger>, "active">,
+): JSX.Element => {
   return <PopperTrigger active={false} {...props} />;
 };
 

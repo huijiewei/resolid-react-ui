@@ -34,7 +34,13 @@ export const TagsInputInput = (
   props: PrimitiveProps<
     "input",
     TagsInputInputProps,
-    "type" | "tabIndex" | "placeholder" | "maxLength" | "autoComplete" | "autoCorrect" | "autoCapitalize"
+    | "type"
+    | "tabIndex"
+    | "placeholder"
+    | "maxLength"
+    | "autoComplete"
+    | "autoCorrect"
+    | "autoCapitalize"
   >,
 ): JSX.Element => {
   const {
@@ -128,7 +134,10 @@ export const TagsInputInput = (
       return;
     }
 
-    if (e.nativeEvent.data == delimiter || (delimiter instanceof RegExp && delimiter.test(e.nativeEvent.data))) {
+    if (
+      e.nativeEvent.data == delimiter ||
+      (delimiter instanceof RegExp && delimiter.test(e.nativeEvent.data))
+    ) {
       const value = e.currentTarget.value.replaceAll(delimiter, "").trim();
 
       if (value == "") {

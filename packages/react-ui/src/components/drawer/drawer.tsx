@@ -12,7 +12,9 @@ export type DrawerProps = DrawerRootProps;
 
 export const Drawer: typeof DrawerRoot = DrawerRoot;
 
-export const DrawerTrigger = (props: Omit<ComponentProps<typeof PopperTrigger>, "active">): JSX.Element => {
+export const DrawerTrigger = (
+  props: Omit<ComponentProps<typeof PopperTrigger>, "active">,
+): JSX.Element => {
   return <PopperTrigger active={false} {...props} />;
 };
 

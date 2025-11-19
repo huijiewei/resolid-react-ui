@@ -15,8 +15,17 @@ import { MenuItemContext, type MenuItemContextValue } from "./menu-item-context"
 export const MenuContent = (props: PrimitiveProps<"div">): JSX.Element | null => {
   const { children, className, style, ref, ...rest } = props;
 
-  const { context, menuEvents, closeOnSelect, activeIndex, getItemProps, nested, elementsRef, labelsRef, typingRef } =
-    useMenu();
+  const {
+    context,
+    menuEvents,
+    closeOnSelect,
+    activeIndex,
+    getItemProps,
+    nested,
+    elementsRef,
+    labelsRef,
+    typingRef,
+  } = useMenu();
 
   const { setHoverEnabled } = useMenuHover();
   const { status, mounted, duration } = usePopperTransition();

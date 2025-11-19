@@ -7,7 +7,9 @@ import { usePopperTrigger } from "./popper-trigger-context";
 
 type PopperTriggerProps = { active?: boolean };
 
-export const PopperTrigger = (props: PolymorphicProps<"button", PopperTriggerProps, "type">): JSX.Element => {
+export const PopperTrigger = (
+  props: PolymorphicProps<"button", PopperTriggerProps, "type">,
+): JSX.Element => {
   const { render, active, disabled, tabIndex, children, ref, ...rest } = props;
 
   const { open } = usePopperState();

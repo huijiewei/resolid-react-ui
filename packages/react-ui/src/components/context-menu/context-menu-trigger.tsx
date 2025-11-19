@@ -14,7 +14,9 @@ type ContextMenuTriggerProps = {
   disabled?: boolean;
 };
 
-export const ContextMenuTrigger = (props: PolymorphicProps<"div", ContextMenuTriggerProps>): JSX.Element => {
+export const ContextMenuTrigger = (
+  props: PolymorphicProps<"div", ContextMenuTriggerProps>,
+): JSX.Element => {
   const {
     render,
     disabled = false,
@@ -84,7 +86,10 @@ export const ContextMenuTrigger = (props: PolymorphicProps<"div", ContextMenuTri
 
     if (!disabled && e.pointerType != "mouse") {
       clearLongPress();
-      longPressTimerRef.current = window.setTimeout(() => openMenu({ clientX: e.clientX, clientY: e.clientY }), 700);
+      longPressTimerRef.current = window.setTimeout(
+        () => openMenu({ clientX: e.clientX, clientY: e.clientY }),
+        700,
+      );
     }
   };
 

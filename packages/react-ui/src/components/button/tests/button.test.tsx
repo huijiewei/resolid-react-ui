@@ -48,7 +48,9 @@ describe("Button", () => {
   });
 
   test("should have attribute 'role=button' when it's an 'a' tag without 'href'", () => {
-    const { getByTestId } = render(<Button data-testid="button" render={(props) => <a {...props}>Button</a>} />);
+    const { getByTestId } = render(
+      <Button data-testid="button" render={(props) => <a {...props}>Button</a>} />,
+    );
 
     const button = getByTestId("button");
 

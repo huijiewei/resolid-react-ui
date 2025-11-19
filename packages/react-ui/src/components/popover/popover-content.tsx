@@ -27,7 +27,10 @@ export const PopoverContent = (props: PrimitiveProps<"div">): JSX.Element | null
 
   return (
     <Portal>
-      <PopperPositioner style={{ ...style, ...animationProps.style }} className={animationProps.className}>
+      <PopperPositioner
+        style={{ ...style, ...animationProps.style }}
+        className={animationProps.className}
+      >
         <FloatingFocusManager
           disabled={!context.open}
           context={context}
@@ -37,7 +40,9 @@ export const PopoverContent = (props: PrimitiveProps<"div">): JSX.Element | null
           <PopperFloating
             className={tx(
               "relative border shadow-md",
-              hasBackgroundClass(className) ? "border-transparent" : "border-bd-normal bg-bg-normal",
+              hasBackgroundClass(className)
+                ? "border-transparent"
+                : "border-bd-normal bg-bg-normal",
               className,
             )}
             aria-labelledby={labelId}

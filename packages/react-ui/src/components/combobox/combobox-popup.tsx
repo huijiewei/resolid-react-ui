@@ -30,7 +30,9 @@ export type ComboboxPopupProps = {
   placement?: Placement;
 };
 
-export const ComboboxPopup = (props: PrimitiveProps<"div", ComboboxPopupProps>): JSX.Element | null => {
+export const ComboboxPopup = (
+  props: PrimitiveProps<"div", ComboboxPopupProps>,
+): JSX.Element | null => {
   const { children, style, className, placement = "bottom", ref, ...rest } = props;
 
   const { rootContext } = useComboboxRoot();

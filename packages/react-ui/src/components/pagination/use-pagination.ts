@@ -63,7 +63,16 @@ export const usePagination = (
   currentPage: number;
   setCurrentPage: (value: SetStateAction<number>) => void;
 } => {
-  const { page, defaultPage, onChange, total, pageSize = 20, siblings = 2, boundaries = 2, disabled = false } = options;
+  const {
+    page,
+    defaultPage,
+    onChange,
+    total,
+    pageSize = 20,
+    siblings = 2,
+    boundaries = 2,
+    disabled = false,
+  } = options;
 
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
 

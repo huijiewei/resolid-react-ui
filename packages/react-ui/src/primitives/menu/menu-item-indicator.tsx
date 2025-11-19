@@ -9,7 +9,10 @@ export const MenuItemIndicator = (props: PrimitiveProps<"span">): JSX.Element | 
   const context = useMenuItemIndicator();
 
   return context.checked ? (
-    <span className={tx("absolute left-0 inline-flex w-6 items-center justify-center", className)} {...rest}>
+    <span
+      className={tx("absolute left-0 inline-flex w-6 items-center justify-center", className)}
+      {...rest}
+    >
       {children}
     </span>
   ) : null;

@@ -51,7 +51,9 @@ export const Layout = ({ children }: PropsWithChildren) => {
         </ResolidProvider>
         <ScrollRestoration />
         <Scripts />
-        {!!import.meta.env.VITE_VERCEL_URL && <VercelAnalytics endpoint={"/growth"} scriptSrc={"/growth/script.js"} />}
+        {!!import.meta.env.VITE_VERCEL_URL && (
+          <VercelAnalytics endpoint={"/growth"} scriptSrc={"/growth/script.js"} />
+        )}
       </body>
     </html>
   );

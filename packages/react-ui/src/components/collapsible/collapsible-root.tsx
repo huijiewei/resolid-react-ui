@@ -4,8 +4,14 @@ import { useDisclosure } from "../../hooks";
 import type { PrimitiveProps } from "../../primitives";
 import type { DisclosureProps } from "../../shared/types";
 import { tx } from "../../utils";
-import { CollapsibleContentContext, type CollapsibleContentContextValue } from "./collapsible-content-context";
-import { CollapsibleTriggerContext, type CollapsibleTriggerContextValue } from "./collapsible-trigger-context";
+import {
+  CollapsibleContentContext,
+  type CollapsibleContentContextValue,
+} from "./collapsible-content-context";
+import {
+  CollapsibleTriggerContext,
+  type CollapsibleTriggerContextValue,
+} from "./collapsible-trigger-context";
 
 export type CollapsibleRootProps = DisclosureProps & {
   /**
@@ -15,7 +21,9 @@ export type CollapsibleRootProps = DisclosureProps & {
   disabled?: boolean;
 };
 
-export const CollapsibleRoot = (props: PrimitiveProps<"div", CollapsibleRootProps>): JSX.Element => {
+export const CollapsibleRoot = (
+  props: PrimitiveProps<"div", CollapsibleRootProps>,
+): JSX.Element => {
   const {
     open,
     defaultOpen = false,

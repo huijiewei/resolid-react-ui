@@ -9,4 +9,5 @@ export type { ColorMode } from "./color-mode-context";
 
 export const useColorModeState = (): ColorMode => useColorModeContextState(false);
 
-export const useColorModeDispatch = (): Dispatch<SetStateAction<ColorMode>> => useColorModeContextDispatch(false);
+export const useColorModeDispatch = (): Dispatch<SetStateAction<ColorMode>> =>
+  useColorModeContextDispatch(false);

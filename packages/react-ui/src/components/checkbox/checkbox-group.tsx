@@ -24,7 +24,9 @@ export type CheckboxGroupProps = {
   orientation?: Orientation;
 } & CheckboxGroupBaseProps;
 
-export const CheckboxGroup = (props: PrimitiveProps<"div", CheckboxGroupProps, "role">): JSX.Element => {
+export const CheckboxGroup = (
+  props: PrimitiveProps<"div", CheckboxGroupProps, "role">,
+): JSX.Element => {
   const {
     color = "primary",
     size = "md",
@@ -75,7 +77,11 @@ export const CheckboxGroup = (props: PrimitiveProps<"div", CheckboxGroupProps, "
   return (
     <div
       role={"group"}
-      className={tx("inline-flex", orientation == "horizontal" ? "flex-row" : "flex-col", className)}
+      className={tx(
+        "inline-flex",
+        orientation == "horizontal" ? "flex-row" : "flex-col",
+        className,
+      )}
       {...rest}
     >
       <CheckboxGroupContext value={context}>{children}</CheckboxGroupContext>

@@ -18,10 +18,19 @@ const SpinnerSizes: Dict<ButtonSpinnerProps["size"]> = {
 };
 
 export const ButtonSpinner = (props: PrimitiveProps<"span", ButtonSpinnerProps>): JSX.Element => {
-  const { label, size, className, children = <Spinner size={SpinnerSizes[size]} />, ...rest } = props;
+  const {
+    label,
+    size,
+    className,
+    children = <Spinner size={SpinnerSizes[size]} />,
+    ...rest
+  } = props;
 
   return (
-    <span className={tx("flex items-center justify-center", label ? "relative" : "absolute", className)} {...rest}>
+    <span
+      className={tx("flex items-center justify-center", label ? "relative" : "absolute", className)}
+      {...rest}
+    >
       {children}
     </span>
   );

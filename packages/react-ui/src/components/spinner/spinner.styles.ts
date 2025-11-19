@@ -18,7 +18,13 @@ type SpinnerVariants = {
   };
 };
 
-export const spinnerStyles: TvReturnType<SpinnerVariants, undefined, string, SpinnerVariants, undefined> = tv({
+export const spinnerStyles: TvReturnType<
+  SpinnerVariants,
+  undefined,
+  string,
+  SpinnerVariants,
+  undefined
+> = tv({
   base: "inline-block animate-spin rounded-full",
   variants: {
     size: {
@@ -30,7 +36,8 @@ export const spinnerStyles: TvReturnType<SpinnerVariants, undefined, string, Spi
     },
     color: {
       primary: "border-t-fg-primary border-r-fg-primary border-b-bg-primary border-l-bg-primary",
-      secondary: "border-t-fg-secondary border-r-fg-secondary border-b-bg-secondary border-l-bg-secondary",
+      secondary:
+        "border-t-fg-secondary border-r-fg-secondary border-b-bg-secondary border-l-bg-secondary",
       success: "border-t-fg-success border-r-fg-success border-b-bg-success border-l-bg-success",
       warning: "border-t-fg-warning border-r-fg-warning border-b-bg-warning border-l-bg-warning",
       danger: "border-t-fg-danger border-r-fg-danger border-b-bg-danger border-l-bg-danger",

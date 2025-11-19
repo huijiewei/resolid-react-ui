@@ -14,7 +14,11 @@ export const BreadcrumbLink = (props: PolymorphicProps<"a", BreadcrumbLinkProps>
 
   if (current) {
     return (
-      <span className={tx("inline-flex items-center text-fg-muted", className)} aria-current="page" {...rest}>
+      <span
+        className={tx("inline-flex items-center text-fg-muted", className)}
+        aria-current="page"
+        {...rest}
+      >
         {children}
       </span>
     );

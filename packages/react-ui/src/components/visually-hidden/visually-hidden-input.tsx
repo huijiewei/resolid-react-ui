@@ -18,7 +18,16 @@ export const VisuallyHiddenInput = <T,>({
 }: VisuallyHiddenInputProps<T>): JSX.Element | JSX.Element[] => {
   if (Array.isArray(value)) {
     if (value.length == 0 && required) {
-      return <input type="hidden" disabled={disabled} required={required} className="sr-only" name={name} value="" />;
+      return (
+        <input
+          type="hidden"
+          disabled={disabled}
+          required={required}
+          className="sr-only"
+          name={name}
+          value=""
+        />
+      );
     }
 
     return value.map((v) => {

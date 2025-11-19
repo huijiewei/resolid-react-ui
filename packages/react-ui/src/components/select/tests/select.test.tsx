@@ -111,6 +111,8 @@ describe("Select", () => {
     const trigger = screen.getByRole("combobox", { name: "Framework" });
 
     await user.click(trigger);
-    await waitFor(() => expect(screen.queryByText("React", { ignore: "option" })).not.toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.queryByText("React", { ignore: "option" })).not.toBeInTheDocument(),
+    );
   });
 });

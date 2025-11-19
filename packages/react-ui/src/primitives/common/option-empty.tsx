@@ -3,7 +3,11 @@ import { tx } from "../../utils";
 import type { PrimitiveProps } from "../polymorphic";
 import { useOptionEmpty } from "./option-empty-context";
 
-export const OptionEmpty = ({ className, children, ...rest }: PrimitiveProps<"div">): JSX.Element | null => {
+export const OptionEmpty = ({
+  className,
+  children,
+  ...rest
+}: PrimitiveProps<"div">): JSX.Element | null => {
   const isEmpty = useOptionEmpty();
 
   if (isEmpty) {

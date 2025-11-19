@@ -31,7 +31,8 @@ export const MdxCode = (
         translate={"no"}
         className={tx(
           !codeGroup && "scrollbar scrollbar-thin rounded-md border border-bd-normal p-3",
-          !codeGroup && "group-[.is-demo]:mt-0 group-[.is-demo]:rounded-t-none group-[.is-demo]:border-t-0",
+          !codeGroup &&
+            "group-[.is-demo]:mt-0 group-[.is-demo]:rounded-t-none group-[.is-demo]:border-t-0",
           codeGroup && "mt-0 mb-0",
           className,
         )}

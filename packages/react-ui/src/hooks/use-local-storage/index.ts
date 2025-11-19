@@ -16,7 +16,12 @@ const setLocalStorageItem = (key: string, value: string | undefined) => {
   }
 
   window.dispatchEvent(
-    new StorageEvent("storage", { key, oldValue, newValue: value, storageArea: window.localStorage }),
+    new StorageEvent("storage", {
+      key,
+      oldValue,
+      newValue: value,
+      storageArea: window.localStorage,
+    }),
   );
 };
 

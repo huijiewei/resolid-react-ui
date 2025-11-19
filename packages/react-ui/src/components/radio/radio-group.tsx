@@ -75,7 +75,11 @@ export const RadioGroup = (props: PrimitiveProps<"div", RadioGroupProps, "role">
       aria-readonly={ariaAttr(readOnly)}
       aria-invalid={ariaAttr(invalid)}
       aria-orientation={orientation}
-      className={tx("inline-flex", orientation == "horizontal" ? "flex-row" : "flex-col", className)}
+      className={tx(
+        "inline-flex",
+        orientation == "horizontal" ? "flex-row" : "flex-col",
+        className,
+      )}
       {...rest}
     >
       <RadioGroupContext value={groupContext}>{children}</RadioGroupContext>

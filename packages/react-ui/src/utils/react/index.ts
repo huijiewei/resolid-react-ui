@@ -11,7 +11,9 @@ interface Props {
 type TupleTypes<T extends any[]> = T[number];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void ? I : never;
+type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void
+  ? I
+  : never;
 
 export const mergeProps = <T extends Props>(
   ...args: Array<T | null | undefined>

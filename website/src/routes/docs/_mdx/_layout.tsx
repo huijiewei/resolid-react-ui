@@ -1,7 +1,14 @@
 import { MDXProvider } from "@mdx-js/react";
 import { type Dict, type PrimitiveProps, tx } from "@resolid/react-ui";
 import { startsWith, trimStart } from "@resolid/utils";
-import { Children, type ComponentProps, isValidElement, type ReactElement, type ReactNode, useRef } from "react";
+import {
+  Children,
+  type ComponentProps,
+  isValidElement,
+  type ReactElement,
+  type ReactNode,
+  useRef,
+} from "react";
 import { Outlet } from "react-router";
 import { MdxBlockQuote } from "~/components/mdx-block-quote";
 import { MdxCode } from "~/components/mdx-code";
@@ -51,7 +58,8 @@ const mdxComponents = {
     const items = Children.toArray(children);
 
     const summary = items.find(
-      (item): item is ReactElement<ComponentProps<"summary">> => isValidElement(item) && item.type == "summary",
+      (item): item is ReactElement<ComponentProps<"summary">> =>
+        isValidElement(item) && item.type == "summary",
     );
 
     return (
@@ -71,15 +79,27 @@ const mdxComponents = {
       />
     );
   },
-  CodeDemo: (props: { children: [ReactNode, ReactNode]; componentProps?: PropItem[]; settingProps?: string[] }) => {
+  CodeDemo: (props: {
+    children: [ReactNode, ReactNode];
+    componentProps?: PropItem[];
+    settingProps?: string[];
+  }) => {
     const { children, componentProps, settingProps } = props;
 
     return (
       <div className={"is-demo group"}>
-        <div className={"not-prose scrollbar scrollbar-thin overflow-x-auto rounded-t-md border border-bd-normal p-3"}>
+        <div
+          className={
+            "not-prose scrollbar scrollbar-thin overflow-x-auto rounded-t-md border border-bd-normal p-3"
+          }
+        >
           {componentProps && settingProps ? (
             <MdxCodeDemo componentProps={componentProps} settingProps={settingProps}>
-              {children[1] as unknown as (props: Dict<string | boolean | number | undefined>) => ReactNode}
+              {
+                children[1] as unknown as (
+                  props: Dict<string | boolean | number | undefined>,
+                ) => ReactNode
+              }
             </MdxCodeDemo>
           ) : (
             <div className={"flex min-w-max justify-center"}>{children[1]}</div>
@@ -124,7 +144,12 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
         <div className={"flex items-start justify-between"}>
           <h1 className={"mb-0 text-[1.875rem]"}>{loaderData.meta.title}</h1>
           {loaderData.sourceLink && (
-            <a className={"text-sm"} href={loaderData.sourceLink} target={"_blank"} rel={"noreferrer"}>
+            <a
+              className={"text-sm"}
+              href={loaderData.sourceLink}
+              target={"_blank"}
+              rel={"noreferrer"}
+            >
               查看源代码
             </a>
           )}
@@ -134,7 +159,12 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
           <Outlet />
         </MDXProvider>
         <p>
-          <a className={"text-sm"} href={loaderData.documentLink} target={"_blank"} rel={"noreferrer"}>
+          <a
+            className={"text-sm"}
+            href={loaderData.documentLink}
+            target={"_blank"}
+            rel={"noreferrer"}
+          >
             建议更改此页面
           </a>
         </p>

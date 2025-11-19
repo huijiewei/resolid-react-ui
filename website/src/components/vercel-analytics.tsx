@@ -7,6 +7,11 @@ export const VercelAnalytics = (props: Omit<AnalyticsProps, "route">) => {
   const { pathname } = useLocation();
 
   return (
-    <Analytics route={computeRoute(pathname, params as never)} path={pathname} {...props} framework="react-router" />
+    <Analytics
+      route={computeRoute(pathname, params as never)}
+      path={pathname}
+      {...props}
+      framework="react-router"
+    />
   );
 };

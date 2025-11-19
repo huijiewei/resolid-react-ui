@@ -8,7 +8,9 @@ export const SiteLayout = ({ children }: PropsWithChildren) => (
     </header>
     <div className={"min-h-[calc(100vh-var(--spacing)*16-78px)]"}>{children}</div>
     <footer className={"border-t border-t-bd-normal"}>
-      <div className={"mx-auto flex max-w-288 flex-col gap-1 p-4 text-center text-sm text-fg-muted"}>
+      <div
+        className={"mx-auto flex max-w-288 flex-col gap-1 p-4 text-center text-sm text-fg-muted"}
+      >
         <p>Released under the MIT License</p>
         <p>Copyright Ⓒ 2022-present Resolid Tech</p>
       </div>

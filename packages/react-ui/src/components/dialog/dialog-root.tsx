@@ -19,12 +19,18 @@ import {
   PopperFloatingContext,
   type PopperFloatingContextValue,
 } from "../../primitives/popper/popper-floating-context";
-import { PopperStateContext, type PopperStateContextValue } from "../../primitives/popper/popper-state-context";
+import {
+  PopperStateContext,
+  type PopperStateContextValue,
+} from "../../primitives/popper/popper-state-context";
 import {
   PopperTransitionContext,
   type PopperTransitionContextValue,
 } from "../../primitives/popper/popper-transtion-context";
-import { PopperTriggerContext, type PopperTriggerContextValue } from "../../primitives/popper/popper-trigger-context";
+import {
+  PopperTriggerContext,
+  type PopperTriggerContextValue,
+} from "../../primitives/popper/popper-trigger-context";
 import type { DisclosureProps } from "../../shared/types";
 import { DialogContext, type DialogBaseProps, type DialogContextValue } from "./dialog-context";
 
@@ -72,7 +78,11 @@ export const DialogRoot = (props: PropsWithChildren<DialogRootProps>): JSX.Eleme
     children,
   } = props;
 
-  const [openState, { handleOpen, handleClose }] = useDisclosure({ open, defaultOpen, onOpenChange });
+  const [openState, { handleOpen, handleClose }] = useDisclosure({
+    open,
+    defaultOpen,
+    onOpenChange,
+  });
 
   const id = useId();
   const labelId = `${id}-label`;

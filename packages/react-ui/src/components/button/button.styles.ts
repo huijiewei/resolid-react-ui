@@ -39,7 +39,13 @@ type ButtonVariants = {
   };
 };
 
-export const buttonStyles: TVReturnType<ButtonVariants, undefined, string[], ButtonVariants, undefined> = tv({
+export const buttonStyles: TVReturnType<
+  ButtonVariants,
+  undefined,
+  string[],
+  ButtonVariants,
+  undefined
+> = tv({
   base: [
     "inline-flex items-center justify-center border",
     "appearance-none font-medium whitespace-nowrap select-none",

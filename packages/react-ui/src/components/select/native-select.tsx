@@ -15,7 +15,9 @@ export type NativeSelectProps = FormInputFieldProps & {
   size?: SelectSize;
 };
 
-export const NativeSelect = (props: PrimitiveProps<"select", NativeSelectProps, "multiple">): JSX.Element => {
+export const NativeSelect = (
+  props: PrimitiveProps<"select", NativeSelectProps, "multiple">,
+): JSX.Element => {
   const { size = "md", disabled = false, invalid = false, children, className, ...rest } = props;
 
   const sizeStyle = selectSizeStyles[size];

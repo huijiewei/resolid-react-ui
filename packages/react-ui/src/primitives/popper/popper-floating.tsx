@@ -12,7 +12,11 @@ export const PopperFloating = (props: PrimitiveProps<"div">): JSX.Element => {
   const refs = useMergeRefs(ref, setFloating);
 
   return (
-    <div ref={refs} className={tx("rounded-md outline-none", className)} {...getFloatingProps(rest)}>
+    <div
+      ref={refs}
+      className={tx("rounded-md outline-none", className)}
+      {...getFloatingProps(rest)}
+    >
       {children}
     </div>
   );

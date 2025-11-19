@@ -1,4 +1,10 @@
-import { type HTMLProps, type PropsWithChildren, type ReactNode, useEffectEvent, useRef } from "react";
+import {
+  type HTMLProps,
+  type PropsWithChildren,
+  type ReactNode,
+  useEffectEvent,
+  useRef,
+} from "react";
 import type { JSX } from "react/jsx-runtime";
 import { useIsomorphicEffect, usePrevious } from "../../hooks";
 import type { AnyObject } from "../../primitives";

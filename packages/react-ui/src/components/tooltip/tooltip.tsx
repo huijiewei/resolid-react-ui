@@ -15,9 +15,9 @@ export const Tooltip = (props: PropsWithChildren<TooltipProps>): JSX.Element => 
   return <TooltipProvider value={tooltip}>{children}</TooltipProvider>;
 };
 
-export const TooltipTrigger = (props: Omit<ComponentProps<typeof PopperTrigger>, "active">): JSX.Element => (
-  <PopperTrigger active={false} {...props} />
-);
+export const TooltipTrigger = (
+  props: Omit<ComponentProps<typeof PopperTrigger>, "active">,
+): JSX.Element => <PopperTrigger active={false} {...props} />;
 
 export const TooltipArrow: typeof PopperArrow = PopperArrow;
 

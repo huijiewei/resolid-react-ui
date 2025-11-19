@@ -18,7 +18,13 @@ export type AccordionItemProps = {
 };
 
 export const AccordionItem = (props: PrimitiveProps<"div", AccordionItemProps>): JSX.Element => {
-  const { disabled: accordionDisabled, duration, collapsible, openedValue, setOpenedValue } = useAccordion();
+  const {
+    disabled: accordionDisabled,
+    duration,
+    collapsible,
+    openedValue,
+    setOpenedValue,
+  } = useAccordion();
 
   const { value, disabled = accordionDisabled, children, ...rest } = props;
 

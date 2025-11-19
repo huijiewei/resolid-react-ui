@@ -12,7 +12,12 @@ import {
 } from "../accordion";
 
 const ComponentUnderTest = (props: AccordionProps) => {
-  const items = [{ value: "React" }, { value: "Solid" }, { value: "Svelte", disabled: true }, { value: "Vue" }];
+  const items = [
+    { value: "React" },
+    { value: "Solid" },
+    { value: "Svelte", disabled: true },
+    { value: "Vue" },
+  ];
 
   return (
     <Accordion {...props}>
@@ -43,13 +48,19 @@ describe("Accordion", () => {
   test("should not have an expanded item by default", async () => {
     render(<ComponentUnderTest />);
 
-    expect(screen.getByRole("button", { name: "React Trigger" })).toHaveAttribute("aria-expanded", "false");
+    expect(screen.getByRole("button", { name: "React Trigger" })).toHaveAttribute(
+      "aria-expanded",
+      "false",
+    );
   });
 
   test("should open item specified in defaultValue", async () => {
     render(<ComponentUnderTest defaultValue={["Solid"]} />);
 
-    expect(screen.getByRole("button", { name: "Solid Trigger" })).toHaveAttribute("aria-expanded", "true");
+    expect(screen.getByRole("button", { name: "Solid Trigger" })).toHaveAttribute(
+      "aria-expanded",
+      "true",
+    );
   });
 
   test("should collapse an expanded item when collapsible is true", async () => {

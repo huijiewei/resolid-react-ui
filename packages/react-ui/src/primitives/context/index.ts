@@ -6,9 +6,13 @@ type SafeContextOptions = {
 };
 
 export type SafeContext<T> = Context<T | undefined>;
-export type UseSafeContext<T> = <O extends boolean = false>(optional?: O) => O extends true ? T | undefined : T;
+export type UseSafeContext<T> = <O extends boolean = false>(
+  optional?: O,
+) => O extends true ? T | undefined : T;
 
-export const createSafeContext = <T>(options: SafeContextOptions): [SafeContext<T>, UseSafeContext<T>] => {
+export const createSafeContext = <T>(
+  options: SafeContextOptions,
+): [SafeContext<T>, UseSafeContext<T>] => {
   const { name, errorMessage } = options;
 
   const SafeContext = createContext<T | undefined>(undefined);

@@ -35,8 +35,17 @@ type InputVariants = {
   };
 };
 
-export const inputStyles: TvReturnType<InputVariants, undefined, string[], InputVariants, undefined> = tv({
-  base: ["relative inline-flex items-center rounded-md border", "outline-1 outline-transparent transition-colors"],
+export const inputStyles: TvReturnType<
+  InputVariants,
+  undefined,
+  string[],
+  InputVariants,
+  undefined
+> = tv({
+  base: [
+    "relative inline-flex items-center rounded-md border",
+    "outline-1 outline-transparent transition-colors",
+  ],
   variants: {
     disabled: { true: "opacity-60", false: "" },
     invalid: { true: "border-bd-invalid", false: "border-bd-normal" },
@@ -54,7 +63,8 @@ export const inputStyles: TvReturnType<InputVariants, undefined, string[], Input
       disabled: false,
       active: false,
       focusable: true,
-      className: "focus-within:border-bg-primary-emphasis focus-within:outline-bg-primary-emphasis/70",
+      className:
+        "focus-within:border-bg-primary-emphasis focus-within:outline-bg-primary-emphasis/70",
     },
   ],
 });

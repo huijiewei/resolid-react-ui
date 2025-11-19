@@ -1,4 +1,9 @@
-import { type ElementProps, type FloatingRootContext, useListNavigation, useTypeahead } from "@floating-ui/react";
+import {
+  type ElementProps,
+  type FloatingRootContext,
+  useListNavigation,
+  useTypeahead,
+} from "@floating-ui/react";
 import {
   type Dispatch,
   type KeyboardEvent,
@@ -73,7 +78,10 @@ export type ListboxBaseProps<T extends ListboxItem> = MultipleValueProps & {
   size?: InputSize;
 };
 
-export type UseListboxOptions<T extends ListboxItem> = Omit<ListboxBaseProps<T>, "renderItem" | "renderGroupLabel"> & {
+export type UseListboxOptions<T extends ListboxItem> = Omit<
+  ListboxBaseProps<T>,
+  "renderItem" | "renderGroupLabel"
+> & {
   context: FloatingRootContext;
   typeahead?: boolean;
   loop?: boolean;
@@ -113,7 +121,9 @@ export type UseListboxResult<T extends ListboxItem> = {
   setFilterKeyword: Dispatch<SetStateAction<string | undefined>>;
 };
 
-export const useListbox = <T extends ListboxItem>(options: UseListboxOptions<T>): UseListboxResult<T> => {
+export const useListbox = <T extends ListboxItem>(
+  options: UseListboxOptions<T>,
+): UseListboxResult<T> => {
   const {
     disabled = false,
     readOnly = false,
@@ -194,7 +204,9 @@ export const useListbox = <T extends ListboxItem>(options: UseListboxOptions<T>)
       }
 
       return (
-        searchFilter || ((keyword, item) => getItemValue(item).toString().toLowerCase().includes(keyword.toLowerCase()))
+        searchFilter ||
+        ((keyword, item) =>
+          getItemValue(item).toString().toLowerCase().includes(keyword.toLowerCase()))
       )(deferredKeyword, item);
     };
 
@@ -243,7 +255,15 @@ export const useListbox = <T extends ListboxItem>(options: UseListboxOptions<T>)
     }
 
     return { nodeItems, indexedItems, selectedItems, selectedIndices };
-  }, [childrenKey, collection, deferredKeyword, getItemChildren, getItemValue, searchFilter, valueState]);
+  }, [
+    childrenKey,
+    collection,
+    deferredKeyword,
+    getItemChildren,
+    getItemValue,
+    searchFilter,
+    valueState,
+  ]);
 
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [pointer, setPointer] = useState(false);

@@ -14,7 +14,12 @@ import {
 import type { ComboboxProps } from "../use-combobox";
 
 const ComponentUnderTest = (props: Omit<ComboboxProps<ListboxItem>, "collection">) => {
-  const collection = [{ value: "react" }, { value: "solid" }, { value: "vue" }, { value: "svelte", disabled: true }];
+  const collection = [
+    { value: "react" },
+    { value: "solid" },
+    { value: "vue" },
+    { value: "svelte", disabled: true },
+  ];
 
   return (
     <Combobox collection={collection} {...props}>

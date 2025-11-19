@@ -9,7 +9,10 @@ export type UsePreventScrollOptions = {
 
 const LOCK_ATTRIBUTE = "data-prevent-scroll";
 
-const assignStyle = (element: HTMLElement | null | undefined, style: Partial<CSSStyleDeclaration>) => {
+const assignStyle = (
+  element: HTMLElement | null | undefined,
+  style: Partial<CSSStyleDeclaration>,
+) => {
   if (!element) {
     return;
   }
@@ -33,7 +36,11 @@ const getPaddingProperty = (documentElement: HTMLElement) => {
   return scrollbarX ? "paddingLeft" : "paddingRight";
 };
 
-const setCSSProperty = (element: HTMLElement | null | undefined, property: string, value: string) => {
+const setCSSProperty = (
+  element: HTMLElement | null | undefined,
+  property: string,
+  value: string,
+) => {
   if (!element) {
     return;
   }
@@ -96,7 +103,8 @@ export const usePreventScroll = (options: UsePreventScrollOptions): void => {
 
     const scrollbarWidth = win.innerWidth - documentElement.clientWidth;
 
-    const setScrollbarWidth = () => setCSSProperty(documentElement, "--scrollbar-width", `${scrollbarWidth}px`);
+    const setScrollbarWidth = () =>
+      setCSSProperty(documentElement, "--scrollbar-width", `${scrollbarWidth}px`);
 
     const paddingProperty = getPaddingProperty(documentElement);
 

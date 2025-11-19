@@ -34,7 +34,14 @@ export const ColorModeToggle = () => {
     <DropdownMenu placement={"bottom"}>
       <DropdownMenuTrigger
         render={(props) => (
-          <Button aria-label={"颜色模式"} color={"neutral"} variant={"ghost"} size={"sm"} iconOnly {...props} />
+          <Button
+            aria-label={"颜色模式"}
+            color={"neutral"}
+            variant={"ghost"}
+            size={"sm"}
+            iconOnly
+            {...props}
+          />
         )}
       >
         <SpriteIcon size={"1.325em"} name={colorModes[colorMode]?.icon} />

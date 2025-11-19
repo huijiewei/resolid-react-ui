@@ -4,7 +4,11 @@ import { SpriteIcon } from "~/components/sprite-icon";
 
 export const MdxPropsTable = ({ componentProps }: { componentProps: PropItem[] }) => {
   return (
-    <table className={"not-prose my-4 w-full table-auto border-separate rounded-md border border-bd-subtle text-sm"}>
+    <table
+      className={
+        "not-prose my-4 w-full table-auto border-separate rounded-md border border-bd-subtle text-sm"
+      }
+    >
       <thead>
         <tr className={"bg-bg-subtle"}>
           <th className={"hidden p-2 text-left whitespace-nowrap md:table-cell"}>属性</th>
@@ -22,7 +26,9 @@ export const MdxPropsTable = ({ componentProps }: { componentProps: PropItem[] }
             key={`${prop.name}-${i}`}
           >
             <td className={"block w-full font-bold md:table-cell md:w-auto md:p-2"}>
-              <div className="mr-3 inline-block w-15 bg-bg-subtle p-2 text-sm font-bold md:hidden">属性</div>
+              <div className="mr-3 inline-block w-15 bg-bg-subtle p-2 text-sm font-bold md:hidden">
+                属性
+              </div>
               <div className={"inline-flex items-center gap-1.5"}>
                 {prop.name}
 
@@ -87,15 +93,29 @@ export const MdxPropsTable = ({ componentProps }: { componentProps: PropItem[] }
               </div>
             </td>
             <td className={"block w-full md:table-cell md:w-auto md:p-2"}>
-              <span className="mr-3 inline-block w-15 bg-bg-subtle p-2 text-sm font-bold md:hidden">类型</span>
+              <span className="mr-3 inline-block w-15 bg-bg-subtle p-2 text-sm font-bold md:hidden">
+                类型
+              </span>
               <span>{prop.type}</span>
             </td>
-            <td className={"block w-full whitespace-nowrap md:table-cell md:w-auto md:p-2 md:text-center"}>
-              <span className="mr-3 inline-block w-15 bg-bg-subtle p-2 text-sm font-bold md:hidden">默认值</span>
+            <td
+              className={
+                "block w-full whitespace-nowrap md:table-cell md:w-auto md:p-2 md:text-center"
+              }
+            >
+              <span className="mr-3 inline-block w-15 bg-bg-subtle p-2 text-sm font-bold md:hidden">
+                默认值
+              </span>
               <span>{prop.defaultValue || "-"}</span>
             </td>
-            <td className={"block w-full whitespace-nowrap md:table-cell md:w-auto md:p-2 md:text-center"}>
-              <span className="mr-3 inline-block w-15 bg-bg-subtle p-2 text-sm font-bold md:hidden">必须</span>
+            <td
+              className={
+                "block w-full whitespace-nowrap md:table-cell md:w-auto md:p-2 md:text-center"
+              }
+            >
+              <span className="mr-3 inline-block w-15 bg-bg-subtle p-2 text-sm font-bold md:hidden">
+                必须
+              </span>
               <span>{prop.required ? "true" : "false"}</span>
             </td>
           </tr>

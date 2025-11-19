@@ -2,7 +2,11 @@ import type { PropsWithChildren } from "react";
 import { useEffect } from "react";
 import type { JSX } from "react/jsx-runtime";
 import { useLocalStorage, useMediaQuery } from "../../hooks";
-import { type ColorMode, ColorModeDispatchContext, ColorModeStateContext } from "./color-mode-context";
+import {
+  type ColorMode,
+  ColorModeDispatchContext,
+  ColorModeStateContext,
+} from "./color-mode-context";
 
 const COLOR_SCHEME_QUERY = "(prefers-color-scheme: dark)";
 const COLOR_MODE_STORAGE_KEY = "rui:color-mode";

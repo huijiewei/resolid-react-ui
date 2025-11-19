@@ -47,21 +47,40 @@ const openProject = async (name: string, code: string) => {
     ),
   );
 
-  inputs.push(createHiddenInput("project[files][tsconfig.json]", sandbox["../assets/sandbox/tsconfig.txt"]));
-
-  inputs.push(createHiddenInput("project[files][vite.config.ts]", sandbox["../assets/sandbox/vite.txt"]));
-
   inputs.push(
-    createHiddenInput("project[files][index.html]", sandbox["../assets/sandbox/index.txt"].replaceAll("${name}", name)),
+    createHiddenInput("project[files][tsconfig.json]", sandbox["../assets/sandbox/tsconfig.txt"]),
   );
 
-  inputs.push(createHiddenInput("project[files][src/root.tsx]", sandbox["../assets/sandbox/root.txt"]));
+  inputs.push(
+    createHiddenInput("project[files][vite.config.ts]", sandbox["../assets/sandbox/vite.txt"]),
+  );
+
+  inputs.push(
+    createHiddenInput(
+      "project[files][index.html]",
+      sandbox["../assets/sandbox/index.txt"].replaceAll("${name}", name),
+    ),
+  );
+
+  inputs.push(
+    createHiddenInput("project[files][src/root.tsx]", sandbox["../assets/sandbox/root.txt"]),
+  );
 
   inputs.push(createHiddenInput("project[files][src/app.tsx]", code));
 
-  inputs.push(createHiddenInput("project[files][src/assets/icons/sprite.svg]", sandbox["../assets/icons/sprite.svg"]));
+  inputs.push(
+    createHiddenInput(
+      "project[files][src/assets/icons/sprite.svg]",
+      sandbox["../assets/icons/sprite.svg"],
+    ),
+  );
 
-  inputs.push(createHiddenInput("project[files][src/components/sprite-icon.tsx]", sandbox["./sprite-icon.tsx"]));
+  inputs.push(
+    createHiddenInput(
+      "project[files][src/components/sprite-icon.tsx]",
+      sandbox["./sprite-icon.tsx"],
+    ),
+  );
 
   inputs.push(createHiddenInput("project[template]", "node"));
 
@@ -86,7 +105,9 @@ export const StackblitzButton = ({ name, code }: StackblitzButtonProps) => {
     <Tooltip>
       <TooltipTrigger
         onClick={handleClick}
-        render={(props) => <Button variant={"soft"} color={"neutral"} size={"xs"} iconOnly {...props} />}
+        render={(props) => (
+          <Button variant={"soft"} color={"neutral"} size={"xs"} iconOnly {...props} />
+        )}
       >
         <SpriteIcon size={15} className={"text-fg-primary"} name={"stackblitz"} />
       </TooltipTrigger>

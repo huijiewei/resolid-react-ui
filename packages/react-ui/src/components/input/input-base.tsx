@@ -62,7 +62,9 @@ export type InputBaseProps = Partial<InputGroupContextValue> &
     focusable?: boolean;
   };
 
-export const InputBase = (props: PrimitiveProps<"input", InputBaseProps, "children">): JSX.Element => {
+export const InputBase = (
+  props: PrimitiveProps<"input", InputBaseProps, "children">,
+): JSX.Element => {
   const group = useInputGroup(true);
 
   const {

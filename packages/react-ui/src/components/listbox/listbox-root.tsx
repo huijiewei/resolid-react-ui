@@ -16,7 +16,9 @@ export type ListboxRootProps<T extends ListboxItem> = FormFieldProps & {
   invalid?: boolean;
 } & ListboxBaseProps<T>;
 
-export const ListboxRoot = <T extends ListboxItem>(props: PrimitiveProps<"div", ListboxRootProps<T>>): JSX.Element => {
+export const ListboxRoot = <T extends ListboxItem>(
+  props: PrimitiveProps<"div", ListboxRootProps<T>>,
+): JSX.Element => {
   const {
     multiple = false,
     value,
@@ -43,7 +45,10 @@ export const ListboxRoot = <T extends ListboxItem>(props: PrimitiveProps<"div", 
 
   const [floating, setFloating] = useState<HTMLElement | null>(null);
 
-  const context = useFloatingRootContext({ open: true, elements: { floating: floating, reference: null } });
+  const context = useFloatingRootContext({
+    open: true,
+    elements: { floating: floating, reference: null },
+  });
 
   const {
     selectedItems,
@@ -99,7 +104,11 @@ export const ListboxRoot = <T extends ListboxItem>(props: PrimitiveProps<"div", 
   return (
     <div
       role={"presentation"}
-      className={tx("rounded-md border", invalid ? "border-bd-invalid" : "border-bd-normal", className)}
+      className={tx(
+        "rounded-md border",
+        invalid ? "border-bd-invalid" : "border-bd-normal",
+        className,
+      )}
       onBlur={handleBlur}
       onFocus={handleFocus}
       {...rest}

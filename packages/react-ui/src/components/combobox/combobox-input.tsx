@@ -16,7 +16,9 @@ const comboboxInputSizes = {
   xl: "mr-6",
 };
 
-export const ComboboxInput = (props: PolymorphicProps<"input", EmptyObject, "name" | "disabled">): JSX.Element => {
+export const ComboboxInput = (
+  props: PolymorphicProps<"input", EmptyObject, "name" | "disabled">,
+): JSX.Element => {
   const { render, className, ref, ...rest } = props;
 
   const { size, disabled, readOnly } = useListboxState();

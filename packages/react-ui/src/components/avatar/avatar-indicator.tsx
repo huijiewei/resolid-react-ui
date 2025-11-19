@@ -10,7 +10,9 @@ export type AvatarIndicatorProps = {
   position?: "top" | "bottom";
 };
 
-export const AvatarIndicator = (props: PrimitiveProps<"div", AvatarIndicatorProps>): JSX.Element => {
+export const AvatarIndicator = (
+  props: PrimitiveProps<"div", AvatarIndicatorProps>,
+): JSX.Element => {
   const { position = "top", className, children, ...rest } = props;
   return (
     <div

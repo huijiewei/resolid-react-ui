@@ -85,13 +85,21 @@ export const useCombobox = <T extends ListboxItem>({
   openOnChange = true,
   openOnArrowKeyDown = true,
 }: ComboboxProps<T>): UserComboboxReturnType<T> => {
-  const [openState, { handleOpen, handleClose }] = useDisclosure({ open, defaultOpen, onOpenChange });
+  const [openState, { handleOpen, handleClose }] = useDisclosure({
+    open,
+    defaultOpen,
+    onOpenChange,
+  });
 
   const [reference, setReference] = useState<HTMLElement | null>(null);
   const [floating, setFloating] = useState<HTMLElement | null>(null);
 
   const [inputValue, setInputValue] = useState<string>(
-    defaultValue === null ? "" : Array.isArray(defaultValue) ? defaultValue.join(",") : String(defaultValue),
+    defaultValue === null
+      ? ""
+      : Array.isArray(defaultValue)
+        ? defaultValue.join(",")
+        : String(defaultValue),
   );
 
   const inputRef = useRef<HTMLInputElement>(null);

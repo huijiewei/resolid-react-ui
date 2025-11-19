@@ -7,7 +7,15 @@ export type Menu = {
   children?: Menu[];
 };
 
-const MenuItem = ({ menu, depth, onClickMenu }: { menu: Menu; depth: number; onClickMenu: () => void }) => {
+const MenuItem = ({
+  menu,
+  depth,
+  onClickMenu,
+}: {
+  menu: Menu;
+  depth: number;
+  onClickMenu: () => void;
+}) => {
   return (
     <li>
       {menu.path != null ? (

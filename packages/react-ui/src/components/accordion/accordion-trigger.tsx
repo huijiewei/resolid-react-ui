@@ -7,7 +7,9 @@ import { useComposite } from "../../primitives/composite/composite-context";
 import { dataAttr } from "../../utils";
 import { CollapsibleTrigger } from "../collapsible/collapsible-trigger";
 
-export const AccordionTrigger = (props: PolymorphicProps<"button", EmptyObject, "type" | "disabled">): JSX.Element => {
+export const AccordionTrigger = (
+  props: PolymorphicProps<"button", EmptyObject, "type" | "disabled">,
+): JSX.Element => {
   const { ref, onClick, ...rest } = props;
 
   const { ref: itemRef, index } = useListItem();

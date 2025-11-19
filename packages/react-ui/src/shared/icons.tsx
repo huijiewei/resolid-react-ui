@@ -29,7 +29,14 @@ export const AngleLeftIcon = (props: IconProps): JSX.Element => {
   const { size = "1em", ...rest } = props;
 
   return (
-    <svg style={{ width: size }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" {...rest}>
+    <svg
+      style={{ width: size }}
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth="2"
+      {...rest}
+    >
       <path d="M15 19l-7-7 7-7" />
     </svg>
   );
@@ -39,7 +46,14 @@ export const AngleRightIcon = (props: IconProps): JSX.Element => {
   const { size = "1em", ...rest } = props;
 
   return (
-    <svg style={{ width: size }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" {...rest}>
+    <svg
+      style={{ width: size }}
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth="2"
+      {...rest}
+    >
       <path d="M9 5l7 7-7 7" />
     </svg>
   );
@@ -125,7 +139,13 @@ export const IndeterminateIcon = (props: IconProps): JSX.Element => {
   const { size = "1em", ...rest } = props;
 
   return (
-    <svg style={{ width: size }} viewBox="0 0 24 24" stroke="currentColor" strokeWidth="4" {...rest}>
+    <svg
+      style={{ width: size }}
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth="4"
+      {...rest}
+    >
       <line x1="21" x2="3" y1="12" y2="12" />
     </svg>
   );

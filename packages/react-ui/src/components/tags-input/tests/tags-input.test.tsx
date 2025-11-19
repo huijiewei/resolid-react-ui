@@ -43,7 +43,9 @@ describe("TagsInput", () => {
     expect(screen.queryByText("angular")).toBeInTheDocument();
 
     await userEvent.type(input, "[ArrowLeft]", { delay: 10 });
-    await waitFor(() => expect(screen.getByText("angular")).toHaveAttribute("aria-selected", "true"));
+    await waitFor(() =>
+      expect(screen.getByText("angular")).toHaveAttribute("aria-selected", "true"),
+    );
 
     await userEvent.type(input, "[Delete]");
     expect(screen.queryByText("angular")).not.toBeInTheDocument();

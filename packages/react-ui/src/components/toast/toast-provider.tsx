@@ -38,7 +38,10 @@ const reducer = (state: ToastState, action: ToastAction) => {
 
       return {
         ...state,
-        [placement]: placement.slice(0, 3) == "top" ? [toast, ...state[placement]] : [...state[placement], toast],
+        [placement]:
+          placement.slice(0, 3) == "top"
+            ? [toast, ...state[placement]]
+            : [...state[placement], toast],
       };
     }
     case "UPDATE": {
@@ -86,7 +89,14 @@ const reducer = (state: ToastState, action: ToastAction) => {
     case "CLEAR": {
       const placements =
         !action.payload.placements || action.payload.placements.length == 0
-          ? (["bottom", "bottom-start", "bottom-end", "top", "top-start", "top-end"] as ToastPlacement[])
+          ? ([
+              "bottom",
+              "bottom-start",
+              "bottom-end",
+              "top",
+              "top-start",
+              "top-end",
+            ] as ToastPlacement[])
           : action.payload.placements;
 
       const result = { ...state };
@@ -169,13 +179,21 @@ export const ToastProvider = ({
         .then((data) => {
           dispatch({
             type: "UPDATE",
-            payload: { id: toastId, component: component({ state: "success", data }), duration: originalDuration },
+            payload: {
+              id: toastId,
+              component: component({ state: "success", data }),
+              duration: originalDuration,
+            },
           });
         })
         .catch((error) => {
           dispatch({
             type: "UPDATE",
-            payload: { id: toastId, component: component({ state: "failure", error }), duration: originalDuration },
+            payload: {
+              id: toastId,
+              component: component({ state: "failure", error }),
+              duration: originalDuration,
+            },
           });
         });
 
@@ -215,7 +233,10 @@ export const ToastProvider = ({
   );
 };
 
-const getPlacementAndIndexById = (state: ToastState, id: ToastId): [ToastPlacement | undefined, number | undefined] => {
+const getPlacementAndIndexById = (
+  state: ToastState,
+  id: ToastId,
+): [ToastPlacement | undefined, number | undefined] => {
   for (const [placement, toasts] of Object.entries(state)) {
     const index = toasts.findIndex((toast) => toast.id == id);
 

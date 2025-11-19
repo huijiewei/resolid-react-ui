@@ -60,7 +60,10 @@ export const Separator = (props: PrimitiveProps<"div", SeparatorProps, "role">):
           "--sv": `${size}px`,
         } as CSSProperties
       }
-      className={tx(separatorStyles({ color, variant, orientation, label: hasLabel, position }), className)}
+      className={tx(
+        separatorStyles({ color, variant, orientation, label: hasLabel, position }),
+        className,
+      )}
       {...rest}
     >
       {hasLabel && children}

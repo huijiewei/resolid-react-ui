@@ -53,7 +53,9 @@ export const AvatarRoot = (props: PrimitiveProps<"div", AvatarRootProps>): JSX.E
       {...rest}
     >
       <AvatarContext value={{ name, radiusClass }}>
-        <AvatarStatusContext value={{ imageLoadStatus, setImageLoadStatus }}>{children}</AvatarStatusContext>
+        <AvatarStatusContext value={{ imageLoadStatus, setImageLoadStatus }}>
+          {children}
+        </AvatarStatusContext>
       </AvatarContext>
     </div>
   );

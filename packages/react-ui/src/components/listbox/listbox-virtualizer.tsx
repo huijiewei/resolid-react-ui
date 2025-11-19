@@ -134,7 +134,8 @@ export const ListboxVirtualizer = ({
 
   useLayoutEffect(() => {
     scrollToRef.current = (index, options) => {
-      const scrollIndex = index > 0 ? index + groupIndices.reduce((acc, num) => acc + (num <= index ? 1 : 0), 0) : 0;
+      const scrollIndex =
+        index > 0 ? index + groupIndices.reduce((acc, num) => acc + (num <= index ? 1 : 0), 0) : 0;
 
       scrollToIndex(scrollIndex, options);
     };
@@ -145,8 +146,14 @@ export const ListboxVirtualizer = ({
   }, [groupIndices, scrollToIndex, scrollToRef]);
 
   return (
-    <div className={"relative w-full outline-none"} style={{ height: `${totalSize}px` }} {...getFloatingProps()}>
-      <ListboxVirtualizerContext value={{ virtualItems, flatItems }}>{children}</ListboxVirtualizerContext>
+    <div
+      className={"relative w-full outline-none"}
+      style={{ height: `${totalSize}px` }}
+      {...getFloatingProps()}
+    >
+      <ListboxVirtualizerContext value={{ virtualItems, flatItems }}>
+        {children}
+      </ListboxVirtualizerContext>
     </div>
   );
 };

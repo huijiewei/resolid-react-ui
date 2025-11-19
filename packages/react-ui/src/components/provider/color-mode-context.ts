@@ -14,5 +14,7 @@ const colorModeDispatchDesc = createSafeContext<Dispatch<SetStateAction<ColorMod
   name: "ColorModeDispatchContext",
 });
 
-export const ColorModeDispatchContext: SafeContext<Dispatch<SetStateAction<ColorMode>>> = colorModeDispatchDesc[0];
-export const useColorModeDispatch: UseSafeContext<Dispatch<SetStateAction<ColorMode>>> = colorModeDispatchDesc[1];
+export const ColorModeDispatchContext: SafeContext<Dispatch<SetStateAction<ColorMode>>> =
+  colorModeDispatchDesc[0];
+export const useColorModeDispatch: UseSafeContext<Dispatch<SetStateAction<ColorMode>>> =
+  colorModeDispatchDesc[1];

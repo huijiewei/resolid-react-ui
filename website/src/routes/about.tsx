@@ -25,13 +25,15 @@ export default function About() {
       <h3>Tailwind CSS</h3>
       <p>
         Tailwind CSS 的工作方式是通过扫描所有的 HTML 文件、JavaScript
-        组件和其他模板中的类名，生成相应的样式，然后将它们写入一个静态的 CSS 文件。它速度快、灵活且可靠，且零运行时。
+        组件和其他模板中的类名，生成相应的样式，然后将它们写入一个静态的 CSS
+        文件。它速度快、灵活且可靠，且零运行时。
       </p>
       <h3>Floating UI</h3>
       <p>Floating UI 是一个小型库，可帮助您创建 “浮动”元素，例如工具提示、弹出框、下拉菜单等。</p>
       <h3>TanStack Virtual</h3>
       <p>
-        TanStack Virtual 是一个无头 UI 实用程序，用于虚拟化 JS/TS、React、Vue、Svelte、Solid、Lit 和 Angular
+        TanStack Virtual 是一个无头 UI 实用程序，用于虚拟化 JS/TS、React、Vue、Svelte、Solid、Lit 和
+        Angular
         中的一长串元素。它不是组件，因此不会附带或为您呈现任何标记或样式。虽然这需要您进行一些标记和样式，但您将保留对样式、设计和实现的
         100% 控制权。
       </p>

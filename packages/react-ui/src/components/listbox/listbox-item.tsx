@@ -17,8 +17,19 @@ type ListboxItemProps = {
   checkmark: boolean;
 };
 
-export const ListboxItem = (props: PrimitiveProps<"div", ListboxItemProps, "tabIndex" | "children">): JSX.Element => {
-  const { item, size, disabled: disabledProps, readOnly = false, checkmark = true, ref, className, ...rest } = props;
+export const ListboxItem = (
+  props: PrimitiveProps<"div", ListboxItemProps, "tabIndex" | "children">,
+): JSX.Element => {
+  const {
+    item,
+    size,
+    disabled: disabledProps,
+    readOnly = false,
+    checkmark = true,
+    ref,
+    className,
+    ...rest
+  } = props;
 
   const {
     activeIndex,

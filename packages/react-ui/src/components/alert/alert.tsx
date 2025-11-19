@@ -31,7 +31,12 @@ export const AlertDescription = (props: PrimitiveProps<"div">): JSX.Element => {
 
   const { variant } = useAlert();
 
-  return <div className={tx(variant != "solid" ? "text-fg-normal" : "text-fg-emphasized", className)} {...rest} />;
+  return (
+    <div
+      className={tx(variant != "solid" ? "text-fg-normal" : "text-fg-emphasized", className)}
+      {...rest}
+    />
+  );
 };
 
 export const AlertIndicator = (props: PrimitiveProps<"span">): JSX.Element => {

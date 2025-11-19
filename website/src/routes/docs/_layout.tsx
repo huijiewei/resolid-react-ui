@@ -25,7 +25,11 @@ export default function Layout() {
           "fixed z-15 flex h-9 w-full items-center justify-between border-b border-b-bd-normal bg-bg-normal px-2 text-sm md:hidden"
         }
       >
-        <button type={"button"} onClick={() => setOpened(true)} className={"inline-flex items-center gap-1"}>
+        <button
+          type={"button"}
+          onClick={() => setOpened(true)}
+          className={"inline-flex items-center gap-1"}
+        >
           <SpriteIcon name={"menu"} />
           导航
         </button>
@@ -39,7 +43,11 @@ export default function Layout() {
         )}
       >
         <nav className={"pb-28 text-sm md:pb-0"}>
-          <CloseButton size={"1.5em"} onClick={() => setOpened(false)} className={"absolute end-2 top-2 md:hidden"} />
+          <CloseButton
+            size={"1.5em"}
+            onClick={() => setOpened(false)}
+            className={"absolute end-2 top-2 md:hidden"}
+          />
           <AsideLayoutMenu menus={menus} onClickMenu={() => setOpened(false)} />
         </nav>
       </aside>

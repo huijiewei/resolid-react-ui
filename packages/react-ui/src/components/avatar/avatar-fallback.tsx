@@ -76,7 +76,9 @@ export const AvatarFallback = (
       style={{ ...style, "--cv": color ? color.color : undefined } as CSSProperties}
       className={tx(
         "inline-flex h-full w-full items-center justify-center text-[calc(var(--sv)/3)] leading-none font-medium uppercase",
-        color ? ["bg-(--cv)", color.light ? "text-black" : "text-white"] : !hasChildren && "bg-bg-muted",
+        color
+          ? ["bg-(--cv)", color.light ? "text-black" : "text-white"]
+          : !hasChildren && "bg-bg-muted",
 
         radiusClass,
         className,

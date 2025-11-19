@@ -16,7 +16,10 @@ import type { PopperPositionerContextValue } from "../../primitives/popper/poppe
 import type { PopperStateContextValue } from "../../primitives/popper/popper-state-context";
 import type { PopperTransitionContextValue } from "../../primitives/popper/popper-transtion-context";
 import type { PopperTriggerContextValue } from "../../primitives/popper/popper-trigger-context";
-import { usePopperWithInline, type PopperWithInlineProps } from "../../primitives/popper/use-popper-with-inline";
+import {
+  usePopperWithInline,
+  type PopperWithInlineProps,
+} from "../../primitives/popper/use-popper-with-inline";
 import type { DisclosureProps } from "../../shared/types";
 import type { PopoverBaseProps, PopoverRootContextValue } from "./popover-root-context";
 
@@ -64,7 +67,11 @@ export const usePopover = ({
   positionerContext: PopperPositionerContextValue;
   anchorContext: PopperAnchorContextValue;
 } => {
-  const [openState, { handleOpen, handleClose }] = useDisclosure({ open, defaultOpen, onOpenChange });
+  const [openState, { handleOpen, handleClose }] = useDisclosure({
+    open,
+    defaultOpen,
+    onOpenChange,
+  });
 
   const id = useId();
   const labelId = `${id}-label`;

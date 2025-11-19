@@ -4,7 +4,11 @@ import { createPortal } from "react-dom";
 
 export type PortalLiteProps = UseFloatingPortalNodeProps;
 
-export const PortalLite = ({ id, root, children }: PropsWithChildren<PortalLiteProps>): ReactPortal | null => {
+export const PortalLite = ({
+  id,
+  root,
+  children,
+}: PropsWithChildren<PortalLiteProps>): ReactPortal | null => {
   const node = useFloatingPortalNode({ root, id });
 
   if (node) {

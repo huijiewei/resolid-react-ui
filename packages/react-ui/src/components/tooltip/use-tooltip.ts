@@ -16,7 +16,10 @@ import type { PopperPositionerContextValue } from "../../primitives/popper/poppe
 import type { PopperStateContextValue } from "../../primitives/popper/popper-state-context";
 import type { PopperTransitionContextValue } from "../../primitives/popper/popper-transtion-context";
 import type { PopperTriggerContextValue } from "../../primitives/popper/popper-trigger-context";
-import { usePopperWithInline, type PopperWithInlineProps } from "../../primitives/popper/use-popper-with-inline";
+import {
+  usePopperWithInline,
+  type PopperWithInlineProps,
+} from "../../primitives/popper/use-popper-with-inline";
 import type { DisclosureProps } from "../../shared/types";
 import type { TooltipRootContextValue } from "./tooltip-root-context";
 import { tooltipColorStyles } from "./tooltip.styles";
@@ -71,7 +74,11 @@ export const useTooltip = ({
   transitionContext: PopperTransitionContextValue;
   tooltipRootContext: TooltipRootContextValue;
 } => {
-  const [openState, { handleOpen, handleClose }] = useDisclosure({ open, defaultOpen, onOpenChange });
+  const [openState, { handleOpen, handleClose }] = useDisclosure({
+    open,
+    defaultOpen,
+    onOpenChange,
+  });
 
   const { setArrowElem, floatingStyles, refs, context } = usePopperWithInline({
     inlineMiddleware,

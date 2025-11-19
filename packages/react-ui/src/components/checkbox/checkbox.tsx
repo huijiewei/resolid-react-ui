@@ -40,7 +40,9 @@ export type CheckboxProps = CheckedValueProps &
     spacing?: string | number;
   };
 
-export const Checkbox = (props: PrimitiveProps<"input", CheckboxProps, "role" | "type">): JSX.Element => {
+export const Checkbox = (
+  props: PrimitiveProps<"input", CheckboxProps, "role" | "type">,
+): JSX.Element => {
   const group = useCheckboxGroup(true);
 
   const {
@@ -135,8 +137,14 @@ export const Checkbox = (props: PrimitiveProps<"input", CheckboxProps, "role" | 
           "items-center justify-center rounded-md",
           toggleControlShareStyles,
           colorStyle.focus,
-          invalid ? "border-bd-invalid" : checkedState || indeterminate ? colorStyle.border : "border-bd-normal",
-          checkedState || indeterminate ? ["text-fg-emphasized", colorStyle.checked] : "bg-bg-normal",
+          invalid
+            ? "border-bd-invalid"
+            : checkedState || indeterminate
+              ? colorStyle.border
+              : "border-bd-normal",
+          checkedState || indeterminate
+            ? ["text-fg-emphasized", colorStyle.checked]
+            : "bg-bg-normal",
           sizeStyle,
         )}
       >

@@ -19,11 +19,15 @@ export type MenuBaseItemProps = {
   disabled?: boolean;
 };
 
-export const MenuBaseItem = (props: PolymorphicProps<"div", MenuBaseItemProps, "tabIndex">): JSX.Element => {
+export const MenuBaseItem = (
+  props: PolymorphicProps<"div", MenuBaseItemProps, "tabIndex">,
+): JSX.Element => {
   const { render, className, ref, children, label, role, disabled = false, ...rest } = props;
 
   const { getItemProps, activeIndex } = useMenuItem();
-  const { ref: itemRef, index } = useListItem({ label: label ?? (isString(children) ? children : null) });
+  const { ref: itemRef, index } = useListItem({
+    label: label ?? (isString(children) ? children : null),
+  });
 
   const active = index !== null && index === activeIndex;
 

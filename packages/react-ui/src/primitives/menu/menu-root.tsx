@@ -25,14 +25,32 @@ import { type PropsWithChildren, useEffect, useEffectEvent, useRef, useState } f
 import type { JSX } from "react/jsx-runtime";
 import { useDisclosure, usePreventScroll } from "../../hooks";
 import type { DisclosureProps } from "../../shared/types";
-import { PopperAnchorContext, type PopperAnchorContextValue } from "../popper/popper-anchor-context";
+import {
+  PopperAnchorContext,
+  type PopperAnchorContextValue,
+} from "../popper/popper-anchor-context";
 import { PopperArrowContext, type PopperArrowContextValue } from "../popper/popper-arrow-context";
-import { PopperDispatchContext, type PopperDispatchContextValue } from "../popper/popper-dispatch-context";
-import { PopperFloatingContext, type PopperFloatingContextValue } from "../popper/popper-floating-context";
-import { PopperPositionerContext, type PopperPositionerContextValue } from "../popper/popper-positioner-context";
+import {
+  PopperDispatchContext,
+  type PopperDispatchContextValue,
+} from "../popper/popper-dispatch-context";
+import {
+  PopperFloatingContext,
+  type PopperFloatingContextValue,
+} from "../popper/popper-floating-context";
+import {
+  PopperPositionerContext,
+  type PopperPositionerContextValue,
+} from "../popper/popper-positioner-context";
 import { PopperStateContext, type PopperStateContextValue } from "../popper/popper-state-context";
-import { PopperTransitionContext, type PopperTransitionContextValue } from "../popper/popper-transtion-context";
-import { PopperTriggerContext, type PopperTriggerContextValue } from "../popper/popper-trigger-context";
+import {
+  PopperTransitionContext,
+  type PopperTransitionContextValue,
+} from "../popper/popper-transtion-context";
+import {
+  PopperTriggerContext,
+  type PopperTriggerContextValue,
+} from "../popper/popper-trigger-context";
 import { usePopperCloseComplete } from "../popper/use-popper-close-complete";
 import { MenuContext, type MenuContextValue } from "./menu-context";
 import { MenuHoverContext } from "./menu-hover-context";
@@ -87,7 +105,11 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
   const parentId = useFloatingParentNodeId();
   const nested = parentId != null;
 
-  const [openState, { handleOpen, handleClose }] = useDisclosure({ open, defaultOpen, onOpenChange });
+  const [openState, { handleOpen, handleClose }] = useDisclosure({
+    open,
+    defaultOpen,
+    onOpenChange,
+  });
 
   const [arrowElem, setArrowElem] = useState<SVGSVGElement | null>(null);
 
@@ -208,15 +230,17 @@ const MenuTree = (props: PropsWithChildren<MenuRootProps>) => {
     handleClose();
   });
 
-  const handleOpenChangeEvent = useEffectEvent((event: { open: boolean; nodeId: string; parentId: string }) => {
-    if (event.parentId === nodeId) {
-      setHoverEnabled(!event.open);
-    }
+  const handleOpenChangeEvent = useEffectEvent(
+    (event: { open: boolean; nodeId: string; parentId: string }) => {
+      if (event.parentId === nodeId) {
+        setHoverEnabled(!event.open);
+      }
 
-    if (event.open && event.nodeId !== nodeId && event.parentId === parentId) {
-      handleClose();
-    }
-  });
+      if (event.open && event.nodeId !== nodeId && event.parentId === parentId) {
+        handleClose();
+      }
+    },
+  );
 
   useEffect(() => {
     menuEvents.on("close", handleCloseEvent);

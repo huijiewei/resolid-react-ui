@@ -6,7 +6,9 @@ import { useOrientation } from "../../primitives/composite/orientation-context";
 import { tx } from "../../utils";
 import { useCollapsibleContent } from "./collapsible-content-context";
 
-export const CollapsibleContent = (props: PrimitiveProps<"div", EmptyObject, "id">): JSX.Element | null => {
+export const CollapsibleContent = (
+  props: PrimitiveProps<"div", EmptyObject, "id">,
+): JSX.Element | null => {
   const { children, ref, ...rest } = props;
 
   const orientation = useOrientation(true);
@@ -59,8 +61,17 @@ export const CollapsibleContent = (props: PrimitiveProps<"div", EmptyObject, "id
       }
       className={tx(
         "overflow-clip",
-        !skipAnimation && ["duration-(--dv)", horizontal ? "transition-[width]" : "transition-[height]"],
-        skipAnimation || status == "open" ? (horizontal ? "w-(--wv)" : "h-(--hv)") : horizontal ? "w-0" : "h-0",
+        !skipAnimation && [
+          "duration-(--dv)",
+          horizontal ? "transition-[width]" : "transition-[height]",
+        ],
+        skipAnimation || status == "open"
+          ? horizontal
+            ? "w-(--wv)"
+            : "h-(--hv)"
+          : horizontal
+            ? "w-0"
+            : "h-0",
       )}
     >
       <div id={id} ref={refs} {...rest}>

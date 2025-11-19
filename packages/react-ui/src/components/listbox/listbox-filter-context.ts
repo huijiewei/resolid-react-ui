@@ -1,5 +1,10 @@
 import type { Dispatch, HTMLProps, RefObject, SetStateAction } from "react";
-import { type AnyObject, createSafeContext, type SafeContext, type UseSafeContext } from "../../primitives";
+import {
+  type AnyObject,
+  createSafeContext,
+  type SafeContext,
+  type UseSafeContext,
+} from "../../primitives";
 
 export type ListboxFilterContextValue = {
   filterInputRef: RefObject<HTMLInputElement | null>;

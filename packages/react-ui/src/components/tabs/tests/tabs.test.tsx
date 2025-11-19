@@ -5,7 +5,12 @@ import { axe } from "vitest-axe";
 import { Tabs, TabsList, TabsPanel, type TabsProps, TabsTab } from "../tabs";
 
 const ComponentUnderTest = (props: TabsProps) => {
-  const items = [{ value: "React" }, { value: "Solid" }, { value: "Svelte", disabled: true }, { value: "Vue" }];
+  const items = [
+    { value: "React" },
+    { value: "Solid" },
+    { value: "Svelte", disabled: true },
+    { value: "Vue" },
+  ];
   return (
     <Tabs {...props}>
       <TabsList>

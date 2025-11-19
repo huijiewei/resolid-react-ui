@@ -37,7 +37,9 @@ export type CloseButtonProps = {
   noPadding?: boolean;
 };
 
-export const CloseButton = (props: PrimitiveProps<"button", CloseButtonProps, "type">): JSX.Element => {
+export const CloseButton = (
+  props: PrimitiveProps<"button", CloseButtonProps, "type">,
+): JSX.Element => {
   const {
     className,
     disabled,
